@@ -3,7 +3,8 @@
 <html lang="pt-br"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/html">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="UTF-8"/>
         <!-- T´TITULO DA PÁGINA-->
@@ -20,6 +21,33 @@
                 <h3> 1° -  Manter Professor (Em Desenvolvimento)</h3>
             </h:commandLink>
         </h:form>
+
+
+<h:form>
+    <p:panel header="Validate">
+        <h:panelGrid columns="4" cellpadding="5">
+            <h:outputLabel for="text" value="Text: (Change)" />
+            <p:inputText id="text" required="true">
+                <f:validateLength minimum="2" maximum="5" />
+                <p:clientValidator />
+            </p:inputText>
+            <p:message for="text" display="icon" />
+            <h:outputText  />
+ 
+            <h:outputLabel for="integer" value="Integer: (Keyup)" />
+            <p:inputText id="integer" >
+                <p:clientValidator event="keyup"/>
+            </p:inputText>
+            <p:message for="integer" display="icon" />
+            <h:outputText  />
+        </h:panelGrid>
+ 
+        <p:commandButton value="Save" ajax="false" icon="ui-icon-check" validateClient="true" />
+    </p:panel>
+</h:form>
+
+
+
 
 
 

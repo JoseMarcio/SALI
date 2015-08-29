@@ -5,58 +5,57 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+
+    <!--INÍCIO DO BLOCO DE INSTRUÇÕES DA PÁGINA-->
     <h:head>
+
         <meta charset="UTF-8"/>
-        <!-- T´TITULO DA PÁGINA-->
+        <!-- TÍTULO DA PÁGINA-->
         <title>Gerenciar Professor</title>
         <!-- LINK PARA O CSS - USANDO TAGS JSF-->
         <h:outputStylesheet library="css" name="estiloManterProfessor.css"/>
         <!-- LINK PARA A IMAGEM NA ABA DO NAVEGADOR -->
         <link rel="shortcut icon" href="resources/imagens/sali_ico.png"/>
 
-        <script>
-            function limpaCamposQuandoClica(){
-                               
-                alert("EM DESENVOLVIMENTO");
-            }
-        </script>
-
-
     </h:head>
+    <!--FIM DO BLOCO DE INSTRUÇÕES DA PÁGINA-->
+
+    <!--###########################################################################################################################-->
+    <!--                                        DESENVOLVENDO O CORPO DA PÁGINA                                                     -->
+
+
+    <!--INÍCIO DO CORPO -->
     <h:body>
 
-        <!--Principal - todos outros componentes dentro do mesmo-->
-        <p:layout id="layoutPrincipal" class="layoutPrincipal" style="background: blue">
+        <!--LAYOUT Principal - todos outros componentes deSTE-->
+        <p:layout id="layoutPrincipal" class="layoutPrincipal">
+
+            <!--LAYOUT SECUNDÁRIO-->
             <p:layoutUnit position="center" class="layoutPrincipal">
 
-                <!--CABEÇALHO-->
+                <!--CABEÇALHO DA PÁGINA-->
                 <header id="cabecalho" class="cabecalho">
                     <h2>SALI - Sistema de Aprendizado da Lígua Inglesa</h2>
                     <p>Fazer cabeçalho!!</p>
                     <p:graphicImage library="imagens" name="sali.png" id="logo" class="logo"/>
                 </header>
-                <!--FIM CABEÇALHO-->
+                <!--FIM CABEÇALHO DA PÁGINA-->
 
-                <!--BARRA DE MENU-->
+                <!--BARRA DE MENU - LOGO APÓS O CABEÇALHO-->
                 <h:form>  
-                    <p:growl id="messages"/>
+                    <p:growl id="messagens"/>
 
                     <p:menubar>
-
-                        <p:submenu label="Opções">
-                            <p:menuitem value="Alterar Dados" icon="ui-icon-disk" update="messages"/>
-                        </p:submenu>
-
                         <f:facet name="options">
+                            <!-- CHAMA PÁGINA DE INÍCIO DE INSTITUIÇÃO-->
                             <p:commandButton action="instituicaoInicio" value="Inicio"/>
+                            <!-- FECHA A SESSÃO -->
                             <p:commandButton  value="Sair"/>
                         </f:facet>
 
                     </p:menubar>
                 </h:form>
                 <!--FIM BARRA DE MENU-->
-
-
 
 
                 <!--SESSÃO DE MANTER PROFESSOR-->
@@ -72,34 +71,34 @@
                         <!--MENU DE OPÇÕES-->
                         <nav class="menuProfessorComandos">
                             <h:panelGrid id="panelOpcoes" columns="3">
-                                <p:commandButton id="registrar" value="Registrar" update="mensagens"/>
-                                <p:commandButton id="alterar" value="Atualizar" update="mensagens"/>
-                                <p:commandButton id="excluir" value="Excluir" update="mensagens"/>
+                                <p:commandButton action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="mensagens"/>
+                                <p:commandButton action="#{professorBean.registrar()}" id="alterar" value="Atualizar" update="mensagens"/>
+                                <p:commandButton action="#{professorBean.excluir()}" id="excluir" value="Excluir" update="mensagens"/>
                             </h:panelGrid>
                         </nav>
+                        <!--FIM DO MENU DE OPÇÕES-->
+
 
                         <!--CAMPOS REQUERIDOS-->
                         <h:panelGrid columns="1">
 
                             <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
-                            <p:inputText id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
+                            <p:inputText value="#{professorBean.nome}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
 
                             <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
-                            <p:inputText id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
+                            <p:inputText value="#{professorBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
 
                             <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail"/>
-                            <p:inputText id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+                            <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Senha" id="labelSenha" for="inputSenha"/>
                                 <p:outputLabel value="Confirmar Senha" id="labelConfirmarSenha" for="inputConfirmarSenha"/>
 
-                                <p:password id="inputSenha" feedback="true"  promptLabel="Insira a senha desejada" weakLabel="Muito Fraca!" goodLabel="Boa!"
-                                            strongLabel="Ótima!" required="true" requiredMessage="É necessário inserir uma senha!" maxlength="18" size="18"
-                                            label="Senha" match="inputConfirmarSenha" validatorMessage="Senhas não conferem!"/>
-                                <p:password id="inputConfirmarSenha"  required="true" requiredMessage="Confirme a senha digitada anteriormente!" maxlength="18" size="18"
-                                            label="Confirmação de Senha"/>
-
+                                <p:password value="#{professorBean.senha}" id="inputSenha" feedback="true"  promptLabel="Insira a senha desejada" weakLabel="Muito Fraca!" goodLabel="Boa!"
+                                            strongLabel="Ótima!" size="18"
+                                            label="Senha"/>
+                                <p:password value="#{professorBean.comfirmarSenha}" id="inputConfirmarSenha"   size="18"/>
 
                             </h:panelGrid>
 
@@ -107,30 +106,33 @@
 
                         <p:remoteCommand name="atualizarMensagens" update="mensagens"/>  
                     </h:form>
+                    <!-- FIM DADOS DE REGISTRO, ATUALIZAR E EXCLUIR -->
 
 
-
+                    <!-- FORMULÁRIO DE PESQUISA -->
                     <fieldset>
                         <legend>Pesquisar</legend>
 
                         <h:form>
-                            <p:growl id="mensagens"/>
-                            <h:panelGrid columns="3">
 
-                                <p:outputLabel value="Matícula" id="labelPesMatricula" for="inputPesMatricula"/>
-                                <p:outputLabel value="Nome" id="labelPesNome" for="inputPesNome"/>
-                                <p:outputLabel/>
 
-                                <p:inputText value="#{professorBean.campoPesquisarMatricula}" id="inputPesMatricula"/>
-                                <p:inputText value="#{professorBean.campoPesquisarNome}" id="inputPesNome"/>
-                                <p:commandButton action="#{professorBean.pesquisar()}" value="Pesquisar" update="mensagens"/>
+                            <p:growl id="teste"/>
 
+                            <h:panelGrid columns="2">
+                                <p:selectOneRadio id="console" required="true" requiredMessage="Selecione uma opção" value="#{professorBean.tipoPesquisa}">
+                                    <f:selectItem itemLabel="Matricula" itemValue="matricula" />
+                                    <f:selectItem itemLabel="Nome" itemValue="nome" />
+                                </p:selectOneRadio>
                             </h:panelGrid>
 
-                            <p:remoteCommand name="atualizarMensagens" update="mensagens"/>  
+                            <h:panelGrid columns="2">
+                                <p:inputText value="#{professorBean.valorDePesquisa}" required="true" requiredMessage="Informe os dados"/>
+                                <p:commandButton action="#{professorBean.pesquisar()}" value="Pesquisar" update="teste"/>
+                            </h:panelGrid>
+
                         </h:form>
                     </fieldset>
-
+                    <!-- FORMULÁRIO DE PESQUISA DE PROFESSOR-->
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
 
@@ -139,42 +141,18 @@
                 <footer id="rodape" class="rodape">
                     <h3>SALI - Sistema de Aprendizado da Língua Inglesa</h3>
                 </footer>
+                <!-- FIM DO RODAPÉ -->
 
 
-
+                <!--FIM DO LAYOUT SECUNDÁRIO-->
             </p:layoutUnit>
+
+
+
+            <!--FIM DO LAYOUT PRINCIPAL-->
         </p:layout>
-        <!--FIM DO CORPO-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!-- FIM DO CORPO -->  
     </h:body>
 </html>
 
