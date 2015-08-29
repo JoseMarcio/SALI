@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <!-- T´TITULO DA PÁGINA-->
+        <title>Gerenciar Professor</title>
+        <!-- LINK PARA O CSS - USANDO TAGS JSF-->
+        <h:outputStylesheet library="css" name="estiloManterProfessor.css"/>
+        <!-- LINK PARA A IMAGEM NA ABA DO NAVEGADOR -->
+        <link rel="shortcut icon" href="resources/imagens/sali_ico.png"/>
+
+        <script>
+            function limpaCamposQuandoClica(){
+                               
+                alert("EM DESENVOLVIMENTO");
+            }
+        </script>
+
+
+    </h:head>
+    <h:body>
+
+        <!--Principal - todos outros componentes dentro do mesmo-->
+        <p:layout id="layoutPrincipal" class="layoutPrincipal" style="background: blue">
+            <p:layoutUnit position="center" class="layoutPrincipal">
+
+                <!--CABEÇALHO-->
+                <header id="cabecalho" class="cabecalho">
+                    <h2>SALI - Sistema de Aprendizado da Lígua Inglesa</h2>
+                    <p>Fazer cabeçalho!!</p>
+                    <p:graphicImage library="imagens" name="sali.png" id="logo" class="logo"/>
+                </header>
+                <!--FIM CABEÇALHO-->
+
+                <!--BARRA DE MENU-->
+                <h:form>  
+                    <p:growl id="messages"/>
+
+                    <p:menubar>
+
+                        <p:submenu label="Opções">
+                            <p:menuitem value="Alterar Dados" icon="ui-icon-disk" update="messages"/>
+                        </p:submenu>
+
+                        <f:facet name="options">
+                            <p:commandButton action="instituicaoInicio" value="Inicio"/>
+                            <p:commandButton  value="Sair"/>
+                        </f:facet>
+
+                    </p:menubar>
+                </h:form>
+                <!--FIM BARRA DE MENU-->
+
+
+
+
+                <!--SESSÃO DE MANTER PROFESSOR-->
+                <section id="sessaoManterProfessor" class="sessaoManterProfessor">
+
+                    <h1>Gerenciar Professores</h1>
+
+                    <!--FORMULÁRIO DE CADASTRO, EXCLUSÃO E REGISTRO DE PROFESSOR-->
+                    <h:form>
+
+                        <p:growl id="mensagens"/>
+
+                        <!--MENU DE OPÇÕES-->
+                        <nav class="menuProfessorComandos">
+                            <h:panelGrid id="panelOpcoes" columns="3">
+                                <p:commandButton id="registrar" value="Registrar" update="mensagens"/>
+                                <p:commandButton id="alterar" value="Atualizar" update="mensagens"/>
+                                <p:commandButton id="excluir" value="Excluir" update="mensagens"/>
+                            </h:panelGrid>
+                        </nav>
+
+                        <!--CAMPOS REQUERIDOS-->
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
+                            <p:inputText id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
+
+                            <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
+                            <p:inputText id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
+
+                            <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail"/>
+                            <p:inputText id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Senha" id="labelSenha" for="inputSenha"/>
+                                <p:outputLabel value="Confirmar Senha" id="labelConfirmarSenha" for="inputConfirmarSenha"/>
+
+                                <p:password id="inputSenha" feedback="true"  promptLabel="Insira a senha desejada" weakLabel="Muito Fraca!" goodLabel="Boa!"
+                                            strongLabel="Ótima!" required="true" requiredMessage="É necessário inserir uma senha!" maxlength="18" size="18"
+                                            label="Senha" match="inputConfirmarSenha" validatorMessage="Senhas não conferem!"/>
+                                <p:password id="inputConfirmarSenha"  required="true" requiredMessage="Confirme a senha digitada anteriormente!" maxlength="18" size="18"
+                                            label="Confirmação de Senha"/>
+
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                        <p:remoteCommand name="atualizarMensagens" update="mensagens"/>  
+                    </h:form>
+
+
+
+                    <fieldset>
+                        <legend>Pesquisar</legend>
+
+                        <h:form>
+                            <p:growl id="mensagens"/>
+                            <h:panelGrid columns="3">
+
+                                <p:outputLabel value="Matícula" id="labelPesMatricula" for="inputPesMatricula"/>
+                                <p:outputLabel value="Nome" id="labelPesNome" for="inputPesNome"/>
+                                <p:outputLabel/>
+
+                                <p:inputText value="#{professorBean.campoPesquisarMatricula}" id="inputPesMatricula"/>
+                                <p:inputText value="#{professorBean.campoPesquisarNome}" id="inputPesNome"/>
+                                <p:commandButton action="#{professorBean.pesquisar()}" value="Pesquisar" update="mensagens"/>
+
+                            </h:panelGrid>
+
+                            <p:remoteCommand name="atualizarMensagens" update="mensagens"/>  
+                        </h:form>
+                    </fieldset>
+
+                </section>
+                <!--FIM SESSÃO MANTER PROFESSOR-->
+
+
+                <!--RODAPE-->
+                <footer id="rodape" class="rodape">
+                    <h3>SALI - Sistema de Aprendizado da Língua Inglesa</h3>
+                </footer>
+
+
+
+            </p:layoutUnit>
+        </p:layout>
+        <!--FIM DO CORPO-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </h:body>
+</html>
+
