@@ -1,8 +1,5 @@
 package br.com.sali.bean;
 
-import static br.com.sali.bean.teste.isEmailValid;
-import static br.com.sali.bean.teste.soContemNumeros;
-import br.com.sali.modelo.Turma;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -16,32 +13,24 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class AlunoBean {
+public class teste {
 
     private String nome;
-    private String email;
     private String matricula;
-    private Turma turma;
+    private String email;
     private String senha;
-    private String confirmarSenha;
+    private String comfirmarSenha;
     private String tipoPesquisa;
     private String valorDePesquisa;
 
-    //======================================================================================================================
+    //############################################################################################################
+    // GETS E SETS.
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getMatricula() {
@@ -52,12 +41,12 @@ public class AlunoBean {
         this.matricula = matricula;
     }
 
-    public Turma getTurma() {
-        return turma;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
@@ -68,12 +57,12 @@ public class AlunoBean {
         this.senha = senha;
     }
 
-    public String getConfirmarSenha() {
-        return confirmarSenha;
+    public String getComfirmarSenha() {
+        return comfirmarSenha;
     }
 
-    public void setConfirmarSenha(String confirmarSenha) {
-        this.confirmarSenha = confirmarSenha;
+    public void setComfirmarSenha(String comfirmarSenha) {
+        this.comfirmarSenha = comfirmarSenha;
     }
 
     public String getTipoPesquisa() {
@@ -92,7 +81,7 @@ public class AlunoBean {
         this.valorDePesquisa = valorDePesquisa;
     }
 
-//======================================================================================================================
+    //############################################################################################################
     /**
      * Verifica se o e-mail informado é válido.
      *
@@ -130,7 +119,7 @@ public class AlunoBean {
     }
 
     /**
-     * Registrar um aluno.
+     * Registra um novo professor no banco de dados.
      */
     public void registrar() {
 
@@ -138,13 +127,13 @@ public class AlunoBean {
         if (senha.equals("")) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma senha!", ""));
-        } else if (confirmarSenha.equals("")) {
+        } else if (comfirmarSenha.equals("")) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirme a senha digitada!", ""));
         } else {
 
             // Verifica se as senhas coincidem.
-            if (!senha.equals(this.confirmarSenha)) {
+            if (!senha.equals(this.comfirmarSenha)) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não coincidem!", ""));
             } else {
@@ -155,7 +144,8 @@ public class AlunoBean {
 
                         //VERIFICAR SE JA TEM ALGUM COM O MESMO EMAIL
                         // VERIFICA SE JA TEM ALGUM COM O MESMO MATRICULA
-                        String tetxo = "NOME: " + nome + "\nEmal: " + email + "\nMATRICULA: " + matricula + "\nSENHA: " + senha;
+                        
+                        String tetxo = "NOME: "+nome+"\nEmal: "+email+"\nMATRICULA: "+matricula+"\nSENHA: "+senha;
                         FacesContext facesContext = FacesContext.getCurrentInstance();
                         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
 
@@ -171,6 +161,7 @@ public class AlunoBean {
             }
 
         }
+
     }
 
     public void atualizar() {
@@ -181,7 +172,11 @@ public class AlunoBean {
 
     }
 
+    /**
+     * Pesquisa um professor desejado por nome ou matrícula.
+     */
     public void pesquisar() {
+
         if (this.tipoPesquisa.equals("matricula")) {
             if (soContemNumeros(valorDePesquisa)) {
 
@@ -201,5 +196,7 @@ public class AlunoBean {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
         }
+
     }
+
 }

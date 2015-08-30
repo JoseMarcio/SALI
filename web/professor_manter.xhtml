@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <!-- TÍTULO DA PÁGINA-->
+        <title>Registrar Professor</title>
+        <!-- LINK PARA O CSS - USANDO TAGS JSF-->
+        <h:outputStylesheet library="css" name="estiloRegistrarProfessor.css"/>
+        <!-- LINK PARA A IMAGEM NA ABA DO NAVEGADOR -->
+        <link rel="shortcut icon" href="resources/imagens/sali_ico.png"/>
+    </h:head>
+    <h:body>
+
+
+        <!-- layout principal-->
+        <p:layout fullPage="true">
+
+
+            <!-- LAYOUT LATERAL-->
+            <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:menu>
+                    <p:submenu label="Menus">
+                        <p:menuitem value="Submenu 1!" url="#" />
+                        <p:menuitem value="Submenu 2!" url="#"/>
+                        <p:menuitem value="Submenu 3!" url="#"/>
+                        <p:menuitem value="Submenu 4!" url="#"/>
+
+                    </p:submenu>
+
+                </p:menu>
+            </p:layoutUnit>
+            <!-- FIM DO LAYOUT LATERAL-->
+
+
+            <!-- LAYOUT CENTRAL-->
+            <p:layoutUnit position="center">
+
+                <h1>Registrar Professor</h1>
+                <h:form>
+                    <h:panelGrid id="grid" columns="2" cellpadding="5">
+
+                        <p:outputLabel for="nomeCompleto" value="Nome Completo:" />
+                        <p:inputText  value="#{professorBean.professor.nomeCompleto}"id="nomeCompleto" required="true" requiredMessage="Infome o nome do professor!"/>
+
+                        <p:outputLabel for="matricula" value="Matrícula Escolar:" />
+                        <p:inputText  value="#{professorBean.matricula}" id="matricula" validator="validaMatriculaProfessor" required="true"  requiredMessage="Informe a matrícula escolar do professor."
+                                      validatorMessage="Matrícula inválida." >
+                            <f:validateRegex pattern="[0-9]"/> 
+                        </p:inputText>
+
+                        <p:outputLabel for="email" value="E-mail:"/>  
+                        <p:inputText  value="#{professorBean.professor.email}" id="email" validator="validaEmailProfessor" required="true"  
+                                      requiredMessage="Informe o e-mail do professor." validatorMessage="Emial inválido." >  
+                            <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>  
+                        </p:inputText>      
+                       
+                        <p:outputLabel value="Senha:" for="senha"/>
+                        <p:password   value="#{professorBean.professor.senha}" id="senha" feedback="true"  promptLabel="Insira a senha desejada" weakLabel="Muito Fraca!" goodLabel="Boa!"
+                                      strongLabel="Ótima!" required="true" requiredMessage="Informe uma senha para acesso."/>
+                       
+
+                        <p:outputLabel value="Confirmar Senha:" for="confirmaSenha"/>
+                        <p:password  value="#{professorBean.confirmaSenha}" id="confirmaSenha" required="true" requiredMessage="Confirme a senha informada."
+                                     validator="validaSenhaProfessor"/>
+                       
+                    </h:panelGrid>
+
+                    <h:panelGrid id="botoes" columns="1">
+                        <p:commandButton id="teste" action="#{teste.registrar()}" value="Registrar" update="grid" style="width:150px;"/>
+                        <p:commandButton value="Alterar" style="width:150px;"/>
+                        <p:commandButton value="Excluir" style="width:150px;"/>
+                    </h:panelGrid>
+
+                </h:form>
+
+
+            </p:layoutUnit>
+            <!-- FIM DO LAYOUT CENTRAL-->
+
+        </p:layout>
+        <!-- FIM DO LAYOUT PRINCIPAL-->
+
+    </h:body>
+</html>
+

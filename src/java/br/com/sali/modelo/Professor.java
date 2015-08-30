@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.sali.modelo;
 
 /**
@@ -10,5 +6,45 @@ package br.com.sali.modelo;
  * @author SALI
  */
 public class Professor {
+
+    private long id;
+    private String nomeCompleto;
+    private String email;
+    private int matrícula;
+    private String senha;
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getMatrícula() {
+        return matrícula;
+    }
+
+    public void setMatrícula(int matrícula) {
+        this.matrícula = matrícula;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     
+    
+   
 }
