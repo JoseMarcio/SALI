@@ -37,7 +37,6 @@ public class TurmaBean {
         this.professor = professor;
     }
 
-        
     public String getValorPesquisa() {
         return valorPesquisa;
     }
@@ -45,8 +44,6 @@ public class TurmaBean {
     public void setValorPesquisa(String valorPesquisa) {
         this.valorPesquisa = valorPesquisa;
     }
-    
-    
 
     /**
      * Registrar a turma.
@@ -57,16 +54,21 @@ public class TurmaBean {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selecione um professor!", ""));
         } else {
             //Execute comandos.
+            String tetxo = "NOME: " + nomeTurma;
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
         }
 
     }
-    
+
     /**
      * Pesquiusar uma turma.
-     * 
+     *
      */
-    public void pesquisar(){
-        
+    public void pesquisar() {
+        String tetxo = "NOME DIGITADO: " + valorPesquisa;
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
     }
 
 }

@@ -87,7 +87,16 @@
                             <p:inputText value="#{alunoBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
 
                             <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail"/>
-                            <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+                            <p:inputText value="#{alunoBean.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+
+                            <p:outputLabel for="listaTurmas" value="Turma:" />
+                            <p:selectOneMenu id="listaTurmas" value="#{alunoBean.turma}" style="width:300px">
+                                <f:selectItem itemLabel="Selecionar..." itemValue="0" />
+                                <f:selectItem itemLabel="1° ANO" itemValue="" />
+                                <f:selectItem itemLabel="2° ANO" itemValue="" />
+                                <f:selectItem itemLabel="3° ANO" itemValue="" />
+                            </p:selectOneMenu>
+
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Senha" id="labelSenha" for="inputSenha"/>
@@ -116,7 +125,7 @@
                             <p:growl id="mensg"/>
 
                             <h:panelGrid columns="2">
-                                <p:selectOneRadio id="console" required="true" requiredMessage="Selecione uma opção!" value="#{professorBean.tipoPesquisa}">
+                                <p:selectOneRadio id="console" required="true" requiredMessage="Selecione uma opção!" value="#{alunoBean.tipoPesquisa}">
                                     <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
                                     <f:selectItem itemLabel="Nome" itemValue="nome" />
                                 </p:selectOneRadio>

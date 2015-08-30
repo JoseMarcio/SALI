@@ -155,6 +155,10 @@ public class AlunoBean {
 
                         //VERIFICAR SE JA TEM ALGUM COM O MESMO EMAIL
                         // VERIFICA SE JA TEM ALGUM COM O MESMO MATRICULA
+                        String tetxo = "NOME: " + nome + "\nEmal: " + email + "\nMATRICULA: " + matricula + "\nSENHA: " + senha;
+                        FacesContext facesContext = FacesContext.getCurrentInstance();
+                        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+
                     } else {
                         FacesContext facesContext = FacesContext.getCurrentInstance();
                         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe um E-mail válido!", ""));
@@ -178,6 +182,24 @@ public class AlunoBean {
     }
 
     public void pesquisar() {
+        if (this.tipoPesquisa.equals("matricula")) {
+            if (soContemNumeros(valorDePesquisa)) {
 
+                //Execute a pesquisa por matrícula.
+                String tetxo = "TIPO DE PESQUISA: " + tipoPesquisa + "\nVALOR PESQUISADO: " + valorDePesquisa;
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+
+            } else {
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe somente números para o campo matrícula!", ""));
+            }
+        } else {
+
+            //Execute a pesquisa por nome.
+            String tetxo = "TIPO DE PESQUISA: " + tipoPesquisa + "\nVALOR PESQUISADO: " + valorDePesquisa;
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+        }
     }
 }
