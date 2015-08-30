@@ -1,5 +1,6 @@
 package br.com.sali.bean;
 
+import br.com.sali.modelo.Professor;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -14,7 +15,7 @@ import javax.faces.context.FacesContext;
 public class TurmaBean {
 
     private String nomeTurma;
-    private String professor;
+    private Professor professor;
     private String valorPesquisa;
 
     public TurmaBean() {
@@ -28,14 +29,15 @@ public class TurmaBean {
         this.nomeTurma = nomeTurma;
     }
 
-    public String getProfessor() {
+    public Professor getProfessor() {
         return professor;
     }
 
-    public void setProfessor(String professor) {
+    public void setProfessor(Professor professor) {
         this.professor = professor;
     }
 
+        
     public String getValorPesquisa() {
         return valorPesquisa;
     }

@@ -11,9 +11,9 @@
 
         <meta charset="UTF-8"/>
         <!-- TÍTULO DA PÁGINA-->
-        <title>Gerenciar Turma</title>
+        <title>Gerenciar Aluno</title>
         <!-- LINK PARA O CSS - USANDO TAGS JSF-->
-        <h:outputStylesheet library="css" name="estiloManterTurma.css"/>
+        <h:outputStylesheet library="css" name="estiloManterAluno.css"/>
         <!-- LINK PARA A IMAGEM NA ABA DO NAVEGADOR -->
         <link rel="shortcut icon" href="resources/imagens/sali_ico.png"/>
 
@@ -58,20 +58,20 @@
                 <!--FIM BARRA DE MENU-->
 
 
-                <!--SESSÃO DE MANTER TURMA-->
-                <section id="sessaoManterTurma" class="sessaoManterTurma">
+                <!--SESSÃO DE MANTER PROFESSOR-->
+                <section id="sessaoManterAluno" class="sessaoManterAluno">
 
-                    <h1>Gerenciar Turmas</h1>
+                    <h1>Gerenciar Alunos</h1>
 
-                    <!--FORMULÁRIO DE CADASTRO, EXCLUSÃO E REGISTRO DE TURMAS-->
+                    <!--FORMULÁRIO DE CADASTRO, EXCLUSÃO E REGISTRO DE ALUNOS-->
                     <h:form>
 
                         <p:growl id="mensagens"/>
 
                         <!--MENU DE OPÇÕES-->
-                        <nav class="menuTurmaComandos">
+                        <nav class="menuAlunoComandos">
                             <h:panelGrid id="panelOpcoes" columns="1">
-                                <p:commandButton style="background:white;" action="#{turmaBean.registrar()}" id="registrar" value="Registrar" update="mensagens"/>
+                                <p:commandButton style="background:white;" action="#{alunoBean.registrar()}" id="registrar" value="Registrar" update="mensagens"/>
                             </h:panelGrid>
                         </nav>
                         <!--FIM DO MENU DE OPÇÕES-->
@@ -80,45 +80,56 @@
                         <!--CAMPOS REQUERIDOS-->
                         <h:panelGrid columns="1">
 
-                            <p:outputLabel value="Nome da Turma" id="labelNome" for="inputNome"/>
-                            <p:inputText value="#{turmaBean.nomeTurma}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="28"/>
+                            <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
+                            <p:inputText value="#{alunoBean.nome}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
 
-                            <p:outputLabel for="listaProfessores" value="Professor:" />
-                            <p:selectOneMenu id="listaProfessores" value="#{turmaBean.professor}" style="width:300px">
-                                <f:selectItem itemLabel="Selecionar..." itemValue="0" />
-                                <f:selectItem itemLabel="Jorge" itemValue="id Jorge" />
-                                <f:selectItem itemLabel="Mateus" itemValue="id Mates" />
-                                <f:selectItem itemLabel="João" itemValue="id João" />
-                            </p:selectOneMenu>
+                            <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
+                            <p:inputText value="#{alunoBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
+
+                            <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail"/>
+                            <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Senha" id="labelSenha" for="inputSenha"/>
+                                <p:outputLabel value="Confirmar Senha" id="labelConfirmarSenha" for="inputConfirmarSenha"/>
+
+                                <p:password value="#{alunoBean.senha}" id="inputSenha" feedback="true"  promptLabel="Insira a senha desejada" weakLabel="Muito Fraca!" goodLabel="Boa!"
+                                            strongLabel="Ótima!" size="18"
+                                            label="Senha"/>
+                                <p:password value="#{alunoBean.confirmarSenha}" id="inputConfirmarSenha"   size="18"/>
+
+                            </h:panelGrid>
+
                         </h:panelGrid>
-
-
 
                         <p:remoteCommand name="atualizarMensagens" update="mensagens"/>  
                     </h:form>
-                    <!-- FIM DADOS DE REGISTRO -->
-
-                    <h:form>
-                        <h:commandLink action="manterProfessor">Registrar Professor</h:commandLink>
-                    </h:form>
+                    <!-- FIM DADOS DE REGISTRO, ATUALIZAR E EXCLUIR -->
 
 
+                    <!-- FORMULÁRIO DE PESQUISA -->
                     <fieldset>
                         <legend>Pesquisar (Atualizar Dados / Excluir)</legend>
 
                         <h:form>
+
                             <p:growl id="mensg"/>
 
-                            <p:outputLabel value="Nome da Turma:"/>
-                            <h:panelGrid columns="2">                                
-                                <p:inputText value="#{turmaBean.valorPesquisa}" required="true" requiredMessage="Informe o nome da turma para pesquisar!"/>
-                                <p:commandButton action="#{turmaBean.pesquisar()}" value="Pesquisar" update="mensg"/>
+                            <h:panelGrid columns="2">
+                                <p:selectOneRadio id="console" required="true" requiredMessage="Selecione uma opção!" value="#{professorBean.tipoPesquisa}">
+                                    <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
+                                    <f:selectItem itemLabel="Nome" itemValue="nome" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <p:inputText value="#{alunoBean.valorDePesquisa}" required="true" requiredMessage="Informe os dados para pesquisar!"/>
+                                <p:commandButton action="#{alunoBean.pesquisar()}" value="Pesquisar" update="mensg"/>
                             </h:panelGrid>
 
                         </h:form>
                     </fieldset>
-
-
+                    <!-- FORMULÁRIO DE PESQUISA DE PROFESSOR-->
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
 
