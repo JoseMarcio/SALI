@@ -136,6 +136,7 @@ public class ProfessorBean {
 
     }
 
+    
     /**
      * Registra um novo professor no banco de dados.
      */
@@ -160,7 +161,8 @@ public class ProfessorBean {
 
                     if (isEmailValid(email)) {
 
-                        //Comando do botão.
+                        //VERIFICAR SE JA TEM ALGUM COM O MESMO EMAIL
+                        // VERIFICA SE JA TEM ALGUM COM O MESMO MATRICULA
                     } else {
                         FacesContext facesContext = FacesContext.getCurrentInstance();
                         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe um E-mail válido!", ""));
