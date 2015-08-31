@@ -44,9 +44,9 @@
                     <p:menubar >
                         <f:facet name="options" >
                             <!-- CHAMA PÁGINA DE INÍCIO DE INSTITUIÇÃO-->
-                            <p:commandButton action="instituicaoInicio" value="Início" />
+                            <p:commandButton action="autenticacao" value="Início" />
                             <!-- FECHA A SESSÃO -->
-                            <p:commandButton  value="Sair"/>
+                            <p:commandButton  action="autenticacao" value="Sair"/>
                         </f:facet>
 
                     </p:menubar>
@@ -70,13 +70,17 @@
 
                             <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
                             <p:inputText value="#{professorBean.nome}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
-                                                       
-                            
-                            <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
-                            <p:inputText value="#{professorBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
 
-                            <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail"/>
-                            <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+
+                            <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
+                            <p:inputText value="#{professorBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12" converterMessage="Insira somente números para a matrícula.">
+                                <f:convertNumber pattern="############" maxFractionDigits="0" />
+                            </p:inputText>
+
+                            <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail" />
+                            <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30" validator="validaEmailProfessor" validatorMessage="Informe um e-mail válido.">
+                                <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})" />
+                            </p:inputText>
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Senha" id="labelSenha" for="inputSenha"/>
@@ -84,25 +88,25 @@
 
                                 <p:password value="#{professorBean.senha}" id="inputSenha" feedback="true"  promptLabel="Insira a senha desejada" weakLabel="Muito Fraca!" goodLabel="Boa!"
                                             strongLabel="Ótima!" size="18"
-                                            label="Senha"/>
-                                <p:password value="#{professorBean.comfirmarSenha}" id="inputConfirmarSenha"   size="18"/>
-                           
-                            
-                            
-                            
-                            </h:panelGrid>
-                            
-                            
-                            
-                             <h:panelGrid columns="2">
-                                
+                                            label="Senha" required="true" requiredMessage="Informe uma senha de acesso."/>
+                                <p:password value="#{professorBean.comfirmarSenha}" id="inputConfirmarSenha"   size="18" required="true" requiredMessage="Confirme a senha de acesso."/>
 
-                                <p:commandButton action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="teste"/>
-                                 <p:commandButton value="Alterar / Excluir" type="reset" onclick="PF('tabelaPesquisa').show();" ajax="true" immediate="true"/>
+
+
+
                             </h:panelGrid>
-                            
+
+
+
+                            <h:panelGrid columns="2">
+
+
+                                <p:commandButton action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="teste" validateClient="true"/>
+                                <p:commandButton value="Alterar / Excluir" type="reset" onclick="PF('tabelaPesquisa').show();" immediate="true"/>
+                            </h:panelGrid>
+
                         </h:panelGrid>
-                       
+
                     </h:form>
                     <!-- FIM DADOS DE REGISTRO. -->
                 </section>

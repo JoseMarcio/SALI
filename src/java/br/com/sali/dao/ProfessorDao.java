@@ -112,4 +112,13 @@ public class ProfessorDao {
         return p;
     }
 
+    /**
+     * Verifica se o e-mail já existe no banco de dados.
+     * @param email
+     * @return 
+     */
+    public static boolean isExiste(String email){
+      return false;
+    }
+    
 }
