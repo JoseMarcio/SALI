@@ -1,9 +1,9 @@
 .layoutPrincipal{
-    width: 80%;
-    height: 730px;
-    min-width:400px;
-    min-height:200px;
-    margin-left: 9%;  
+    width: 100%;
+    //height: 730px;
+    //min-width:400px;
+    //min-height:200px;
+
     background:#858fdb;
 }
 
@@ -12,19 +12,15 @@
     height: 20%;
     background:#858fdb;
     text-align: justify; 
-    
-    
 }
+
 #corFontCabecalho{
     color:#061053;
-  font-family: KEVIN ELEVEN;
-  
-    
+    font-family: KEVIN ELEVEN;
 }
 
-
 .logo{
-    margin-left: 860px;
+    margin-left: 85%;
     margin-top: -110px;
     width: 150px;
     height: 150px;
@@ -32,23 +28,19 @@
 
 .menuBarra{
     background:#1c2b95;
-    
-    
 }
 
 #body_color{
     background:#061053   
-    
- }
+}
 
 .sessaoManterProfessor{
-    background:#858fdb;
-    width: 75%;
-    height: 65%;
+    //background:#858fdb;
+    width: 45%;
+    height: 53%;
     font-family:MKX Title ;
 
 }
-
 
 .rodape{
     width: 100%;
@@ -57,18 +49,17 @@
     font-size: 10PX;
     margin-top: 5%;
     background: #1c2b95;
-
 }
 
 #rodape{
-    
     font-family:calibri ;
     color:#eeeff8;
-    padding-top:3px;
+    //padding-top:3%;
+    margin-bottom: -5%;
 }
 
 #fontPadra{
     font: MKX Title;
-    
-    
+
+
 }

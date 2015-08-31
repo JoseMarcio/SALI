@@ -18,17 +18,12 @@
         <link rel="shortcut icon" href="resources/imagens/sali_ico.png"/>
 
     </h:head>
-    <!--FIM DO BLOCO DE INSTRUÇÕES DA PÁGINA-->
-
-    <!--###########################################################################################################################-->
-    <!--                                        DESENVOLVENDO O CORPO DA PÁGINA                                                     -->
-
 
     <!--INÍCIO DO CORPO -->
     <h:body id="body_color">
 
         <!--LAYOUT Principal - todos outros componentes deSTE-->
-        <p:layout id="layoutPrincipal" class="layoutPrincipal">
+        <p:layout id="layoutPrincipal" class="layoutPrincipal" fullPage="true">
 
             <!--LAYOUT SECUNDÁRIO-->
             <p:layoutUnit position="center" class="layoutPrincipal">
@@ -41,14 +36,15 @@
                 </header>
                 <!--FIM CABEÇALHO DA PÁGINA-->
 
+
                 <!--BARRA DE MENU - LOGO APÓS O CABEÇALHO-->
                 <h:form>  
-                    <p:growl id="messagens"/>
+                    <p:growl autoUpdate="true"/>
 
                     <p:menubar >
                         <f:facet name="options" >
                             <!-- CHAMA PÁGINA DE INÍCIO DE INSTITUIÇÃO-->
-                            <p:commandButton action="instituicaoInicio" value="Inicio" />
+                            <p:commandButton action="instituicaoInicio" value="Início" />
                             <!-- FECHA A SESSÃO -->
                             <p:commandButton  value="Sair"/>
                         </f:facet>
@@ -63,26 +59,19 @@
 
                     <h1>Gerenciar Professores</h1>
 
-                    <!--FORMULÁRIO DE CADASTRO, EXCLUSÃO E REGISTRO DE PROFESSOR-->
-                    <h:form id="form1">
+                    <!--FORMULÁRIO DE CADASTRO DE PROFESSOR.-->
+                    <h:form id="formRrofessor">
 
+                        <!-- mensagens de validação -->
                         <p:growl autoUpdate="true"/>
-
-                        <!--MENU DE OPÇÕES-->
-                        <nav class="menuProfessorComandos">
-                            <h:panelGrid id="panelOpcoes" columns="3">
-                                <p:commandButton style="background:white" action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="teste"/>
-                            </h:panelGrid>
-                        </nav>
-                        <!--FIM DO MENU DE OPÇÕES-->
-
 
                         <!--CAMPOS REQUERIDOS-->
                         <h:panelGrid columns="1" id="teste">
 
                             <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
                             <p:inputText value="#{professorBean.nome}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
-
+                                                       
+                            
                             <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
                             <p:inputText value="#{professorBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
 
@@ -97,29 +86,31 @@
                                             strongLabel="Ótima!" size="18"
                                             label="Senha"/>
                                 <p:password value="#{professorBean.comfirmarSenha}" id="inputConfirmarSenha"   size="18"/>
-
+                           
+                            
+                            
+                            
                             </h:panelGrid>
+                            
+                            
+                            
+                             <h:panelGrid columns="2">
+                                
 
+                                <p:commandButton action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="teste"/>
+                                 <p:commandButton value="Alterar / Excluir" type="reset" onclick="PF('tabelaPesquisa').show();" ajax="true" immediate="true"/>
+                            </h:panelGrid>
+                            
                         </h:panelGrid>
- 
+                       
                     </h:form>
-                    <!-- FIM DADOS DE REGISTRO, ATUALIZAR E EXCLUIR -->
-
+                    <!-- FIM DADOS DE REGISTRO. -->
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
 
-
-
-                <h:form>
-                    <p:commandButton value="Alterar / Excluir" type="button" onclick="PF('tabelaPesquisa').show();" />
-                </h:form>
-
-
-
-
                 <p:dialog header="Pesquisa" widgetVar="tabelaPesquisa" minHeight="40" width="80%" height="470" appendTo="@(body)" modal="true" resizable="false" draggable="false">
-                    <h:form>
-                        <p:messages autoUpdate="true"/>
+                    <h:form id="formPesquisa">
+                        <p:messages autoUpdate="true" for="formPesquisa"/>
 
                         <div style="margin-top: 5px; margin-bottom: 20px">
                             <p:inputText id="nome" size="40" value="#{professorBean.valorDePesquisa}" placeholder="Matrícula ou Nome"/>
@@ -219,6 +210,9 @@
                     </h:form>
                 </p:dialog>
 
+
+
+
                 <!--RODAPE-->
                 <footer id="rodape" class="rodape">
                     <h3>SALI - Sistema de Aprendizado da Língua Inglesa</h3>
@@ -226,14 +220,13 @@
                 <!-- FIM DO RODAPÉ -->
 
 
+
+
                 <!--FIM DO LAYOUT SECUNDÁRIO-->
             </p:layoutUnit>
 
-
-
             <!--FIM DO LAYOUT PRINCIPAL-->
         </p:layout>
-
         <!-- FIM DO CORPO -->  
     </h:body>
 </html>
