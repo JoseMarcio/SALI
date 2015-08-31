@@ -35,10 +35,10 @@
 
                 <p:spacer width="10px"/>
 
-                <p:commandButton value="Pesquisar" action="#{professorBean.pesquisar()}" update="@form" />
+                <p:commandButton value="Pesquisar" action="#{professorBean.pesquisar()}" />
             </div>
 
-            <p:dataTable value="#{professorBean.professoresFiltrados}" var="professor"
+            <p:dataTable value="#{professorBean.professorDao.listarProfessor()}" var="professor"
                          emptyMessage="Nenhum professor encontrado." rows="10"
                          paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" style="font-size: 15px;">
 
@@ -49,19 +49,24 @@
                     <h:outputText value="#{professor.nomeCompleto}" />
                 </p:column>
                 <p:column headerText="Atualizar" style="width: 80px; text-align: center">
-                    <p:commandButton icon="ui-icon-check" title="Atualizar"
-                                     action="#{professorBean.atualizar(professor)}" process="@this" />
+                    <p:commandButton value="Alt" icon="ui-icon-check" title="Atualizar"
+                                     action="#{professorBean.irTelaAatualizar(professor)}" process="@this" onclick="PF('dlg3').show();"/>
                 </p:column>
                 
                 <p:column headerText="Excluir" style="width: 50px; text-align: center">
-                    <p:commandButton icon="ui-icon-dellete" title="Excluisão"
-                                     action="#{professorBean.excluir(professor)}" process="@this" />
+                    <p:commandButton value="Excluir" title="Exc"
+                                     onclick="PF('dlg3').show();" process="@this"/>
                 </p:column>
 
             </p:dataTable>
 
 
+            <p:dialog  header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">
+                        <h:outputText value="This dialog has nice effects." />
+                    </p:dialog>
         </h:form>
+
+        
 
 
     </h:body>

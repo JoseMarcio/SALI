@@ -1,5 +1,6 @@
 package br.com.sali.bean;
 
+import br.com.sali.dao.ProfessorDao;
 import br.com.sali.modelo.Professor;
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -28,15 +29,20 @@ public class ProfessorBean {
     private String comfirmarSenha;
     private String tipoPesquisa;
     private String valorDePesquisa;
+    private Professor professorSelecionado;
 
+    public Professor getProfessorSelecionado() {
+        return professorSelecionado;
+    }
+
+    public void setProfessorSelecionado(Professor professorSelecionado) {
+        this.professorSelecionado = professorSelecionado;
+    }
     private List<Professor> professoresFiltrados;
 
     private Professor professor;
-    private Professor professor1;
-    private Professor professor2;
-    private Professor professor3;
-    private Professor professor4;
-    private Professor professor5;
+    private ProfessorDao professorDao = new ProfessorDao();
+
 
     public Professor getProfessor() {
         return professor;
@@ -70,6 +76,14 @@ public class ProfessorBean {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public ProfessorDao getProfessorDao() {
+        return professorDao;
+    }
+
+    public void setProfessorDao(ProfessorDao professorDao) {
+        this.professorDao = professorDao;
     }
 
     public String getEmail() {
@@ -194,12 +208,35 @@ public class ProfessorBean {
 
     }
 
-    public void atualizar(Professor professor) {
+    public void irTelaAatualizar(Professor professor) {
+        
+        Map<String, Object> opcoes = new HashMap();
+        opcoes.put("modal", true);
+        //opcoes.put("resizable", false);
+        //opcoes.put("draggable", false);
+        opcoes.put("contentHeight", 250);
+        opcoes.put("width", 250);
 
+        professorSelecionado = professor;
+        
+        RequestContext.getCurrentInstance().openDialog("alterarProfessor", opcoes, null);
+        
+        
+        
+        
+
+        
+    }
+    
+    
+    public void atualizar(){
+       
+        
     }
 
     public void excluir(Professor professor) {
-
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "matricula - "+professor.getMatrícula()+" nome "+professor.getNomeCompleto(), ""));
     }
 
     /**
@@ -210,37 +247,7 @@ public class ProfessorBean {
         if (this.tipoPesquisa.equals("matricula")) {
             if (soContemNumeros(valorDePesquisa)) {
 
-                professor = new Professor();
-                professor1 = new Professor();
-                professor2 = new Professor();
-                professor3 = new Professor();
-                professor4 = new Professor();
-                professor5 = new Professor();
-
-                professor.setMatrícula(7667567);
-                professor.setNomeCompleto("Joao");
-                professoresFiltrados.add(professor);
-
-                professor1.setMatrícula(1050);
-                professor1.setNomeCompleto("Maria");
-                professoresFiltrados.add(professor);
-
-                professor2.setMatrícula(67567);
-                professor2.setNomeCompleto("Zé");
-                professoresFiltrados.add(professor);
-
-                professor3.setMatrícula(255);
-                professor4.setNomeCompleto("Jonas");
-                professoresFiltrados.add(professor);
-
-                professor4.setMatrícula(123);
-                professor5.setNomeCompleto("Raimunda");
-                professoresFiltrados.add(professor);
-
-                //Execute a pesquisa por matrícula.
-                String tetxo = "TIPO DE PESQUISA: " + tipoPesquisa + "\nVALOR PESQUISADO: " + valorDePesquisa;
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+                professoresFiltrados = professorDao.listarProfessor();
 
             } else {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -253,32 +260,6 @@ public class ProfessorBean {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
 
-            professor = new Professor();
-            professor1 = new Professor();
-            professor2 = new Professor();
-            professor3 = new Professor();
-            professor4 = new Professor();
-            professor5 = new Professor();
-
-            professor.setMatrícula(7667567);
-            professor.setNomeCompleto("Joao");
-            professoresFiltrados.add(professor);
-
-            professor1.setMatrícula(1050);
-            professor1.setNomeCompleto("Maria");
-            professoresFiltrados.add(professor);
-
-            professor2.setMatrícula(67567);
-            professor2.setNomeCompleto("Zé");
-            professoresFiltrados.add(professor);
-
-            professor3.setMatrícula(255);
-            professor4.setNomeCompleto("Jonas");
-            professoresFiltrados.add(professor);
-
-            professor4.setMatrícula(123);
-            professor5.setNomeCompleto("Raimunda");
-            professoresFiltrados.add(professor);
         }
 
     }

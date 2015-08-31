@@ -138,6 +138,77 @@
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
 
+
+
+                <h:form>
+                    <p:commandButton value="Alterar / Excluir" type="button" onclick="PF('tabelaPesquisa').show();" />
+                </h:form>
+
+
+
+
+                <p:dialog header="Pesquisa" widgetVar="tabelaPesquisa" minHeight="40" width="80%" height="470" appendTo="@(body)" modal="true" resizable="false" draggable="false">
+                    <h:form>
+                        <p:messages autoUpdate="true"/>
+
+                        <p:selectOneRadio value="#{professorBean.tipoPesquisa}" required="true" requiredMessage="Selecione uma opção de pesquisa.">
+                            <f:selectItem itemLabel="Matrícula" itemValue="matricula"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                        </p:selectOneRadio>
+
+
+                        <div style="margin-top: 5px; margin-bottom: 20px">
+                            <p:inputText id="nome" size="40" value="#{professorBean.valorDePesquisa}" placeholder="Matrícula ou Nome" required="true" requiredMessage="Iforme um dado para concluir a pesquisa."/>
+
+                            <p:spacer width="10px"/>
+
+                            <p:commandButton value="Pesquisar" action="#{professorBean.pesquisar()}" />
+                        </div>
+
+                        <p:dataTable value="#{professorBean.professorDao.listarProfessor()}" var="professor"
+                                     emptyMessage="Nenhum professor encontrado." rows="10"
+                                     paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" style="font-size: 15px;">
+
+                            <p:column headerText="Matrícula" style="text-align: center; width: 10%">
+                                <h:outputText value="#{professor.matrícula}" />
+                            </p:column>
+
+
+
+                            <p:column headerText="Nome" style="width: 30%;">
+                                <h:outputText value="#{professor.nomeCompleto}" />
+                            </p:column>
+
+
+                            <p:column headerText="E-mail" style="width: 30%;">
+                                <h:outputText value="#{professor.email}" />
+                            </p:column>
+
+
+                            <p:column width="13%" style="text-align:center">
+                                <p:commandButton value="Atualizar" icon="ui-icon-check" title="Atualizar"
+                                                 action="#{professorBean.irTelaAatualizar(professor)}" process="@this" />
+                            </p:column>
+
+                            <p:column width="10%" style="text-align:center">
+                                <p:commandButton value="Excluir" title="Exc"
+                                                 process="@this"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+
+
+
+
+
+
                 <h:form>
 
                     <p:commandButton value="Exlcuir / Alterar" action="#{professorBean.abrirDialogo()}" update="@none" process="@this"/>
