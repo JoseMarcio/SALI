@@ -64,21 +64,21 @@
                     <h1>Gerenciar Professores</h1>
 
                     <!--FORMULÁRIO DE CADASTRO, EXCLUSÃO E REGISTRO DE PROFESSOR-->
-                    <h:form>
+                    <h:form id="form1">
 
-                        <p:growl id="mensagens"/>
+                        <p:growl autoUpdate="true"/>
 
                         <!--MENU DE OPÇÕES-->
                         <nav class="menuProfessorComandos">
                             <h:panelGrid id="panelOpcoes" columns="3">
-                                <p:commandButton style="background:white" action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="mensagens"/>
+                                <p:commandButton style="background:white" action="#{professorBean.registrar()}" id="registrar" value="Registrar" update="teste"/>
                             </h:panelGrid>
                         </nav>
                         <!--FIM DO MENU DE OPÇÕES-->
 
 
                         <!--CAMPOS REQUERIDOS-->
-                        <h:panelGrid columns="1" >
+                        <h:panelGrid columns="1" id="teste">
 
                             <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
                             <p:inputText value="#{professorBean.nome}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
@@ -101,8 +101,7 @@
                             </h:panelGrid>
 
                         </h:panelGrid>
-
-                        <p:remoteCommand name="atualizarMensagens" update="mensagens"/>  
+ 
                     </h:form>
                     <!-- FIM DADOS DE REGISTRO, ATUALIZAR E EXCLUIR -->
 

@@ -2,7 +2,6 @@ package br.com.sali.bean;
 
 import br.com.sali.dao.ProfessorDao;
 import br.com.sali.modelo.Professor;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,8 @@ public class ProfessorBean {
     private String tipoPesquisa;
     private String valorDePesquisa;
     private Professor professorSelecionado;
+    private List<Professor> professoresFiltrados;
+    private ProfessorDao professorDao;
 
     public Professor getProfessorSelecionado() {
         return professorSelecionado;
@@ -37,19 +38,6 @@ public class ProfessorBean {
 
     public void setProfessorSelecionado(Professor professorSelecionado) {
         this.professorSelecionado = professorSelecionado;
-    }
-    private List<Professor> professoresFiltrados;
-
-    private Professor professor;
-    private ProfessorDao professorDao = new ProfessorDao();
-
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 
     public List<Professor> getProfessoresFiltrados() {
@@ -209,7 +197,7 @@ public class ProfessorBean {
     }
 
     public void irTelaAatualizar(Professor professor) {
-        
+
         Map<String, Object> opcoes = new HashMap();
         opcoes.put("modal", true);
         //opcoes.put("resizable", false);
@@ -218,26 +206,11 @@ public class ProfessorBean {
         opcoes.put("width", 250);
 
         professorSelecionado = professor;
-        
+
         RequestContext.getCurrentInstance().openDialog("alterarProfessor", opcoes, null);
-        
-        
-        
-        
 
-        
-    }
-    
-    
-    public void atualizar(){
-       
-        
     }
 
-    public void excluir(Professor professor) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "matricula - "+professor.getMatrícula()+" nome "+professor.getNomeCompleto(), ""));
-    }
 
     /**
      * Pesquisa um professor desejado por nome ou matrícula.
@@ -263,17 +236,42 @@ public class ProfessorBean {
         }
 
     }
+    
+    
+    
+    
 
-    public void abrirDialogo() {
+    public void excluir(Professor professor) {
+        try {
+            professorDao = new ProfessorDao();
+            professorDao.excluir(professor);
+        } catch (Exception e) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), ""));
+        }
+    }
 
-        Map<String, Object> opcoes = new HashMap();
-        opcoes.put("modal", true);
-        opcoes.put("resizable", false);
-        opcoes.put("draggable", false);
-        opcoes.put("contentHeight", 500);
+    public void listar(String dados) {
 
-        RequestContext.getCurrentInstance().openDialog("alterarExcluirProfessor", opcoes, null);
+        try {
+            professorDao = new ProfessorDao();
 
+            if (soContemNumeros(dados)) {
+                int matriculaInteiro = Integer.parseInt(dados);
+                professoresFiltrados = professorDao.listarProfessorMatricula(matriculaInteiro);
+            } else {
+                professoresFiltrados = professorDao.listarProfessorNome(dados);
+            }
+
+        } catch (Exception e) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), ""));
+        }
+    }
+    
+    
+    public void atualizar(){
+        try{}catch(Exception e){}
     }
 
 }

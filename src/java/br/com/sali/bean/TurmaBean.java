@@ -49,16 +49,20 @@ public class TurmaBean {
      * Registrar a turma.
      */
     public void registrar() {
-        if (this.professor.equals("0")) {
+        try {
+            if (this.professor.equals("0")) {
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selecione um professor!", ""));
+            } else {
+                //Execute comandos.
+                String tetxo = "NOME: " + nomeTurma;
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+            }
+        } catch (Exception e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selecione um professor!", ""));
-        } else {
-            //Execute comandos.
-            String tetxo = "NOME: " + nomeTurma;
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), ""));
         }
-
     }
 
     /**
@@ -66,9 +70,14 @@ public class TurmaBean {
      *
      */
     public void pesquisar() {
+        try{
         String tetxo = "NOME DIGITADO: " + valorPesquisa;
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
+        }catch(Exception e){
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+        }
     }
 
 }

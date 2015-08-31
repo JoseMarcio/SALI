@@ -1,8 +1,8 @@
 package br.com.sali.bean;
 
-import static br.com.sali.bean.ProfessorBean.isEmailValid;
-import static br.com.sali.bean.ProfessorBean.soContemNumeros;
+import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -26,6 +26,7 @@ public class AlunoBean {
     private String confirmarSenha;
     private String tipoPesquisa;
     private String valorDePesquisa;
+    private static List<Professor> professoresResultadoPesquisa;
 
     //======================================================================================================================
     public String getNome() {
@@ -202,4 +203,16 @@ public class AlunoBean {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
         }
     }
+    
+    
+    public void listar(String dados){
+        try{
+        
+        
+        }catch(Exception e){
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), ""));        
+        }
+    }
+    
 }
