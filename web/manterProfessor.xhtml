@@ -106,35 +106,6 @@
                     </h:form>
                     <!-- FIM DADOS DE REGISTRO, ATUALIZAR E EXCLUIR -->
 
-
-                    <!-- FORMULÁRIO DE PESQUISA -->
-                    <fieldset>
-                        <legend>Pesquisar (Atualizar Dados / Excluir)</legend>
-
-                        <h:form>
-
-
-                            <p:growl id="mensg"/>
-
-                            <h:panelGrid columns="2">
-                                <p:selectOneRadio id="console" required="true" requiredMessage="Selecione uma opção!" value="#{professorBean.tipoPesquisa}">
-                                    <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
-                                    <f:selectItem itemLabel="Nome" itemValue="nome" />
-                                </p:selectOneRadio>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2">
-                                <p:inputText value="#{professorBean.valorDePesquisa}" required="true" requiredMessage="Informe os dados para pesquisar!"/>
-                                <p:commandButton action="#{professorBean.pesquisar()}" value="Pesquisar" update="mensg"/>
-                            </h:panelGrid>
-
-                        </h:form>
-                    </fieldset>
-                    <!-- FORMULÁRIO DE PESQUISA DE PROFESSOR-->
-
-
-
-
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
 
@@ -151,14 +122,8 @@
                     <h:form>
                         <p:messages autoUpdate="true"/>
 
-                        <p:selectOneRadio value="#{professorBean.tipoPesquisa}" required="true" requiredMessage="Selecione uma opção de pesquisa.">
-                            <f:selectItem itemLabel="Matrícula" itemValue="matricula"/>
-                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
-                        </p:selectOneRadio>
-
-
                         <div style="margin-top: 5px; margin-bottom: 20px">
-                            <p:inputText id="nome" size="40" value="#{professorBean.valorDePesquisa}" placeholder="Matrícula ou Nome" required="true" requiredMessage="Iforme um dado para concluir a pesquisa."/>
+                            <p:inputText id="nome" size="40" value="#{professorBean.valorDePesquisa}" placeholder="Matrícula ou Nome"/>
 
                             <p:spacer width="10px"/>
 
@@ -187,12 +152,22 @@
 
                             <p:column width="13%" style="text-align:center">
                                 <p:commandButton value="Atualizar" icon="ui-icon-check" title="Atualizar"
-                                                 action="#{professorBean.irTelaAatualizar(professor)}" process="@this" />
+                                                 process="@this" type="button" onclick="PF('novosDados').show();"/>
                             </p:column>
 
                             <p:column width="10%" style="text-align:center">
-                                <p:commandButton value="Excluir" title="Exc"
-                                                 process="@this"/>
+                                <h:form>           
+                                    <p:growl id="message" showDetail="true" />
+
+                                    <p:commandButton value="Excluir"  update="message">
+                                        <p:confirm header="Confirmação" message="Excluir?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </p:confirmDialog>
+                                </h:form>
                             </p:column>
 
                         </p:dataTable>
@@ -209,11 +184,41 @@
 
 
 
-                <h:form>
 
-                    <p:commandButton value="Exlcuir / Alterar" action="#{professorBean.abrirDialogo()}" update="@none" process="@this"/>
-                </h:form>
+                <p:dialog header="Inserir Novos Dados" widgetVar="novosDados" minHeight="40" width="40%" height="300" appendTo="@(body)" modal="true" resizable="false" draggable="false">
+                    <h:form>
 
+                        <p:growl autoUpdate="true"/>
+
+                        <!--CAMPOS REQUERIDOS-->
+                        <h:panelGrid columns="1" >
+
+                            <p:outputLabel value="Nome Completo" id="labelNome" for="inputNome"/>
+                            <p:inputText value="#{professorBean.professorSelecionado.nomeCompleto}" id="inputNome" required="true" requiredMessage="O nome é obrigatório!" size="50"/>
+
+                            <p:outputLabel value="Matrícula Escolar" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
+                            <p:inputText value="#{professorBean.professorSelecionado.matrícula}"  id="inputMatriculaEscolar" required="true" requiredMessage="A matrícula é necessária!" size="12"/>
+
+                            <p:outputLabel value="E-Mail" id="labelEmail" for="inputEmail"/>
+                            <p:inputText value="#{professorBean.professorSelecionado.email}"  id="inputEmail" required="true" requiredMessage="O E-Mail não pode ficar vazio!" size="30"/>
+
+                            <p:outputLabel value="Senha"/>
+
+                            <p:outputLabel value="#{professorBean.professorSelecionado.senha}" />
+
+
+                            <h:panelGrid columns="2">
+                                <p:commandButton style="background:white" action="#{professorBean.registrar()}" value="Salvar"/>
+
+                                <p:commandButton onclick="PF('novosDados').hide();" style="background:white"  value="Cancelar"/>
+                            </h:panelGrid>
+
+
+
+                        </h:panelGrid>
+
+                    </h:form>
+                </p:dialog>
 
                 <!--RODAPE-->
                 <footer id="rodape" class="rodape">
