@@ -1,7 +1,7 @@
 package br.com.sali.bean;
 
-import static br.com.sali.bean.teste.isEmailValid;
-import static br.com.sali.bean.teste.soContemNumeros;
+import static br.com.sali.bean.ProfessorBean.isEmailValid;
+import static br.com.sali.bean.ProfessorBean.soContemNumeros;
 import br.com.sali.modelo.Turma;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

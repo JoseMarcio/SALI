@@ -26,7 +26,7 @@
 
     <!--INÍCIO DO CORPO -->
     <h:body id="body_color">
-        
+
         <!--LAYOUT Principal - todos outros componentes deSTE-->
         <p:layout id="layoutPrincipal" class="layoutPrincipal">
 
@@ -131,8 +131,17 @@
                         </h:form>
                     </fieldset>
                     <!-- FORMULÁRIO DE PESQUISA DE PROFESSOR-->
+
+
+
+
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
+
+                <h:form>
+
+                    <p:commandButton value="Exlcuir / Alterar" action="#{professorBean.abrirDialogo()}" update="@none" process="@this"/>
+                </h:form>
 
 
                 <!--RODAPE-->
