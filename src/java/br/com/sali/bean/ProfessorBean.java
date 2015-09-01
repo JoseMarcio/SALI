@@ -2,14 +2,20 @@ package br.com.sali.bean;
 
 import br.com.sali.dao.ProfessorDao;
 import br.com.sali.modelo.Professor;
+import br.com.sali.util.CriptografiaUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
@@ -155,63 +161,30 @@ public class ProfessorBean {
      * Registra um novo professor no banco de dados.
      */
     public void registrar() {
+        try {
+            int matriculaInt = Integer.parseInt(matricula);
+            CriptografiaUtil criptografia = new CriptografiaUtil();
+            senha = criptografia.criptografaSenha(senha);
 
-        //Verifica se os campos senha e confirmarSenha são iguais.
-        if (senha.equals("")) {
+            Professor professor = new Professor();
+            professor.setNomeCompleto(nome);
+            professor.setMatrícula(matriculaInt);
+            professor.setEmail(email);
+            professor.setSenha(senha);
+
+     //       professorDao = new ProfessorDao();
+    //      professorDao.registrar(professor);
+
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma senha!", ""));
-        } else if (comfirmarSenha.equals("")) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Professor registrado com sucesso.!", ""));
+
+        } catch (Exception e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirme a senha digitada!", ""));
-        } else {
-
-            // Verifica se as senhas coincidem.
-            if (!senha.equals(this.comfirmarSenha)) {
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não coincidem!", ""));
-            } else {
-
-                if (soContemNumeros(matricula)) {
-
-                    if (isEmailValid(email)) {
-
-                        //VERIFICAR SE JA TEM ALGUM COM O MESMO EMAIL
-                        // VERIFICA SE JA TEM ALGUM COM O MESMO MATRICULA
-                        String tetxo = "NOME: " + nome + "\nEmal: " + email + "\nMATRICULA: " + matricula + "\nSENHA: " + senha;
-                        FacesContext facesContext = FacesContext.getCurrentInstance();
-                        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
-
-                    } else {
-                        FacesContext facesContext = FacesContext.getCurrentInstance();
-                        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe um E-mail válido!", ""));
-                    }
-
-                } else {
-                    FacesContext facesContext = FacesContext.getCurrentInstance();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe somente números para o campo matrícula!", ""));
-                }
-            }
-
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, e.getMessage(), ""));
         }
-
     }
 
-    public void irTelaAatualizar(Professor professor) {
-
-        Map<String, Object> opcoes = new HashMap();
-        opcoes.put("modal", true);
-        //opcoes.put("resizable", false);
-        //opcoes.put("draggable", false);
-        opcoes.put("contentHeight", 250);
-        opcoes.put("width", 250);
-
-        professorSelecionado = professor;
-
-        RequestContext.getCurrentInstance().openDialog("alterarProfessor", opcoes, null);
-
-    }
-
-
+    
     /**
      * Pesquisa um professor desejado por nome ou matrícula.
      */
@@ -236,10 +209,6 @@ public class ProfessorBean {
         }
 
     }
-    
-    
-    
-    
 
     public void excluir(Professor professor) {
         try {
@@ -268,10 +237,11 @@ public class ProfessorBean {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), ""));
         }
     }
-    
-    
-    public void atualizar(){
-        try{}catch(Exception e){}
+
+    public void atualizar() {
+        try {
+        } catch (Exception e) {
+        }
     }
 
 }

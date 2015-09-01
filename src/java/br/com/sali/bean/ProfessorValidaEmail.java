@@ -1,5 +1,6 @@
 package br.com.sali.bean;
 
+import br.com.sali.dao.ProfessorDao;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,8 +16,8 @@ public class ProfessorValidaEmail implements Validator {
             Object value) throws ValidatorException {
 
         String email = (String) value;
-        //AlunoDAO alunoDAO = new AlunoDAOImpl();  
-        if (true) {
+        ProfessorDao professorDao = new ProfessorDao();
+        if (professorDao.isExisteEmail(email)) {
             FacesContext.getCurrentInstance().addMessage("validaEmailProfessor", new FacesMessage("Email já pertence a um usuário."));
         }
     }

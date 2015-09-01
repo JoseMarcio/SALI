@@ -117,8 +117,20 @@ public class ProfessorDao {
      * @param email
      * @return 
      */
-    public static boolean isExiste(String email){
+    public  boolean isExisteEmail(String email){    
+
       return false;
     }
+    
+    /**
+     * Verifica se o a matricula já existe no banco de dados.
+     * @param matricula
+     * @return 
+     */
+    public  boolean isExisteMatricula(int matricula){    
+
+      return false;
+    }
+    
     
 }

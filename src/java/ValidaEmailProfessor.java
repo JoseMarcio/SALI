@@ -15,7 +15,7 @@ public class ValidaEmailProfessor implements Validator {
 
         String email = (String) value;
         ProfessorDao professorDao = new ProfessorDao();
-        if (professorDao.isExiste(email)) {
+        if (false) {
             FacesContext.getCurrentInstance().addMessage("validaEmailProfessor", new FacesMessage("Email já em uso!"));;
         }
     }

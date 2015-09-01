@@ -10,7 +10,7 @@ public class Professor {
     private long id;
     private String nomeCompleto;
     private String email;
-    private int matrícula;
+    private int matricula;
     private String senha;
 
     public String getNomeCompleto() {
