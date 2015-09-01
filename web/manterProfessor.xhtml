@@ -85,7 +85,7 @@
                                 <p:password value="#{professorBean.senha}" id="senha"  match="confirmaSenha" required="true" validatorMessage="As senhas informadas não coincidem."
                                             requiredMessage="Informe uma senha."/>
 
-                                <p:password value="#{professorBean.comfirmarSenha}" id="confirmaSenha"  required="true" requiredMessage="Confirme a senha digitada."/>
+                                <p:password id="confirmaSenha"  required="true" requiredMessage="Confirme a senha digitada."/>
                             </h:panelGrid>
 
                             <!-- BOTÕES -->
@@ -119,7 +119,7 @@
 
                             <p:spacer width="10px"/>
 
-                            <p:commandButton value="Pesquisar" action="#{professorBean.pesquisar()}" />
+                            <p:commandButton value="Pesquisar" action="#{professorBean.listar(dados)}" />
                             <p:commandButton value="Limpar" type="reset" />
                             <p:commandButton value="Cancelar" type="reset" onclick="PF('tabelaPesquisaProfessor').hide()" />
                         </div>
@@ -212,13 +212,13 @@
                                         <p:password value="#{professorBean.senha}" id="senha"  match="confirmaSenha" required="true" validatorMessage="As senhas informadas não coincidem."
                                                     requiredMessage="Informe uma senha."/>
 
-                                        <p:password value="#{professorBean.comfirmarSenha}" id="confirmaSenha"  required="true" requiredMessage="Confirme a senha digitada."/>
+                                        <p:password id="confirmaSenha"  required="true" requiredMessage="Confirme a senha digitada."/>
                                     </h:panelGrid>
 
                                     <!-- BOTÕES -->
                                     <h:panelGrid  columns="3">
                                         <p:commandButton  action="#{professorBean.atualizar()}" id="salvar" value="Salvar">
-                                            <p:ajax update="registrar"/>
+                                            <p:ajax update="salvar"/>
                                         </p:commandButton>
                                     </h:panelGrid>
 

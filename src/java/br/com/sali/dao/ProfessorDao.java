@@ -32,6 +32,7 @@ public class ProfessorDao {
      * Lista todos os professores que contenham em seu nome o nome informado
      * pelo usuário.
      *
+     * @param nome
      * @return
      * @throws Exception
      */
@@ -70,67 +71,39 @@ public class ProfessorDao {
 
     /**
      * Atualiza os dados de um professor do banco de dados
-     * 
+     *
      * @param professor
-     * @throws Exception 
+     * @throws Exception
      */
     public void atualizar(Professor professor) throws Exception {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = sessao.beginTransaction();
-        
+
         sessao.update(professor);
         transacao.commit();
         sessao.close();
     }
 
-    // testes
-    List p = new ArrayList();
-
-    public List<Professor> listarProfessor() {
-        Professor professor = new Professor();
-        professor.setEmail("24");
-        professor.setMatrícula(7878);
-        professor.setNomeCompleto("Joo");
-        professor.setSenha("325325");
-
-        Professor professor1 = new Professor();
-        professor1.setEmail("24");
-        professor1.setMatrícula(7878);
-        professor1.setNomeCompleto("Joo");
-        professor1.setSenha("325325");
-
-        Professor professor2 = new Professor();
-        professor2.setEmail("24");
-        professor2.setMatrícula(7878);
-        professor2.setNomeCompleto("Joo");
-        professor2.setSenha("325325");
-
-        p.add(professor);
-        p.add(professor1);
-        p.add(professor2);
-
-        return p;
-    }
-
     /**
      * Verifica se o e-mail já existe no banco de dados.
+     *
      * @param email
-     * @return 
+     * @return
      */
-    public  boolean isExisteEmail(String email){    
+    public boolean isExisteEmail(String email) {
 
-      return false;
+        return false;
     }
-    
+
     /**
      * Verifica se o a matricula já existe no banco de dados.
+     *
      * @param matricula
-     * @return 
+     * @return
      */
-    public  boolean isExisteMatricula(int matricula){    
+    public boolean isExisteMatricula(int matricula) {
 
-      return false;
+        return false;
     }
-    
-    
+
 }

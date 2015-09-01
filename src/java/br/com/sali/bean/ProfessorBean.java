@@ -3,21 +3,13 @@ package br.com.sali.bean;
 import br.com.sali.dao.ProfessorDao;
 import br.com.sali.modelo.Professor;
 import br.com.sali.util.CriptografiaUtil;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -31,8 +23,6 @@ public class ProfessorBean {
     private String matricula;
     private String email;
     private String senha;
-    private String comfirmarSenha;
-    private String tipoPesquisa;
     private String valorDePesquisa;
     private Professor professorSelecionado;
     private List<Professor> professoresFiltrados;
@@ -54,8 +44,6 @@ public class ProfessorBean {
         this.professoresFiltrados = professoresFiltrados;
     }
 
-    //############################################################################################################
-    // GETS E SETS.
     public String getNome() {
         return nome;
     }
@@ -96,46 +84,12 @@ public class ProfessorBean {
         this.senha = senha;
     }
 
-    public String getComfirmarSenha() {
-        return comfirmarSenha;
-    }
-
-    public void setComfirmarSenha(String comfirmarSenha) {
-        this.comfirmarSenha = comfirmarSenha;
-    }
-
-    public String getTipoPesquisa() {
-        return tipoPesquisa;
-    }
-
-    public void setTipoPesquisa(String tipoPesquisa) {
-        this.tipoPesquisa = tipoPesquisa;
-    }
-
     public String getValorDePesquisa() {
         return valorDePesquisa;
     }
 
     public void setValorDePesquisa(String valorDePesquisa) {
         this.valorDePesquisa = valorDePesquisa;
-    }
-
-    //############################################################################################################
-    /**
-     * Verifica se o e-mail informado é válido.
-     *
-     * @param email
-     * @return
-     */
-    public static boolean isEmailValid(String email) {
-        if ((email == null) || (email.trim().length() == 0)) {
-            return false;
-        }
-
-        String emailPattern = "\\b(^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\\.[A-Za-z0-9-]+)*((\\.[A-Za-z0-9]{2,})|(\\.[A-Za-z0-9]{2,}\\.[A-Za-z0-9]{2,}))$)\\b";
-        Pattern pattern = Pattern.compile(emailPattern, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     /**
@@ -168,13 +122,12 @@ public class ProfessorBean {
 
             Professor professor = new Professor();
             professor.setNomeCompleto(nome);
-            professor.setMatrícula(matriculaInt);
+            professor.setMatricula(matriculaInt);
             professor.setEmail(email);
             professor.setSenha(senha);
 
-     //       professorDao = new ProfessorDao();
-    //      professorDao.registrar(professor);
-
+            professorDao = new ProfessorDao();
+            professorDao.registrar(professor);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Professor registrado com sucesso.!", ""));
 
@@ -182,32 +135,6 @@ public class ProfessorBean {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, e.getMessage(), ""));
         }
-    }
-
-    
-    /**
-     * Pesquisa um professor desejado por nome ou matrícula.
-     */
-    public void pesquisar() {
-
-        if (this.tipoPesquisa.equals("matricula")) {
-            if (soContemNumeros(valorDePesquisa)) {
-
-                professoresFiltrados = professorDao.listarProfessor();
-
-            } else {
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe somente números para o campo matrícula!", ""));
-            }
-        } else {
-
-            //Execute a pesquisa por nome.
-            String tetxo = "TIPO DE PESQUISA: " + tipoPesquisa + "\nVALOR PESQUISADO: " + valorDePesquisa;
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tetxo, ""));
-
-        }
-
     }
 
     public void excluir(Professor professor) {
@@ -220,16 +147,16 @@ public class ProfessorBean {
         }
     }
 
-    public void listar(String dados) {
+    public void listar() {
 
         try {
             professorDao = new ProfessorDao();
 
-            if (soContemNumeros(dados)) {
-                int matriculaInteiro = Integer.parseInt(dados);
+            if (soContemNumeros(valorDePesquisa)) {
+                int matriculaInteiro = Integer.parseInt(valorDePesquisa);
                 professoresFiltrados = professorDao.listarProfessorMatricula(matriculaInteiro);
             } else {
-                professoresFiltrados = professorDao.listarProfessorNome(dados);
+                professoresFiltrados = professorDao.listarProfessorNome(valorDePesquisa);
             }
 
         } catch (Exception e) {
