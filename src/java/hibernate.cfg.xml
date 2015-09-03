@@ -9,6 +9,8 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    <mapping class="br.com.sali.modelo.Aluno"/>
     <mapping class="br.com.sali.modelo.Professor"/>
+    <mapping class="br.com.sali.modelo.Turma"/>
   </session-factory>
 </hibernate-configuration>

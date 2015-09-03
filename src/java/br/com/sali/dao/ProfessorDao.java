@@ -2,10 +2,12 @@ package br.com.sali.dao;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.util.HibernateUtil;
-import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -37,20 +39,39 @@ public class ProfessorDao {
      * @throws Exception
      */
     public List<Professor> listarProfessorNome(String nome) throws Exception {
-        List<Professor> professoresFiltrados = new ArrayList<>();
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        Criteria criteria = sessao.createCriteria(Professor.class);
+        Criterion filtro = Restrictions.like("nomeCompleto", "%" + nome + "%");
+        criteria.add(filtro);
+        List<Professor> professoresFiltrados = criteria.list();
+        
+        transacao.commit();
+        sessao.close();
         return professoresFiltrados;
     }
 
     /**
-     * Retorna uma lista de professores que contenha o número de matrícula que
-     * foi informado pelo usuário.
+     * Retorna o professo que contenha o número de matrícula que foi informado
+     * pelo usuário.
      *
      * @param matricula
      * @return
      * @throws Exception
      */
     public List<Professor> listarProfessorMatricula(int matricula) throws Exception {
-        List<Professor> professoresFiltrados = new ArrayList<>();
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        Criteria criteria = sessao.createCriteria(Professor.class);
+        Criterion filtro = Restrictions.eq("matricula", matricula);
+        criteria.add(filtro);
+        List<Professor> professoresFiltrados = criteria.list();
+        
+        transacao.commit();
+        sessao.close();
+        
         return professoresFiltrados;
     }
 
@@ -85,25 +106,49 @@ public class ProfessorDao {
     }
 
     /**
-     * Verifica se o e-mail já existe no banco de dados.
+     * Verifica se a matrícula informada já existe no banco de dados.
+     *
+     * @param matricula
+     * @return
+     * @throws Exception
+     */
+    public boolean isExistenteMatricula(int matricula) throws Exception {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        Criterion filtro = Restrictions.eq("matricula", matricula);
+        Criteria criteria = sessao.createCriteria(Professor.class);
+        criteria.add(filtro);
+
+        List<Professor> professoresFiltrados = criteria.list();
+
+        if (professoresFiltrados.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Verifica se email informado já existe no banco de dados.
      *
      * @param email
      * @return
      */
-    public boolean isExisteEmail(String email) {
+    public boolean isExistenteEmail(String email) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
 
-        return false;
-    }
+        Criterion filtro = Restrictions.eq("email", email);
+        Criteria criteria = sessao.createCriteria(Professor.class);
+        criteria.add(filtro);
+        List<Professor> professoresFiltrados = criteria.list();
 
-    /**
-     * Verifica se o a matricula já existe no banco de dados.
-     *
-     * @param matricula
-     * @return
-     */
-    public boolean isExisteMatricula(int matricula) {
-
-        return false;
+        if (professoresFiltrados.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
