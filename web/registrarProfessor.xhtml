@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+
+        <h:form id="formularioRegistrarProfessor">
+            <h:messages />
+
+            <h:panelGrid id="gridRegistrarProfessor">
+
+                <h:outputLabel value="Nome do Professor:"/>
+                <h:inputText id="teste" value="#{professorRegistrarBean.professor.nomeCompleto}" required="true" requiredMessage="Informe um nome para o professor." validatorMessage="Informe um nome válido."/>
+
+                <h:outputLabel value="Matrícula Escolar:"/>
+                <h:inputText value="#{professorRegistrarBean.professor.matricula}" required="true" requiredMessage="Informe uma matrícula escolar." validatorMessage="Informe uma matrícula válida." label="Matrícula">
+                    <f:convertNumber integerOnly="true"/>
+                </h:inputText>
+
+                <h:outputLabel value="E-mail:"/>
+                <h:inputText value="#{professorRegistrarBean.professor.email}" required="true" requiredMessage="Informe o e-mail do professor." validatorMessage="Informe um e-mail válido.">
+                    <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                </h:inputText>
+
+                <h:outputLabel value="Senha:"/>
+                <h:inputSecret value="#{professorRegistrarBean.professor.senha}" required="true" requiredMessage="Informe uma senha de acesso."/>
+
+                <h:outputLabel value="Confirme a senha:"/>
+                <h:inputSecret value="#{professorRegistrarBean.confirmaSenha}" required="true" requiredMessage="Confirme a senha de acesso."/>
+
+                <h:commandButton action="#{professorRegistrarBean.registrarProfessor()}" value="Registrar"/>
+
+            </h:panelGrid>
+        </h:form>
+        <h:form>
+            <h:commandButton value="Limpar" action="#{professorRegistrarBean.limpar()}"/>
+            <h:commandButton value="Alterar / Excluir" action="#{professorRegistrarBean.}"/>
+        </h:form>
+
+
+
+    </h:body>
+</html>
+

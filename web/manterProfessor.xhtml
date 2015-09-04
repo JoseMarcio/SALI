@@ -66,23 +66,23 @@
                         <h:panelGrid columns="1">
 
                             <p:outputLabel value="Nome Completo:" id="labelNome" for="inputNome"/>
-                            <p:inputText value="#{professorBean.nome}" id="inputNome" required="true" requiredMessage="Informe um nome."/>
+                            <p:inputText  id="inputNome" required="true" requiredMessage="Informe um nome."/>
 
                             <p:outputLabel value="Matrícula Escolar:" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
-                            <p:inputText value="#{professorBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="Informe uma matrícula." validatorMessage="Insira uma matrícula válida." validator="validaMatProf">
-                                <f:validateRegex pattern="^[0-9]+$" />
+                            <p:inputText   id="inputMatriculaEscolar" required="true" requiredMessage="Informe uma matrícula." validatorMessage="Insira uma matrícula válida.">
+                
                             </p:inputText>
 
                             <p:outputLabel value="E-Mail:" id="labelEmail" for="inputEmail" />
-                            <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="Informe um e-mail." validator="validaEmailProfessor" validatorMessage="Informe um e-mail válido.">
-                                <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})" />
+                            <p:inputText   id="inputEmail" required="true" requiredMessage="Informe um e-mail.">
+                                
                             </p:inputText>
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Senha:" id="labelSenha" for="senha"/>
                                 <p:outputLabel value="Confirmar Senha:" id="labelConfirmarSenha" for="confirmaSenha"/>
 
-                                <p:password value="#{professorBean.senha}" id="senha"  match="confirmaSenha" required="true" validatorMessage="As senhas informadas não coincidem."
+                                <p:password  id="senha"  match="confirmaSenha" required="true" validatorMessage="As senhas informadas não coincidem."
                                             requiredMessage="Informe uma senha."/>
 
                                 <p:password id="confirmaSenha"  required="true" requiredMessage="Confirme a senha digitada."/>
@@ -90,10 +90,10 @@
 
                             <!-- BOTÕES -->
                             <h:panelGrid  columns="3">
-                                <p:commandButton  action="#{professorBean.registrar()}" id="registrar" value="Registrar">
+                                <p:commandButton   id="registrar" value="Registrar">
                                     <p:ajax update="registrar"/>
                                 </p:commandButton>
-                                <p:commandButton value="Alterar / Excluir" type="reset" onclick="PF('tabelaPesquisaProfessor').show();" immediate="true"/>
+                                <p:commandButton value="Alterar / Excluir" type="reset"/>
                                 <p:commandButton value="Limpar" type="reset"/>
                             </h:panelGrid>
 
@@ -104,136 +104,7 @@
                 </section>
                 <!--FIM SESSÃO MANTER PROFESSOR-->
 
-
-
-
-
-
-
-                <p:dialog header="Pesquisa de Professor" widgetVar="tabelaPesquisaProfessor" minHeight="40"  width="900" height="470" appendTo="@(body)" modal="true" resizable="false" draggable="false">
-                    <h:form id="formPesquisa">
-                        <p:messages autoUpdate="true" for="formPesquisa"/>
-
-                        <div style="margin-top: 5px; margin-bottom: 20px">
-                            <p:inputText id="nome" size="40" value="#{professorBean.valorDePesquisa}" placeholder="Matrícula ou Nome" required="true" requiredMessage="Iforme umdado para pesquisar."/>
-
-                            <p:spacer width="10px"/>
-
-                            <p:commandButton value="Pesquisar" action="#{professorBean.listar(dados)}" />
-                            <p:commandButton value="Limpar" type="reset" />
-                            <p:commandButton value="Cancelar" type="reset" onclick="PF('tabelaPesquisaProfessor').hide()" />
-                        </div>
-
-                        <p:dataTable value="#{professorBean.professoresFiltrados}" var="professor"
-                                     emptyMessage="Nenhum professor encontrado." rows="5"
-                                     paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" style="font-size: 15px;">
-
-                            <p:column headerText="Matrícula" style="text-align: center; width: 10%">
-                                <h:outputText value="#{professor.matricula}" />
-                            </p:column>
-
-                            <p:column headerText="Nome" style="width: 30%;">
-                                <h:outputText value="#{professor.nomeCompleto}" />
-                            </p:column>
-
-                            <p:column headerText="E-mail" style="width: 30%;">
-                                <h:outputText value="#{professor.email}" />
-                            </p:column>
-
-                            <p:column width="13%" style="text-align:center">
-                                <p:commandButton value="Atualizar" icon="ui-icon-check" title="Atualizar"
-                                                 type="button" onclick="PF('novosDados').show();"/>
-                            </p:column>
-
-                            <p:column width="10%" style="text-align:center">
-                                <h:form>           
-                                    <p:messages autoUpdate="true"/>
-
-                                    <p:commandButton value="Excluir" action="#{professorBean.excluir(professor)}">
-                                        <p:confirm header="Antenção!!" message="Excluir?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-
-                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                    </p:confirmDialog>
-                                </h:form>
-                            </p:column>
-
-                        </p:dataTable>
-
-                    </h:form>
-                </p:dialog>
-                <!-- FIM PESQUISAR PROFESSOR-->
-
-
-
-
-
-
-
-
-
-
-                <p:dialog header="Atualizar Dados" widgetVar="novosDados" minHeight="40" width="900" height="300" appendTo="@(body)" modal="true" resizable="false" draggable="false">
-                    <h:form>
-
-                        <p:messages autoUpdate="true"/>
-
-                        <!--CAMPOS REQUERIDOS-->
-                        <h:panelGrid columns="1" >
-
-                            <h:form id="formRrofessor">
-                                <!-- mensagens de validação -->
-                                <p:messages autoUpdate="true" for="formProfessor"/>
-
-
-
-                                <!--CAMPOS REQUERIDOS-->
-                                <h:panelGrid columns="1">
-
-                                    <p:outputLabel value="Nome Completo:" id="labelNome" for="inputNome"/>
-                                    <p:inputText value="#{professorBean.nome}" id="inputNome" required="true" requiredMessage="Informe um nome."/>
-
-                                    <p:outputLabel value="Matrícula Escolar:" id="labelMatriculaEscolar" for="inputMatriculaEscolar"/>
-                                    <p:inputText value="#{professorBean.matricula}"  id="inputMatriculaEscolar" required="true" requiredMessage="Informe uma matrícula." validatorMessage="Insira uma matrícula válida." validator="validaMatProf">
-                                        <f:validateRegex pattern="^[0-9]+$" />
-                                    </p:inputText>
-
-                                    <p:outputLabel value="E-Mail:" id="labelEmail" for="inputEmail" />
-                                    <p:inputText value="#{professorBean.email}"  id="inputEmail" required="true" requiredMessage="Informe um e-mail." validator="validaEmailProfessor" validatorMessage="Informe um e-mail válido.">
-                                        <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})" />
-                                    </p:inputText>
-
-                                    <h:panelGrid columns="2">
-                                        <p:outputLabel value="Senha:" id="labelSenha" for="senha"/>
-                                        <p:outputLabel value="Confirmar Senha:" id="labelConfirmarSenha" for="confirmaSenha"/>
-
-                                        <p:password value="#{professorBean.senha}" id="senha"  match="confirmaSenha" required="true" validatorMessage="As senhas informadas não coincidem."
-                                                    requiredMessage="Informe uma senha."/>
-
-                                        <p:password id="confirmaSenha"  required="true" requiredMessage="Confirme a senha digitada."/>
-                                    </h:panelGrid>
-
-                                    <!-- BOTÕES -->
-                                    <h:panelGrid  columns="3">
-                                        <p:commandButton  action="#{professorBean.atualizar()}" id="salvar" value="Salvar">
-                                            <p:ajax update="salvar"/>
-                                        </p:commandButton>
-                                    </h:panelGrid>
-
-                                </h:panelGrid>
-
-                            </h:form>
-
-                        </h:panelGrid>
-
-                    </h:form>
-                </p:dialog>
-
-
-
-
+                
                 <!--RODAPE-->
                 <footer id="rodape" class="rodape">
                     <h3>SALI - Sistema de Aprendizado da Língua Inglesa</h3>

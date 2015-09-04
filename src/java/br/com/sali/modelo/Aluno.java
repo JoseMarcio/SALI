@@ -33,6 +33,7 @@ public class Aluno implements Serializable {
     private Turma turma;
 
     public Aluno() {
+        
     }
 
     public long getId() {
