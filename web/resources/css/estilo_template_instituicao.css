@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+body {
+    margin:0;
+    padding:0;
+    background:#FFFFFF;
+    text-align:center;
+    font-family: verdana;
+}
+
+#conteiner {
+    width: 70%;
+    margin:0 auto;			
+    text-align:left;
+}
+
+#menu ul li{
+    display: inline;
+    padding-right: 3%;
+}
+
+#menuLateral ul li{
+    display: block;
+
+}
+
+#conteudo {
+    padding: 5px;
+    background: #EEE9E9;
+}
+
+#corpo
+{
+    margin-left: 30%;
+
+
+}
+
+
+
+
+footer{
+    text-align: center;
+    font-size: 15px;
+    //margin-top: 40%;
+
+}
+

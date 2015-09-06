@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html   lang="pt-br" 
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>
+            <ui:insert name="titulo">SALI</ui:insert>
+        </title>
+        <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />
+    </h:head>
+
+    <h:body>
+
+        <section id="conteiner">
+            <header>
+                <h1>Área Instituição</h1>
+            </header>
+
+
+            <nav id="menuLateral">
+
+            </nav>
+            <section id="conteudo">
+                <nav id="menu">
+                    <ul>
+                        <li>Início</li>
+                        <li>Alterar</li>
+                        <li>Sair</li>
+                    </ul>
+                </nav>
+                <nav id="menuLateral">
+                    <ul>
+                        <li>Aluno</li>
+                        <li>Professor</li>
+                        <li>Turma</li>
+                    </ul>
+                </nav>
+                
+                <section id="corpo">
+                    <ui:insert name="corpo" />
+                </section>
+            </section>
+            
+            <footer>
+                SALI - Sistema de Aprendizado da Língua Ínglesa
+            </footer>
+
+        </section>
+        
+            
+
+
+    </h:body>
+</html>

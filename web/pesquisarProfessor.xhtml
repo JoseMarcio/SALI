@@ -3,33 +3,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/template/areaInstituicao.xhtml">
+        <ui:define name="titulo">
+            Pesquisar professor
+        </ui:define>
+        <ui:define name="corpo">
 
-        <h:form>
-            <h:messages />
+            <h:form>
+                <h:messages />
 
-            <h:outputLabel value="Pesquisar:"/>
-            <h:inputText value="#{professorRegistrarBean.filtroPesquisa}" required="true" requiredMessage="Informe um atributo de pesquisa."/>
-            <h:commandButton action="#{professorRegistrarBean.pesquisarProfessor()}" value="Buscar"/>
-            
-            <p:dataTable value="#{professorRegistrarBean.professoresFiltrados}" var="professor" emptyMessage="Nenhum professor encontrado.">
-                <p:column headerText="Matrícula">
-                    <h:outputLabel value="#{professor.matricula}"/>
-                </p:column>
-                <p:column headerText="Nome">
-                    <h:outputLabel value="#{professor.nomeCompleto}"/>
-                </p:column>
-                <p:column headerText="E-mail">
-                    <h:outputLabel value="#{professor.email}"/>
-                </p:column>
-            </p:dataTable>
-        </h:form>
+                <h:outputLabel value="Pesquisar:"/>
+                <h:selectOneMenu value="#{professorPesquisarBean.tipoDePesquisa}">
+                    <f:selectItem itemValue="nome" itemLabel="Nome"/>
+                    <f:selectItem itemValue="matricula" itemLabel="Matrícula"/>
+                </h:selectOneMenu>
 
 
-    </h:body>
+                <h:inputText value="#{professorPesquisarBean.filtroPesquisa}" required="true" requiredMessage="Informe um dado para concluir a pesquisa."/>
+                <h:commandButton action="#{professorPesquisarBean.pesquisarProfessor()}" value="Buscar"/>
+
+                <p:dataTable value="#{professorPesquisarBean.professoresFiltrados}" var="professor" emptyMessage="Nenhum professor encontrado.">
+                    <p:column headerText="Matrícula">
+                        <h:outputLabel value="#{professor.matricula}"/>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputLabel value="#{professor.nomeCompleto}"/>
+                    </p:column>
+                    <p:column headerText="E-mail">
+                        <h:outputLabel value="#{professor.email}"/>
+                    </p:column>
+                    <p:column headerText="E-mail">
+                        <p:commandLink action="#{professorExcluirBean.selecionar(professor)}" process="@this">
+                            Seecionar
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
 </html>
 

@@ -12,5 +12,7 @@
     <mapping class="br.com.sali.modelo.Aluno"/>
     <mapping class="br.com.sali.modelo.Professor"/>
     <mapping class="br.com.sali.modelo.Turma"/>
+    <mapping class="br.com.sali.modelo.Endereco"/>
+    <mapping class="br.com.sali.modelo.Instituicao"/>
   </session-factory>
 </hibernate-configuration>

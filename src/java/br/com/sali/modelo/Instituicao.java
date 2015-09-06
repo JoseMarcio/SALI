@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -17,29 +18,28 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Aluno implements Serializable {
+public class Instituicao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="id_aluno")
+    @Column(name = "id_instituicao")
     private Long id;
     private String nome;
-    private int matricula;
     private String email;
+    private Integer telefone;
     private String senha;
-    @ManyToOne
-    @JoinColumn(name = "id_turma")
-    private Turma turma;
+    @OneToOne(mappedBy = "instituicao")
+    @Cascade(CascadeType.ALL)
+    private Endereco endereco;
 
-    public Aluno() {
-
+    public Instituicao() {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
-
-    public void setId(Long id) {
+    
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -51,20 +51,20 @@ public class Aluno implements Serializable {
         this.nome = nome;
     }
 
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Integer telefone) {
+        this.telefone = telefone;
     }
 
     public String getSenha() {
@@ -75,23 +75,23 @@ public class Aluno implements Serializable {
         this.senha = senha;
     }
 
-    public Turma getTurma() {
-        return turma;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + this.matricula;
-        hash = 59 * hash + Objects.hashCode(this.email);
-        hash = 59 * hash + Objects.hashCode(this.senha);
-        hash = 59 * hash + Objects.hashCode(this.turma);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        hash = 97 * hash + Objects.hashCode(this.telefone);
+        hash = 97 * hash + Objects.hashCode(this.senha);
+        hash = 97 * hash + Objects.hashCode(this.endereco);
         return hash;
     }
 
@@ -103,23 +103,23 @@ public class Aluno implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Aluno other = (Aluno) obj;
+        final Instituicao other = (Instituicao) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (this.matricula != other.matricula) {
+        if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
+        if (!Objects.equals(this.telefone, other.telefone)) {
             return false;
         }
         if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
-        if (!Objects.equals(this.turma, other.turma)) {
+        if (!Objects.equals(this.endereco, other.endereco)) {
             return false;
         }
         return true;
