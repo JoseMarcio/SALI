@@ -6,6 +6,6 @@ import br.com.sali.modelo.Turma;
  *
  * @author SALI
  */
-public class TurmaDao extends GenericoDAO<Turma>{
+public class TurmaDAO extends GenericoDAO<Turma>{
 
 }

@@ -5,6 +5,6 @@ import br.com.sali.modelo.Aluno;
 /**
  * @author SALI 
  */
-public class AlunoDao extends GenericoDAO<Aluno>{
+public class AlunoDAO extends GenericoDAO<Aluno>{
 
 }

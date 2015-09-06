@@ -6,6 +6,6 @@ import br.com.sali.modelo.Professor;
  *
  * @author SALI
  */
-public class ProfessorDao extends GenericoDAO<Professor>{
+public class ProfessorDAO extends GenericoDAO<Professor>{
 
 }
