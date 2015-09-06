@@ -58,15 +58,21 @@ public class GenericoDAO<T> extends ManuseioDb {
      * @return
      */
     public List<T> listar(Class<T> myClass, String filtro) {
+        getSessao();
+        
         List<T> resultados = new ArrayList<>();
         Criteria criteria = getSessao().createCriteria(myClass);
         if (ValidacoesUtil.soContemNumeros(filtro)) {
             Criterion criterioDeBusca = Restrictions.eq("matricula", Integer.parseInt(filtro));
             resultados = criteria.add(criterioDeBusca).list();
+            getTransacao().commit();
+            getSessao().close();
             return resultados;
         } else {
             Criterion criterioDeBusca = Restrictions.ilike("nome", filtro);
             resultados = criteria.add(criterioDeBusca).list();
+            getTransacao().commit();
+            getSessao().close();
             return resultados;
         }
     }
@@ -97,9 +103,13 @@ public class GenericoDAO<T> extends ManuseioDb {
         Criteria criteria = getSessao().createCriteria(myClass);
         Criterion criterioDeBusca = Restrictions.eq("email", email);
         if(criteria.add(criterioDeBusca).list().isEmpty()){
+            getTransacao().commit();
+            getSessao().close();
             return false;
         }
         else{
+            getTransacao().commit();
+            getSessao().close();
             return true;
         }
 

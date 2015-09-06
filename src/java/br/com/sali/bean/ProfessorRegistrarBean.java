@@ -1,8 +1,7 @@
 package br.com.sali.bean;
 
-import br.com.sali.dao.ProfessorDao;
 import br.com.sali.modelo.Professor;
-import br.com.sali.util.CriptografiaUtil;
+import br.com.sali.regras.ProfessorRN;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -11,16 +10,12 @@ import javax.faces.context.FacesContext;
  *
  * @author SALI
  */
-@ManagedBean
+@ManagedBean(name = "registrarProfessorBean")
 public class ProfessorRegistrarBean {
 
+    private ProfessorRN professorRN = new ProfessorRN();
     private Professor professor = new Professor();
-    private ProfessorDao professorDao = new ProfessorDao();
-    private CriptografiaUtil criptografiaUtil = new CriptografiaUtil();
     private String confirmaSenha;
-
-    public ProfessorRegistrarBean() {
-    }
 
     public Professor getProfessor() {
         return professor;
@@ -28,22 +23,6 @@ public class ProfessorRegistrarBean {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
-    }
-
-    public ProfessorDao getProfessorDao() {
-        return professorDao;
-    }
-
-    public void setProfessorDao(ProfessorDao professorDao) {
-        this.professorDao = professorDao;
-    }
-
-    public CriptografiaUtil getCriptografiaUtil() {
-        return criptografiaUtil;
-    }
-
-    public void setCriptografiaUtil(CriptografiaUtil criptografiaUtil) {
-        this.criptografiaUtil = criptografiaUtil;
     }
 
     public String getConfirmaSenha() {
@@ -54,55 +33,39 @@ public class ProfessorRegistrarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public String registrarProfessor() {
-        try {
-
-            if (!professor.getSenha().equals(confirmaSenha)) {
-                FacesContext f = FacesContext.getCurrentInstance();
-                f.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "As senhas informadas não coincidem.", ""));
-            } else {
-
-                if (professorDao.isExistenteMatricula(professor.getMatricula())) {
-                    FacesContext f = FacesContext.getCurrentInstance();
-                    f.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Essa matrícula já pertence a um usuário.", ""));
-
-                } else {
-                    if (professorDao.isExistenteEmail(professor.getEmail())) {
-                        FacesContext f = FacesContext.getCurrentInstance();
-                        f.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Esse e-mail já pertence a um usuário.", ""));
-
-                    } else {
-
-                        professor.setSenha(criptografiaUtil.criptografaSenha(professor.getSenha()));
-                        professorDao.registrar(professor);
-                        FacesContext f = FacesContext.getCurrentInstance();
-                        f.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Professor registrado com sucesso.", ""));
-                        limpar();
-
-                    }
-
-                }
-
-            }
-
-        } catch (Exception e) {
-            FacesContext f = FacesContext.getCurrentInstance();
-            f.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro ao tentar registrar professor.", ""));
-
-        }
-        return null;
+    /**
+     * Verifica se a senha e a confirmação de senha são iguais.
+     *
+     * @return
+     */
+    public boolean senhasIguais() {
+        return professor.getSenha().equals(confirmaSenha);
     }
 
-    public String limpar() {
-        professor = new Professor();
-        professorDao = new ProfessorDao();
-        criptografiaUtil = new CriptografiaUtil();
+    /**
+     * Zera as informações dos objetos da bean.
+     */
+    public void limparBean() {
         confirmaSenha = "";
-        return "registrarProfessor";
+        professor = new Professor();
+        professorRN = new ProfessorRN();
     }
 
-    public String direcionaPesquisarProfessor() {
-        return "pesquisarProfessor";
+    /**
+     * Registra o professor informado na tela no banco de dados.
+     * @return 
+     */
+    public String registrar() {
+        if (!senhasIguais()) {
+            FacesContext.getCurrentInstance().addMessage("validaMatriculaProfessor", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Senhas informadas não conferem.", ""));
+            return "registrar_professor";
+        } else {
+            professorRN.registrarProfessor(professor);
+            limparBean();
+            FacesContext.getCurrentInstance().addMessage("validaMatriculaProfessor", new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Professor registrado com sucesso.", ""));
+            return "registrar_professor";
+        }
     }
-
 }

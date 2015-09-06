@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/template/areaInstituicao.xhtml">
+        <ui:define name="titulo">
+            Registrar Professor
+        </ui:define>
+
+        <ui:define name="corpo">
+
+
+            <h:form id="formulario_registrar_professor">
+                <h3>Registrar Novo Professor</h3>
+                <h:panelGrid columns="1">
+
+
+                    <h:outputLabel value="Nome Completo:" for="inputNome"/>
+                    <h:inputText id="inputNome" value="#{registrarProfessorBean.professor.nome}" required="true" 
+                                 requiredMessage="Insira o nome do professor."/>
+
+
+                    <h:outputLabel value="Matrícula Escolar:" for="inputMatricula"/>
+                    <h:inputText id="inputMatricula" value="#{registrarProfessorBean.professor.matricula}" required="true"
+                                 requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" validator="validaMatriculaProfessor"/>
+
+
+                    <h:outputLabel value="Email:" for="inputEmail"/>
+                    <h:inputText id="inputEmail" value="#{registrarProfessorBean.professor.email}" required="true"
+                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." validator="validaEmailProfessor">
+                        <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                    </h:inputText>
+
+
+
+                    <h:outputLabel value="Senha:" for="inputSenha"/>
+                    <h:inputSecret id="inputSenha" value="#{registrarProfessorBean.professor.senha}" required="true" requiredMessage="Informe uma senha."/>
+
+                    <h:outputLabel value="Confirme a Senha:" for="inputConfirmaSenha"/>
+                    <h:inputSecret value="#{registrarProfessorBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."/>
+
+
+                    <h:commandButton action="#{registrarProfessorBean.registrar()}" value="Registrar"/>
+                    <p:messages autoUpdate="true"/>
+
+
+                </h:panelGrid>
+            </h:form>
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>
+

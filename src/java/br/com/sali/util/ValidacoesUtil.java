@@ -20,4 +20,13 @@ public class ValidacoesUtil {
         return true;  
           
     }  
+    
+    /**
+     * Verifica se só tem letras.
+     * @param texto
+     * @return 
+     */
+    public static boolean soTemLetras(String texto){
+        return texto.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$");
+    }
 }
