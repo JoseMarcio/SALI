@@ -10,9 +10,20 @@ import br.com.sali.modelo.Instituicao;
 public class InstituicaoRN {
     
     private InstituicaoDAO instituicaDAO;
+    private final long idMyInstituicao = 1;
+    private Instituicao instituicoCadastrada;
 
     public InstituicaoRN() {
         instituicaDAO = new InstituicaoDAO();
+        instituicoCadastrada = instituicaDAO.getInstituicaoById(idMyInstituicao);
+    }
+
+    public Instituicao getInstituicoCadastrada() {
+        return instituicoCadastrada;
+    }
+
+    public void setInstituicoCadastrada(Instituicao instituicoCadastrada) {
+        this.instituicoCadastrada = instituicoCadastrada;
     }
     
     
@@ -23,4 +34,5 @@ public class InstituicaoRN {
     public void atualizarInstituicao(Instituicao instituicao){
         instituicaDAO.atualizar(instituicao);
     }
+    
 }

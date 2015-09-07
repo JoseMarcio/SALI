@@ -34,6 +34,12 @@
                         <h:outputLabel value="#{professor.email}"/>
                     </p:column>
 
+                    <p:column>
+                        <p:commandButton icon="ui-icon-check" title="Selecionar"
+                                         action="#{pesquisarProfessorBean.selecionarProfessor(professor)}"
+    				process="@this" />
+                    </p:column>
+                    
                 </p:dataTable>
             </h:panelGrid>
             <p:messages autoUpdate="true"/>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+
+        <h:form>
+            <h:panelGroup>
+                
+                <h:outputText id="professor" value="#{excluirProfessorBean.professor.nome}"/>
+                
+                <p:commandButton icon="ui-ico-search" title="Pesquisa" action="#{pesquisarProfessorBean.abrirDialogo()}"
+                                 process="@this" update="@none">
+                    <p:ajax event="dialogReturn" listener="#{excluirProfessorBean.professorSelecionado}"
+                            process="@this" update="professor"/>
+                    <p:resetInput target="professor" />
+                </p:commandButton>
+            </h:panelGroup>
+        </h:form>
+            
+            
+    </h:body>
+</html>
+

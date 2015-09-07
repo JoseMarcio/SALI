@@ -2,6 +2,7 @@ package br.com.sali.regras;
 
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.modelo.Aluno;
+import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
 import java.util.List;
 
@@ -13,10 +14,12 @@ public class AlunoRN {
 
     private AlunoDAO alunoDAO;
     private CriptografiaUtil criptografiaUtil;
+    private TurmaRN turmaRN;
 
     public AlunoRN() {
         alunoDAO = new AlunoDAO();
         criptografiaUtil = new CriptografiaUtil();
+        turmaRN = new TurmaRN();
     }
 
     /**
@@ -56,7 +59,11 @@ public class AlunoRN {
      * @param aluno
      */
     public void excluirAluno(Aluno aluno) {
-        aluno.getTurma().getAlunos().remove(aluno);
+        Turma turmaDoAluno = aluno.getTurma();
+        turmaDoAluno.getAlunos().remove(aluno);
+        aluno.setTurma(null);
+        turmaRN.atualizarTurma(turmaDoAluno);
+        alunoDAO.atualizar(aluno);
         alunoDAO.excluir(aluno);
     }
 
