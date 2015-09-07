@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:composition template="/template/areaInstituicao.xhtml">
         <ui:define name="titulo">
@@ -22,27 +23,31 @@
 
                     <h:outputLabel value="Nome Completo:" for="inputNome"/>
                     <h:inputText id="inputNome" value="#{registrarProfessorBean.professor.nome}" required="true" 
-                                 requiredMessage="Insira o nome do professor."/>
+                                 requiredMessage="Insira o nome do professor." pt:placeholder="Informe o nome"/>
 
 
                     <h:outputLabel value="Matrícula Escolar:" for="inputMatricula"/>
                     <h:inputText id="inputMatricula" value="#{registrarProfessorBean.professor.matricula}" required="true"
-                                 requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" validator="validaMatriculaProfessor"/>
+                                 requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" validator="validaMatriculaProfessor"
+                                 pt:placeholder="Somente números"/>
 
 
                     <h:outputLabel value="Email:" for="inputEmail"/>
                     <h:inputText id="inputEmail" value="#{registrarProfessorBean.professor.email}" required="true"
-                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." validator="validaEmailProfessor">
+                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." validator="validaEmailProfessor"
+                                 pt:placeholder="Informe o e-mail">
                         <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
                     </h:inputText>
 
 
 
                     <h:outputLabel value="Senha:" for="inputSenha"/>
-                    <h:inputSecret id="inputSenha" value="#{registrarProfessorBean.professor.senha}" required="true" requiredMessage="Informe uma senha."/>
+                    <h:inputSecret id="inputSenha" value="#{registrarProfessorBean.professor.senha}" required="true" requiredMessage="Informe uma senha."
+                                   pt:placeholder="Senha"/>
 
                     <h:outputLabel value="Confirme a Senha:" for="inputConfirmaSenha"/>
-                    <h:inputSecret value="#{registrarProfessorBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."/>
+                    <h:inputSecret value="#{registrarProfessorBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."
+                                   pt:placeholder="Confirmar Senha"/>
 
 
                     <h:commandButton action="#{registrarProfessorBean.registrar()}" value="Registrar"/>

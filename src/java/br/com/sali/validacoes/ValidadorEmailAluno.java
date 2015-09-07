@@ -1,6 +1,6 @@
 package br.com.sali.validacoes;
 
-import br.com.sali.regras.ProfessorRN;
+import br.com.sali.regras.AlunoRN;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -12,17 +12,18 @@ import javax.faces.validator.ValidatorException;
  *
  * @author SALI
  */
-@FacesValidator(value = "validaEmailProfessor")
-public class ValidadorEmailProfessor implements Validator {
+@FacesValidator(value = "validaEmailAluno")
+public class ValidadorEmailAluno implements Validator{
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String email = (String) value;
-        ProfessorRN professorRN = new ProfessorRN();
-        if (professorRN.isExistenteEmail(email)) {
-             FacesContext.getCurrentInstance().addMessage("validaEmailProfessor", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+        AlunoRN alunoRN = new AlunoRN();
+        if (alunoRN.isExistenteEmail(email)) {
+             FacesContext.getCurrentInstance().addMessage("validaEmailAluno", new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "E-mail já cadastrado.", ""));
         }
     }
-
+    
+    
 }

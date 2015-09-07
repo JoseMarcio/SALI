@@ -59,5 +59,24 @@ public class ProfessorRN {
             return false;
         }
     }
-            
+        
+    /**
+     * Verifica se o e-mail informado já existe no banco de dados.
+     *
+     * @param email
+     * @return
+     */
+    public boolean isExistenteEmail(String email) {
+        return professorDAO.isExistenteEmail(Professor.class, email);
+    }
+    
+     /**
+     * Verifica se a matrícula informada já existe no banco de dados.
+     *
+     * @param matricula
+     * @return
+     */
+    public boolean isExisteEssaMatricula(String matricula) {
+        return professorDAO.isExisteEssaMatricula(Professor.class, matricula);
+    }
 }

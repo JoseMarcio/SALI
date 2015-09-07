@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Pesquisa de Professor</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="formulario_pesquisar_professor">
+            <h:panelGrid columns="1" cellpadding="7">
+                <h:panelGrid columns="3">
+                    <h:inputText value="#{pesquisarProfessorBean.filtroDePesquisa}"  pt:placeholder="Nome ou Matrícula" required="true"
+                                 requiredMessage="Informe um dado para pesquisar."/>
+                    <h:commandButton action="#{pesquisarProfessorBean.pesquisar()}" value="Pesquisar"/>
+                </h:panelGrid>
+                <p:dataTable value="#{pesquisarProfessorBean.professoresFiltrados}" var="professor" emptyMessage="Nenhum professor encontrado.">
+
+                    <p:column headerText="Matrícula">
+                        <h:outputLabel value="#{professor.matricula}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputLabel value="#{professor.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="E-mail">
+                        <h:outputLabel value="#{professor.email}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGrid>
+            <p:messages autoUpdate="true"/>
+        </h:form>
+
+        <h:form id="formulario_limpar_dados">
+            <h:panelGrid columns="1"  cellpadding="7">
+                <h:commandButton action="#{pesquisarProfessorBean.limparBean()}" value="Limpar"/>
+            </h:panelGrid>            
+        </h:form>
+
+    </h:body>
+</html>
+

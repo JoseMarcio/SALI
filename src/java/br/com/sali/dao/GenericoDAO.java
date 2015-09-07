@@ -69,7 +69,7 @@ public class GenericoDAO<T> extends ManuseioDb {
             getSessao().close();
             return resultados;
         } else {
-            Criterion criterioDeBusca = Restrictions.ilike("nome", filtro);
+            Criterion criterioDeBusca = Restrictions.ilike("nome", "%"+filtro+"%");
             resultados = criteria.add(criterioDeBusca).list();
             getTransacao().commit();
             getSessao().close();
