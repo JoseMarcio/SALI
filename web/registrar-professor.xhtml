@@ -34,7 +34,7 @@
 
                     <h:outputLabel value="Email:" for="inputEmail"/>
                     <h:inputText id="inputEmail" value="#{registrarProfessorBean.professor.email}" required="true"
-                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." validator="validaEmailProfessor"
+                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." validator="validaEmail"
                                  pt:placeholder="Informe o e-mail">
                         <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
                     </h:inputText>

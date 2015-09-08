@@ -35,4 +35,13 @@ public class InstituicaoRN {
         instituicaDAO.atualizar(instituicao);
     }
     
+    /**
+     * Verifica se o e-mail informado já existe no banco de dados.
+     *
+     * @param email
+     * @return
+     */
+    public boolean isExistenteEmail(String email) {
+        return instituicaDAO.isExistenteEmail(Instituicao.class, email);
+    }
 }

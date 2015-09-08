@@ -129,4 +129,10 @@ public class GenericoDAO<T> extends ManuseioDb {
             return true;
         }
     }
+    
+    
+    /**
+     * Busca no banco de dados um usuário por email.
+     * Sendo um único email. Ou seja um úci
+     */
 }

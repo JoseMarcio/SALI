@@ -1,10 +1,10 @@
 package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
-import java.util.HashMap;
-import java.util.Map;
+import br.com.sali.regras.ProfessorRN;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import org.primefaces.context.RequestContext;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -15,6 +15,7 @@ import org.primefaces.event.SelectEvent;
 public class ProfessorExcluirBean {
 
     private Professor professor = new Professor();
+    private ProfessorRN professorRN = new ProfessorRN();
 
     public Professor getProfessor() {
         return professor;
@@ -30,5 +31,25 @@ public class ProfessorExcluirBean {
     }
 
     
+    
+    /**
+     * Exclui o professor selecionado.
+     * 
+     * @return 
+     */
+    public String excluir(){
+        if(professorRN.excluirProfessor(professor)){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Professor excluido com sucesso.", ""));
+             
+             return "excluir-professor";
+        }
+        else{
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Não é possível excluir o professor. Ele está em "+professor.getTurmas().size()+" Turmas.", ""));
+             
+             return "excluir-professor";
+        }
+    }
 
 }

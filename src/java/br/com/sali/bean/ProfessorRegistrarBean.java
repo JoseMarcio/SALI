@@ -59,13 +59,13 @@ public class ProfessorRegistrarBean {
         if (!senhasIguais()) {
             FacesContext.getCurrentInstance().addMessage("validaMatriculaProfessor", new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Senhas informadas não conferem.", ""));
-            return "registrar_professor";
+            return "registrar-professor";
         } else {
             professorRN.registrarProfessor(professor);
             limparBean();
             FacesContext.getCurrentInstance().addMessage("validaMatriculaProfessor", new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Professor registrado com sucesso.", ""));
-            return "registrar_professor";
+            return "registrar-professor";
         }
     }
 }
