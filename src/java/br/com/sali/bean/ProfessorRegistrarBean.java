@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
+import br.com.sali.util.ValidacoesUtil;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -53,19 +54,30 @@ public class ProfessorRegistrarBean {
 
     /**
      * Registra o professor informado na tela no banco de dados.
-     * @return 
+     *
      */
-    public String registrar() {
-        if (!senhasIguais()) {
-            FacesContext.getCurrentInstance().addMessage("validaMatriculaProfessor", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Senhas informadas não conferem.", ""));
-            return "registrar-professor";
+    public void registrar() {
+        if(!ValidacoesUtil.isValidaMatricula(professor.getMatricula())){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Informe uma matrícula válida.", ""));
+        }
+        else if (ValidacoesUtil.isExistenteMatricula(professor.getMatricula())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Matrícula já cadastrada.", ""));
+
+        } else if (ValidacoesUtil.isExistenteEmail(professor.getEmail())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "E-mail já cadastrado.", ""));
+
+        } else if (!senhasIguais()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "As senhas não conferem.", ""));
+
         } else {
             professorRN.registrarProfessor(professor);
             limparBean();
-            FacesContext.getCurrentInstance().addMessage("validaMatriculaProfessor", new FacesMessage(FacesMessage.SEVERITY_INFO,
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Professor registrado com sucesso.", ""));
-            return "registrar-professor";
         }
     }
 }

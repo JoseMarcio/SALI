@@ -85,11 +85,7 @@ public class GenericoDAO<T> extends ManuseioDb {
      * @return
      */
     public boolean isExisteEssaMatricula(Class<T> myClass, String matricula) {
-        if (listar(myClass, matricula).isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !listar(myClass, matricula).isEmpty();
     }
 
     /**
@@ -123,16 +119,7 @@ public class GenericoDAO<T> extends ManuseioDb {
      * @return
      */
     public boolean isExistenteNome(Class<T> myClass, String nome) {
-        if (listar(myClass, nome).isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !listar(myClass, nome).isEmpty();
     }
     
-    
-    /**
-     * Busca no banco de dados um usuário por email.
-     * Sendo um único email. Ou seja um úci
-     */
 }

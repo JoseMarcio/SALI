@@ -35,11 +35,11 @@
                     </p:column>
 
                     <p:column>
-                        <p:commandButton icon="ui-icon-check" title="Selecionar"
-                                         action="#{pesquisarProfessorBean.selecionarProfessor(professor)}"
-    				process="@this" />
+                        <p:commandButton  actionListener="#{excluirProfessorBean.excluir()}" value="Excluir">
+                            <f:setPropertyActionListener target="#{excluirProfessorBean.professor}" value="#{professor}" />
+                        </p:commandButton>
                     </p:column>
-                    
+
                 </p:dataTable>
             </h:panelGrid>
             <p:messages autoUpdate="true"/>

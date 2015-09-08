@@ -7,11 +7,11 @@ package br.com.sali.util;
  */
 public class CriptografiaUtil {
     
-    public String criptografaSenha(String senha){
+    public static String criptografaSenha(String senha){
         return senha;
     }
     
-    public String descriptografaSenha(String senha){
+    public static String descriptografaSenha(String senha){
         return senha;
     }
     

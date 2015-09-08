@@ -10,19 +10,7 @@
     <h:body>
         
 
-        <h:form>
-            <h:panelGroup>
-                
-                <h:outputText id="professor" value="#{excluirProfessorBean.professor.nome}"/>
-                
-                <p:commandButton icon="ui-ico-search" title="Pesquisa" action="#{pesquisarProfessorBean.abrirDialogo()}"
-                                 process="@this" update="@none">
-                    <p:ajax event="dialogReturn" listener="#{excluirProfessorBean.professorSelecionado}"
-                            process="@this" update="professor"/>
-                    <p:resetInput target="professor" />
-                </p:commandButton>
-            </h:panelGroup>
-        </h:form>
+        
             
             
     </h:body>

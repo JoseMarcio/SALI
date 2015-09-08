@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -28,7 +30,8 @@ public class Professor implements Serializable {
     private String email;
     private int matricula;
     private String senha;
-    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "professor", fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     private List<Turma> turmas;
 
     public Professor() {

@@ -1,7 +1,9 @@
 package br.com.sali.regras;
 
 import br.com.sali.dao.ProfessorDAO;
+import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
 import java.util.List;
 
@@ -10,56 +12,62 @@ import java.util.List;
  * @author SALI
  */
 public class ProfessorRN {
-    
-    private ProfessorDAO professorDAO;
-    private CriptografiaUtil criptografiaUtil;
-    
-    public ProfessorRN(){
+
+    private final ProfessorDAO professorDAO;
+
+    public ProfessorRN() {
         professorDAO = new ProfessorDAO();
-        criptografiaUtil = new CriptografiaUtil();
     }
-    
+
     /**
      * Salva um professor.
-     * @param professor 
+     *
+     * @param professor
      */
-    public void registrarProfessor(Professor professor){
-        professor.setSenha(criptografiaUtil.criptografaSenha(professor.getSenha()));
+    public void registrarProfessor(Professor professor) {
+        professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
         professorDAO.salvar(professor);
     }
-    
+
     /**
      * Atualiza um professor do banco de dados.
+     *
      * @param professor
      */
-    public void atualizarProfessor(Professor professor){
+    public void atualizarProfessor(Professor professor) {
+        professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
         professorDAO.atualizar(professor);
     }
-            
+
     /**
      * Lista os professores solicitados.
+     *
      * @param filtro
-     * @return 
+     * @return
      */
-    public List<Professor> listarProfessores(String filtro){
+    public List<Professor> listarProfessores(String filtro) {
         return professorDAO.listar(Professor.class, filtro);
     }
-    
+
     /**
-     * Exclui um professor se o mesmo não tiver registrado em nenhuma turma.
+     * Exclui um professor.
+     *
      * @param professor
-     * @return 
+     * @return
      */
-    public boolean excluirProfessor(Professor professor){
-        if(professor.getTurmas().isEmpty()){
+    public boolean excluirProfessor(Professor professor) {
+        List<Turma> turmas = professor.getTurmas();
+        
+        if(turmas.isEmpty()){
             professorDAO.excluir(professor);
             return true;
         }
         else{
             return false;
         }
-    }
         
+    }
+
     /**
      * Verifica se o e-mail informado já existe no banco de dados.
      *
@@ -69,8 +77,8 @@ public class ProfessorRN {
     public boolean isExistenteEmail(String email) {
         return professorDAO.isExistenteEmail(Professor.class, email);
     }
-    
-     /**
+
+    /**
      * Verifica se a matrícula informada já existe no banco de dados.
      *
      * @param matricula

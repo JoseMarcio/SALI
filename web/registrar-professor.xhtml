@@ -28,13 +28,13 @@
 
                     <h:outputLabel value="Matrícula Escolar:" for="inputMatricula"/>
                     <h:inputText id="inputMatricula" value="#{registrarProfessorBean.professor.matricula}" required="true"
-                                 requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" validator="validaMatriculaProfessor"
+                                 requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" 
                                  pt:placeholder="Somente números"/>
 
 
                     <h:outputLabel value="Email:" for="inputEmail"/>
                     <h:inputText id="inputEmail" value="#{registrarProfessorBean.professor.email}" required="true"
-                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." validator="validaEmail"
+                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." 
                                  pt:placeholder="Informe o e-mail">
                         <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
                     </h:inputText>
