@@ -33,25 +33,27 @@
                     </ul>
                 </nav>
                 <nav id="menuLateral">
-                    <ul>
-                        <li>Aluno</li>
-                        <li>Professor</li>
-                        <li>Turma</li>
-                    </ul>
+                    <h:form>
+                        <ul>
+                            <li>Aluno</li>
+                            <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarProfessor()}">Registrar Professor</h:commandLink></li>
+                            <li>Turma</li>
+                        </ul>
+                    </h:form>
                 </nav>
-                
+
                 <section id="corpo">
                     <ui:insert name="corpo" />
                 </section>
             </section>
-            
+
             <footer>
                 SALI - Sistema de Aprendizado da Língua Ínglesa
             </footer>
 
         </section>
-        
-            
+
+
 
 
     </h:body>
