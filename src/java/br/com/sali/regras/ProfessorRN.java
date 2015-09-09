@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ProfessorRN {
 
-    private final ProfessorDAO professorDAO;
+    private ProfessorDAO professorDAO;
 
     public ProfessorRN() {
         professorDAO = new ProfessorDAO();

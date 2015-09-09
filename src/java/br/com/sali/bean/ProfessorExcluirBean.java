@@ -5,7 +5,7 @@ import br.com.sali.regras.ProfessorRN;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -16,6 +16,10 @@ public class ProfessorExcluirBean {
 
     private Professor professor = new Professor();
     private ProfessorRN professorRN = new ProfessorRN();
+    private boolean temProfessorSelecionado = false;
+
+    public ProfessorExcluirBean() {
+    }
 
     public Professor getProfessor() {
         return professor;
@@ -25,30 +29,42 @@ public class ProfessorExcluirBean {
         this.professor = professor;
     }
 
-    public void professorSelecionado(SelectEvent event) {
-        Professor pf = (Professor) event.getObject();
-        setProfessor(pf);
+    /**
+     * lIMPRA BEAN
+     */
+    public void limpar() {
+        professor = new Professor();
+        professorRN = new ProfessorRN();
     }
 
+    public void selecionarProfessor(Professor professor) {
+        this.professor = professor;
+        temProfessorSelecionado = true;
+    }
     
-    
+    public void chooseCar() {
+        RequestContext.getCurrentInstance().openDialog("pesquisar_professor");
+    }
+
     /**
      * Exclui o professor selecionado.
-     * 
-     * @return 
+     *
      */
-    public String excluir(){
-        if(professorRN.excluirProfessor(professor)){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Professor excluido com sucesso.", ""));
-             
-             return "excluir-professor";
-        }
-        else{
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Não é possível excluir o professor. Ele está em "+professor.getTurmas().size()+" Turmas.", ""));
-             
-             return "excluir-professor";
+    public void excluir() {
+        if (temProfessorSelecionado) {
+
+            if (professorRN.excluirProfessor(professor)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Professor excluido com sucesso.", ""));
+                limpar();
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Não é possível excluir o professor. Ele está em " + professor.getTurmas().size() + " Turmas.", ""));
+
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Nenhum professsor selecionado.", ""));
         }
     }
 

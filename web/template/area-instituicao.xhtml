@@ -26,18 +26,20 @@
             </nav>
             <section id="conteudo">
                 <nav id="menu">
-                    <ul>
-                        <li>Início</li>
-                        <li>Alterar</li>
-                        <li>Sair</li>
-                    </ul>
+                    <h:form>
+                        <ul>
+                            <li><h:commandLink action="#{beanTemplateInstituicao.irInicioInstituicao()}">Início</h:commandLink></li>
+                            <li>Alterar</li>
+                            <li>Sair</li>
+                        </ul>
+                    </h:form>
                 </nav>
                 <nav id="menuLateral">
                     <h:form>
                         <ul>
-                            <li>Aluno</li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarProfessor()}">Registrar Professor</h:commandLink></li>
-                            <li>Turma</li>
+                            <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor"/></li>
+                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor"/></li>
+                            <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor"/></li>
                         </ul>
                     </h:form>
                 </nav>

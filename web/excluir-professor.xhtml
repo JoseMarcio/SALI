@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:composition template="/template/area-instituicao.xhtml">
+        <ui:define name="titulo">
+            ExcluirProfessor
+        </ui:define>
+
+        <ui:define name="corpo">
+
+            <h1>Excluir Professor</h1>
+
+            <h:form>
+                <p:growl id="growl" showDetail="true" />
+
+                <p:commandButton value="Selecione o professor" icon="ui-icon-extlink" actionListener="#{excluirProfessorBean.chooseCar}">
+                    
+                </p:commandButton>
+            </h:form>
+
+
+
+            <h:form><h:commandLink value="Selecionar professor"/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Nome:"/>
+                    <h:outputText value="#{excluirProfessorBean.professor.nome}"/>
+                    <h:outputLabel value="E-Mail:"/>
+                    <h:outputText value="#{excluirProfessorBean.professor.email}"/>
+                    <h:outputLabel value="Matrícula:"/>
+                    <h:outputText value="#{excluirProfessorBean.professor.matricula}"/>
+
+                    <h:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir Professor"/>
+                </h:panelGrid>
+                <p:messages autoUpdate="true"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
