@@ -6,6 +6,7 @@ import br.com.sali.util.ValidacoesUtil;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -20,6 +21,7 @@ public class ProfessorAlterarBean {
     private boolean temProfessorSelecionado = false;
     private int matriculaAtulProfessor;
     private String emailAtualProfessor;
+    private boolean render = Boolean.FALSE;
 
     public String getConfirmaSenha() {
         return confirmaSenha;
@@ -40,6 +42,18 @@ public class ProfessorAlterarBean {
         this.professor = professor;
     }
 
+    public boolean isRender() {
+        return render;
+    }
+
+    public void setRender(boolean render) {
+        this.render = render;
+    }
+
+    
+    
+    
+    
     public void selecionaProfessor(Professor professor) {
         temProfessorSelecionado = true;
         this.professor = professor;
@@ -109,5 +123,16 @@ public class ProfessorAlterarBean {
         
         
         }
+    }
+    
+    
+    
+    public void exibirForm(){
+        setRender(Boolean.TRUE);
+    }
+    
+    
+    public void pesquisarProfessor(){
+        RequestContext.getCurrentInstance().openDialog("pesquisar-professor");
     }
 }

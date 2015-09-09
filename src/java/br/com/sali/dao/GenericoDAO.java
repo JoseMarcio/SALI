@@ -59,7 +59,7 @@ public class GenericoDAO<T> extends ManuseioDb {
      */
     public List<T> listar(Class<T> myClass, String filtro) {
         getSessao();
-        
+
         List<T> resultados = new ArrayList<>();
         Criteria criteria = getSessao().createCriteria(myClass);
         if (ValidacoesUtil.soContemNumeros(filtro)) {
@@ -69,7 +69,7 @@ public class GenericoDAO<T> extends ManuseioDb {
             getSessao().close();
             return resultados;
         } else {
-            Criterion criterioDeBusca = Restrictions.ilike("nome", "%"+filtro+"%");
+            Criterion criterioDeBusca = Restrictions.ilike("nome", "%" + filtro + "%");
             resultados = criteria.add(criterioDeBusca).list();
             getTransacao().commit();
             getSessao().close();
@@ -98,12 +98,11 @@ public class GenericoDAO<T> extends ManuseioDb {
     public boolean isExistenteEmail(Class<T> myClass, String email) {
         Criteria criteria = getSessao().createCriteria(myClass);
         Criterion criterioDeBusca = Restrictions.eq("email", email);
-        if(criteria.add(criterioDeBusca).list().isEmpty()){
+        if (criteria.add(criterioDeBusca).list().isEmpty()) {
             getTransacao().commit();
             getSessao().close();
             return false;
-        }
-        else{
+        } else {
             getTransacao().commit();
             getSessao().close();
             return true;
@@ -121,5 +120,13 @@ public class GenericoDAO<T> extends ManuseioDb {
     public boolean isExistenteNome(Class<T> myClass, String nome) {
         return !listar(myClass, nome).isEmpty();
     }
-    
+
+    public List<T> listarTodos(Class<T> myClass) {
+        List<T> resultados = new ArrayList<>();
+        Criteria criteria = getSessao().createCriteria(myClass);
+        resultados = criteria.list();
+        getTransacao().commit();
+        getSessao().close();
+        return resultados;
+    }
 }

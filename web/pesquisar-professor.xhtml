@@ -3,9 +3,7 @@
 <html lang="pt-br"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:head>
@@ -14,35 +12,31 @@
     <h:body>
 
         <h:form id="formulario_pesquisar_professor">
+            
             <h:panelGrid columns="1" cellpadding="7">
+                
                 <h:panelGrid columns="3">
                     <h:inputText value="#{pesquisarProfessorBean.filtroDePesquisa}"  pt:placeholder="Nome ou Matrícula" required="true"
                                  requiredMessage="Informe um dado para pesquisar."/>
                     <h:commandButton action="#{pesquisarProfessorBean.pesquisar()}" value="Pesquisar"/>
                 </h:panelGrid>
-                <p:dataTable value="#{pesquisarProfessorBean.professoresFiltrados}" var="professor" emptyMessage="Nenhum professor encontrado.">
+                
+                <p:dataTable value="#{pesquisarProfessorBean.professoresFiltrados}" var="professor" 
+                             emptyMessage="Nenhum dado a exibir.">
 
-                    <p:column headerText="Matrícula">
+                    <p:column headerText="Matrícula" width="120" style="text-align: left;">
                         <h:outputLabel value="#{professor.matricula}"/>
                     </p:column>
 
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome" style="text-align: left;">
                         <h:outputLabel value="#{professor.nome}"/>
                     </p:column>
-
-                    <p:column headerText="E-mail">
-                        <h:outputLabel value="#{professor.email}"/>
-                    </p:column>
-
-                    <p:column>
-                        <p:commandButton  actionListener="#{excluirProfessorBean.excluir()}" value="Excluir">
-                            <f:setPropertyActionListener target="#{excluirProfessorBean.professor}" value="#{professor}" />
-                        </p:commandButton>
-                    </p:column>
-
                 </p:dataTable>
+            
             </h:panelGrid>
+            
             <p:messages autoUpdate="true"/>
+            
         </h:form>
 
         <h:form id="formulario_limpar_dados">
