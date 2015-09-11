@@ -21,6 +21,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>autenticacao.jsf</welcome-file>
+        <welcome-file>inicio-instituicao.jsf</welcome-file>
     </welcome-file-list>
 </web-app>
