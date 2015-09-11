@@ -7,26 +7,23 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
+    
     <ui:composition template="/template/area-instituicao.xhtml">
         <ui:define name="titulo">
-            ExcluirProfessor
+            Excluir Professor
         </ui:define>
 
+        
         <ui:define name="corpo">
 
             <h1>Excluir Professor</h1>
+            
+            <!-- Formulário para exclusão de professor. -->
 
             <h:form>
-                <p:growl id="growl" showDetail="true" />
-
-                <p:commandButton value="Selecione o professor" icon="ui-icon-extlink" actionListener="#{excluirProfessorBean.chooseCar}">
-                    
-                </p:commandButton>
-            </h:form>
-
-
-
-            <h:form><h:commandLink value="Selecionar professor"/>
+                <p:commandButton value="Selecione o professor" icon="ui-icon-extlink" actionListener="#{excluirProfessorBean.chooseCar}"/>
+            
+                <h:commandLink value="Selecionar professor"/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Nome:"/>
                     <h:outputText value="#{excluirProfessorBean.professor.nome}"/>
@@ -39,6 +36,11 @@
                 </h:panelGrid>
                 <p:messages autoUpdate="true"/>
             </h:form>
+        
+        
+        
+        
+        
         </ui:define>
     </ui:composition>
 </html>

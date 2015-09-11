@@ -2,10 +2,8 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.context.RequestContext;
 
@@ -15,17 +13,28 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "pesquisarProfessorBean")
 public class ProfessorPesquisarBean {
-
-    ProfessorRN professorRN = new ProfessorRN();
-    List<Professor> professoresFiltrados = new ArrayList<>();
+    
+    private ProfessorRN professorRN;
+    private List<Professor> listaDeProfessores;
     private String filtroDePesquisa;
 
-    public List<Professor> getProfessoresFiltrados() {
-        return professoresFiltrados;
+    
+    // Construtor.
+    @PostConstruct
+    public void init(){
+        this.professorRN = new ProfessorRN();
+        this.listaDeProfessores = professorRN.listarTodosProfessores();
+        this.filtroDePesquisa = "";
+    }
+    
+    //================== Gets e Sets ===========================================
+
+    public List<Professor> getListaDeProfessores() {
+        return listaDeProfessores;
     }
 
-    public void setProfessoresFiltrados(List<Professor> professoresFiltrados) {
-        this.professoresFiltrados = professoresFiltrados;
+    public void setListaDeProfessores(List<Professor> listaDeProfessores) {
+        this.listaDeProfessores = listaDeProfessores;
     }
 
     public String getFiltroDePesquisa() {
@@ -35,36 +44,41 @@ public class ProfessorPesquisarBean {
     public void setFiltroDePesquisa(String filtroDePesquisa) {
         this.filtroDePesquisa = filtroDePesquisa;
     }
-
+    
+    
+    //====================== Métodos ===========================================
+    
     /**
-     * Limpa os dados do bean.
+     * Limpa os atributos da bean.
      */
-    public void limparBean() {
-        filtroDePesquisa = "";
-        professorRN = new ProfessorRN();
-        professoresFiltrados = new ArrayList<>();
+    public void limpar() {
+        this.professorRN = new ProfessorRN();
+        this.filtroDePesquisa = "";
+        this.listaDeProfessores = professorRN.listarTodosProfessores();
     }
 
+    
     /**
-     * Lista os professores do banco de dados de acordo com o filtro informado.
+     * Filtrar os professores por nome ou matrícula.
      */
     public void pesquisar() {
-        professoresFiltrados = professorRN.listarProfessores(filtroDePesquisa);
-    }
-
-    public void selecionarProfessor(Professor professor) {
+        this.listaDeProfessores = professorRN.listarProfessores(filtroDePesquisa);
+    }    
+    
+    
+    /**
+     * Seleciona o professor do diálogo de pesquisa.
+     * @param professor 
+     */
+    public void selecionarProfessor(Professor professor){
         RequestContext.getCurrentInstance().closeDialog(professor);
     }
     
+    
     /**
-     * Abre diálogo de pesquisa de professor.
+     * Abre o diálogo de pesquisa de profesores.
      */
-    public void abrirDialogo() {
-        Map<String, Object> opcoes = new HashMap<>();
-        opcoes.put("modal", true);
-        opcoes.put("resizable", false);
-        opcoes.put("contentHeight", 470);
-
-        RequestContext.getCurrentInstance().openDialog("pesquisar_professor", opcoes, null);
+    public void abrirDialogoPesquisa(){
+        RequestContext.getCurrentInstance().openDialog("pesquisar-professor");
     }
 }

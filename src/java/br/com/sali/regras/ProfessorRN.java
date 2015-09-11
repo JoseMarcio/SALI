@@ -1,7 +1,6 @@
 package br.com.sali.regras;
 
 import br.com.sali.dao.ProfessorDAO;
-import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
@@ -13,12 +12,13 @@ import java.util.List;
  */
 public class ProfessorRN {
 
-    private ProfessorDAO professorDAO;
+    private final ProfessorDAO professorDAO;
 
     public ProfessorRN() {
         professorDAO = new ProfessorDAO();
     }
 
+    // Método concluido.
     /**
      * Salva um professor.
      *
@@ -26,7 +26,7 @@ public class ProfessorRN {
      */
     public void registrarProfessor(Professor professor) {
         professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
-        professorDAO.salvar(professor);
+        this.professorDAO.salvar(professor);
     }
 
     /**
@@ -36,19 +36,20 @@ public class ProfessorRN {
      */
     public void atualizarProfessor(Professor professor) {
         professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
-        professorDAO.atualizar(professor);
+        this.professorDAO.atualizar(professor);
     }
 
     /**
-     * Lista os professores solicitados.
+     * Lista os professores por filtro (Nome ou Matrícula).
      *
      * @param filtro
      * @return
      */
     public List<Professor> listarProfessores(String filtro) {
-        return professorDAO.listar(Professor.class, filtro);
+        return this.professorDAO.listar(Professor.class, filtro);
     }
 
+    
     /**
      * Exclui um professor.
      *
@@ -59,7 +60,7 @@ public class ProfessorRN {
         List<Turma> turmas = professor.getTurmas();
         
         if(turmas.isEmpty()){
-            professorDAO.excluir(professor);
+            this.professorDAO.excluir(professor);
             return true;
         }
         else{
@@ -68,6 +69,7 @@ public class ProfessorRN {
         
     }
 
+    
     /**
      * Verifica se o e-mail informado já existe no banco de dados.
      *
@@ -75,7 +77,7 @@ public class ProfessorRN {
      * @return
      */
     public boolean isExistenteEmail(String email) {
-        return professorDAO.isExistenteEmail(Professor.class, email);
+        return this.professorDAO.isExistenteEmail(Professor.class, email);
     }
 
     /**
@@ -85,6 +87,15 @@ public class ProfessorRN {
      * @return
      */
     public boolean isExisteEssaMatricula(String matricula) {
-        return professorDAO.isExisteEssaMatricula(Professor.class, matricula);
+        return this.professorDAO.isExisteEssaMatricula(Professor.class, matricula);
+    }
+    
+    
+    /**
+     * Lista todos os professores do banco de dados.
+     * @return 
+     */
+    public List<Professor> listarTodosProfessores(){
+        return this.professorDAO.listarTodos(Professor.class);
     }
 }

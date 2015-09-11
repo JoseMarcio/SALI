@@ -3,10 +3,10 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -15,13 +15,49 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "alterarProfessorBean")
 public class ProfessorAlterarBean {
 
-    private Professor professor = new Professor();
-    private ProfessorRN professorRN = new ProfessorRN();
+    // Atributos.
+    private Professor professorSelecionado;
+    private ProfessorRN professorRN;
+    private String emailDoProfessor;
+    private Integer matriculaDoProfessor;
     private String confirmaSenha;
-    private boolean temProfessorSelecionado = false;
-    private int matriculaAtulProfessor;
-    private String emailAtualProfessor;
-    private boolean render = Boolean.FALSE;
+    private boolean professorFoiSelecioado;
+
+    // Construtor.
+    @PostConstruct
+    public void init() {
+        this.professorSelecionado = new Professor();
+        this.professorRN = new ProfessorRN();
+        this.emailDoProfessor = "";
+        this.matriculaDoProfessor = 0;
+        this.confirmaSenha = "";
+        this.professorFoiSelecioado = false;
+    }
+
+    //================ Gets e Sets =============================================
+    public Professor getProfessorSelecionado() {
+        return professorSelecionado;
+    }
+
+    public void setProfessorSelecionado(Professor professorSelecionado) {
+        this.professorSelecionado = professorSelecionado;
+    }
+
+    public String getEmailDoProfessor() {
+        return emailDoProfessor;
+    }
+
+    public void setEmailDoProfessor(String emailDoProfessor) {
+        this.emailDoProfessor = emailDoProfessor;
+    }
+
+    public Integer getMatriculaDoProfessor() {
+        return matriculaDoProfessor;
+    }
+
+    public void setMatriculaDoProfessor(Integer matriculaDoProfessor) {
+        this.matriculaDoProfessor = matriculaDoProfessor;
+    }
 
     public String getConfirmaSenha() {
         return confirmaSenha;
@@ -31,108 +67,64 @@ public class ProfessorAlterarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public ProfessorAlterarBean() {
+    public boolean isProfessorFoiSelecioado() {
+        return professorFoiSelecioado;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public void setProfessorFoiSelecioado(boolean professorFoiSelecioado) {
+        this.professorFoiSelecioado = professorFoiSelecioado;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    //=========================== Métodos ======================================
+    /**
+     * Limpar atributos da bean.
+     */
+    public void limpar() {
+        this.professorSelecionado = new Professor();
+        this.professorRN = new ProfessorRN();
+        this.emailDoProfessor = "";
+        this.matriculaDoProfessor = 0;
+        this.confirmaSenha = "";
+        this.professorFoiSelecioado = false;
     }
 
-    public boolean isRender() {
-        return render;
-    }
-
-    public void setRender(boolean render) {
-        this.render = render;
-    }
-
-    
-    
-    
-    
-    public void selecionaProfessor(Professor professor) {
-        temProfessorSelecionado = true;
-        this.professor = professor;
-        matriculaAtulProfessor = professor.getMatricula();
-        emailAtualProfessor = professor.getEmail();
-
-    }
-
-    public void limpar(){
-        confirmaSenha = "";
-        emailAtualProfessor = "";
-        matriculaAtulProfessor = 0;
-        professor = new Professor();
-        professorRN = new ProfessorRN();
-        temProfessorSelecionado = false;
-    }
-    
-    
-    public boolean isEmailsIguais() {
-        return professor.getEmail().equals(emailAtualProfessor);
-    }
-
-    public boolean isMatriculasIguais() {
-        return professor.getMatricula() == matriculaAtulProfessor;
-    }
-
+    /**
+     * Atualiza o professor selecionado. Ou seja, é necessário um professor
+     * estar selecionado para que o mesmo possa ser alterado.
+     */
     public void atualizar() {
-        if (!temProfessorSelecionado) {
+        if (!isProfessorFoiSelecioado()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Nenhum professsor selecionado.", ""));
+                    "Selecione um professor.", ""));
         } else {
 
-          
-            
-            if (!ValidacoesUtil.isValidaMatricula(professor.getMatricula())) {
+            if (!ValidacoesUtil.isValidaMatricula(this.professorSelecionado.getMatricula())) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Informe uma matrícula válida.", ""));
+            } else if (ValidacoesUtil.isExistenteMatricula(this.professorSelecionado.getMatricula())
+                       && (this.matriculaDoProfessor != this.professorSelecionado.getMatricula())) {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Matrícula já cadastrada.", ""));
+
+            } else if (ValidacoesUtil.isExistenteEmail(this.professorSelecionado.getEmail())
+                      && (!this.emailDoProfessor.equals(this.professorSelecionado.getEmail()) ) ) {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "E-mail já cadastrado.", ""));
+
+            } else if (!this.confirmaSenha.equals(this.professorSelecionado.getSenha())) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "As senhas não conferem.", ""));
+
             } else {
-
-            
-                if (ValidacoesUtil.isExistenteMatricula(professor.getMatricula()) && !isMatriculasIguais()) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Matrícula já cadastrada.", ""));
-                } else {
-
-                    if (ValidacoesUtil.isExistenteEmail(professor.getEmail()) && !isEmailsIguais()) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "E-mail já cadastrado.", ""));
-
-                    } else {
-                        
-                        professorRN.atualizarProfessor(professor);
-                        limpar();
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Dados alterados com sucesso.", ""));
-                        
-                    }
-                }
-            
-            
-            
-            
+                // Depois de tudo está validado, deve-se executar esse código.
+                this.professorRN.registrarProfessor(this.professorSelecionado);
+                limpar();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Dados alterados com sucesso.", ""));
             }
-        
-        
-        
-        
-        
+
         }
-    }
-    
-    
-    
-    public void exibirForm(){
-        setRender(Boolean.TRUE);
-    }
-    
-    
-    public void pesquisarProfessor(){
-        RequestContext.getCurrentInstance().openDialog("pesquisar-professor");
     }
 }

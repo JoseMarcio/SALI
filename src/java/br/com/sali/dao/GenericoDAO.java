@@ -111,16 +111,11 @@ public class GenericoDAO<T> extends ManuseioDb {
     }
 
     /**
-     * Verfica se o nome informado já existe no banco de dados.
-     *
+     * Lista todos.
+     * 
      * @param myClass
-     * @param nome
-     * @return
+     * @return 
      */
-    public boolean isExistenteNome(Class<T> myClass, String nome) {
-        return !listar(myClass, nome).isEmpty();
-    }
-
     public List<T> listarTodos(Class<T> myClass) {
         List<T> resultados = new ArrayList<>();
         Criteria criteria = getSessao().createCriteria(myClass);

@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -14,57 +15,73 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "excluirProfessorBean")
 public class ProfessorExcluirBean {
 
-    private Professor professor = new Professor();
-    private ProfessorRN professorRN = new ProfessorRN();
-    private boolean temProfessorSelecionado = false;
+    // Atributos.
+    private Professor professorSelecionado;
+    private ProfessorRN professorRN;
+    private boolean isProfessorSelecionado;
 
-    public ProfessorExcluirBean() {
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    /**
-     * lIMPRA BEAN
-     */
-    public void limpar() {
-        professor = new Professor();
-        professorRN = new ProfessorRN();
-    }
-
-    public void selecionarProfessor(Professor professor) {
-        this.professor = professor;
-        temProfessorSelecionado = true;
+    
+    // Construtor.
+    @PostConstruct
+    public void init(){
+        this.professorSelecionado = new Professor();
+        this.professorRN = new ProfessorRN();
+        this.isProfessorSelecionado = false;
     }
     
-    public void chooseCar() {
-        RequestContext.getCurrentInstance().openDialog("pesquisar_professor");
+    
+    //====================== Gets e Sets =======================================
+
+    public Professor getProfessorSelecionado() {
+        return professorSelecionado;
     }
+
+    public void setProfessorSelecionado(Professor professorSelecionado) {
+        this.professorSelecionado = professorSelecionado;
+    }
+
+    public boolean isIsProfessorSelecionado() {
+        return isProfessorSelecionado;
+    }
+
+    public void setIsProfessorSelecionado(boolean isProfessorSelecionado) {
+        this.isProfessorSelecionado = isProfessorSelecionado;
+    }
+    
+    //===================== Métodos ============================================
+    
+    
+    /**
+     * Limpa os atributos da bean.
+     */
+    public void limpar(){
+        this.professorSelecionado = new Professor();
+        this.professorRN = new ProfessorRN();
+        this.isProfessorSelecionado = false;
+    }
+    
 
     /**
      * Exclui o professor selecionado.
      *
      */
     public void excluir() {
-        if (temProfessorSelecionado) {
+        if (isIsProfessorSelecionado()) {
 
-            if (professorRN.excluirProfessor(professor)) {
+            if (this.professorRN.excluirProfessor(this.professorSelecionado)) {
+                limpar();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Professor excluido com sucesso.", ""));
-                limpar();
+                
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Não é possível excluir o professor. Ele está em " + professor.getTurmas().size() + " Turmas.", ""));
+                        "Não é possível excluir o professor. Ele está em " + this.professorSelecionado.getTurmas().size() + " Turmas.", ""));
 
             }
+            
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Nenhum professsor selecionado.", ""));
+                        "Selecione um professor.", ""));
         }
     }
 
