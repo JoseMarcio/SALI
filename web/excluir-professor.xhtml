@@ -7,40 +7,38 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
-    
+
     <ui:composition template="/template/area-instituicao.xhtml">
+
         <ui:define name="titulo">
             Excluir Professor
         </ui:define>
 
-        
+
         <ui:define name="corpo">
 
             <h1>Excluir Professor</h1>
-            
+
             <!-- Formulário para exclusão de professor. -->
-
             <h:form>
-                <p:commandButton value="Selecione o professor" icon="ui-icon-extlink" actionListener="#{excluirProfessorBean.chooseCar}"/>
-            
-                <h:commandLink value="Selecionar professor"/>
+                <h:commandButton value="Selecione o professor..." action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"/>
+                <h:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir"/>
+                
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="Confirmar Dados:"/>
                     <h:outputLabel value="Nome:"/>
-                    <h:outputText value="#{excluirProfessorBean.professor.nome}"/>
-                    <h:outputLabel value="E-Mail:"/>
-                    <h:outputText value="#{excluirProfessorBean.professor.email}"/>
+                    <h:outputText value="#{excluirProfessorBean.professorSelecionado.nome}"/>
                     <h:outputLabel value="Matrícula:"/>
-                    <h:outputText value="#{excluirProfessorBean.professor.matricula}"/>
-
-                    <h:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir Professor"/>
+                    <h:outputText value="#{excluirProfessorBean.professorSelecionado.matricula}"/>
+                    <h:outputLabel value="E-Mail:"/>
+                    <h:outputText value="#{excluirProfessorBean.professorSelecionado.email}"/>
                 </h:panelGrid>
+
+
                 <p:messages autoUpdate="true"/>
             </h:form>
-        
-        
-        
-        
-        
+
+
         </ui:define>
     </ui:composition>
 </html>

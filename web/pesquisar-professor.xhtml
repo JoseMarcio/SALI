@@ -11,17 +11,20 @@
     </h:head>
     <h:body>
 
-        <h:form id="formulario_pesquisar_professor">
-            
+        <!-- Formulario para realização de pesquisa de professores. -->
+        <h:form>
+            <!-- Organização dos labels e inputs em uma coluna.-->
             <h:panelGrid columns="1" cellpadding="7">
-                
+
                 <h:panelGrid columns="3">
-                    <h:inputText value="#{pesquisarProfessorBean.filtroDePesquisa}"  pt:placeholder="Nome ou Matrícula" required="true"
-                                 requiredMessage="Informe um dado para pesquisar."/>
+                    <h:inputText value="#{pesquisarProfessorBean.filtroDePesquisa}"  
+                                 pt:placeholder="Nome ou Matrícula"/>
+
                     <h:commandButton action="#{pesquisarProfessorBean.pesquisar()}" value="Pesquisar"/>
                 </h:panelGrid>
-                
-                <p:dataTable value="#{pesquisarProfessorBean.professoresFiltrados}" var="professor" 
+
+                <!-- Tabela de exibição de dados (professor) -->
+                <p:dataTable value="#{pesquisarProfessorBean.listaDeProfessores}" var="professor" 
                              emptyMessage="Nenhum dado a exibir.">
 
                     <p:column headerText="Matrícula" width="120" style="text-align: left;">
@@ -31,19 +34,24 @@
                     <p:column headerText="Nome" style="text-align: left;">
                         <h:outputLabel value="#{professor.nome}"/>
                     </p:column>
+
+                    <p:column width="100" style="text-align: center;">
+                        <p:commandButton icon="ui-icon-check">
+                    </p:column>
                 </p:dataTable>
-            
+
             </h:panelGrid>
-            
+
             <p:messages autoUpdate="true"/>
-            
+
         </h:form>
 
-        <h:form id="formulario_limpar_dados">
-            <h:panelGrid columns="1"  cellpadding="7">
-                <h:commandButton action="#{pesquisarProfessorBean.limparBean()}" value="Limpar"/>
-            </h:panelGrid>            
+        <h:form>
+            <h:commandButton action="#{pesquisarProfessorBean.limpar()}" value="Limpar"/>
         </h:form>
+
+
+
 
     </h:body>
 </html>

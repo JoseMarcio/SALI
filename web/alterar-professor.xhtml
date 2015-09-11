@@ -17,30 +17,30 @@
 
             <h3>Alterar Professor</h3>
 
+            
+            <!-- Formulário para alterar professores. -->
             <h:form>
-                <p:commandButton value="Selecionar" icon="ui-icon-circle-check" title="Selecionar" action="#{alterarProfessorBean.pesquisarProfessor()}" process="@this"
-                                 update="@form"/>
+                <h:commandButton value="Selecionar..."  title="Selecionar"
+                                 action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}" />
 
 
 
-
-                <p:panel rendered="true">
-
-                    <h:panelGrid columns="1">
+                   <h:panelGrid columns="1">
 
                         <h:outputLabel value="Nome Completo:" for="inputNome"/>
-                        <h:inputText id="inputNome" value="#{alterarProfessorBean.professor.nome}" required="true" 
+                        <h:inputText id="inputNome" value="#{alterarProfessorBean.professorSelecionado.nome}" required="true" 
                                      requiredMessage="Insira o nome do professor." pt:placeholder="Informe o nome"/>
 
 
                         <h:outputLabel value="Matrícula Escolar:" for="inputMatricula"/>
-                        <h:inputText id="inputMatricula" value="#{alterarProfessorBean.professor.matricula}" required="true"
+                        <h:inputText id="inputMatricula" value="#{alterarProfessorBean.professorSelecionado.matricula}" 
+                                     required="true"
                                      requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" 
                                      pt:placeholder="Somente números"/>
 
 
                         <h:outputLabel value="Email:" for="inputEmail"/>
-                        <h:inputText id="inputEmail" value="#{alterarProfessorBean.professor.email}" required="true"
+                        <h:inputText id="inputEmail" value="#{alterarProfessorBean.professorSelecionado.email}" required="true"
                                      requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." 
                                      pt:placeholder="Informe o e-mail">
                             <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
@@ -49,7 +49,7 @@
 
 
                         <h:outputLabel value="Senha:" for="inputSenha"/>
-                        <h:inputSecret id="inputSenha" value="#{alterarProfessorBean.professor.senha}" required="true" requiredMessage="Informe uma senha."
+                        <h:inputSecret id="inputSenha" value="#{alterarProfessorBean.professorSelecionado.senha}" required="true" requiredMessage="Informe uma senha."
                                        pt:placeholder="Senha"/>
 
                         <h:outputLabel value="Confirme a Senha:" for="inputConfirmaSenha"/>
@@ -61,8 +61,11 @@
                         <p:messages autoUpdate="true"/>
 
                     </h:panelGrid>
-                </p:panel>
             </h:form>
+            
+            
+            
+            
         </ui:define>
     </ui:composition>
 </html>

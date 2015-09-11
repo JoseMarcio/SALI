@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class TurmaRN {
     
-    private TurmaDAO turmaDAO;
+    private final TurmaDAO turmaDAO;
 
     public TurmaRN() {
         turmaDAO = new TurmaDAO();
@@ -48,7 +48,7 @@ public class TurmaRN {
      */
     public void excluirTurma(Turma turma){
         turma.getProfessor().getTurmas().remove(turma);
-        turmaDAO.excluir(turma);
+        this.turmaDAO.excluir(turma);
     }
     
     
@@ -59,6 +59,6 @@ public class TurmaRN {
      * @return
      */
     public boolean isExistenteNome(String nome) {
-        return turmaDAO.isExistenteNome(Turma.class, nome);
+        return this.turmaDAO.isExistenteNomeTurma(nome);
     }
 }
