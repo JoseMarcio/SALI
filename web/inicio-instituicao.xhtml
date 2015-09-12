@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html lang="pt-br" 
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:f="http://xmlns.jcp.org/jsf/core"
-        xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-   
-    
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
     <ui:composition template="/template/area-instituicao.xhtml">
         <ui:define name="titulo">
             Início
@@ -15,8 +15,39 @@
         <ui:define name="corpo">
 
             <h1>Bem Vindo</h1>
+            <article>
+                <p>
+                    Primeiras conclusões do projeto. Concluido registrar 
+                    professor e turma.
+                    Ambos prontos para testes e descobrimento de bugs. Registro
+                    de aluno já em andamento e pronto para ser concluido neste 
+                    fim de semana (para a fase de testes).
+                </p>
+                <p>
+                    É notável que para se registrar alunos é necessário pesquisar
+                    turma. Sendo que uma turma possui vários alunos.                     
+                </p>
+                <p>
+                    Falta fazer:
+                    - Autenticação: tendo em vista que não é somente uma pesquisa
+                    para saber se o usuário está presente no banco de dados. Mas é 
+                    necessário que se tenha um controle para que cada usuário acesse
+                    somente o que lhe é permitido.                    
+                </p>
+                <p>
+                    Também é ideal (ideal não, necessário) fazer a criptografia de senhas do
+                    usuário(provavelmente com MD5, já que com essa, não é possivel revertê-la),
+                    e construir a recuperação de senhas do usuário. Por onde atravéz da mesma
+                    o sistema criará uma senha aleatório e enviará via e-mail para o usuario
+                    os dados de acesso.
+                </p>
+                
+                <p>
+                    Designer: Diego J M - Vandeberg B C
+                </p>
+            </article>
         </ui:define>
     </ui:composition>
-    
+
 </html>
 

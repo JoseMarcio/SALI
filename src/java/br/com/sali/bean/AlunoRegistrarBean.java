@@ -1,6 +1,8 @@
 package br.com.sali.bean;
 
+import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Professor;
+import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
 import javax.annotation.PostConstruct;
@@ -10,34 +12,34 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
- * Classe gerenciadora da view Registrar Professor.
  *
  * @author SALI
  */
-@ManagedBean(name = "registrarProfessorBean")
+@ManagedBean(name = "alunoRegistrarBean")
 @ViewScoped
-public class ProfessorRegistrarBean {
-
+public class AlunoRegistrarBean{
+    
     // Atributos.
-    private Professor professor;
-    private ProfessorRN professorRN;
+    private Aluno aluno;
+    private AlunoRN alunoRN;
     private String confirmaSenha;
-
-    // Construtor da classe.
+    
+    // Construtor.
     @PostConstruct
-    public void init() {
-        this.professor = new Professor();
-        this.professorRN = new ProfessorRN();
-        this.confirmaSenha = "";
+    public void init(){
+        aluno = new Aluno();
+        alunoRN = new AlunoRN();
+        confirmaSenha = "";
+    }
+    
+    //======================Gets e Sets=========================================
+
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    // ========================= Gets e Sets ===================================
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public String getConfirmaSenha() {
@@ -47,17 +49,16 @@ public class ProfessorRegistrarBean {
     public void setConfirmaSenha(String confirmaSenha) {
         this.confirmaSenha = confirmaSenha;
     }
-
-    
-    //=============================== Métodos ==================================
+        
+    //=======================Métodos============================================
     
     /**
      * Reinicia os atributos da bean.
      */
     public void limparBean() {
-        this.confirmaSenha = "";
-        this.professor = new Professor();
-        this.professorRN = new ProfessorRN();
+        aluno = new Aluno();
+        alunoRN = new AlunoRN();
+        confirmaSenha = "";
     }
     
     
@@ -68,26 +69,26 @@ public class ProfessorRegistrarBean {
      * @return
      */
     public boolean isSenhasIguais() {
-        return this.professor.getSenha().equals(this.confirmaSenha);
+        return this.aluno.getSenha().equals(this.confirmaSenha);
     }
 
     
     
 
     /**
-     * Registra o professor no banco de dados, de acordo com as regras definidas
-     * na classe ProfessorRN.
+     * Registra o aluno no banco de dados, de acordo com as regras definidas
+     * na classe AlunoRN.
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(this.professor.getMatricula())) {
+        if (!ValidacoesUtil.isValidaMatricula(this.aluno.getMatricula())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Informe uma matrícula válida.", ""));
-        } else if (ValidacoesUtil.isExistenteMatricula(this.professor.getMatricula())) {
+        } else if (ValidacoesUtil.isExistenteMatricula(this.aluno.getMatricula())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Matrícula já cadastrada.", ""));
 
-        } else if (ValidacoesUtil.isExistenteEmail(this.professor.getEmail())) {
+        } else if (ValidacoesUtil.isExistenteEmail(this.aluno.getEmail())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "E-mail já cadastrado.", ""));
 
@@ -97,7 +98,7 @@ public class ProfessorRegistrarBean {
 
         } else {
             // Depois de tudo está validado, deve-se executar esse código.
-            this.professorRN.registrarProfessor(this.professor);
+            this.alunoRN.registrarAluno(aluno);
             limparBean();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Professor registrado com sucesso.", ""));
