@@ -43,4 +43,53 @@ public class TemplateAraInstituicaoBean {
     public String irRegistrarProfessor(){
         return "registrar-professor";
     }
+    
+     /**
+     * Direciona página registrar turma.
+     * @return 
+     */
+    public String irRegistrarTurma(){
+        return "registrar-turma";
+    }
+    
+    /**
+     * Direciona página alterar turma.
+     * @return 
+     */
+    public String irAlterarTurma(){
+        return "alterar-turma";
+    }
+    
+    /**
+     * Direciona página excluir turma.
+     * @return 
+     */
+    public String irExcluirTurma(){
+        return "excluir-turma";
+    }
+    
+    
+     /**
+     * Direciona página registrar aluno.
+     * @return 
+     */
+    public String irRegistrarAluno(){
+        return "registrar-aluno";
+    }
+    
+    /**
+     * Direciona página alterar aluno.
+     * @return 
+     */
+    public String irAlterarAluno(){
+        return "alterar-aluno";
+    }
+    
+    /**
+     * Direciona página excluir aluno.
+     * @return 
+     */
+    public String irExcluirAluno(){
+        return "excluir-aluno";
+    }
 }

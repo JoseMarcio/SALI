@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
+    <ui:composition template="/template/area-instituicao.xhtml">
+
+        <ui:define name="titulo">
+            Excluir Turma
+        </ui:define>
+
+
+        <ui:define name="corpo">
+
+            <h1>Excluir Turma</h1>
+
+            <!-- Formulário para exclusão de turma. -->
+            <h:form>
+                <p:commandButton icon="ui-icon-check" action="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
+                    <p:ajax event="dialogReturn" listener="#{turmaExcluirBean.eventoSelecaoTurma}" update="@form"/>
+                </p:commandButton>
+                <p:commandButton action="#{turmaExcluirBean.excluir()}" value="Excluir" disabled="#{turmaExcluirBean.disabledBotaoExcluir}"
+                                 update="@form">
+                    <p:confirm header="Atenção!" message="Está ciente disso?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Nome da Turma:"/>
+                    <h:outputText value="#{turmaExcluirBean.turmaSelecionado.nome}"/>
+                    <h:outputLabel value="Professor Docente:"/>
+                    <h:outputText value="#{turmaExcluirBean.turmaSelecionado.professor.nome}"/>
+                </h:panelGrid>
+
+
+                <p:messages autoUpdate="true"/>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>
+

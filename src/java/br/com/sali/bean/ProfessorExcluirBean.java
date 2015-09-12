@@ -82,7 +82,7 @@ public class ProfessorExcluirBean {
 
         } else {
            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Não é possível excluir o professor. Ele está em "
-                    + this.professorSelecionado.getTurmas().size() + " Turmas.");
+                   + "lotado em turmas.");
             RequestContext.getCurrentInstance().showMessageInDialog(message);
 
         }

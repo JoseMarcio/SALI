@@ -1,6 +1,7 @@
 package br.com.sali.regras;
 
 import br.com.sali.dao.ProfessorDAO;
+import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
@@ -13,9 +14,11 @@ import java.util.List;
 public class ProfessorRN {
 
     private final ProfessorDAO professorDAO;
+    private final TurmaDAO turmaDAO;
 
     public ProfessorRN() {
         professorDAO = new ProfessorDAO();
+        turmaDAO = new TurmaDAO();
     }
 
     // Método concluido.
@@ -57,16 +60,13 @@ public class ProfessorRN {
      * @return
      */
     public boolean excluirProfessor(Professor professor) {
-        List<Turma> turmas = professor.getTurmas();
-        
-        if(turmas.isEmpty()){
-            this.professorDAO.excluir(professor);
-            return true;
-        }
-        else{
-            return false;
-        }
-        
+       if(turmaDAO.isExisteProfessorTurma(professor)){
+           return false;
+       }
+       else{
+           this.professorDAO.excluir(professor);
+           return true;
+       }
     }
 
     

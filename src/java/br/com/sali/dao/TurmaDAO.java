@@ -1,7 +1,11 @@
 package br.com.sali.dao;
 
+import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -26,4 +30,30 @@ public class TurmaDAO extends GenericoDAO<Turma> {
         return turma != null;
 
     }
+
+    public boolean isExisteProfessorTurma(Professor professor) {
+        Criteria criteria = getSessao().createCriteria(Turma.class);
+        List<Turma> turmas = criteria.add(Restrictions.eq("professor", professor)).list();
+        getTransacao().commit();
+        getSessao().close();
+
+        if (turmas.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    @Override
+    public List<Turma> listar(Class<Turma> myClass, String filtro) {
+        List<Turma> resultados = new ArrayList<>();
+        Criteria criteria = getSessao().createCriteria(myClass);
+        Criterion criterioDeBusca = Restrictions.ilike("nome", "%" + filtro + "%");
+        resultados = criteria.add(criterioDeBusca).list();
+        getTransacao().commit();
+        getSessao().close();
+        return resultados;
+    }
+
 }

@@ -30,8 +30,7 @@ public class Professor implements Serializable {
     private String email;
     private int matricula;
     private String senha;
-    @OneToMany(mappedBy = "professor", fetch = FetchType.EAGER)
-    @Cascade(CascadeType.ALL)
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
     private List<Turma> turmas;
 
     public Professor() {

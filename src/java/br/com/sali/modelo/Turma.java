@@ -3,6 +3,7 @@ package br.com.sali.modelo;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Turma implements Serializable{
     @ManyToOne
     @JoinColumn(name = "id_professor")    
     private Professor professor;
-    @OneToMany(mappedBy = "turma")
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
 
     public Turma() {

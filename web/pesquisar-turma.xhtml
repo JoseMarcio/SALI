@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Pesquisa de Turma</title>
+    </h:head>
+    <h:body>
+
+
+        <h:form>
+            <!-- Organização dos labels e inputs em uma coluna.-->
+            <h:panelGrid columns="1" cellpadding="7">
+
+                <h:panelGrid columns="3">
+                    <h:inputText value="#{turmaPesquisarBean.filtroDePesquisa}"  
+                                 pt:placeholder="Nome da turma" required="true" requiredMessage="Informe um dado para pesquisar."/>
+
+                    <h:commandButton action="#{turmaPesquisarBean.pesquisar()}" value="Pesquisar" title="Pesquisar"/>
+                </h:panelGrid>
+
+                <!-- Tabela de exibição de dados (professor) -->
+                <p:dataTable value="#{turmaPesquisarBean.listaDeTurmas}" var="turma" 
+                             emptyMessage="Nenhum dado a exibir.">
+
+                    <p:column headerText="Cód." width="120" style="text-align: left;">
+                        <h:outputLabel value="#{turma.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome" style="text-align: left;">
+                        <h:outputLabel value="#{turma.nome}"/>
+                    </p:column>
+
+                    <p:column width="100" style="text-align: center;">
+                        <p:commandButton icon="ui-icon-check" title="Selecionar" action="#{turmaPesquisarBean.selecionarTurma(turma)}"
+                                         process="@this"/>
+                    </p:column>
+                </p:dataTable>
+
+            </h:panelGrid>
+
+            <p:messages autoUpdate="true"/>
+
+        </h:form>
+
+        <h:form>
+            <h:commandButton action="#{turmaPesquisarBean.limpar()}" value="Limpar"/>
+        </h:form>
+
+
+
+    </h:body>
+</html>
+

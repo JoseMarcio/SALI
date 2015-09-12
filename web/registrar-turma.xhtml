@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:composition template="/template/area-instituicao.xhtml">
+        <ui:define name="titulo">
+            Registrar Turma
+        </ui:define>
+
+        <ui:define name="corpo">
+
+
+            <!-- Formulário para cadastro de turmas.-->
+            <!-- Formulário concluído e validado -->
+            <h:form>
+                <h3>Registrar Nova Turma</h3>
+                <h:panelGrid columns="1">
+
+
+                    <h:outputLabel value="Nome da Turma:" for="inputNome"/>
+                    <h:inputText id="inputNome" value="#{turmaRegistrarBean.turma.nome}" required="true" 
+                                 requiredMessage="Informe o nome da turma." pt:placeholder="Nome da turma"/>
+
+                    <h:outputLabel value="Professor:" for="professor"/>
+                    <h:panelGrid columns="2">
+                        <h:inputText value="#{turmaRegistrarBean.turma.professor.nome}" disabled="true" id="professor" required="true"
+                                     requiredMessage="A turma necessita de um professor." size="20"/>
+                        <p:commandButton icon="ui-icon-check" title="Selecionar Professor" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
+                                         process="@this">
+                            <p:ajax event="dialogReturn" listener="#{turmaRegistrarBean.eventoSelecaoProfessor}" update="professor registrar"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+
+                    <h:commandButton action="#{turmaRegistrarBean.registrar()}" value="Registrar" title="Registrar Professor"
+                                     disabled="#{turmaRegistrarBean.disabledBotaoRegistrar}" id="registrar"/>
+                    <p:messages autoUpdate="true"/>
+
+
+                </h:panelGrid>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

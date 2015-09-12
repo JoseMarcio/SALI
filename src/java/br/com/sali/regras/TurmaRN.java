@@ -1,5 +1,6 @@
 package br.com.sali.regras;
 
+import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Turma;
 import java.util.List;
@@ -9,50 +10,51 @@ import java.util.List;
  * @author SALI
  */
 public class TurmaRN {
-    
+
     private final TurmaDAO turmaDAO;
 
     public TurmaRN() {
         turmaDAO = new TurmaDAO();
     }
-    
-    
+
     /**
      * Salva uma turma.
-     * @param turma 
-     */
-    public void registrarTurma(Turma turma){
-            turmaDAO.salvar(turma);
-    }
-    
-    /**
-     * Atualiza uma Turma do banco de dados.
+     *
      * @param turma
      */
-    public void atualizarTurma(Turma turma){
+    public void registrarTurma(Turma turma) {
+        turmaDAO.salvar(turma);
+    }
+
+    /**
+     * Atualiza uma Turma do banco de dados.
+     *
+     * @param turma
+     */
+    public void atualizarTurma(Turma turma) {
         turmaDAO.atualizar(turma);
     }
-            
+
     /**
      * Lista as turmas solicitadas.
+     *
      * @param filtro
-     * @return 
+     * @return
      */
-    public List<Turma> listarTurmas(String filtro){
+    public List<Turma> listarTurmas(String filtro) {
         return turmaDAO.listar(Turma.class, filtro);
     }
-    
+
     /**
      * Exclui um professor se o mesmo não tiver registrado em nenhuma turma.
-     * @param turma 
+     *
+     * @param turma
      */
-    public void excluirTurma(Turma turma){
-        turma.getProfessor().getTurmas().remove(turma);
+    public void excluirTurma(Turma turma) {
         this.turmaDAO.excluir(turma);
     }
-    
-    
-     /**
+
+    /**
      * Verfica se o nome informado já existe no banco de dados.
      *
      * @param nome
@@ -61,4 +63,14 @@ public class TurmaRN {
     public boolean isExistenteNome(String nome) {
         return this.turmaDAO.isExistenteNomeTurma(nome);
     }
+    
+    
+    /**
+     * Lista todas as turmas.
+     * @return 
+     */
+    public List<Turma> listarTodas(){
+        return turmaDAO.listarTodos(Turma.class);
+    }
 }
+
