@@ -5,84 +5,88 @@ import br.com.sali.regras.ProfessorRN;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author SALI
  */
 @ManagedBean(name = "excluirProfessorBean")
+@ViewScoped
 public class ProfessorExcluirBean {
 
     // Atributos.
     private Professor professorSelecionado;
     private ProfessorRN professorRN;
-    private boolean isProfessorSelecionado;
+    private boolean disabledBotaoExcluir;
 
-    
     // Construtor.
     @PostConstruct
-    public void init(){
+    public void init() {
         this.professorSelecionado = new Professor();
         this.professorRN = new ProfessorRN();
-        this.isProfessorSelecionado = false;
+        this.disabledBotaoExcluir = true;
     }
-    
-    
-    //====================== Gets e Sets =======================================
 
+    //====================== Gets e Sets =======================================
     public Professor getProfessorSelecionado() {
         return professorSelecionado;
     }
 
     public void setProfessorSelecionado(Professor professorSelecionado) {
         this.professorSelecionado = professorSelecionado;
+
     }
 
-    public boolean isIsProfessorSelecionado() {
-        return isProfessorSelecionado;
+    public boolean isDisabledBotaoExcluir() {
+        return disabledBotaoExcluir;
     }
 
-    public void setIsProfessorSelecionado(boolean isProfessorSelecionado) {
-        this.isProfessorSelecionado = isProfessorSelecionado;
+    public void setDisabledBotaoExcluir(boolean disabledBotaoExcluir) {
+        this.disabledBotaoExcluir = disabledBotaoExcluir;
     }
-    
+
     //===================== Métodos ============================================
-    
-    
+    /**
+     * Captura o professor selecionado pelo evento.
+     *
+     * @param event
+     */
+    public void eventoSelecaoProfessor(SelectEvent event) {
+        Professor professor = (Professor) event.getObject();
+        setProfessorSelecionado(professor);
+        setDisabledBotaoExcluir(false);
+
+    }
+
     /**
      * Limpa os atributos da bean.
      */
-    public void limpar(){
+    public void limpar() {
         this.professorSelecionado = new Professor();
         this.professorRN = new ProfessorRN();
-        this.isProfessorSelecionado = false;
+        this.disabledBotaoExcluir = true;
     }
-    
 
     /**
      * Exclui o professor selecionado.
      *
      */
     public void excluir() {
-        if (isIsProfessorSelecionado()) {
+        if (this.professorRN.excluirProfessor(this.professorSelecionado)) {
+            limpar();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Professor excluido com sucesso.");
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
 
-            if (this.professorRN.excluirProfessor(this.professorSelecionado)) {
-                limpar();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Professor excluido com sucesso.", ""));
-                
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Não é possível excluir o professor. Ele está em " + this.professorSelecionado.getTurmas().size() + " Turmas.", ""));
-
-            }
-            
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Selecione um professor.", ""));
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Não é possível excluir o professor. Ele está em "
+                    + this.professorSelecionado.getTurmas().size() + " Turmas.");
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
+
         }
+
     }
 
 }

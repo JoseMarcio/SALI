@@ -2,9 +2,12 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -12,6 +15,7 @@ import org.primefaces.context.RequestContext;
  * @author SALI
  */
 @ManagedBean(name = "pesquisarProfessorBean")
+@ViewScoped
 public class ProfessorPesquisarBean {
     
     private ProfessorRN professorRN;
@@ -79,6 +83,12 @@ public class ProfessorPesquisarBean {
      * Abre o diálogo de pesquisa de profesores.
      */
     public void abrirDialogoPesquisa(){
-        RequestContext.getCurrentInstance().openDialog("pesquisar-professor");
+        Map<String,Object> options = new HashMap<>();
+        options.put("modal", true);
+        options.put("draggable", false);
+        options.put("resizable", false);
+        options.put("contentHeight", 320);
+        
+        RequestContext.getCurrentInstance().openDialog("pesquisar-professor", options, null);
     }
 }

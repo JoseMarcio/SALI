@@ -18,7 +18,7 @@
 
                 <h:panelGrid columns="3">
                     <h:inputText value="#{pesquisarProfessorBean.filtroDePesquisa}"  
-                                 pt:placeholder="Nome ou Matrícula"/>
+                                 pt:placeholder="Nome ou Matrícula" required="true" requiredMessage="Informe um dado para pesquisar."/>
 
                     <h:commandButton action="#{pesquisarProfessorBean.pesquisar()}" value="Pesquisar"/>
                 </h:panelGrid>
@@ -36,7 +36,8 @@
                     </p:column>
 
                     <p:column width="100" style="text-align: center;">
-                        <p:commandButton icon="ui-icon-check">
+                        <p:commandButton icon="ui-icon-check" title="Selecionar" action="#{pesquisarProfessorBean.selecionarProfessor(professor)}"
+                                         process="@this"/>
                     </p:column>
                 </p:dataTable>
 

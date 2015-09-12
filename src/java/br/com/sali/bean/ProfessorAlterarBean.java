@@ -6,13 +6,16 @@ import br.com.sali.util.ValidacoesUtil;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author SALI
  */
 @ManagedBean(name = "alterarProfessorBean")
+@ViewScoped
 public class ProfessorAlterarBean {
 
     // Atributos.
@@ -21,7 +24,7 @@ public class ProfessorAlterarBean {
     private String emailDoProfessor;
     private Integer matriculaDoProfessor;
     private String confirmaSenha;
-    private boolean professorFoiSelecioado;
+    private boolean disabledBotaoAtualizar;
 
     // Construtor.
     @PostConstruct
@@ -31,7 +34,8 @@ public class ProfessorAlterarBean {
         this.emailDoProfessor = "";
         this.matriculaDoProfessor = 0;
         this.confirmaSenha = "";
-        this.professorFoiSelecioado = false;
+        this.disabledBotaoAtualizar = true;
+
     }
 
     //================ Gets e Sets =============================================
@@ -67,15 +71,29 @@ public class ProfessorAlterarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public boolean isProfessorFoiSelecioado() {
-        return professorFoiSelecioado;
+    public boolean isDisabledBotaoAtualizar() {
+        return disabledBotaoAtualizar;
     }
 
-    public void setProfessorFoiSelecioado(boolean professorFoiSelecioado) {
-        this.professorFoiSelecioado = professorFoiSelecioado;
+    public void setDisabledBotaoAtualizar(boolean disabledBotaoAtualizar) {
+        this.disabledBotaoAtualizar = disabledBotaoAtualizar;
     }
 
     //=========================== Métodos ======================================
+    /**
+     * Captura o professor selecionado pelo evento.
+     *
+     * @param event
+     */
+    public void eventoSelecaoProfessor(SelectEvent event) {
+        Professor professor = (Professor) event.getObject();
+        setProfessorSelecionado(professor);
+        setMatriculaDoProfessor(professor.getMatricula());
+        setEmailDoProfessor(professor.getEmail());
+        setDisabledBotaoAtualizar(false);
+
+    }
+
     /**
      * Limpar atributos da bean.
      */
@@ -85,7 +103,7 @@ public class ProfessorAlterarBean {
         this.emailDoProfessor = "";
         this.matriculaDoProfessor = 0;
         this.confirmaSenha = "";
-        this.professorFoiSelecioado = false;
+        this.disabledBotaoAtualizar = true;
     }
 
     /**
@@ -93,38 +111,32 @@ public class ProfessorAlterarBean {
      * estar selecionado para que o mesmo possa ser alterado.
      */
     public void atualizar() {
-        if (!isProfessorFoiSelecioado()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Selecione um professor.", ""));
-        } else {
 
-            if (!ValidacoesUtil.isValidaMatricula(this.professorSelecionado.getMatricula())) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Informe uma matrícula válida.", ""));
-            } else if (ValidacoesUtil.isExistenteMatricula(this.professorSelecionado.getMatricula())
-                       && (this.matriculaDoProfessor != this.professorSelecionado.getMatricula())) {
-                
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Matrícula já cadastrada.", ""));
+        if (!ValidacoesUtil.isValidaMatricula(this.professorSelecionado.getMatricula())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Informe uma matrícula válida.", ""));
+        } else if (ValidacoesUtil.isExistenteMatricula(this.professorSelecionado.getMatricula())
+                && (this.matriculaDoProfessor != this.professorSelecionado.getMatricula())) {
 
-            } else if (ValidacoesUtil.isExistenteEmail(this.professorSelecionado.getEmail())
-                      && (!this.emailDoProfessor.equals(this.professorSelecionado.getEmail()) ) ) {
-                
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "E-mail já cadastrado.", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Matrícula já cadastrada.", ""));
 
-            } else if (!this.confirmaSenha.equals(this.professorSelecionado.getSenha())) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "As senhas não conferem.", ""));
+        } else if (ValidacoesUtil.isExistenteEmail(this.professorSelecionado.getEmail())
+                && (!this.emailDoProfessor.equals(this.professorSelecionado.getEmail()))) {
 
-            } else {
-                // Depois de tudo está validado, deve-se executar esse código.
-                this.professorRN.registrarProfessor(this.professorSelecionado);
-                limpar();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Dados alterados com sucesso.", ""));
-            }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "E-mail já cadastrado.", ""));
 
+        } else if (!this.confirmaSenha.equals(this.professorSelecionado.getSenha())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "As senhas não conferem.", ""));
+
+        }
+        else{
+            professorRN.atualizarProfessor(professorSelecionado);
+            limpar();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Dados atualizados com sucesso.", ""));
         }
     }
 }

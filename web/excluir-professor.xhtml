@@ -21,11 +21,23 @@
 
             <!-- Formulário para exclusão de professor. -->
             <h:form>
-                <h:commandButton value="Selecione o professor..." action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"/>
-                <h:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir"/>
-                
+                <p:commandButton icon="ui-icon-check" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
+                    <p:ajax event="dialogReturn" listener="#{excluirProfessorBean.eventoSelecaoProfessor}" update="@form"/>
+                </p:commandButton>
+                <p:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir" disabled="#{excluirProfessorBean.disabledBotaoExcluir}"
+                                 update="@form">
+                    <p:confirm header="Atenção!" message="Está ciente disso?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+
+
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Confirmar Dados:"/>
                     <h:outputLabel value="Nome:"/>
                     <h:outputText value="#{excluirProfessorBean.professorSelecionado.nome}"/>
                     <h:outputLabel value="Matrícula:"/>
