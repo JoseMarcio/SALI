@@ -26,7 +26,7 @@ public class Instituicao implements Serializable {
     private Long id;
     private String nome;
     private String email;
-    private Integer telefone;
+    private String telefone;
     private String senha;
     @OneToOne(mappedBy = "instituicao")
     @Cascade(CascadeType.ALL)
@@ -59,11 +59,11 @@ public class Instituicao implements Serializable {
         this.email = email;
     }
 
-    public Integer getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

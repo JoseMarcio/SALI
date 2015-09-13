@@ -92,4 +92,9 @@ public class TemplateAraInstituicaoBean {
     public String irExcluirAluno(){
         return "excluir-aluno";
     }
+    
+    
+    public String irAlterarInstituicao(){
+        return "instituicao-alterar";
+    }
 }

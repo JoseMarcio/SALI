@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -131,11 +132,10 @@ public class ProfessorAlterarBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "As senhas não conferem.", ""));
 
-        }
-        else{
+        } else {
             professorRN.atualizarProfessor(professorSelecionado);
             limpar();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+            RequestContext.getCurrentInstance().showMessageInDialog( new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Dados atualizados com sucesso.", ""));
         }
     }

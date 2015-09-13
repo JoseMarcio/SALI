@@ -51,6 +51,17 @@ public class AlunoRN {
         return alunoDAO.listar(Aluno.class, filtro);
     }
 
+    
+    /**
+     * Listar todos os alunos.
+     * @return 
+     */
+    public List<Aluno> listarTodos(){
+        return alunoDAO.listarTodos(Aluno.class);
+    }
+    
+    
+    
     /**
      * Exclui um aluno, para isso o mesmo é retirado da lista de alunos que a
      * sua turma possui.
@@ -59,12 +70,7 @@ public class AlunoRN {
      * @param aluno
      */
     public void excluirAluno(Aluno aluno) {
-        Turma turmaDoAluno = aluno.getTurma();
-        turmaDoAluno.getAlunos().remove(aluno);
-        aluno.setTurma(null);
-        turmaRN.atualizarTurma(turmaDoAluno);
-        alunoDAO.atualizar(aluno);
-        alunoDAO.excluir(aluno);
+                alunoDAO.excluir(aluno);
     }
 
     /**

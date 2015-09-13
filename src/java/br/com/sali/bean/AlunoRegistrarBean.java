@@ -1,15 +1,15 @@
 package br.com.sali.bean;
 
 import br.com.sali.modelo.Aluno;
-import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Turma;
 import br.com.sali.regras.AlunoRN;
-import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -17,23 +17,24 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "alunoRegistrarBean")
 @ViewScoped
-public class AlunoRegistrarBean{
-    
+public class AlunoRegistrarBean {
+
     // Atributos.
     private Aluno aluno;
     private AlunoRN alunoRN;
     private String confirmaSenha;
-    
+    private boolean disabledRegistrar;
+
     // Construtor.
     @PostConstruct
-    public void init(){
+    public void init() {
         aluno = new Aluno();
         alunoRN = new AlunoRN();
         confirmaSenha = "";
+        disabledRegistrar = true;
     }
-    
-    //======================Gets e Sets=========================================
 
+    //======================Gets e Sets=========================================
     public Aluno getAluno() {
         return aluno;
     }
@@ -49,9 +50,18 @@ public class AlunoRegistrarBean{
     public void setConfirmaSenha(String confirmaSenha) {
         this.confirmaSenha = confirmaSenha;
     }
-        
-    //=======================Métodos============================================
+
+    public boolean isDisabledRegistrar() {
+        return disabledRegistrar;
+    }
+
+    public void setDisabledRegistrar(boolean disabledRegistrar) {
+        this.disabledRegistrar = disabledRegistrar;
+    }
     
+    
+
+    //=======================Métodos============================================
     /**
      * Reinicia os atributos da bean.
      */
@@ -59,10 +69,21 @@ public class AlunoRegistrarBean{
         aluno = new Aluno();
         alunoRN = new AlunoRN();
         confirmaSenha = "";
+        disabledRegistrar = true;
     }
     
     
-    
+    /**
+     * Captura a turma selecionado pelo evento.
+     *
+     * @param event
+     */
+    public void eventoSelecaoTurma(SelectEvent event) {
+        Turma turma = (Turma) event.getObject();
+        this.aluno.setTurma(turma);
+        setDisabledRegistrar(false);
+    }
+
     /**
      * Verifica se a senha e a confirmação de senha são iguais.
      *
@@ -72,12 +93,9 @@ public class AlunoRegistrarBean{
         return this.aluno.getSenha().equals(this.confirmaSenha);
     }
 
-    
-    
-
     /**
-     * Registra o aluno no banco de dados, de acordo com as regras definidas
-     * na classe AlunoRN.
+     * Registra o aluno no banco de dados, de acordo com as regras definidas na
+     * classe AlunoRN.
      *
      */
     public void registrar() {
@@ -98,10 +116,11 @@ public class AlunoRegistrarBean{
 
         } else {
             // Depois de tudo está validado, deve-se executar esse código.
-            this.alunoRN.registrarAluno(aluno);
+            this.alunoRN.registrarAluno(this.aluno);
             limparBean();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Professor registrado com sucesso.", ""));
+                    "Aluno registrado com sucesso.", ""));
+
         }
     }
 }

@@ -1,12 +1,74 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:composition template="/template/area-instituicao.xhtml">
+        <ui:define name="titulo">
+            Registrar Aluno
+        </ui:define>
+
+        <ui:define name="corpo">
+
+
+            <!-- Formulário para cadastro de alunos.-->
+            <!-- Formulário concluído e validado -->
+            <h:form>
+                <h3>Registrar Novo Aluno</h3>
+                <h:panelGrid columns="1">
+
+
+                    <h:outputLabel value="Nome Completo:" for="inputNome"/>
+                    <h:inputText id="inputNome" value="#{alunoRegistrarBean.aluno.nome}" required="true" 
+                                 requiredMessage="Insira o nome do aluno." pt:placeholder="Informe o nome"/>
+
+
+                    <h:outputLabel value="Matrícula Escolar:" for="inputMatricula"/>
+                    <h:inputText id="inputMatricula" value="#{alunoRegistrarBean.aluno.matricula}" required="true"
+                                 requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" 
+                                 pt:placeholder="Somente números"/>
+
+
+                    <h:outputLabel value="Email:" for="inputEmail"/>
+                    <h:inputText id="inputEmail" value="#{alunoRegistrarBean.aluno.email}" required="true"
+                                 requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." 
+                                 pt:placeholder="Informe o e-mail">
+                        <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                    </h:inputText>
+
+
+                    <h:outputLabel value="Turma" for="turma"/>
+                     <h:panelGrid columns="2">
+                         <h:outputText value="#{alunoRegistrarBean.aluno.turma.nome}" id="turma"  />
+                         <p:commandButton icon="ui-icon-check" title="Selecionar Turma" action="#{turmaPesquisarBean.abrirDialogoPesquisa()}"
+                                         process="@this">
+                             <p:ajax event="dialogReturn" listener="#{alunoRegistrarBean.eventoSelecaoTurma}" update="turma registrar"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+
+                    <h:outputLabel value="Senha:" for="inputSenha"/>
+                    <h:inputSecret id="inputSenha" value="#{alunoRegistrarBean.aluno.senha}" required="true" requiredMessage="Informe uma senha."
+                                   pt:placeholder="Senha"/>
+
+                    <h:outputLabel value="Confirme a Senha:" for="inputConfirmaSenha"/>
+                    <h:inputSecret value="#{alunoRegistrarBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."
+                                   pt:placeholder="Confirmar Senha"/>
+
+
+                    <h:commandButton action="#{alunoRegistrarBean.registrar()}" value="Registrar" title="Registrar Aluno"
+                                     disabled="#{alunoRegistrarBean.disabledRegistrar}" id="registrar"/>
+                    <p:messages autoUpdate="true"/>
+
+
+                </h:panelGrid>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
 </html>
 

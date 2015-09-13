@@ -1,12 +1,65 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
     <h:head>
-        <title>Facelet Title</title>
+        <title>Pesquisa de Aluno</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+
+        <!-- Formulario para realização de pesquisa de alunos. -->
+        <h:form>
+            <!-- Organização dos labels e inputs em uma coluna.-->
+            <h:panelGrid columns="1" cellpadding="7">
+
+                <h:panelGrid columns="3">
+                    <h:inputText value="#{alunoPesquisarBean.filtro}"  
+                                 pt:placeholder="Nome ou Matrícula" required="true" requiredMessage="Informe um dado para pesquisar."/>
+
+                    <h:commandButton action="#{alunoPesquisarBean.pesquisar()}" value="Pesquisar"/>
+                </h:panelGrid>
+
+                
+                
+                <!-- Tabela de exibição de dados (aluno) -->
+                <p:dataTable value="#{alunoPesquisarBean.listaDeAluno}" var="aluno" 
+                             emptyMessage="Nenhum dado a exibir.">
+
+                    <p:column headerText="Matrícula" width="120" style="text-align: left;">
+                        <h:outputLabel value="#{aluno.matricula}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome" style="text-align: left;">
+                        <h:outputLabel value="#{aluno.nome}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Turma" style="text-align: left;" width="120">
+                         <h:outputLabel value="#{aluno.turma.nome}"/>
+                    </p:column>
+
+                    <p:column width="100" style="text-align: center;">
+                        <p:commandButton icon="ui-icon-check" title="Selecionar" action="#{alunoPesquisarBean.selecionarAluno(aluno)}"
+                                         process="@this"/>
+                    </p:column>
+                </p:dataTable>
+
+            </h:panelGrid>
+
+            <p:messages autoUpdate="true"/>
+
+        </h:form>
+
+        <h:form>
+            <h:commandButton action="#{alunoPesquisarBean.limpar()}" value="Limpar" title="Limpar Dados"/>
+        </h:form>
+
+
+
+
     </h:body>
 </html>
 

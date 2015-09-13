@@ -9,7 +9,7 @@ import br.com.sali.modelo.Instituicao;
  */
 public class InstituicaoRN {
     
-    private InstituicaoDAO instituicaDAO;
+    private final InstituicaoDAO instituicaDAO;
     private final long idMyInstituicao = 1;
     private Instituicao instituicoCadastrada;
 
