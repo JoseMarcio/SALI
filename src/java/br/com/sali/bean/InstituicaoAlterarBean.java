@@ -39,10 +39,7 @@ public class InstituicaoAlterarBean {
     }
 
     public void atualizar() {
-        if (instituicaoRN.getInstituicoCadastrada() == null) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Não é possível atualizar os dados. Pois não existe nenhuma Instituição cadastrada.", ""));
-        } else if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getEmail()) && (!emailInstituicao.equals(instituicaoCadastrada.getEmail()))) {
+         if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getEmail()) && (!emailInstituicao.equals(instituicaoCadastrada.getEmail()))) {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "E-mail já cadastrado.", ""));
         } else {
