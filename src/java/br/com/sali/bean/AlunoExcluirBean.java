@@ -10,6 +10,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * Managed Bean Excluir Aluno.
  *
  * @author SALI
  */
@@ -17,17 +18,20 @@ import org.primefaces.event.SelectEvent;
 @ViewScoped
 public class AlunoExcluirBean {
 
+    // Atributos.
     private AlunoRN alunoRN;
     private Aluno alunoSelecionado;
-    private boolean disabledExcluir;
+    private boolean disabledBotaoExcluir;
 
+    // Construtor.
     @PostConstruct
     public void init() {
         alunoRN = new AlunoRN();
         alunoSelecionado = new Aluno();
-        disabledExcluir = true;
+        disabledBotaoExcluir = true;
     }
 
+    //============================ Gets e Sets =================================
     public Aluno getAlunoSelecionado() {
         return alunoSelecionado;
     }
@@ -36,25 +40,32 @@ public class AlunoExcluirBean {
         this.alunoSelecionado = alunoSelecionado;
     }
 
-    public boolean isDisabledExcluir() {
-        return disabledExcluir;
+    public boolean isDisabledBotaoExcluir() {
+        return disabledBotaoExcluir;
     }
 
-    public void setDisabledExcluir(boolean disabledExcluir) {
-        this.disabledExcluir = disabledExcluir;
+    public void setDisabledBotaoExcluir(boolean disabledBotaoExcluir) {
+        this.disabledBotaoExcluir = disabledBotaoExcluir;
     }
 
     //=========================== Métodos ======================================
+    /**
+     * Reinicia os atributos da bean.
+     */
     public void limpar() {
-        alunoRN = new AlunoRN();
-        alunoSelecionado = new Aluno();
-        disabledExcluir = true;
+        init();
     }
 
+    /**
+     * É o que deve acontecer no momento em que for selecionado um aluno por
+     * meio do diálodo de pesquisa de alunos.
+     *
+     * @param event
+     */
     public void eventoSelecaoAluno(SelectEvent event) {
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
-        setDisabledExcluir(false);
+        setDisabledBotaoExcluir(false);
     }
 
     /**
@@ -64,6 +75,7 @@ public class AlunoExcluirBean {
     public void excluir() {
         alunoRN.excluirAluno(alunoSelecionado);
         limpar();
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Aluno excluido com sucesso."));
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Sucesso!", "Aluno excluído com sucesso."));
     }
 }

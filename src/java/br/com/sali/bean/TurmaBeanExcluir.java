@@ -1,8 +1,6 @@
 package br.com.sali.bean;
 
-import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
-import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.TurmaRN;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,6 +10,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * Managed Bean Excluir Turma.
  *
  * @author SALI
  */
@@ -20,23 +19,25 @@ import org.primefaces.event.SelectEvent;
 public class TurmaBeanExcluir {
 
     // Atributos.
-    private Turma turmaSelecionado;
+    private Turma turmaSelecionada;
     private TurmaRN turmaRN;
     private boolean disabledBotaoExcluir;
 
+    // Construtor.
     @PostConstruct
     public void init() {
-        turmaSelecionado = new Turma();
+        turmaSelecionada = new Turma();
         turmaRN = new TurmaRN();
         disabledBotaoExcluir = true;
     }
 
-    public Turma getTurmaSelecionado() {
-        return turmaSelecionado;
+    //============================== Gets e Sets ===============================
+    public Turma getTurmaSelecionada() {
+        return turmaSelecionada;
     }
 
-    public void setTurmaSelecionado(Turma turmaSelecionado) {
-        this.turmaSelecionado = turmaSelecionado;
+    public void setTurmaSelecionada(Turma turmaSelecionada) {
+        this.turmaSelecionada = turmaSelecionada;
     }
 
     public boolean isDisabledBotaoExcluir() {
@@ -47,26 +48,24 @@ public class TurmaBeanExcluir {
         this.disabledBotaoExcluir = disabledBotaoExcluir;
     }
 
-    //====================================Gets e Sets===========================
+    //============================== Métodos ===================================
     /**
-     * Captura o professor selecionado pelo evento.
+     * Reinicia os atributos da bean.
+     */
+    public void limpar() {
+        init();
+    }
+
+    /**
+     * É o que deve acontecer no momento em que for selecionado uma turma por
+     * meio do diálodo de pesquisa de turmas.
      *
      * @param event
      */
     public void eventoSelecaoTurma(SelectEvent event) {
         Turma turma = (Turma) event.getObject();
-        setTurmaSelecionado(turma);
+        setTurmaSelecionada(turma);
         setDisabledBotaoExcluir(false);
-
-    }
-
-    /**
-     * Limpa os atributos da bean.
-     */
-    public void limpar() {
-        turmaSelecionado = new Turma();
-        turmaRN = new TurmaRN();
-        disabledBotaoExcluir = true;
     }
 
     /**
@@ -74,10 +73,9 @@ public class TurmaBeanExcluir {
      *
      */
     public void excluir() {
-        turmaRN.excluirTurma(turmaSelecionado);
+        turmaRN.excluirTurma(turmaSelecionada);
         limpar();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Turma excluida com sucesso.");
-        RequestContext.getCurrentInstance().showMessageInDialog(message);
-
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Sucesso!", "Turma excluída com sucesso."));
     }
 }

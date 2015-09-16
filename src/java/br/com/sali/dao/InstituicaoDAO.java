@@ -1,8 +1,6 @@
 package br.com.sali.dao;
 
 import br.com.sali.modelo.Instituicao;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * Realiza as operações relacionadas ao modelo Instituicao.
@@ -11,18 +9,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public class InstituicaoDAO extends GenericoDAO<Instituicao> {
 
-    /**
-     * Pegar a instituicao do banco de dados por id.
-     *
-     * @param id
-     * @return
+    /*
+     Ainda não existem métodos próprios desta classe.
+     Nem métodos sobrescritos.
      */
-    public Instituicao getInstituicaoById(Long id) {
-        Criteria criteria = getSessao().createCriteria(Instituicao.class);
-        Instituicao instituicao = (Instituicao) criteria.add(Restrictions.eq("id", id)).uniqueResult();
-        getTransacao().commit();
-        getSessao().close();
-        return instituicao;
-    }
-
 }

@@ -8,10 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * Managed Bean Registrar Aluno.
  *
  * @author SALI
  */
@@ -23,7 +24,7 @@ public class AlunoRegistrarBean {
     private Aluno aluno;
     private AlunoRN alunoRN;
     private String confirmaSenha;
-    private boolean disabledRegistrar;
+    private boolean disabledBotaoRegistrar;
 
     // Construtor.
     @PostConstruct
@@ -31,7 +32,7 @@ public class AlunoRegistrarBean {
         aluno = new Aluno();
         alunoRN = new AlunoRN();
         confirmaSenha = "";
-        disabledRegistrar = true;
+        disabledBotaoRegistrar = true;
     }
 
     //======================Gets e Sets=========================================
@@ -51,76 +52,69 @@ public class AlunoRegistrarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public boolean isDisabledRegistrar() {
-        return disabledRegistrar;
+    public boolean isDisabledBotaoRegistrar() {
+        return disabledBotaoRegistrar;
     }
 
-    public void setDisabledRegistrar(boolean disabledRegistrar) {
-        this.disabledRegistrar = disabledRegistrar;
+    public void setDisabledBotaoRegistrar(boolean disabledBotaoRegistrar) {
+        this.disabledBotaoRegistrar = disabledBotaoRegistrar;
     }
-    
-    
 
     //=======================Métodos============================================
     /**
      * Reinicia os atributos da bean.
      */
-    public void limparBean() {
-        aluno = new Aluno();
-        alunoRN = new AlunoRN();
-        confirmaSenha = "";
-        disabledRegistrar = true;
+    public void limpar() {
+        init();
     }
-    
-    
+
     /**
-     * Captura a turma selecionado pelo evento.
+     * É o que deve acontecer no momento em que for selecionado uma turma por
+     * meio do diálodo de pesquisa de turmas.
      *
      * @param event
      */
     public void eventoSelecaoTurma(SelectEvent event) {
         Turma turma = (Turma) event.getObject();
-        this.aluno.setTurma(turma);
-        setDisabledRegistrar(false);
+        aluno.setTurma(turma);
+        setDisabledBotaoRegistrar(false);
     }
 
     /**
-     * Verifica se a senha e a confirmação de senha são iguais.
+     * Verifica se a senha e a confirmação de senha são iguais. Se forem iguais
+     * é retornado "true", senão é retornado "false".
      *
      * @return
      */
     public boolean isSenhasIguais() {
-        return this.aluno.getSenha().equals(this.confirmaSenha);
+        return aluno.getSenha().equals(confirmaSenha);
     }
 
     /**
-     * Registra o aluno no banco de dados, de acordo com as regras definidas na
-     * classe AlunoRN.
+     * Registra o aluno no banco de dados.
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(this.aluno.getMatricula())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Informe uma matrícula válida.", ""));
-        } else if (ValidacoesUtil.isExistenteMatricula(this.aluno.getMatricula())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Matrícula já cadastrada.", ""));
+        if (!ValidacoesUtil.isValidaMatricula(aluno.getMatricula())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Informe uma matrícula válida."));
+        } else if (ValidacoesUtil.isExistenteMatricula(aluno.getMatricula())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Matrícula já cadastrada."));
 
-        } else if (ValidacoesUtil.isExistenteEmail(this.aluno.getEmail())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "E-mail já cadastrado.", ""));
+        } else if (ValidacoesUtil.isExistenteEmail(aluno.getEmail())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "E-mail já cadastrado."));
 
         } else if (!isSenhasIguais()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "As senhas não conferem.", ""));
-
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "As senhas não conferem."));
         } else {
-            // Depois de tudo está validado, deve-se executar esse código.
-            this.alunoRN.registrarAluno(this.aluno);
-            limparBean();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Aluno registrado com sucesso.", ""));
-
+            // Depois de tudo está validado, deve-se salvar o aluno.
+            alunoRN.registrarAluno(aluno);
+            limpar();
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Sucesso!", "Registro efetuado com sucesso."));
         }
     }
 }

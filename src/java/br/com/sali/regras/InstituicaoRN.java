@@ -1,23 +1,30 @@
 package br.com.sali.regras;
 
 import br.com.sali.dao.InstituicaoDAO;
+import br.com.sali.modelo.Endereco;
 import br.com.sali.modelo.Instituicao;
+import br.com.sali.util.CriptografiaUtil;
 
 /**
+ * Trata asRealizar Operações com o modelo Instituição de modo que sejam aplicadas as devidas
+ * regras (se necessário).
  *
  * @author SALI
  */
 public class InstituicaoRN {
-    
+
+    // Atributos.
     private final InstituicaoDAO instituicaDAO;
     private final long idMyInstituicao = 1;
     private Instituicao instituicoCadastrada;
 
+    // Construtor.
     public InstituicaoRN() {
         instituicaDAO = new InstituicaoDAO();
-        instituicoCadastrada = instituicaDAO.getInstituicaoById(idMyInstituicao);
+        instituicoCadastrada = (Instituicao) instituicaDAO.getObjectById(Instituicao.class, idMyInstituicao);
     }
 
+    //========================= Gets e Sets ====================================
     public Instituicao getInstituicoCadastrada() {
         return instituicoCadastrada;
     }
@@ -25,23 +32,44 @@ public class InstituicaoRN {
     public void setInstituicoCadastrada(Instituicao instituicoCadastrada) {
         this.instituicoCadastrada = instituicoCadastrada;
     }
-    
-    
+
+    //=========================== Métodos ======================================
     /**
      * Atualiza os dados da instituição.
+     *
      * @param instituicao
      */
-    public void atualizarInstituicao(Instituicao instituicao){
+    public void atualizarInstituicao(Instituicao instituicao) {
+        instituicao.setSenha(CriptografiaUtil.criptografaSenha(instituicao.getSenha()));
         instituicaDAO.atualizar(instituicao);
     }
-    
+
     /**
-     * Verifica se o e-mail informado já existe no banco de dados.
+     * Verifica se o e-mail informado já existe no banco de dados. Se existir 
+     * é retornado "true", senão existir é retornado "false".
      *
      * @param email
      * @return
      */
     public boolean isExistenteEmail(String email) {
         return instituicaDAO.isExistenteEmail(Instituicao.class, email);
+    }
+    
+    
+    /**
+     * Cria uma Instituição inicial no banco de dados (com dados padrão).
+     */
+    public void criaInstituicao(){
+        Instituicao instituicao = new Instituicao();
+        Endereco endereco = new Endereco();
+        
+        instituicao.setEmail("admin@sali.com");
+        instituicao.setSenha("admin");
+        instituicao.setNome("Primeira Instituição");
+       
+        endereco.setInstituicao(instituicao);
+        instituicao.setEndereco(endereco);
+        
+        instituicaDAO.salvar(instituicao);
     }
 }

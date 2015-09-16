@@ -8,9 +8,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * Managed Bean Registrar Turma.
  *
  * @author SALI
  */
@@ -50,7 +52,15 @@ public class TurmaRegistrarBean {
 
     //===========================Métodos========================================
     /**
-     * Captura o professor selecionado pelo evento.
+     * Reinicia os atributos da bean.
+     */
+    public void limpar() {
+        init();
+    }
+
+    /**
+     * É o que deve acontecer no momento em que for selecionado um professor por
+     * meio do diálodo de pesquisa de professor.
      *
      * @param event
      */
@@ -61,27 +71,17 @@ public class TurmaRegistrarBean {
     }
 
     /**
-     * Reinicia os atributos da classe.
-     */
-    public void limpar() {
-        this.turma = new Turma();
-        this.turmaRN = new TurmaRN();
-
-    }
-
-    /**
-     * Registra uma nova turma no banco de dados.
+     * Registra o aluno no banco de dados.
      */
     public void registrar() {
         if (turmaRN.isExistenteNome(turma.getNome())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Já existe uma turma com esse nome.", ""));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Já existe uma turma com esse nome."));
         } else {
             turmaRN.registrarTurma(turma);
             limpar();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Turma registrada com sucesso.", ""));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Sucesso!", "Registro efetuado com sucesso."));
         }
-
     }
 }

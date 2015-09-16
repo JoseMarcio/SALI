@@ -3,6 +3,7 @@ package br.com.sali.util;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.regras.ProfessorRN;
+import br.com.sali.regras.TurmaRN;
 
 /**
  * Trata das validações necessárias ao sistema.
@@ -11,7 +12,6 @@ import br.com.sali.regras.ProfessorRN;
  */
 public class ValidacoesUtil {
 
-    
     /**
      * Verifica se só contém números. Se tiver somente números na String é
      * retornado "true", senão é retornado "false".
@@ -31,13 +31,10 @@ public class ValidacoesUtil {
         return true;
 
     }
-    
-    
-    
 
     /**
-     * Verifica se só tem letras. Se tiver somente letras na String é
-     * retornado "true", senão é retornado "false".
+     * Verifica se só tem letras. Se tiver somente letras na String é retornado
+     * "true", senão é retornado "false".
      *
      * @param texto
      * @return
@@ -46,8 +43,6 @@ public class ValidacoesUtil {
         return texto.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$");
     }
 
-    
-    
     /**
      * Verifica se a matrícula informada já existe cadastrada para algum
      * usuário. Se a matrícula já estiver cadastrada para algum usuário é
@@ -67,12 +62,9 @@ public class ValidacoesUtil {
         }
     }
 
-    
-    
     /**
-     * Verifica se o email já se encontra cadastrado para algum usuário. Se 
-     * o email já estiver em uso é retornado "true", senão é retornado
-     * "false".
+     * Verifica se o email já se encontra cadastrado para algum usuário. Se o
+     * email já estiver em uso é retornado "true", senão é retornado "false".
      *
      * @param email
      * @return
@@ -91,10 +83,9 @@ public class ValidacoesUtil {
         }
     }
 
-    
     /**
-     * Verifica se a matrícula é válida. Para a matrícula ser válida é necessário que
-     * ela seja um número inteiro maior que "0"
+     * Verifica se a matrícula é válida. Para a matrícula ser válida é
+     * necessário que ela seja um número inteiro maior que "0"
      *
      * @param matricula
      * @return
@@ -103,4 +94,15 @@ public class ValidacoesUtil {
         return matricula > 0;
     }
 
+    /**
+     * Verifica se o nome(da turma) informado já existe cadastrado no banco de
+     * dados. Se existir é retornado "true", senão existir é retornado "false".
+     *
+     * @param nomeInformado
+     * @return
+     */
+    public static boolean isExistenteNomeDaTurma(String nomeInformado) {
+        TurmaRN turmaRN = new TurmaRN();
+        return turmaRN.isExistenteNome(nomeInformado);
+    }
 }

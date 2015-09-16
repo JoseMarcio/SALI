@@ -10,6 +10,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * Managed Bean Excluir Professor.
  *
  * @author SALI
  */
@@ -50,7 +51,8 @@ public class ProfessorExcluirBean {
 
     //===================== Métodos ============================================
     /**
-     * Captura o professor selecionado pelo evento.
+     * É o que deve acontecer no momento em que for selecionado um professor por
+     * meio do diálodo de pesquisa de professores.
      *
      * @param event
      */
@@ -58,16 +60,13 @@ public class ProfessorExcluirBean {
         Professor professor = (Professor) event.getObject();
         setProfessorSelecionado(professor);
         setDisabledBotaoExcluir(false);
-
     }
 
     /**
-     * Limpa os atributos da bean.
+     * Reinicia os atributos da bean.
      */
     public void limpar() {
-        this.professorSelecionado = new Professor();
-        this.professorRN = new ProfessorRN();
-        this.disabledBotaoExcluir = true;
+        init();
     }
 
     /**
@@ -75,16 +74,14 @@ public class ProfessorExcluirBean {
      *
      */
     public void excluir() {
-        if (this.professorRN.excluirProfessor(this.professorSelecionado)) {
+        if (professorRN.excluirProfessor(professorSelecionado)) {
             limpar();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Professor excluido com sucesso.");
-            RequestContext.getCurrentInstance().showMessageInDialog(message);
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Sucesso!", "Professor excluído com sucesso."));
 
         } else {
-           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Não é possível excluir o professor. Ele está em "
-                   + "lotado em turmas.");
-            RequestContext.getCurrentInstance().showMessageInDialog(message);
-
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Não é possível excluir este professor, pois ele é o orientador de alguma(s) turma(s)."));
         }
 
     }

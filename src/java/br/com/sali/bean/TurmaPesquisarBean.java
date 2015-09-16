@@ -11,28 +11,28 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
 /**
+ * Managed Bean Pesquisar Turma.
  *
  * @author SALI
  */
 @ManagedBean(name = "turmaPesquisarBean")
 @ViewScoped
 public class TurmaPesquisarBean {
-    
+
+    // Atributos.
     private TurmaRN turmaRN;
     private List<Turma> listaDeTurmas;
     private String filtroDePesquisa;
 
-    
     // Construtor.
     @PostConstruct
-    public void init(){
-        this.turmaRN = new TurmaRN();
-        this.listaDeTurmas = turmaRN.listarTodas();
-        this.filtroDePesquisa = "";
+    public void init() {
+        turmaRN = new TurmaRN();
+        listaDeTurmas = turmaRN.listarTodas();
+        filtroDePesquisa = "";
     }
-    
-    //================== Gets e Sets ===========================================
 
+    //================== Gets e Sets ===========================================
     public List<Turma> getListaDeTurmas() {
         return listaDeTurmas;
     }
@@ -41,7 +41,6 @@ public class TurmaPesquisarBean {
         this.listaDeTurmas = listaDeTurmas;
     }
 
-   
     public String getFiltroDePesquisa() {
         return filtroDePesquisa;
     }
@@ -49,47 +48,42 @@ public class TurmaPesquisarBean {
     public void setFiltroDePesquisa(String filtroDePesquisa) {
         this.filtroDePesquisa = filtroDePesquisa;
     }
-    
-    
+
     //====================== Métodos ===========================================
-    
     /**
-     * Limpa os atributos da bean.
+     * Reinicia os atributos da bean.
      */
     public void limpar() {
-        this.turmaRN = new TurmaRN();
-        this.listaDeTurmas = turmaRN.listarTodas();
-        setFiltroDePesquisa("");
+        init();
     }
 
-    
     /**
-     * Filtrar as turmas por nome.
+     * Realiza a listagem de turmas de acordo com o filtro (nome)
+     * informado.
      */
     public void pesquisar() {
-        this.listaDeTurmas = turmaRN.listarTurmas(filtroDePesquisa);
-    }    
-    
-    
+        listaDeTurmas = turmaRN.listarTurmasPorFiltro(filtroDePesquisa);
+    }
+
     /**
      * Seleciona a turma do diálogo de pesquisa.
-     * @param turma 
+     *
+     * @param turma
      */
-    public void selecionarTurma(Turma turma){
+    public void selecionarTurma(Turma turma) {
         RequestContext.getCurrentInstance().closeDialog(turma);
     }
-    
-    
+
     /**
      * Abre o diálogo de pesquisa de turmas.
      */
-    public void abrirDialogoPesquisa(){
-        Map<String,Object> options = new HashMap<>();
+    public void abrirDialogoPesquisa() {
+        Map<String, Object> options = new HashMap<>();
         options.put("modal", true);
         options.put("draggable", false);
         options.put("resizable", false);
         options.put("contentHeight", 320);
-        
+
         RequestContext.getCurrentInstance().openDialog("pesquisar-turma", options, null);
     }
 }

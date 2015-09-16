@@ -8,10 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * Managed Bean Alterar Aluno.
  *
  * @author SALI
  */
@@ -22,20 +23,20 @@ public class AlunoAlterarBean {
     // Atributos.
     private AlunoRN alunoRN;
     private Aluno alunoSelecionado;
-    private String emailAluno;
-    private Integer matriculaAluno;
+    private String emailAtualAluno;
+    private Integer matriculaAtualAluno;
     private String confirmaSenha;
-    private boolean disabledAtualizar;
+    private boolean disabledBotaoAtualizar;
 
     // Construtor.
     @PostConstruct
     public void init() {
-        this.alunoRN = new AlunoRN();
-        this.alunoSelecionado = new Aluno();
-        this.confirmaSenha = "";
-        this.disabledAtualizar = true;
-        this.emailAluno = "";
-        this.matriculaAluno = 0;
+        alunoRN = new AlunoRN();
+        alunoSelecionado = new Aluno();
+        confirmaSenha = "";
+        disabledBotaoAtualizar = true;
+        emailAtualAluno = "";
+        matriculaAtualAluno = 0;
     }
 
     //========================= Gets e Sets ====================================
@@ -47,12 +48,20 @@ public class AlunoAlterarBean {
         this.alunoSelecionado = alunoSelecionado;
     }
 
-    public String getEmailAluno() {
-        return emailAluno;
+    public String getEmailAtualAluno() {
+        return emailAtualAluno;
     }
 
-    public void setEmailAluno(String emailAluno) {
-        this.emailAluno = emailAluno;
+    public void setEmailAtualAluno(String emailAtualAluno) {
+        this.emailAtualAluno = emailAtualAluno;
+    }
+
+    public Integer getMatriculaAtualAluno() {
+        return matriculaAtualAluno;
+    }
+
+    public void setMatriculaAtualAluno(Integer matriculaAtualAluno) {
+        this.matriculaAtualAluno = matriculaAtualAluno;
     }
 
     public String getConfirmaSenha() {
@@ -63,73 +72,77 @@ public class AlunoAlterarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public boolean isDisabledAtualizar() {
-        return disabledAtualizar;
+    public boolean isDisabledBotaoAtualizar() {
+        return disabledBotaoAtualizar;
     }
 
-    public void setDisabledAtualizar(boolean disabledAtualizar) {
-        this.disabledAtualizar = disabledAtualizar;
-    }
-
-    public Integer getMatriculaAluno() {
-        return matriculaAluno;
-    }
-
-    public void setMatriculaAluno(Integer matriculaAluno) {
-        this.matriculaAluno = matriculaAluno;
+    public void setDisabledBotaoAtualizar(boolean disabledBotaoAtualizar) {
+        this.disabledBotaoAtualizar = disabledBotaoAtualizar;
     }
 
     //======================= Métodos ==========================================
+    /**
+     * Reinicia os atributos da bean.
+     */
     public void limpar() {
-        this.alunoRN = new AlunoRN();
-        this.alunoSelecionado = new Aluno();
-        this.confirmaSenha = "";
-        this.disabledAtualizar = true;
-        this.emailAluno = "";
-        this.matriculaAluno = 0;
+        init();
     }
 
+    /**
+     * É o que deve acontecer no momento em que for selecionado um aluno por
+     * meio do diálodo de pesquisa de alunos.
+     *
+     * @param event
+     */
     public void eventoSelecaoAluno(SelectEvent event) {
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
-        setMatriculaAluno(aluno.getMatricula());
-        setEmailAluno(aluno.getEmail());
-        setDisabledAtualizar(false);
+        setMatriculaAtualAluno(aluno.getMatricula());
+        setEmailAtualAluno(aluno.getEmail());
+        setDisabledBotaoAtualizar(false);
     }
-    
-    
-    public void eventoSelecaoTurma(SelectEvent event){
+
+    /**
+     * É o que deve acontecer no momento em que for selecionado uma turma por
+     * meio do diálodo de pesquisa de turma.
+     *
+     * @param event
+     */
+    public void eventoSelecaoTurma(SelectEvent event) {
         Turma turma = (Turma) event.getObject();
         alunoSelecionado.setTurma(turma);
     }
-    
-    
-    public void atualizar(){
-        if (!ValidacoesUtil.isValidaMatricula(alunoSelecionado.getMatricula())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Informe uma matrícula válida.", ""));
-        } else if (ValidacoesUtil.isExistenteMatricula(alunoSelecionado.getMatricula())
-                && (matriculaAluno != alunoSelecionado.getMatricula())) {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Matrícula já cadastrada.", ""));
+    /**
+     * Atualiza o dados do aluno no banco de dados.
+     * 
+     */
+    public void atualizar() {
+        if (!ValidacoesUtil.isValidaMatricula(alunoSelecionado.getMatricula())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Informe uma matrícula válida."));
+
+        } else if (ValidacoesUtil.isExistenteMatricula(alunoSelecionado.getMatricula())
+                && (matriculaAtualAluno != alunoSelecionado.getMatricula())) {
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Matrícula já cadastrada."));
 
         } else if (ValidacoesUtil.isExistenteEmail(alunoSelecionado.getEmail())
-                && (!emailAluno.equals(alunoSelecionado.getEmail()))) {
+                && (!emailAtualAluno.equals(alunoSelecionado.getEmail()))) {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "E-mail já cadastrado.", ""));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "E-mail já cadastrado."));
 
         } else if (!confirmaSenha.equals(alunoSelecionado.getSenha())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "As senhas não conferem.", ""));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "As senhas não conferem."));
 
-        }
-        else{
+        } else {
             alunoRN.atualizarAluno(alunoSelecionado);
             limpar();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Dados atualizados com sucesso.", ""));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Sucesso!", "Atualização conluída com sucesso."));
         }
     }
 

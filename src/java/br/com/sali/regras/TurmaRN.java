@@ -1,22 +1,26 @@
 package br.com.sali.regras;
 
-import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Turma;
 import java.util.List;
 
 /**
+ * Realizar Operações com o modelo Turma de modo que sejam aplicadas as devidas
+ * regras (se necessário).
  *
  * @author SALI
  */
 public class TurmaRN {
 
+    // Atributos.
     private final TurmaDAO turmaDAO;
 
+    // Construtor.
     public TurmaRN() {
         turmaDAO = new TurmaDAO();
     }
 
+    //=========================== Métodos ======================================
     /**
      * Salva uma turma.
      *
@@ -36,41 +40,41 @@ public class TurmaRN {
     }
 
     /**
-     * Lista as turmas solicitadas.
+     * Lista as turmas por filtro (nome).
      *
      * @param filtro
      * @return
      */
-    public List<Turma> listarTurmas(String filtro) {
-        return turmaDAO.listar(Turma.class, filtro);
+    public List<Turma> listarTurmasPorFiltro(String filtro) {
+        return turmaDAO.listarPorFiltro(Turma.class, filtro);
     }
 
     /**
-     * Exclui um professor se o mesmo não tiver registrado em nenhuma turma.
+     * Exclui uma turma.
      *
      * @param turma
      */
     public void excluirTurma(Turma turma) {
-        this.turmaDAO.excluir(turma);
+        turmaDAO.excluir(turma);
     }
 
     /**
-     * Verfica se o nome informado já existe no banco de dados.
+     * Verfica se o nome informado já existe no banco de dados. Se existir é
+     * retornado "true", senão existir é retornado "false".
      *
      * @param nome
      * @return
      */
     public boolean isExistenteNome(String nome) {
-        return this.turmaDAO.isExistenteNomeTurma(nome);
+        return turmaDAO.isExistenteNomeTurma(nome);
     }
-    
-    
+
     /**
      * Lista todas as turmas.
-     * @return 
+     *
+     * @return
      */
-    public List<Turma> listarTodas(){
+    public List<Turma> listarTodas() {
         return turmaDAO.listarTodos(Turma.class);
     }
 }
-

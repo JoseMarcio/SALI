@@ -2,79 +2,79 @@ package br.com.sali.regras;
 
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.modelo.Aluno;
-import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
 import java.util.List;
 
 /**
+ * Realizar Operações com o modelo Aluno de modo que sejam aplicadas as devidas
+ * regras (se necessário).
  *
  * @author SALI
  */
 public class AlunoRN {
 
-    private AlunoDAO alunoDAO;
-    private CriptografiaUtil criptografiaUtil;
-    private TurmaRN turmaRN;
+    // Atributos.
+    private final AlunoDAO alunoDAO;
+    private final TurmaRN turmaRN;
 
+    // Construtor.
     public AlunoRN() {
         alunoDAO = new AlunoDAO();
-        criptografiaUtil = new CriptografiaUtil();
         turmaRN = new TurmaRN();
     }
 
+    //============================= Gets e Sets ==================================
     /**
-     * Salva um aluno.
+     * Salva um aluno. Com a senha criptografada.
      *
      * @param aluno
      */
     public void registrarAluno(Aluno aluno) {
-        aluno.setSenha(criptografiaUtil.criptografaSenha(aluno.getSenha()));
+        aluno.setSenha(CriptografiaUtil.criptografaSenha(aluno.getSenha()));
         alunoDAO.salvar(aluno);
     }
 
     /**
-     * Atualiza um aluno do banco de dados.
+     * Atualiza um aluno do banco de dados. Com a senha criptografada.
      *
      * @param aluno
      */
     public void atualizarAluno(Aluno aluno) {
+        aluno.setSenha(CriptografiaUtil.criptografaSenha(aluno.getSenha()));
         alunoDAO.atualizar(aluno);
     }
 
     /**
-     * Lista os alunos solicitados.
+     * Lista os alunos por filtro (nome ou matrícula).
      *
      * @param filtro
      * @return
      */
-    public List<Aluno> listarAlunos(String filtro) {
-        return alunoDAO.listar(Aluno.class, filtro);
+    public List<Aluno> listarAlunosPorFiltro(String filtro) {
+        return alunoDAO.listarPorFiltro(Aluno.class, filtro);
     }
 
-    
     /**
      * Listar todos os alunos.
-     * @return 
+     *
+     * @return
      */
-    public List<Aluno> listarTodos(){
+    public List<Aluno> listarTodos() {
         return alunoDAO.listarTodos(Aluno.class);
     }
-    
-    
-    
+
     /**
-     * Exclui um aluno, para isso o mesmo é retirado da lista de alunos que a
-     * sua turma possui.
-     *
+     * Exclui um aluno.
      *
      * @param aluno
      */
     public void excluirAluno(Aluno aluno) {
-                alunoDAO.excluir(aluno);
+        alunoDAO.excluir(aluno);
     }
 
     /**
-     * Verifica se o e-mail informado já existe no banco de dados.
+     * Verifica se o e-mail informado já existe no banco de dados. Se existir é
+     * retornado "true", senão existir é retornado "false".
      *
      * @param email
      * @return
@@ -84,7 +84,8 @@ public class AlunoRN {
     }
 
     /**
-     * Verifica se a matrícula informada já existe no banco de dados.
+     * Verifica se a matrícula informada já existe no banco de dados. Se existir
+     * é retornado "true", senão existir é retornado "false".
      *
      * @param matricula
      * @return

@@ -140,5 +140,20 @@ public class GenericoDAO<T> extends ManuseioDb {
         }
 
     }
+    
+     /**
+     * Pegar o objeto do banco de dados por id.
+     *
+     * @param myClass
+     * @param id
+     * @return
+     */
+    public Object getObjectById(Class<T> myClass, Long id) {
+        Criteria criteria = getSessao().createCriteria(myClass);
+        Object object = (Object) criteria.add(Restrictions.eq("id", id)).uniqueResult();
+        getTransacao().commit();
+        getSessao().close();
+        return object;
+    }
 
 }

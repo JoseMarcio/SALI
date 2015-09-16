@@ -3,98 +3,104 @@ package br.com.sali.bean;
 import javax.faces.bean.ManagedBean;
 
 /**
+ * Managed Bean Links Área Instituição.
  *
  * @author SALI
  */
 @ManagedBean(name = "beanTemplateInstituicao")
 public class TemplateAraInstituicaoBean {
-    
+
     /**
      * Direciona página Inicial.
-     * @return 
+     *
+     * @return
      */
-    public String irInicioInstituicao(){
+    public String irInicioInstituicao() {
         return "inicio-instituicao";
     }
-    
-    
+
     /**
      * Direciona página alterar professor.
-     * @return 
+     *
+     * @return
      */
-    public String irAlterarProfessor(){
+    public String irAlterarProfessor() {
         return "alterar-professor";
     }
-    
-    
-    
+
     /**
      * Direciona página excluir professor.
-     * @return 
+     *
+     * @return
      */
-    public String irExcluirProfessor(){
+    public String irExcluirProfessor() {
         return "excluir-professor";
     }
-    
+
     /**
      * Direciona página excluir professor.
-     * @return 
+     *
+     * @return
      */
-    public String irRegistrarProfessor(){
+    public String irRegistrarProfessor() {
         return "registrar-professor";
     }
-    
-     /**
+
+    /**
      * Direciona página registrar turma.
-     * @return 
+     *
+     * @return
      */
-    public String irRegistrarTurma(){
+    public String irRegistrarTurma() {
         return "registrar-turma";
     }
-    
+
     /**
      * Direciona página alterar turma.
-     * @return 
+     *
+     * @return
      */
-    public String irAlterarTurma(){
+    public String irAlterarTurma() {
         return "alterar-turma";
     }
-    
+
     /**
      * Direciona página excluir turma.
-     * @return 
+     *
+     * @return
      */
-    public String irExcluirTurma(){
+    public String irExcluirTurma() {
         return "excluir-turma";
     }
-    
-    
-     /**
+
+    /**
      * Direciona página registrar aluno.
-     * @return 
+     *
+     * @return
      */
-    public String irRegistrarAluno(){
+    public String irRegistrarAluno() {
         return "registrar-aluno";
     }
-    
+
     /**
      * Direciona página alterar aluno.
-     * @return 
+     *
+     * @return
      */
-    public String irAlterarAluno(){
+    public String irAlterarAluno() {
         return "alterar-aluno";
     }
-    
+
     /**
      * Direciona página excluir aluno.
-     * @return 
+     *
+     * @return
      */
-    public String irExcluirAluno(){
+    public String irExcluirAluno() {
         return "excluir-aluno";
     }
-    
-    
-    public String irAlterarInstituicao(){
+
+    public String irAlterarInstituicao() {
         return "instituicao-alterar";
     }
 }

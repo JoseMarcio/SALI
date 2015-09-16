@@ -7,10 +7,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
- * Classe gerenciadora da view Registrar Professor.
+ * Managed Bean Registrar Professor.
  *
  * @author SALI
  */
@@ -48,59 +48,50 @@ public class ProfessorRegistrarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    
     //=============================== Métodos ==================================
-    
     /**
      * Reinicia os atributos da bean.
      */
-    public void limparBean() {
-        this.confirmaSenha = "";
-        this.professor = new Professor();
-        this.professorRN = new ProfessorRN();
+    public void limpar() {
+        init();
     }
-    
-    
-    
+
     /**
-     * Verifica se a senha e a confirmação de senha são iguais.
+     * Verifica se a senha e a confirmação de senha são iguais. Se forem iguais
+     * é retornado "true", senão é retornado "false".
      *
      * @return
      */
     public boolean isSenhasIguais() {
-        return this.professor.getSenha().equals(this.confirmaSenha);
+        return professor.getSenha().equals(confirmaSenha);
     }
 
-    
-    
-
     /**
-     * Registra o professor no banco de dados, de acordo com as regras definidas
-     * na classe ProfessorRN.
+     * Registra o professor no banco de dados.
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(this.professor.getMatricula())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Informe uma matrícula válida.", ""));
-        } else if (ValidacoesUtil.isExistenteMatricula(this.professor.getMatricula())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Matrícula já cadastrada.", ""));
+        if (!ValidacoesUtil.isValidaMatricula(professor.getMatricula())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Informe uma matrícula válida."));
+        } else if (ValidacoesUtil.isExistenteMatricula(professor.getMatricula())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "Matrícula já cadastrada."));
 
-        } else if (ValidacoesUtil.isExistenteEmail(this.professor.getEmail())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "E-mail já cadastrado.", ""));
+        } else if (ValidacoesUtil.isExistenteEmail(professor.getEmail())) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "E-mail já cadastrado."));
 
         } else if (!isSenhasIguais()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "As senhas não conferem.", ""));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "As senhas não conferem."));
 
         } else {
-            // Depois de tudo está validado, deve-se executar esse código.
-            this.professorRN.registrarProfessor(this.professor);
-            limparBean();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Professor registrado com sucesso.", ""));
+            // Depois de tudo está validado, deve-se salvar o professor.
+            professorRN.registrarProfessor(professor);
+            limpar();
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Sucesso!", "Registro efetuado com sucesso."));
         }
     }
 }

@@ -1,6 +1,5 @@
 package br.com.sali.bean;
 
-import br.com.sali.modelo.Endereco;
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.util.ValidacoesUtil;
@@ -11,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
 /**
+ * Managed Bean Alterar Instituição.
  *
  * @author SALI
  */
@@ -18,18 +18,20 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class InstituicaoAlterarBean {
 
+    // Atributos.
     private Instituicao instituicaoCadastrada;
-    private Endereco endereco;
     private InstituicaoRN instituicaoRN;
-    private String emailInstituicao;
+    private String emailAtualInstituicao;
 
+    //Construtor.
     @PostConstruct
     public void init() {
         instituicaoRN = new InstituicaoRN();
         instituicaoCadastrada = instituicaoRN.getInstituicoCadastrada();
-        emailInstituicao = instituicaoCadastrada.getEmail();
+        emailAtualInstituicao = instituicaoCadastrada.getEmail();
     }
 
+    //======================= Gets e Sets ======================================
     public Instituicao getInstituicaoCadastrada() {
         return instituicaoCadastrada;
     }
@@ -38,14 +40,28 @@ public class InstituicaoAlterarBean {
         this.instituicaoCadastrada = instituicaoCadastrada;
     }
 
+    public String getEmailAtualInstituicao() {
+        return emailAtualInstituicao;
+    }
+
+    public void setEmailAtualInstituicao(String emailAtualInstituicao) {
+        this.emailAtualInstituicao = emailAtualInstituicao;
+    }
+
+    //======================= Métodos===========================================
+    /**
+     * Atualiza os dados da Instituição.
+     */
     public void atualizar() {
-         if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getEmail()) && (!emailInstituicao.equals(instituicaoCadastrada.getEmail()))) {
+        if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getEmail())
+                && (!emailAtualInstituicao.equals(instituicaoCadastrada.getEmail()))) {
+
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "E-mail já cadastrado.", ""));
+                    "Erro!", "E-mail já cadastrado."));
         } else {
             instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Dados Alterados com sucesso.", ""));
+                    "Sucesso!", "Atualização conluída com sucesso."));
         }
     }
 }

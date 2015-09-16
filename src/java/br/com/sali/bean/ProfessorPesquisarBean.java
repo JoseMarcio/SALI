@@ -11,28 +11,28 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
 /**
+ * Managed Bean Pesquisar Professor.
  *
  * @author SALI
  */
 @ManagedBean(name = "pesquisarProfessorBean")
 @ViewScoped
 public class ProfessorPesquisarBean {
-    
+
+    // Atributos.
     private ProfessorRN professorRN;
     private List<Professor> listaDeProfessores;
     private String filtroDePesquisa;
 
-    
     // Construtor.
     @PostConstruct
-    public void init(){
-        this.professorRN = new ProfessorRN();
-        this.listaDeProfessores = professorRN.listarTodosProfessores();
-        this.filtroDePesquisa = "";
+    public void init() {
+        professorRN = new ProfessorRN();
+        listaDeProfessores = professorRN.listarTodos();
+        filtroDePesquisa = "";
     }
-    
-    //================== Gets e Sets ===========================================
 
+    //================== Gets e Sets ===========================================
     public List<Professor> getListaDeProfessores() {
         return listaDeProfessores;
     }
@@ -48,47 +48,42 @@ public class ProfessorPesquisarBean {
     public void setFiltroDePesquisa(String filtroDePesquisa) {
         this.filtroDePesquisa = filtroDePesquisa;
     }
-    
-    
+
     //====================== Métodos ===========================================
-    
     /**
-     * Limpa os atributos da bean.
+     * Reinicia os atributos da bean.
      */
     public void limpar() {
-        this.professorRN = new ProfessorRN();
-        this.filtroDePesquisa = "";
-        this.listaDeProfessores = professorRN.listarTodosProfessores();
+        init();
     }
 
-    
     /**
-     * Filtrar os professores por nome ou matrícula.
+     * Realiza a listagem de professores de acordo com o filtro (nome ou matrícula)
+     * informado.
      */
     public void pesquisar() {
-        this.listaDeProfessores = professorRN.listarProfessores(filtroDePesquisa);
-    }    
-    
-    
+        listaDeProfessores = professorRN.listarProfessoresPorFiltro(filtroDePesquisa);
+    }
+
     /**
      * Seleciona o professor do diálogo de pesquisa.
-     * @param professor 
+     *
+     * @param professor
      */
-    public void selecionarProfessor(Professor professor){
+    public void selecionarProfessor(Professor professor) {
         RequestContext.getCurrentInstance().closeDialog(professor);
     }
-    
-    
+
     /**
      * Abre o diálogo de pesquisa de profesores.
      */
-    public void abrirDialogoPesquisa(){
-        Map<String,Object> options = new HashMap<>();
+    public void abrirDialogoPesquisa() {
+        Map<String, Object> options = new HashMap<>();
         options.put("modal", true);
         options.put("draggable", false);
         options.put("resizable", false);
         options.put("contentHeight", 320);
-        
+
         RequestContext.getCurrentInstance().openDialog("pesquisar-professor", options, null);
     }
 }
