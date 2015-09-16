@@ -5,13 +5,18 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ *  Realizar operações com o banco de dados.
+ *  Session, Transaction.
+ * 
  * @author SALI
  */
 public abstract class ManuseioDb {
     
+    // Atributos.
     private Session sessao;
     private Transaction transacao;
+    
+    //===================== Métodos ============================================
     
     
     /**
@@ -21,13 +26,6 @@ public abstract class ManuseioDb {
         sessao = HibernateUtil.getSessionFactory().openSession();
     }
     
-    /**
-     * Abre a transação com o banco de dados.
-     */
-    private void abrirTransacao(){
-        transacao = sessao.beginTransaction();
-    }
-
     /**
      * Pega a sessão. Se ela for nula ou estiver fechada, a mesma é aberta.
      * @return 
@@ -39,6 +37,14 @@ public abstract class ManuseioDb {
         return sessao;
     }
     
+    /**
+     * Inicia a transação com o banco de dados.
+     */
+    private void abrirTransacao(){
+        transacao = sessao.beginTransaction();
+    }
+
+        
     /**
      * Retorna a transação.
      * @return 

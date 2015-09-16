@@ -11,10 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 /**
+ * Representa o Professor.
  *
  * @author SALI
  */
@@ -22,6 +21,7 @@ import org.hibernate.annotations.CascadeType;
 @Table
 public class Professor implements Serializable {
 
+    // Atributos.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_professor")
@@ -33,9 +33,11 @@ public class Professor implements Serializable {
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
     private List<Turma> turmas;
 
+    // Construtor.
     public Professor() {
     }
 
+    //========================= Gets e Sets ====================================
     public Long getId() {
         return id;
     }
@@ -84,6 +86,7 @@ public class Professor implements Serializable {
         this.turmas = turmas;
     }
 
+    //========================== Equals e HashCode =============================
     @Override
     public int hashCode() {
         int hash = 7;

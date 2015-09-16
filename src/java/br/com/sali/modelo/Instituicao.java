@@ -13,6 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 /**
+ * Representa a Instituição.
  *
  * @author SALI
  */
@@ -20,6 +21,7 @@ import org.hibernate.annotations.CascadeType;
 @Table
 public class Instituicao implements Serializable {
 
+    // Atributos.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_instituicao")
@@ -32,14 +34,16 @@ public class Instituicao implements Serializable {
     @Cascade(CascadeType.ALL)
     private Endereco endereco;
 
+    // Construtor.
     public Instituicao() {
     }
 
+    //========================== Gets e Sets ===================================
     public Long getId() {
         return this.id;
     }
-    
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -83,6 +87,9 @@ public class Instituicao implements Serializable {
         this.endereco = endereco;
     }
 
+    
+    //====================== Equals e HashCode =================================
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -125,5 +132,4 @@ public class Instituicao implements Serializable {
         return true;
     }
 
-    
 }

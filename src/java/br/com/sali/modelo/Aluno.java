@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * Representa o Aluno.
  *
  * @author SALI
  */
@@ -19,9 +20,10 @@ import javax.persistence.Table;
 @Table
 public class Aluno implements Serializable {
 
+    // Atributos.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="id_aluno")
+    @Column(name = "id_aluno")
     private Long id;
     private String nome;
     private int matricula;
@@ -31,10 +33,12 @@ public class Aluno implements Serializable {
     @JoinColumn(name = "id_turma")
     private Turma turma;
 
+    // Construtor.
     public Aluno() {
 
     }
 
+    //=============================== Gets e Sets ==============================
     public Long getId() {
         return id;
     }
@@ -83,6 +87,7 @@ public class Aluno implements Serializable {
         this.turma = turma;
     }
 
+    //========================== Equals e HashCode =============================
     @Override
     public int hashCode() {
         int hash = 3;
@@ -125,5 +130,4 @@ public class Aluno implements Serializable {
         return true;
     }
 
-    
 }

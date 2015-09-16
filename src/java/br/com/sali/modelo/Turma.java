@@ -14,24 +14,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Representa a Turma.
+ *
+ * @author José
+ */
 @Entity
 @Table
-public class Turma implements Serializable{
+public class Turma implements Serializable {
 
+    // Atributos.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_turma")
     private Long id;
     private String nome;
     @ManyToOne
-    @JoinColumn(name = "id_professor")    
+    @JoinColumn(name = "id_professor")
     private Professor professor;
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
 
+    // Construtor.
     public Turma() {
     }
 
+    //=============================== Gets e Sets ==============================
     public Long getId() {
         return id;
     }
@@ -64,6 +72,7 @@ public class Turma implements Serializable{
         this.alunos = alunos;
     }
 
+    //============================== Equals e HashCode =========================
     @Override
     public int hashCode() {
         int hash = 7;
@@ -98,6 +107,4 @@ public class Turma implements Serializable{
         return true;
     }
 
-    
-    
 }

@@ -5,13 +5,16 @@ import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.regras.ProfessorRN;
 
 /**
+ * Trata das validações necessárias ao sistema.
  *
  * @author SALI
  */
 public class ValidacoesUtil {
 
+    
     /**
-     * Verifica se só contém números.
+     * Verifica se só contém números. Se tiver somente números na String é
+     * retornado "true", senão é retornado "false".
      *
      * @param texto
      * @return
@@ -28,9 +31,13 @@ public class ValidacoesUtil {
         return true;
 
     }
+    
+    
+    
 
     /**
-     * Verifica se só tem letras.
+     * Verifica se só tem letras. Se tiver somente letras na String é
+     * retornado "true", senão é retornado "false".
      *
      * @param texto
      * @return
@@ -39,9 +46,12 @@ public class ValidacoesUtil {
         return texto.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$");
     }
 
+    
+    
     /**
      * Verifica se a matrícula informada já existe cadastrada para algum
-     * usuário.
+     * usuário. Se a matrícula já estiver cadastrada para algum usuário é
+     * retornado "true", senão é retornado "false".
      *
      * @param matricula
      * @return
@@ -57,8 +67,12 @@ public class ValidacoesUtil {
         }
     }
 
+    
+    
     /**
-     * Verifica se o e-mail já se ecnotra cadastrado para algum usuário.
+     * Verifica se o email já se encontra cadastrado para algum usuário. Se 
+     * o email já estiver em uso é retornado "true", senão é retornado
+     * "false".
      *
      * @param email
      * @return
@@ -77,14 +91,16 @@ public class ValidacoesUtil {
         }
     }
 
+    
     /**
-     * Verifica se a matrícula é um maior que "0".
+     * Verifica se a matrícula é válida. Para a matrícula ser válida é necessário que
+     * ela seja um número inteiro maior que "0"
      *
      * @param matricula
      * @return
      */
     public static boolean isValidaMatricula(int matricula) {
-        return matricula >= 1;
+        return matricula > 0;
     }
 
 }

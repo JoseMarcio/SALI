@@ -12,13 +12,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- *
+ *  Represena o Endereço.
+ *  É uma entidade, tabela do banco de dados.
+ * 
  * @author SALI
  */
 @Entity
 @Table
 public class Endereco implements Serializable{
 
+    // Atributos.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_endereco")
@@ -32,9 +35,11 @@ public class Endereco implements Serializable{
     @JoinColumn(name = "id_instituicao")
     private Instituicao instituicao;
 
+    // Construtor.
     public Endereco() {
     }
 
+    //=========================== Gets e Sets ==================================
     public Long getId() {
         return this.id;
     }
@@ -91,6 +96,7 @@ public class Endereco implements Serializable{
         this.instituicao = instituicao;
     }
 
+    //======================== Equals e HashCode ===============================
     @Override
     public int hashCode() {
         int hash = 7;

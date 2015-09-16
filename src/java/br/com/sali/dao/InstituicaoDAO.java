@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 /**
+ * Realiza as operações relacionadas ao modelo Instituicao.
  *
  * @author SALI
  */
