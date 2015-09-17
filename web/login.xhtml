@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html  lang="pt-br"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <title>Área de Acesso</title>
+    </h:head>
+    <h:body>
+
+        <!-- Chamando uma instância instituição para que ela possa ser criada -->
+        
+        
+        <h1>Bem Vindo ao SALI - <h:outputText value="#{loginBean.instituicao.nome}"/> </h1>
+        
+        <h:form>
+            <h:commandLink action="#{loginBean.direcionaIniciointituicao()}" value="Área Instituição"/>
+        </h:form>
+        <h5>Criar Banco de Dados Com o Nome: sali</h5>
+
+
+    </h:body>
+</html>
+

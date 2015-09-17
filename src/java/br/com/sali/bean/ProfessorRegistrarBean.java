@@ -26,9 +26,9 @@ public class ProfessorRegistrarBean {
     // Construtor da classe.
     @PostConstruct
     public void init() {
-        this.professor = new Professor();
-        this.professorRN = new ProfessorRN();
-        this.confirmaSenha = "";
+        professor = new Professor();
+        professorRN = new ProfessorRN();
+        confirmaSenha = "";
     }
 
     // ========================= Gets e Sets ===================================

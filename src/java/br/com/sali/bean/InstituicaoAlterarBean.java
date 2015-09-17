@@ -22,6 +22,7 @@ public class InstituicaoAlterarBean {
     private Instituicao instituicaoCadastrada;
     private InstituicaoRN instituicaoRN;
     private String emailAtualInstituicao;
+    private String confirmaSenha;
 
     //Construtor.
     @PostConstruct
@@ -29,6 +30,7 @@ public class InstituicaoAlterarBean {
         instituicaoRN = new InstituicaoRN();
         instituicaoCadastrada = instituicaoRN.getInstituicoCadastrada();
         emailAtualInstituicao = instituicaoCadastrada.getEmail();
+        confirmaSenha = "";
     }
 
     //======================= Gets e Sets ======================================
@@ -48,7 +50,27 @@ public class InstituicaoAlterarBean {
         this.emailAtualInstituicao = emailAtualInstituicao;
     }
 
+    public String getConfirmaSenha() {
+        return confirmaSenha;
+    }
+
+    public void setConfirmaSenha(String confirmaSenha) {
+        this.confirmaSenha = confirmaSenha;
+    }
+
     //======================= Métodos===========================================
+    /**
+     * Verifica se a senha e a confirmação de senha são iguais. Se forem iguais
+     * é retornado "true", senão é retornado "false".
+     *
+     * @return
+     */
+    public boolean isSenhasIguais() {
+            return instituicaoCadastrada.getSenha().equals(confirmaSenha);
+    }
+    
+    
+    
     /**
      * Atualiza os dados da Instituição.
      */
@@ -58,6 +80,9 @@ public class InstituicaoAlterarBean {
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Erro!", "E-mail já cadastrado."));
+        } else if (!isSenhasIguais()) {
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Erro!", "As senhas não conferem."));
         } else {
             instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,

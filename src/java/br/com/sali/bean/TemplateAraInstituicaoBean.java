@@ -101,6 +101,6 @@ public class TemplateAraInstituicaoBean {
     }
 
     public String irAlterarInstituicao() {
-        return "instituicao-alterar";
+        return "alterar-instituicao";
     }
 }

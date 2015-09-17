@@ -19,30 +19,28 @@ body {
     padding-right: 3%;
 }
 
-#menuLateral ul li{
-    display: block;
-
-}
-
 #conteudo {
     padding: 5px;
     background: #EEE9E9;
 }
 
-#corpo
-{
-    margin-left: 30%;
 
-
+#menuLateral ul li{
+    display: block;
+    padding-top: 2%;
 }
 
 
-
+#corpo{
+    margin-left: 25%;
+    margin-top: -37%;
+    width: 70%;
+    background: white;    
+}
 
 footer{
     text-align: center;
     font-size: 15px;
     //margin-top: 40%;
-
 }
 

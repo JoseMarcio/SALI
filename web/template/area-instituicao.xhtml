@@ -20,35 +20,37 @@
                 <h1>Área Instituição</h1>
             </header>
 
-
-            <nav id="menuLateral">
-
-            </nav>
-            <section id="conteudo">
+            <section>
                 <nav id="menu">
                     <h:form>
                         <ul>
                             <li><h:commandLink action="#{beanTemplateInstituicao.irInicioInstituicao()}">Início</h:commandLink></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarInstituicao()}">Alterar</h:commandLink></li>
+                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarInstituicao()}">Alterar Instituição</h:commandLink></li>
                             <li>Sair</li>
                         </ul>
                     </h:form>
                 </nav>
-                <nav id="menuLateral">
-                    <h:form>
-                        <ul>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno"/></li>
-                        </ul>
-                    </h:form>
-                </nav>
+            </section>
+
+            <section id="conteudo">
+
+                <section>
+                    <nav id="menuLateral">
+                        <h:form>
+                            <ul>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno"/></li>
+                                <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno"/></li>
+                            </ul>
+                        </h:form>
+                    </nav>
+                </section>
 
                 <section id="corpo">
                     <ui:insert name="corpo" />

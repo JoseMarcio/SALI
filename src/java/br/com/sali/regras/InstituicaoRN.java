@@ -65,7 +65,7 @@ public class InstituicaoRN {
         
         instituicao.setEmail("admin@sali.com");
         instituicao.setSenha("admin");
-        instituicao.setNome("Primeira Instituição");
+        instituicao.setNome("Ainda não existe instituição cadastrada.");
        
         endereco.setInstituicao(instituicao);
         instituicao.setEndereco(endereco);
