@@ -9,20 +9,31 @@
 
     <h:head>
         <title>Área de Acesso</title>
+        <link rel="stylesheet" href="resources/css/estilo_login.css"/>
     </h:head>
     <h:body>
 
         <!-- Chamando uma instância instituição para que ela possa ser criada -->
-        
-        
-        <h1>Bem Vindo ao SALI - <h:outputText value="#{loginBean.instituicao.nome}"/> </h1>
-        
-        <h:form>
-            <h:commandLink action="#{loginBean.direcionaIniciointituicao()}" value="Área Instituição"/>
-        </h:form>
-        <h5>Criar Banco de Dados Com o Nome: sali</h5>
+        <p:dialog header="" minWidth="400"
+                  width="400" height="170" modal="true" closable="false" position="center"
+         showEffect="slide" draggable="true" resizable="false" visible="true" class="dialogo" >
+            
+            <form>
+                
+                <h:outputLabel value="Email"></h:outputLabel><br></br>
+                <h:inputText  value="" /><br></br>
+                
+                
+                <h:outputLabel value="Senha"></h:outputLabel><br></br>
+                <h:inputText  value="" /><br></br><br></br>
+                
+                <h:commandButton action="inicio-instituicao.xhtml" value="Entrar" />
+                
+            </form>
+       
 
-
+</p:dialog>
+        
     </h:body>
 </html>
 
