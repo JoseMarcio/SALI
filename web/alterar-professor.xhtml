@@ -5,7 +5,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template/area-instituicao.xhtml">
@@ -16,53 +15,60 @@
         <ui:define name="corpo">
 
             <h3>Alterar Professor</h3>
-
-
             <!-- Formulário para alterar professores. -->
             <h:form>
+
+                
                 <p:commandButton icon="ui-icon-check"  title="Selecionar Professor"
-                                 actionListener="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
+                                 actionListener="#{pesquisarProfessorBean.abrirDialogoPesquisa()}" style="margin-left: 162px;">
                     <p:ajax event="dialogReturn" listener="#{alterarProfessorBean.eventoSelecaoProfessor}"  update="@all"/>
-                </p:commandButton>
+                </p:commandButton>                        
 
             </h:form>
 
 
             <h:form>
-                <h:panelGrid columns="1">
+                <p:messages autoUpdate="true" showIcon="false"/>                
 
-                    <h:outputLabel value="Nome Completo:" for="inputNome"/>
-                    <h:inputText id="inputNome" value="#{alterarProfessorBean.professorSelecionado.nome}" required="true" 
-                                 requiredMessage="Insira o nome do professor." pt:placeholder="Informe o nome"/>
+                <h:panelGrid columns="2">
+
+                    <p:outputLabel value="Nome Completo" for="inputNome"/>
+                    <p:inputText id="inputNome" value="#{alterarProfessorBean.professorSelecionado.nome}" required="true" 
+                                 requiredMessage="Informe o nome do professor." placeholder="Informe o nome"/>
 
 
-                    <h:outputLabel value="Matrícula Escolar:" for="inputMatricula"/>
-                    <h:inputText id="inputMatricula" value="#{alterarProfessorBean.professorSelecionado.matricula}" 
+                    <p:outputLabel value="Matrícula Escolar" for="inputMatricula"/>
+                    <p:inputText id="inputMatricula" value="#{alterarProfessorBean.professorSelecionado.matricula}" 
                                  required="true"
                                  requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" 
-                                 pt:placeholder="Somente números"/>
+                                 placeholder="Somente números"/>
 
 
-                    <h:outputLabel value="Email:" for="inputEmail"/>
-                    <h:inputText id="inputEmail" value="#{alterarProfessorBean.professorSelecionado.email}" required="true"
+                    <p:outputLabel value="Email" for="inputEmail"/>
+                    <p:inputText id="inputEmail" value="#{alterarProfessorBean.professorSelecionado.email}" required="true"
                                  requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." 
-                                 pt:placeholder="Informe o e-mail">
+                                 placeholder="Informe o e-mail" style="text-transform: lowercase;">
                         <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
-                    </h:inputText>
+                    </p:inputText>
 
 
-
-                    <h:outputLabel value="Senha:" for="inputSenha"/>
-                    <h:inputSecret id="inputSenha" value="#{alterarProfessorBean.professorSelecionado.senha}" required="true" requiredMessage="Informe uma senha."
-                                   pt:placeholder="Senha"/>
-
-                    <h:outputLabel value="Confirme a Senha:" for="inputConfirmaSenha"/>
-                    <h:inputSecret value="#{alterarProfessorBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."
-                                   pt:placeholder="Confirmar Senha"/>
+                    <p:outputLabel value="Senha" for="inputSenha"/>
+                    <p:password id="inputSenha" value="#{alterarProfessorBean.professorSelecionado.senha}" required="true" requiredMessage="Informe uma senha."
+                                placeholder="Senha" validatorMessage="Senha: É exido no mínimo 6 caracteres." maxlength="10">
+                        <f:validateLength minimum="6"/>
+                    </p:password>
 
 
-                    <h:commandButton action="#{alterarProfessorBean.atualizar()}" value="Atualizar" disabled="#{alterarProfessorBean.disabledBotaoAtualizar}"/>
-                    <p:messages autoUpdate="true"/>
+                    <p:outputLabel value="Confirme a Senha" for="inputConfirmaSenha"/>
+                    <p:password value="#{alterarProfessorBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."
+                                placeholder="Confirmar Senha" validatorMessage="Senha: É exido no mínimo 6 caracteres." maxlength="10">
+                        <f:validateLength minimum="6"/>
+                    </p:password>
+
+
+                    <h:outputText />
+                    <p:commandButton action="#{alterarProfessorBean.atualizar()}" value="Salvar" disabled="#{alterarProfessorBean.disabledBotaoAtualizar}"
+                                     icon="ui-icon-check"/>
 
                 </h:panelGrid>
             </h:form>

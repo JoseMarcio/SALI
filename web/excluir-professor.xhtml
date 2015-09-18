@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
     <ui:composition template="/template/area-instituicao.xhtml">
@@ -21,16 +20,18 @@
 
             <!-- Formulário para exclusão de professor. -->
             <h:form>
+                <p:messages autoUpdate="true" showIcon="false"/>
+
                 <p:commandButton icon="ui-icon-check" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
                     <p:ajax event="dialogReturn" listener="#{excluirProfessorBean.eventoSelecaoProfessor}" update="@form"/>
                 </p:commandButton>
                 <p:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir" disabled="#{excluirProfessorBean.disabledBotaoExcluir}"
                                  update="@form">
-                    <p:confirm header="Atenção!" message="Está ciente disso?" icon="ui-icon-alert" />
+                    <p:confirm header="Atenção!" message="Excluir Professor?" icon="ui-icon-alert" />
                 </p:commandButton>
 
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
@@ -38,16 +39,14 @@
 
 
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Nome:"/>
+                    <p:outputLabel value="Nome:"/>
                     <h:outputText value="#{excluirProfessorBean.professorSelecionado.nome}"/>
-                    <h:outputLabel value="Matrícula:"/>
+                    <p:outputLabel value="Matrícula:"/>
                     <h:outputText value="#{excluirProfessorBean.professorSelecionado.matricula}"/>
-                    <h:outputLabel value="E-Mail:"/>
+                    <p:outputLabel value="E-Mail:"/>
                     <h:outputText value="#{excluirProfessorBean.professorSelecionado.email}"/>
                 </h:panelGrid>
 
-
-                <p:messages autoUpdate="true"/>
             </h:form>
 
 
