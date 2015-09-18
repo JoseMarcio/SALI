@@ -11,29 +11,70 @@
         <title>Área de Acesso</title>
         <link rel="stylesheet" href="resources/css/estilo_login.css"/>
     </h:head>
+
     <h:body>
 
-        <!-- Chamando uma instância instituição para que ela possa ser criada -->
-        <p:dialog header="" minWidth="400"
-                  width="400" height="170" modal="true" closable="false" position="center"
-         showEffect="slide" draggable="true" resizable="false" visible="true" class="dialogo" >
-            
-            <form>
-                
-                <h:outputLabel value="Email"></h:outputLabel><br></br>
-                <h:inputText  value="" /><br></br>
-                
-                
-                <h:outputLabel value="Senha"></h:outputLabel><br></br>
-                <h:inputText  value="" /><br></br><br></br>
-                
-                <h:commandButton action="inicio-instituicao.xhtml" value="Entrar" />
-                
-            </form>
-       
 
-</p:dialog>
-        
+
+        <!-- Dialog para informar e-mail de recuperar senha-->
+        <p:dialog widgetVar="recuperarEmail" header="Informe o seu e-mail"  width="310" minWidth="310"
+                  height="165" minHeight="165" modal="true" closable="false" position="center"
+                  showEffect="effect" draggable="false" resizable="false" class="dialogo">
+
+            <h:form>
+                <p:messages autoUpdate="true" showIcon="false"/>
+
+                <p:inputText value="#{loginBean.emailRecuperar}" placeholder="Digite aqui o seu e-mail" required="true"
+                             requiredMessage="Informe o seu e-mail" size="35" style="text-transform: lowercase;margin: 5px 0 10px 0;" validatorMessage="Insira um e-mail válido.">
+                    <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                </p:inputText>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Recuperar" action="#{loginBean.recuperarSenha()}" style="width: 130px;margin: 0 5px 0 0;"/>
+
+                    <p:commandButton value="Fechar" onclick="PF('recuperarEmail').hide();PF('login').show();" process="@this" style="width: 130px;margin: 0 0 0 5px;"
+                                     update=":login">
+                    </p:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+
+        <!-- Dialog formulário login -->
+        <p:dialog header="Login"  width="360" minWidth="360" widgetVar="login"
+                  height="213" minHeight="213" modal="true" closable="false" position="center"
+                  showEffect="slide" draggable="false" resizable="false" visible="true" class="dialogo">
+
+            <h:form id="login">
+                <!-- Chamando uma instância instituição para que ela possa ser criada -->
+                <h:inputHidden value="#{loginBean.instituicao.nome}"/>
+
+                <p:messages autoUpdate="true" showIcon="false"/>
+
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Email"/>
+                    <p:inputText  value="#{loginBean.email}" required="true" requiredMessage="Informe o e-mail de acesso." size="35" style="text-transform: lowercase;"
+                                  validatorMessage="Insira um e-mail válido.">
+                        <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                    </p:inputText>
+
+                    <p:outputLabel value="Senha"/>
+                    <p:password  value="#{loginBean.senha}" required="true" requiredMessage="Informe a senha de acesso." size="35" maxlength="16"/>
+
+                    <h:outputText />
+                    <p:commandButton action="#{loginBean.autenticarUsuario()}" value="Entrar"/>
+                </h:panelGrid>
+            </h:form>
+
+            <h:form>
+                <h:panelGrid columns="1">
+                    <h:commandLink value="Esqueceu sua senha?" onclick="PF('login').hide();PF('recuperarEmail').show();">
+                        <p:ajax listener="#{loginBean.limpar()}" process="@this"/>
+                    </h:commandLink>
+                </h:panelGrid>                
+            </h:form>
+        </p:dialog>
+
     </h:body>
 </html>
 

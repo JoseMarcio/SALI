@@ -3,6 +3,8 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -87,8 +89,13 @@ public class ProfessorRegistrarBean {
                     "Erro!", "As senhas não conferem."));
 
         } else {
-            // Depois de tudo está validado, deve-se salvar o professor.
-            professorRN.registrarProfessor(professor);
+            try {
+                // Depois de tudo está validado, deve-se salvar o professor.
+                professorRN.registrarProfessor(professor);
+            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                        "Exceção!", ex.getMessage()));
+            }
             limpar();
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Sucesso!", "Registro efetuado com sucesso."));

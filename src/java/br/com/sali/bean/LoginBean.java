@@ -3,8 +3,10 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  * Managed Bean Login.
@@ -16,8 +18,15 @@ import javax.faces.bean.ViewScoped;
 public class LoginBean {
 
     // Atributos;
-    InstituicaoRN instituicaoRN;
-    Instituicao instituicao;
+    private InstituicaoRN instituicaoRN;
+    private Instituicao instituicao;
+
+    private String email;
+    private String senha;
+    private String emailRecuperar;
+    
+   
+    
 
     // Construtor.
     @PostConstruct
@@ -26,8 +35,14 @@ public class LoginBean {
         if (instituicaoRN.getInstituicoCadastrada() == null || instituicaoRN.getInstituicoCadastrada().getId() == 0) {
             instituicaoRN.criaInstituicao();
             setInstituicao(instituicaoRN.getInstituicoCadastrada());
+            email = "";
+            senha = "";
+            emailRecuperar = "";
         } else {
             setInstituicao(instituicaoRN.getInstituicoCadastrada());
+            email = "";
+            senha = "";
+            emailRecuperar = "";
         }
     }
 
@@ -40,13 +55,58 @@ public class LoginBean {
         this.instituicao = instituicao;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+
+    public String getEmailRecuperar() {
+        return emailRecuperar;
+    }
+
+    public void setEmailRecuperar(String emailRecuperar) {
+        this.emailRecuperar = emailRecuperar;
+    }
+    
+
     //============================ Métodos =====================================
+    
     /**
-     * Direciona para a área institucional.
-     *
-     * @return
+     * Reinicia os atributos da bean.
      */
-    public String direcionaIniciointituicao() {
+    public void limpar(){
+           init();
+    }
+    
+ 
+    /**
+     * Autentica o usuário.
+     *
+     *
+     */
+    public String autenticarUsuario() {
         return "inicio-instituicao";
+       // FacesContext fc = FacesContext.getCurrentInstance();
+       // fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Acesso Concedido!\nE-mail: " + getEmail() + "\nSenha: " + getSenha(), ""));
+    }
+    
+    
+    
+    public void recuperarSenha(){
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uma nova senha de acesso foi enviada para o e-mail informado",""));
     }
 }

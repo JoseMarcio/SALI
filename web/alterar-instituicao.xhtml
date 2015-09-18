@@ -15,11 +15,11 @@
 
         <ui:define name="corpo">
 
-
+                
             <!-- Formulário de alteração de Instituição -->
             <h1> Alterar Instituição </h1>
             <h:form>
-                <p:messages autoUpdate="true"/>
+                <p:messages autoUpdate="true" showIcon="false"/>
 
                 <h:panelGrid columns="2">
 
@@ -35,7 +35,7 @@
                     <p:outputLabel value="E-mail"/>
                     <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.email}" required="true"
                                  requiredMessage="É necessário informar um e-mail." placeholder="E-mail"
-                                 validatorMessage="Informe um e-mail válido.">
+                                 validatorMessage="Informe um e-mail válido." style="text-transform: lowercase;">
                         <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
                     </p:inputText>
 
@@ -110,7 +110,7 @@
 
                 </fieldset>
 
-                <p:commandButton action="#{instituicaoAlterarBean.atualizar()}" value="Salvar"/>
+                <p:commandButton action="#{instituicaoAlterarBean.atualizar()}" value="Salvar" icon="ui-icon-check" />
 
             </h:form>
             <!-- FIM do Formulário de alteração de Instituição -->

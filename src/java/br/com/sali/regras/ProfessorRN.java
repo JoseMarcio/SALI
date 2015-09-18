@@ -4,6 +4,8 @@ import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
 import br.com.sali.util.CriptografiaUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -29,8 +31,10 @@ public class ProfessorRN {
      * Salva um professor. Com a senha criptografada.
      *
      * @param professor
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.io.UnsupportedEncodingException
      */
-    public void registrarProfessor(Professor professor) {
+    public void registrarProfessor(Professor professor) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
         professorDAO.salvar(professor);
     }
@@ -39,8 +43,10 @@ public class ProfessorRN {
      * Atualiza um professor do banco de dados. Com a senha criptografada.
      *
      * @param professor
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.io.UnsupportedEncodingException
      */
-    public void atualizarProfessor(Professor professor) {
+    public void atualizarProfessor(Professor professor) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
         professorDAO.atualizar(professor);
     }

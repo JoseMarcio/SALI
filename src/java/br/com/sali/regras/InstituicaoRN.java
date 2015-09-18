@@ -4,6 +4,8 @@ import br.com.sali.dao.InstituicaoDAO;
 import br.com.sali.modelo.Endereco;
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.util.CriptografiaUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Trata asRealizar Operações com o modelo Instituição de modo que sejam aplicadas as devidas
@@ -38,8 +40,10 @@ public class InstituicaoRN {
      * Atualiza os dados da instituição.
      *
      * @param instituicao
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.io.UnsupportedEncodingException
      */
-    public void atualizarInstituicao(Instituicao instituicao) {
+    public void atualizarInstituicao(Instituicao instituicao) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         instituicao.setSenha(CriptografiaUtil.criptografaSenha(instituicao.getSenha()));
         instituicaDAO.atualizar(instituicao);
     }

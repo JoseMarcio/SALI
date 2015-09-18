@@ -100,7 +100,21 @@ public class TemplateAraInstituicaoBean {
         return "excluir-aluno";
     }
 
+     /**
+     * Direciona página alterar instituição.
+     *
+     * @return
+     */
     public String irAlterarInstituicao() {
         return "alterar-instituicao";
+    }
+    
+    /**
+     * Direciona página login.
+     *
+     * @return
+     */
+    public String irLogin() {
+        return "login";
     }
 }

@@ -4,6 +4,8 @@ import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -115,7 +117,7 @@ public class AlunoAlterarBean {
 
     /**
      * Atualiza o dados do aluno no banco de dados.
-     * 
+     *
      */
     public void atualizar() {
         if (!ValidacoesUtil.isValidaMatricula(alunoSelecionado.getMatricula())) {
@@ -139,7 +141,12 @@ public class AlunoAlterarBean {
                     "Erro!", "As senhas não conferem."));
 
         } else {
-            alunoRN.atualizarAluno(alunoSelecionado);
+            try {
+                alunoRN.atualizarAluno(alunoSelecionado);
+            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                        "Exceção!", ex.getMessage()));
+            }
             limpar();
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Sucesso!", "Atualização conluída com sucesso."));

@@ -3,6 +3,8 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -66,11 +68,9 @@ public class InstituicaoAlterarBean {
      * @return
      */
     public boolean isSenhasIguais() {
-            return instituicaoCadastrada.getSenha().equals(confirmaSenha);
+        return instituicaoCadastrada.getSenha().equals(confirmaSenha);
     }
-    
-    
-    
+
     /**
      * Atualiza os dados da Instituição.
      */
@@ -84,7 +84,12 @@ public class InstituicaoAlterarBean {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Erro!", "As senhas não conferem."));
         } else {
-            instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
+            try {
+                instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
+            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                        "Exceção!", ex.getMessage()));
+            }
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Sucesso!", "Atualização conluída com sucesso."));
         }

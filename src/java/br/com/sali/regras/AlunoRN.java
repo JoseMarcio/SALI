@@ -3,6 +3,8 @@ package br.com.sali.regras;
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.modelo.Aluno;
 import br.com.sali.util.CriptografiaUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -28,8 +30,10 @@ public class AlunoRN {
      * Salva um aluno. Com a senha criptografada.
      *
      * @param aluno
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.io.UnsupportedEncodingException
      */
-    public void registrarAluno(Aluno aluno) {
+    public void registrarAluno(Aluno aluno) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         aluno.setSenha(CriptografiaUtil.criptografaSenha(aluno.getSenha()));
         alunoDAO.salvar(aluno);
     }
@@ -38,8 +42,10 @@ public class AlunoRN {
      * Atualiza um aluno do banco de dados. Com a senha criptografada.
      *
      * @param aluno
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.io.UnsupportedEncodingException
      */
-    public void atualizarAluno(Aluno aluno) {
+    public void atualizarAluno(Aluno aluno) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         aluno.setSenha(CriptografiaUtil.criptografaSenha(aluno.getSenha()));
         alunoDAO.atualizar(aluno);
     }
