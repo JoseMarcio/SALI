@@ -3,20 +3,20 @@
 body {
     margin:0;
     padding:0;
-    background:  #09254a;
+    background-color: #5d7dc8;
     text-align:center;
     font-family: verdana;
+}
+
+#cabecalho{
+    background-size: 20% 10%;
+    
 }
 
 #conteiner {
     width: 70%;
     margin:0 auto;			
     text-align:left;
-}
-
-#menu ul li{
-    display: inline;
-    padding-right: 3%;
 }
 
 #conteudo {
@@ -45,4 +45,5 @@ footer{
     font-size: 15px;
     //margin-top: 40%;
 }
+
 

@@ -3,7 +3,8 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -11,43 +12,51 @@
             <ui:insert name="titulo">SALI</ui:insert>
         </title>
         <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />
+        <h:graphicImage  library="" name="cabecalho.png" width="100%" height="100%"/> 
     </h:head>
 
     <h:body>
 
+        <section id="cabecalho">
+            <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  
+        </section>
+
         <section id="conteiner">
             <header>
-                <h1>Área Instituição</h1>
-            </header>
 
-            <section>
-                <nav id="menu">
-                    <h:form>
-                        <ul>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irInicioInstituicao()}" value="Início"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarInstituicao()}" value="Alterar Instituição"/></li>
-                            <li><h:commandLink action="#{beanTemplateInstituicao.irLogin()}" value="Sair"/></li>
-                        </ul>
-                    </h:form>
-                </nav>
-            </section>
+                <section>
+                    <nav id="menu">
+                        <h:form>
+                            <p:menubar>
+                                <p:menuitem value="Inicio" action="#{beanTemplateInstituicao.irInicioInstituicao()}"></p:menuitem>
+                                <p:menuitem value="Alterar Instituição" action="#{beanTemplateInstituicao.irAlterarInstituicao()}"></p:menuitem>
+                                <p:menuitem value="Sair" action="#{beanTemplateInstituicao.irLogin()}"></p:menuitem>
+
+                            </p:menubar>  
+
+                        </h:form>
+                    </nav>
+                </section>
+            </header>
 
             <section id="conteudo">
 
                 <section>
                     <nav id="menuLateral">
                         <h:form>
-                            <ul>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno"/></li>
-                                <li><h:commandLink action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno"/></li>
-                            </ul>
+                            <p:menu>
+                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno"></p:menuitem>
+
+                            </p:menu> 
+
                         </h:form>
                     </nav>
                 </section>
