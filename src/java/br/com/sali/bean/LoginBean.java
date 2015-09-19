@@ -32,6 +32,7 @@ public class LoginBean {
     @PostConstruct
     public void init() {
         instituicaoRN = new InstituicaoRN();
+        instituicao = new Instituicao();
         if (instituicaoRN.getInstituicoCadastrada() == null || instituicaoRN.getInstituicoCadastrada().getId() == 0) {
             instituicaoRN.criaInstituicao();
             setInstituicao(instituicaoRN.getInstituicoCadastrada());

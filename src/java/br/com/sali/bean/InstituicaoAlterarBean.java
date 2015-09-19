@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -33,6 +34,7 @@ public class InstituicaoAlterarBean {
         instituicaoCadastrada = instituicaoRN.getInstituicoCadastrada();
         emailAtualInstituicao = instituicaoCadastrada.getEmail();
         confirmaSenha = "";
+
     }
 
     //======================= Gets e Sets ======================================
@@ -78,11 +80,12 @@ public class InstituicaoAlterarBean {
         if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getEmail())
                 && (!emailAtualInstituicao.equals(instituicaoCadastrada.getEmail()))) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "E-mail já cadastrado."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
+
         } else if (!isSenhasIguais()) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "As senhas não conferem."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
+
         } else {
             try {
                 instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
@@ -92,6 +95,7 @@ public class InstituicaoAlterarBean {
             }
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Sucesso!", "Atualização conluída com sucesso."));
+
         }
     }
 }

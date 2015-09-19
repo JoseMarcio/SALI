@@ -52,13 +52,13 @@ public class ValidacoesUtil {
      * @return
      *
      */
-    public static boolean isExistenteMatricula(int matricula) {
+    public static boolean isExistenteMatricula(String matricula) {
         AlunoRN alunoRN = new AlunoRN();
         ProfessorRN professorRN = new ProfessorRN();
-        if (alunoRN.isExisteEssaMatricula(Integer.toString(matricula))) {
+        if (alunoRN.isExisteEssaMatricula(matricula)) {
             return true;
         } else {
-            return professorRN.isExisteEssaMatricula(Integer.toString(matricula));
+            return professorRN.isExisteEssaMatricula(matricula);
         }
     }
 
@@ -87,10 +87,11 @@ public class ValidacoesUtil {
      * Verifica se a matrícula é válida. Para a matrícula ser válida é
      * necessário que ela seja um número inteiro maior que "0"
      *
-     * @param matricula
+     * @param matriculaString
      * @return
      */
-    public static boolean isValidaMatricula(int matricula) {
+    public static boolean isValidaMatricula(String matriculaString) {
+        Integer matricula = Integer.parseInt(matriculaString);
         return matricula > 0;
     }
 

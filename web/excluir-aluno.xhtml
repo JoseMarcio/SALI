@@ -24,7 +24,7 @@
                 <p:commandButton icon="ui-icon-check" action="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
                     <p:ajax event="dialogReturn" listener="#{alunoExcluirBean.eventoSelecaoAluno}" update="@form"/>
                 </p:commandButton>
-                <p:commandButton action="#{alunoExcluirBean.excluir()}" value="Excluir" disabled="#{alunoExcluirBean.disabledExcluir}"
+                <p:commandButton action="#{alunoExcluirBean.excluir()}" value="Excluir" disabled="#{alunoExcluirBean.disabledBotaoExcluir}"
                                  update="@form">
                     <p:confirm header="Atenção!" message="Está ciente disso?" icon="ui-icon-alert" />
                 </p:commandButton>

@@ -17,7 +17,7 @@
             <h:panelGrid columns="1" cellpadding="7">
 
                 <h:panelGrid columns="3">
-                    <h:inputText value="#{alunoPesquisarBean.filtro}"  
+                    <h:inputText value="#{alunoPesquisarBean.filtroDePesquisa}"  
                                  pt:placeholder="Nome ou Matrícula" required="true" requiredMessage="Informe um dado para pesquisar."/>
 
                     <h:commandButton action="#{alunoPesquisarBean.pesquisar()}" value="Pesquisar"/>
@@ -26,7 +26,7 @@
                 
                 
                 <!-- Tabela de exibição de dados (aluno) -->
-                <p:dataTable value="#{alunoPesquisarBean.listaDeAluno}" var="aluno" 
+                <p:dataTable value="#{alunoPesquisarBean.listaDeAlunos}" var="aluno" 
                              emptyMessage="Nenhum dado a exibir.">
 
                     <p:column headerText="Matrícula" width="120" style="text-align: left;">

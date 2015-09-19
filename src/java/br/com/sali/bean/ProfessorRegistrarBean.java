@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -24,6 +25,7 @@ public class ProfessorRegistrarBean {
     private Professor professor;
     private ProfessorRN professorRN;
     private String confirmaSenha;
+    private String matriculaString;
 
     // Construtor da classe.
     @PostConstruct
@@ -31,6 +33,7 @@ public class ProfessorRegistrarBean {
         professor = new Professor();
         professorRN = new ProfessorRN();
         confirmaSenha = "";
+        matriculaString = "";
     }
 
     // ========================= Gets e Sets ===================================
@@ -48,6 +51,14 @@ public class ProfessorRegistrarBean {
 
     public void setConfirmaSenha(String confirmaSenha) {
         this.confirmaSenha = confirmaSenha;
+    }
+
+    public String getMatriculaString() {
+        return matriculaString;
+    }
+
+    public void setMatriculaString(String matriculaString) {
+        this.matriculaString = matriculaString;
     }
 
     //=============================== Métodos ==================================
@@ -73,24 +84,26 @@ public class ProfessorRegistrarBean {
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(professor.getMatricula())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Informe uma matrícula válida."));
-        } else if (ValidacoesUtil.isExistenteMatricula(professor.getMatricula())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Matrícula já cadastrada."));
+        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
+
+        } else if (ValidacoesUtil.isExistenteMatricula(matriculaString)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
 
         } else if (ValidacoesUtil.isExistenteEmail(professor.getEmail())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "E-mail já cadastrado."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
 
         } else if (!isSenhasIguais()) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "As senhas não conferem."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
 
         } else {
             try {
                 // Depois de tudo está validado, deve-se salvar o professor.
+                professor.setMatricula(Integer.parseInt(matriculaString));
                 professorRN.registrarProfessor(professor);
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,

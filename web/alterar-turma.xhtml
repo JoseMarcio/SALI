@@ -41,13 +41,13 @@
                     <h:panelGrid columns="2">
                         <h:inputText value="#{turmaAlterarBean.turma.professor.nome}" disabled="true" id="professor" size="20"/>
                         <p:commandButton icon="ui-icon-check" title="Selecionar Turma" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
-                                         process="@this" disabled="#{turmaAlterarBean.disabledProfessor}">
+                                         process="@this" disabled="#{turmaAlterarBean.disabledBotaoProfessor}">
                             <p:ajax event="dialogReturn" listener="#{turmaAlterarBean.eventoSelecaoProfessor}" update="professor atualizar"/>
                         </p:commandButton>
                     </h:panelGrid>
 
                     
-                    <h:commandButton action="#{turmaAlterarBean.atualizar()}" value="Atualizar" disabled="#{turmaAlterarBean.disabledAtualizar}"
+                    <h:commandButton action="#{turmaAlterarBean.atualizar()}" value="Atualizar" disabled="#{turmaAlterarBean.disabledBotaoAtualizar}"
                                      id="atualizar"/>
                     <p:messages autoUpdate="true"/>
 

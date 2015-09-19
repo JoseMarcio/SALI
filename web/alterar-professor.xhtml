@@ -32,35 +32,37 @@
 
                 <h:panelGrid columns="2">
 
-                    <p:outputLabel value="Nome Completo" for="inputNome"/>
-                    <p:inputText id="inputNome" value="#{alterarProfessorBean.professorSelecionado.nome}" required="true" 
+                    <p:outputLabel value="Nome Completo"/>
+                    <p:inputText value="#{alterarProfessorBean.professorSelecionado.nome}" required="true" 
                                  requiredMessage="Informe o nome do professor." placeholder="Informe o nome"/>
 
 
-                    <p:outputLabel value="Matrícula Escolar" for="inputMatricula"/>
-                    <p:inputText id="inputMatricula" value="#{alterarProfessorBean.professorSelecionado.matricula}" 
+                    <p:outputLabel value="Matrícula Escolar"/>
+                    <p:inputText value="#{alterarProfessorBean.matriculaString}" 
                                  required="true"
                                  requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" 
-                                 placeholder="Somente números"/>
+                                 placeholder="Somente números">
+                        <f:convertNumber integerOnly="true" type="number"/>
+                    </p:inputText>
 
 
-                    <p:outputLabel value="Email" for="inputEmail"/>
-                    <p:inputText id="inputEmail" value="#{alterarProfessorBean.professorSelecionado.email}" required="true"
+                    <p:outputLabel value="Email"/>
+                    <p:inputText value="#{alterarProfessorBean.professorSelecionado.email}" required="true"
                                  requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." 
                                  placeholder="Informe o e-mail" style="text-transform: lowercase;">
                         <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
                     </p:inputText>
 
 
-                    <p:outputLabel value="Senha" for="inputSenha"/>
-                    <p:password id="inputSenha" value="#{alterarProfessorBean.professorSelecionado.senha}" required="true" requiredMessage="Informe uma senha."
+                    <p:outputLabel value="Senha"/>
+                    <p:password value="#{alterarProfessorBean.professorSelecionado.senha}" required="true" requiredMessage="Informe uma senha."
                                 placeholder="Senha" validatorMessage="Senha: É exido no mínimo 6 caracteres." maxlength="10">
                         <f:validateLength minimum="6"/>
                     </p:password>
 
 
-                    <p:outputLabel value="Confirme a Senha" for="inputConfirmaSenha"/>
-                    <p:password value="#{alterarProfessorBean.confirmaSenha}" id="inputConfirmaSenha" required="true" requiredMessage="Confirme a senha."
+                    <p:outputLabel value="Confirme a Senha"/>
+                    <p:password value="#{alterarProfessorBean.confirmaSenha}" required="true" requiredMessage="Confirme a senha."
                                 placeholder="Confirmar Senha" validatorMessage="Senha: É exido no mínimo 6 caracteres." maxlength="10">
                         <f:validateLength minimum="6"/>
                     </p:password>
@@ -68,7 +70,7 @@
 
                     <h:outputText />
                     <p:commandButton action="#{alterarProfessorBean.atualizar()}" value="Salvar" disabled="#{alterarProfessorBean.disabledBotaoAtualizar}"
-                                     icon="ui-icon-check"/>
+                                     icon="ui-icon-check"  update="@form"/>
 
                 </h:panelGrid>
             </h:form>

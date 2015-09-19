@@ -11,7 +11,7 @@
     <h:body>
 
         <!-- Formulario para realização de pesquisa de professores. -->
-        <h:form>
+        <h:form id="pesquisa">
             <!-- Organização dos labels e inputs em uma coluna.-->
             <h:panelGrid columns="1" cellpadding="7">
 
@@ -19,12 +19,12 @@
                     <p:inputText value="#{pesquisarProfessorBean.filtroDePesquisa}"  
                                  placeholder="Nome ou Matrícula" required="true" requiredMessage="Informe um dado para pesquisar."/>
 
-                    <p:commandButton action="#{pesquisarProfessorBean.pesquisar()}" value="Pesquisar"/>
+                    <p:commandButton action="#{pesquisarProfessorBean.pesquisar()}" value="Pesquisar" update="pesquisa"/>
                 </h:panelGrid>
 
                 <!-- Tabela de exibição de dados (professor) -->
                 <p:dataTable value="#{pesquisarProfessorBean.listaDeProfessores}" var="professor" 
-                             emptyMessage="Nenhum dado a exibir.">
+                             emptyMessage="Nenhum dado a exibir." id="tabela">
 
                     <p:column headerText="Matrícula" width="120" style="text-align: left;">
                         <h:outputLabel value="#{professor.matricula}"/>
@@ -47,7 +47,7 @@
         </h:form>
 
         <h:form>
-            <p:commandButton action="#{pesquisarProfessorBean.limpar()}" value="Limpar" style="margin: -3px 0 0 10px;"/>
+            <p:commandButton action="#{pesquisarProfessorBean.limpar()}" value="Limpar" style="margin: -3px 0 0 10px;" update=":pesquisa"/>
         </h:form>
 
 

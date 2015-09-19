@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -28,6 +29,7 @@ public class ProfessorAlterarBean {
     private Integer matriculaAtualDoProfessor;
     private String confirmaSenha;
     private boolean disabledBotaoAtualizar;
+    private String matriculaString;
 
     // Construtor.
     @PostConstruct
@@ -38,6 +40,7 @@ public class ProfessorAlterarBean {
         matriculaAtualDoProfessor = 0;
         confirmaSenha = "";
         disabledBotaoAtualizar = true;
+        matriculaString = "";
 
     }
 
@@ -82,6 +85,14 @@ public class ProfessorAlterarBean {
         this.disabledBotaoAtualizar = disabledBotaoAtualizar;
     }
 
+    public String getMatriculaString() {
+        return matriculaString;
+    }
+
+    public void setMatriculaString(String matriculaString) {
+        this.matriculaString = matriculaString;
+    }
+
     //=========================== Métodos ======================================
     /**
      * Reinicia os atributos da bean.
@@ -101,8 +112,8 @@ public class ProfessorAlterarBean {
         setProfessorSelecionado(professor);
         setMatriculaAtualDoProfessor(professor.getMatricula());
         setEmailAtualDoProfessor(professor.getEmail());
+        setMatriculaString(Integer.toString(professor.getMatricula()));
         setDisabledBotaoAtualizar(false);
-
     }
 
     /**
@@ -110,26 +121,27 @@ public class ProfessorAlterarBean {
      */
     public void atualizar() {
 
-        if (!ValidacoesUtil.isValidaMatricula(professorSelecionado.getMatricula())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Informe uma matrícula válida."));
-        } else if (ValidacoesUtil.isExistenteMatricula(professorSelecionado.getMatricula())
-                && (matriculaAtualDoProfessor != professorSelecionado.getMatricula())) {
+        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Matrícula já cadastrada."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
+
+        } else if (ValidacoesUtil.isExistenteMatricula(matriculaString)
+                && !(Integer.toString(matriculaAtualDoProfessor)).equals(matriculaString)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
 
         } else if (ValidacoesUtil.isExistenteEmail(professorSelecionado.getEmail())
                 && (!emailAtualDoProfessor.equals(professorSelecionado.getEmail()))) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "E-mail já cadastrado."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
 
         } else if (!confirmaSenha.equals(professorSelecionado.getSenha())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "As senhas não conferem."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
+
         } else {
             try {
+                professorSelecionado.setMatricula(Integer.parseInt(matriculaString));
                 professorRN.atualizarProfessor(professorSelecionado);
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
