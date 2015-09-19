@@ -19,7 +19,7 @@
             <h:form>
 
                 
-                <p:commandButton icon="ui-icon-check"  title="Selecionar Professor"
+                <p:commandButton value="Pesquisar" icon="ui-icon-check"  title="Selecionar Professor"
                                  actionListener="#{pesquisarProfessorBean.abrirDialogoPesquisa()}" style="margin-left: 162px;">
                     <p:ajax event="dialogReturn" listener="#{alterarProfessorBean.eventoSelecaoProfessor}"  update="@all"/>
                 </p:commandButton>                        
