@@ -22,10 +22,10 @@
             <h:form>
                 <p:messages autoUpdate="true" showIcon="false"/>
 
-                <p:commandButton icon="ui-icon-check" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
+                <p:commandButton value="Pesquisar" icon="ui-icon-search" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
                     <p:ajax event="dialogReturn" listener="#{excluirProfessorBean.eventoSelecaoProfessor}" update="@form"/>
                 </p:commandButton>
-                <p:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir" disabled="#{excluirProfessorBean.disabledBotaoExcluir}"
+                <p:commandButton action="#{excluirProfessorBean.excluir()}" value="Excluir" icon="ui-icon-circle-close" disabled="#{excluirProfessorBean.disabledBotaoExcluir}"
                                  update="@form">
                     <p:confirm header="Atenção!" message="Excluir Professor?" icon="ui-icon-alert" />
                 </p:commandButton>

@@ -31,7 +31,7 @@
                     <h:panelGrid columns="2">
                         <h:inputText value="#{turmaRegistrarBean.turma.professor.nome}" disabled="true" id="professor" required="true"
                                      requiredMessage="A turma necessita de um professor." size="20"/>
-                        <p:commandButton icon="ui-icon-check" title="Selecionar Professor" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
+                        <p:commandButton icon="ui-icon-search" value="Pesquisar"  title="Selecionar Professor" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
                                          process="@this">
                             <p:ajax event="dialogReturn" listener="#{turmaRegistrarBean.eventoSelecaoProfessor}" update="professor registrar"/>
                         </p:commandButton>
