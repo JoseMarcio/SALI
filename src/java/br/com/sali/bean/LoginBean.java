@@ -2,12 +2,18 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
+import br.com.sali.util.CriptografiaUtil;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  * Managed Bean Login.
@@ -90,12 +96,24 @@ public class LoginBean implements Serializable {
      * Autentica o usuário.
      *
      *
+     * @return
      */
     public String autenticarUsuario() {
-        init();
-        return "inicio-instituicao?faces-redirect=true";
-       // FacesContext fc = FacesContext.getCurrentInstance();
-        // fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Acesso Concedido!\nE-mail: " + getEmail() + "\nSenha: " + getSenha(), ""));
+        try {
+            senha = CriptografiaUtil.criptografaSenha(senha);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+           RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                        "Exceção!", ex.getMessage()));
+        }
+        if (email.equals(instituicao.getEmail()) && senha.equals(instituicao.getSenha())) {
+            init();
+            return "inicio-instituicao?faces-redirect=true";
+        }
+        else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail ou Senha incorreto(s).", ""));
+            return "login";
+        }
+
     }
 
     public void recuperarSenha() {

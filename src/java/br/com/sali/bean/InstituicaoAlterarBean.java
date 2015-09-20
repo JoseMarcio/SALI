@@ -20,7 +20,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "instituicaoAlterarBean")
 @ViewScoped
-public class InstituicaoAlterarBean implements Serializable{
+public class InstituicaoAlterarBean implements Serializable {
 
     // Atributos.
     private Instituicao instituicaoCadastrada;
@@ -90,12 +90,12 @@ public class InstituicaoAlterarBean implements Serializable{
         } else {
             try {
                 instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Sucesso!", "Atualização concluída com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Sucesso!", "Atualização conluída com sucesso."));
 
         }
     }

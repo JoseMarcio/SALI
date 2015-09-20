@@ -17,7 +17,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "alunoExcluirBean")
 @ViewScoped
-public class AlunoExcluirBean implements Serializable{
+public class AlunoExcluirBean implements Serializable {
 
     // Atributos.
     private AlunoRN alunoRN;
@@ -68,8 +68,6 @@ public class AlunoExcluirBean implements Serializable{
     public void setRenderPainelMensagem(boolean renderPainelMensagem) {
         this.renderPainelMensagem = renderPainelMensagem;
     }
-    
-    
 
     //=========================== Métodos ======================================
     /**

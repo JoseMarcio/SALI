@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -18,7 +19,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "turmaAlterarBean")
 @ViewScoped
-public class TurmaAlterarBean implements Serializable{
+public class TurmaAlterarBean implements Serializable {
 
     // Atributos.
     private Turma turma;
@@ -26,7 +27,6 @@ public class TurmaAlterarBean implements Serializable{
     private boolean renderPainelAlterar;
     private TurmaRN turmaRN;
     private String nomeAtualTurma;
-    
 
     // Construtor
     @PostConstruct
@@ -63,8 +63,6 @@ public class TurmaAlterarBean implements Serializable{
         this.renderPainelAlterar = renderPainelAlterar;
     }
 
-   
-
     public String getNomeAtualTurma() {
         return nomeAtualTurma;
     }
@@ -93,7 +91,6 @@ public class TurmaAlterarBean implements Serializable{
         setRenderPainelMensagem(false);
         setRenderPainelAlterar(true);
         setNomeAtualTurma(turmaSelecionada.getNome());
-
     }
 
     /**
@@ -113,13 +110,14 @@ public class TurmaAlterarBean implements Serializable{
     public void atualizar() {
 
         if (turmaRN.isExistenteNome(turma.getNome()) && (!turma.getNome().equals(nomeAtualTurma))) {
-           RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Já existe uma turma com esse nome."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe uma turma com esse nome.", ""));
+
         } else {
             turmaRN.atualizarTurma(turma);
             limpar();
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Sucesso!", "Atualização conluída com sucesso."));
+                    "Sucesso!", "Atualização concluída com sucesso."));
         }
     }
 }

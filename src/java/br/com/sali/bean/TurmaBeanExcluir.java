@@ -17,7 +17,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "turmaExcluirBean")
 @ViewScoped
-public class TurmaBeanExcluir implements Serializable{
+public class TurmaBeanExcluir implements Serializable {
 
     // Atributos.
     private Turma turmaSelecionada;
@@ -69,9 +69,6 @@ public class TurmaBeanExcluir implements Serializable{
         this.renderPainelMensagem = renderPainelMensagem;
     }
 
-    
-    
-    
     //============================== Métodos ===================================
     /**
      * Reinicia os atributos da bean.

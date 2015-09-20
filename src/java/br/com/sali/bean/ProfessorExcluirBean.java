@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -79,8 +80,6 @@ public class ProfessorExcluirBean implements Serializable {
     public void setRenderPainelMensagem(boolean renderPainelMensagem) {
         this.renderPainelMensagem = renderPainelMensagem;
     }
-    
-    
 
     //===================== Métodos ============================================
     /**
@@ -116,8 +115,9 @@ public class ProfessorExcluirBean implements Serializable {
                     "Sucesso!", "Professor excluído com sucesso."));
 
         } else {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Não é possível excluir este professor, pois ele é o orientador de alguma(s) turma(s)."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Não é possível excluir este professor, pois ele é o orientador de alguma(s) turma(s).", ""));
         }
 
     }

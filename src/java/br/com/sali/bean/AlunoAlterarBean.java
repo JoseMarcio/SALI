@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -145,24 +146,22 @@ public class AlunoAlterarBean implements Serializable {
      */
     public void atualizar() {
         if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Informe uma matrícula válida."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
 
         } else if (ValidacoesUtil.isExistenteMatricula(matriculaString)
                 && (matriculaAtualAluno != alunoSelecionado.getMatricula())) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Matrícula já cadastrada."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
 
         } else if (ValidacoesUtil.isExistenteEmail(alunoSelecionado.getEmail())
                 && (!emailAtualAluno.equals(alunoSelecionado.getEmail()))) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "E-mail já cadastrado."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
 
         } else if (!confirmaSenha.equals(alunoSelecionado.getSenha())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "As senhas não conferem."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
 
         } else {
             try {
@@ -171,7 +170,7 @@ public class AlunoAlterarBean implements Serializable {
                 alunoRN.atualizarAluno(alunoSelecionado);
                 limpar();
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Sucesso!", "Atualização conluída com sucesso."));
+                        "Sucesso!", "Atualização concluída com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));

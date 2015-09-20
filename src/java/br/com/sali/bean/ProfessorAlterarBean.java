@@ -138,8 +138,7 @@ public class ProfessorAlterarBean implements Serializable {
         setMatriculaString(Integer.toString(professor.getMatricula()));
         setRenderPainelMensagem(false);
         setRenderPainelAlterarProfessor(true);
-        setRenderBotaoAlterarProfessor(true);
-        
+        setRenderBotaoAlterarProfessor(true);       
 
     }
 
