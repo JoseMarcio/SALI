@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,9 +14,9 @@ import javax.faces.context.FacesContext;
  *
  * @author SALI
  */
-@ManagedBean(name = "loginBean")
+@ManagedBean(name = "loginBean", eager = true)
 @ViewScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     // Atributos;
     private InstituicaoRN instituicaoRN;
@@ -24,9 +25,6 @@ public class LoginBean {
     private String email;
     private String senha;
     private String emailRecuperar;
-    
-   
-    
 
     // Construtor.
     @PostConstruct
@@ -72,7 +70,6 @@ public class LoginBean {
         this.senha = senha;
     }
 
-
     public String getEmailRecuperar() {
         return emailRecuperar;
     }
@@ -80,34 +77,30 @@ public class LoginBean {
     public void setEmailRecuperar(String emailRecuperar) {
         this.emailRecuperar = emailRecuperar;
     }
-    
 
     //============================ Métodos =====================================
-    
     /**
      * Reinicia os atributos da bean.
      */
-    public void limpar(){
-           init();
+    public void limpar() {
+        init();
     }
-    
- 
+
     /**
      * Autentica o usuário.
      *
      *
      */
     public String autenticarUsuario() {
-        return "inicio-instituicao";
+        init();
+        return "inicio-instituicao?faces-redirect=true";
        // FacesContext fc = FacesContext.getCurrentInstance();
-       // fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Acesso Concedido!\nE-mail: " + getEmail() + "\nSenha: " + getSenha(), ""));
+        // fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Acesso Concedido!\nE-mail: " + getEmail() + "\nSenha: " + getSenha(), ""));
     }
-    
-    
-    
-    public void recuperarSenha(){
-        
+
+    public void recuperarSenha() {
+
         FacesContext fc = FacesContext.getCurrentInstance();
-        fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uma nova senha de acesso foi enviada para o e-mail informado",""));
+        fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uma nova senha de acesso foi enviada para o e-mail informado", ""));
     }
 }

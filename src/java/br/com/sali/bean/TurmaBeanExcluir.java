@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.TurmaRN;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -15,8 +16,8 @@ import org.primefaces.event.SelectEvent;
  * @author SALI
  */
 @ManagedBean(name = "turmaExcluirBean")
-@ViewScoped
-public class TurmaBeanExcluir {
+//@ViewScoped
+public class TurmaBeanExcluir implements Serializable{
 
     // Atributos.
     private Turma turmaSelecionada;

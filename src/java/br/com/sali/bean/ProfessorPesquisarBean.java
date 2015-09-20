@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "pesquisarProfessorBean")
 @ViewScoped
-public class ProfessorPesquisarBean {
+public class ProfessorPesquisarBean implements Serializable{
 
     // Atributos.
     private ProfessorRN professorRN;

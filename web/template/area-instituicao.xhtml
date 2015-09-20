@@ -11,8 +11,7 @@
         <title>
             <ui:insert name="titulo">SALI</ui:insert>
         </title>
-        <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />
-      
+        <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />     
         
     </h:head>
 
@@ -29,12 +28,11 @@
                     <nav id="menu">
                         <h:form>
                             <p:menubar>
-                                <p:menuitem value="Inicio" action="#{beanTemplateInstituicao.irInicioInstituicao()}"></p:menuitem>
-                                <p:menuitem value="Alterar Instituição" action="#{beanTemplateInstituicao.irAlterarInstituicao()}"></p:menuitem>
-                                <p:menuitem value="Sair" action="#{beanTemplateInstituicao.irLogin()}"></p:menuitem>
+                                <p:menuitem value="Inicio" action="#{beanTemplateInstituicao.irInicioInstituicao()}" ajax="false"></p:menuitem>
+                                <p:menuitem value="Alterar Instituição" action="#{beanTemplateInstituicao.irAlterarInstituicao()}" ajax="false"></p:menuitem>
+                                <p:menuitem value="Sair" action="#{beanTemplateInstituicao.irLogin()}" ajax="false"></p:menuitem>
 
-                            </p:menubar>  
-
+                            </p:menubar> 
                         </h:form>
                     </nav>
                 </section>
@@ -46,15 +44,15 @@
                     <nav id="menuLateral">
                         <h:form>
                             <p:menu>
-                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno" ajax="false"></p:menuitem>
+                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno" ajax="false"></p:menuitem>
 
                             </p:menu> 
 

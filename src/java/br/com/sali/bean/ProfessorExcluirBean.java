@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,19 +17,25 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "excluirProfessorBean")
 @ViewScoped
-public class ProfessorExcluirBean {
+public class ProfessorExcluirBean implements Serializable {
 
     // Atributos.
     private Professor professorSelecionado;
     private ProfessorRN professorRN;
     private boolean disabledBotaoExcluir;
+    private boolean renderPainelInformacoes;
+    private boolean renderPainelMensagem;
+    private String matriculaString;
 
     // Construtor.
     @PostConstruct
     public void init() {
-        this.professorSelecionado = new Professor();
-        this.professorRN = new ProfessorRN();
-        this.disabledBotaoExcluir = true;
+        professorSelecionado = new Professor();
+        professorRN = new ProfessorRN();
+        disabledBotaoExcluir = true;
+        matriculaString = "";
+        renderPainelInformacoes = false;
+        renderPainelMensagem = true;
     }
 
     //====================== Gets e Sets =======================================
@@ -49,6 +56,32 @@ public class ProfessorExcluirBean {
         this.disabledBotaoExcluir = disabledBotaoExcluir;
     }
 
+    public String getMatriculaString() {
+        return matriculaString;
+    }
+
+    public void setMatriculaString(String matriculaString) {
+        this.matriculaString = matriculaString;
+    }
+
+    public boolean isRenderPainelInformacoes() {
+        return renderPainelInformacoes;
+    }
+
+    public void setRenderPainelInformacoes(boolean renderPainelInformacoes) {
+        this.renderPainelInformacoes = renderPainelInformacoes;
+    }
+
+    public boolean isRenderPainelMensagem() {
+        return renderPainelMensagem;
+    }
+
+    public void setRenderPainelMensagem(boolean renderPainelMensagem) {
+        this.renderPainelMensagem = renderPainelMensagem;
+    }
+    
+    
+
     //===================== Métodos ============================================
     /**
      * É o que deve acontecer no momento em que for selecionado um professor por
@@ -59,7 +92,10 @@ public class ProfessorExcluirBean {
     public void eventoSelecaoProfessor(SelectEvent event) {
         Professor professor = (Professor) event.getObject();
         setProfessorSelecionado(professor);
+        setMatriculaString(Integer.toString(professor.getMatricula()));
         setDisabledBotaoExcluir(false);
+        setRenderPainelInformacoes(true);
+        setRenderPainelMensagem(false);
     }
 
     /**

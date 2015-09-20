@@ -14,10 +14,6 @@
     </h:head>
 
     <h:body>
-     
-        
-
-
         <!-- Dialog para informar e-mail de recuperar senha-->
         <p:dialog widgetVar="recuperarEmail" header="Informe o seu e-mail"  width="310" minWidth="310"
                   height="165" minHeight="165" modal="true" closable="false" position="center"
@@ -32,7 +28,7 @@
                 </p:inputText>
 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Recuperar" action="#{loginBean.recuperarSenha()}" style="width: 130px;margin: 0 5px 0 0;"/>
+                    <p:commandButton value="Recuperar" action="#{loginBean.recuperarSenha()}" style="width: 130px;margin: 0 5px 0 0;" update="@form" />
 
                     <p:commandButton value="Fechar" onclick="PF('recuperarEmail').hide();PF('login').show();" process="@this" style="width: 130px;margin: 0 0 0 5px;"
                                      update=":login">
@@ -42,16 +38,33 @@
         </p:dialog>
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <!-- Dialog formulário login -->
         <p:dialog header="Login"  width="360" minWidth="360" widgetVar="login"
                   height="213" minHeight="213" modal="true" closable="false" position="center"
                   showEffect="slide" draggable="false" resizable="false" visible="true" class="dialogo">
 
             <h:form id="login">
-                <!-- Chamando uma instância instituição para que ela possa ser criada -->
-                <h:inputHidden value="#{loginBean.instituicao.nome}"/>
-
-                <p:messages autoUpdate="true" showIcon="false"/>
+               <p:messages autoUpdate="true" showIcon="false"/>
 
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Email"/>
@@ -64,7 +77,7 @@
                     <p:password  value="#{loginBean.senha}" required="true" requiredMessage="Informe a senha de acesso." size="35" maxlength="16"/>
 
                     <h:outputText />
-                    <p:commandButton action="#{loginBean.autenticarUsuario()}" value="Acessar"/>
+                    <p:commandButton action="#{loginBean.autenticarUsuario()}" value="Acessar" ajax="false"/>
                 </h:panelGrid>
             </h:form>
 

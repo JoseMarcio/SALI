@@ -1,5 +1,6 @@
 package br.com.sali.bean;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 
 /**
@@ -8,7 +9,7 @@ import javax.faces.bean.ManagedBean;
  * @author SALI
  */
 @ManagedBean(name = "beanTemplateInstituicao")
-public class TemplateAraInstituicaoBean {
+public class TemplateAraInstituicaoBean implements Serializable{
 
     /**
      * Direciona página Inicial.
@@ -16,7 +17,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irInicioInstituicao() {
-        return "inicio-instituicao";
+        return "inicio-instituicao?faces-redirect=true";
     }
 
     /**
@@ -25,7 +26,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irAlterarProfessor() {
-        return "alterar-professor";
+        return "alterar-professor?faces-redirect=true";
     }
 
     /**
@@ -34,7 +35,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irExcluirProfessor() {
-        return "excluir-professor";
+        return "excluir-professor?faces-redirect=true";
     }
 
     /**
@@ -43,7 +44,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irRegistrarProfessor() {
-        return "registrar-professor";
+        return "registrar-professor?faces-redirect=true";
     }
 
     /**
@@ -52,7 +53,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irRegistrarTurma() {
-        return "registrar-turma";
+        return "registrar-turma?faces-redirect=true";
     }
 
     /**
@@ -61,7 +62,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irAlterarTurma() {
-        return "alterar-turma";
+        return "alterar-turma?faces-redirect=true";
     }
 
     /**
@@ -70,7 +71,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irExcluirTurma() {
-        return "excluir-turma";
+        return "excluir-turma?faces-redirect=true";
     }
 
     /**
@@ -79,7 +80,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irRegistrarAluno() {
-        return "registrar-aluno";
+        return "registrar-aluno?faces-redirect=true";
     }
 
     /**
@@ -88,7 +89,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irAlterarAluno() {
-        return "alterar-aluno";
+        return "alterar-aluno?faces-redirect=true";
     }
 
     /**
@@ -97,7 +98,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irExcluirAluno() {
-        return "excluir-aluno";
+        return "excluir-aluno?faces-redirect=true";
     }
 
      /**
@@ -106,7 +107,7 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irAlterarInstituicao() {
-        return "alterar-instituicao";
+        return "alterar-instituicao?faces-redirect=true";
     }
     
     /**
@@ -115,6 +116,6 @@ public class TemplateAraInstituicaoBean {
      * @return
      */
     public String irLogin() {
-        return "login";
+        return "login?faces-redirect=true";
     }
 }

@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.TurmaRN;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,8 @@ import org.primefaces.context.RequestContext;
  * @author SALI
  */
 @ManagedBean(name = "turmaPesquisarBean")
-@ViewScoped
-public class TurmaPesquisarBean {
+//@ViewScoped
+public class TurmaPesquisarBean implements Serializable{
 
     // Atributos.
     private TurmaRN turmaRN;

@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Aluno;
 import br.com.sali.regras.AlunoRN;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +17,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "alunoExcluirBean")
 @ViewScoped
-public class AlunoExcluirBean {
+public class AlunoExcluirBean implements Serializable{
 
     // Atributos.
     private AlunoRN alunoRN;

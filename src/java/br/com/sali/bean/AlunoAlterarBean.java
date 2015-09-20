@@ -4,6 +4,7 @@ import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
@@ -20,7 +21,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "alunoAlterarBean")
 @ViewScoped
-public class AlunoAlterarBean {
+public class AlunoAlterarBean implements Serializable {
 
     // Atributos.
     private AlunoRN alunoRN;

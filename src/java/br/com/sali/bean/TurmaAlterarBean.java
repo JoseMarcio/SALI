@@ -3,6 +3,7 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.TurmaRN;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,8 +17,8 @@ import org.primefaces.event.SelectEvent;
  * @author SALI
  */
 @ManagedBean(name = "turmaAlterarBean")
-@ViewScoped
-public class TurmaAlterarBean {
+//@ViewScoped
+public class TurmaAlterarBean implements Serializable{
 
     // Atributos.
     private Turma turma;

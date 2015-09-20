@@ -3,6 +3,7 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
@@ -20,7 +21,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "alterarProfessorBean")
 @ViewScoped
-public class ProfessorAlterarBean {
+public class ProfessorAlterarBean implements Serializable {
 
     // Atributos.
     private Professor professorSelecionado;
@@ -28,8 +29,10 @@ public class ProfessorAlterarBean {
     private String emailAtualDoProfessor;
     private Integer matriculaAtualDoProfessor;
     private String confirmaSenha;
-    private boolean disabledBotaoAtualizar;
+    private boolean renderPainelAlterarProfessor;
+    private boolean renderBotaoAlterarProfessor;
     private String matriculaString;
+    private boolean renderPainelMensagem;
 
     // Construtor.
     @PostConstruct
@@ -39,7 +42,9 @@ public class ProfessorAlterarBean {
         emailAtualDoProfessor = "";
         matriculaAtualDoProfessor = 0;
         confirmaSenha = "";
-        disabledBotaoAtualizar = true;
+        renderPainelAlterarProfessor = false;
+        renderBotaoAlterarProfessor = false;
+        renderPainelMensagem = true;
         matriculaString = "";
 
     }
@@ -77,12 +82,20 @@ public class ProfessorAlterarBean {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public boolean isDisabledBotaoAtualizar() {
-        return disabledBotaoAtualizar;
+    public boolean isRenderPainelAlterarProfessor() {
+        return renderPainelAlterarProfessor;
     }
 
-    public void setDisabledBotaoAtualizar(boolean disabledBotaoAtualizar) {
-        this.disabledBotaoAtualizar = disabledBotaoAtualizar;
+    public void setRenderPainelAlterarProfessor(boolean renderPainelAlterarProfessor) {
+        this.renderPainelAlterarProfessor = renderPainelAlterarProfessor;
+    }
+
+    public boolean isRenderPainelMensagem() {
+        return renderPainelMensagem;
+    }
+
+    public void setRenderPainelMensagem(boolean renderPainelMensagem) {
+        this.renderPainelMensagem = renderPainelMensagem;
     }
 
     public String getMatriculaString() {
@@ -92,6 +105,16 @@ public class ProfessorAlterarBean {
     public void setMatriculaString(String matriculaString) {
         this.matriculaString = matriculaString;
     }
+
+    public boolean isRenderBotaoAlterarProfessor() {
+        return renderBotaoAlterarProfessor;
+    }
+
+    public void setRenderBotaoAlterarProfessor(boolean renderBotaoAlterarProfessor) {
+        this.renderBotaoAlterarProfessor = renderBotaoAlterarProfessor;
+    }
+    
+    
 
     //=========================== Métodos ======================================
     /**
@@ -113,7 +136,11 @@ public class ProfessorAlterarBean {
         setMatriculaAtualDoProfessor(professor.getMatricula());
         setEmailAtualDoProfessor(professor.getEmail());
         setMatriculaString(Integer.toString(professor.getMatricula()));
-        setDisabledBotaoAtualizar(false);
+        setRenderPainelMensagem(false);
+        setRenderPainelAlterarProfessor(true);
+        setRenderBotaoAlterarProfessor(true);
+        
+
     }
 
     /**
@@ -143,13 +170,14 @@ public class ProfessorAlterarBean {
             try {
                 professorSelecionado.setMatricula(Integer.parseInt(matriculaString));
                 professorRN.atualizarProfessor(professorSelecionado);
+                limpar();
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Sucesso!", "Atualização concluída com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }
-            limpar();
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Sucesso!", "Atualização conluída com sucesso."));
+
         }
     }
 }

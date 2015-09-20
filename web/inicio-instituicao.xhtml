@@ -14,24 +14,9 @@
 
         <ui:define name="corpo">
 
-            <h1>Bem Vindo</h1>
-            <article>
-                <h2>Funcionalidades Concluídas:</h2>
-                <p>
-                    * Alterar Instituição.
-                </p>
-
-                
-                <h2>Funcionalidades A Caminho:</h2>
-                <p>
-                    - Registrar, Alterar, Excluir Professores.<br />
-                    - Registrar, Alterar, Excluir Turmas.<br />
-                    - Registrar, Alterar, Excluir Alunos.<br />
-                    - Criptografia de Senha.<br />
-                    - Autententicação.<br />
-                    - Recuperar Senha de Acesso.
-                </p>
-            </article>
+            <h1>Bem Vindo ao Sali Sr.</h1>
+            <h1><h:outputText value="#{loginBean.instituicao.nome}"/></h1>
+            
         </ui:define>
     </ui:composition>
 

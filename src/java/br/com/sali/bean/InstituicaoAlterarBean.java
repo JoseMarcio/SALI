@@ -3,6 +3,7 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
@@ -19,7 +20,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "instituicaoAlterarBean")
 @ViewScoped
-public class InstituicaoAlterarBean {
+public class InstituicaoAlterarBean implements Serializable{
 
     // Atributos.
     private Instituicao instituicaoCadastrada;
