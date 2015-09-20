@@ -1,78 +1,92 @@
 <!DOCTYPE html>
 <html   lang="pt-br" 
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
+    
     <h:head>
+        
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>
             <ui:insert name="titulo">SALI</ui:insert>
         </title>
         <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />     
-        
+
     </h:head>
 
+    
+    
+    
     <h:body>
 
         <section id="cabecalho">
             <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  
         </section>
 
+        
         <section id="conteiner">
+            
+            
             <header>
 
                 <section>
                     <nav id="menu">
                         <h:form>
                             <p:menubar>
-                                <p:menuitem value="Inicio" action="#{beanTemplateInstituicao.irInicioInstituicao()}" ajax="false"></p:menuitem>
+                                <p:menuitem value="Início" action="#{beanTemplateInstituicao.irInicioInstituicao()}" ajax="false"></p:menuitem>
                                 <p:menuitem value="Alterar Instituição" action="#{beanTemplateInstituicao.irAlterarInstituicao()}" ajax="false"></p:menuitem>
                                 <p:menuitem value="Sair" action="#{beanTemplateInstituicao.irLogin()}" ajax="false"></p:menuitem>
-
                             </p:menubar> 
                         </h:form>
                     </nav>
                 </section>
             </header>
 
+            
             <section id="conteudo">
 
                 <section>
+                    
                     <nav id="menuLateral">
                         <h:form>
-                            <p:menu>
-                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno" ajax="false"></p:menuitem>
-                                <p:menuitem action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno" ajax="false"></p:menuitem>
+                            <p:tieredMenu style="width: 215px;margin-top: 3px;border-radius: 6%;">
+                                <p:submenu label="Alunos">
+                                    <p:menuitem action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno" ajax="false"></p:menuitem>
+                                    <p:menuitem action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno" ajax="false"></p:menuitem>
+                                    <p:menuitem action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno" ajax="false"></p:menuitem>
+                                </p:submenu>
 
-                            </p:menu> 
+                                <p:submenu label="Professores">
+                                    <p:menuitem action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor" ajax="false"></p:menuitem>
+                                    <p:menuitem action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor" ajax="false"></p:menuitem>
+                                    <p:menuitem action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor" ajax="false"></p:menuitem>
+                                </p:submenu>
 
+                                <p:submenu label="Turmas">
+                                    <p:menuitem action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma" ajax="false"></p:menuitem>
+                                    <p:menuitem action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma" ajax="false"></p:menuitem>
+                                    <p:menuitem action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma" ajax="false"></p:menuitem>
+                                </p:submenu>
+
+                            </p:tieredMenu>
                         </h:form>
                     </nav>
+                    
                 </section>
 
                 <section id="corpo">
                     <ui:insert name="corpo" />
                 </section>
+                
             </section>
 
             <footer>
                 SALI - Sistema de Aprendizado da Língua Ínglesa
             </footer>
 
-        </section>
-
-
-
-
+        </section>        
+        
     </h:body>
 </html>

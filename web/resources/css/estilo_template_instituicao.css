@@ -28,17 +28,18 @@ body {
 
 
 #menuLateral ul li{
-    display: block;
-    padding-top: 2%;
+    //display: block;
+    /// margin-top: 5%;
 }
 
 
 #corpo{
     margin-left: 25%;
-    margin-top: -37%;
-    padding-left: 5%;
+    margin-top: -104px;
+    padding: 13px 25px 13px 20px;
     width: 70%;
-    height: 500px;
+    min-height: 500px;
+    height: auto;
     background: #ffffff;   
     border-radius: 3%;
 }

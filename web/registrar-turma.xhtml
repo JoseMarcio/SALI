@@ -16,33 +16,45 @@
         <ui:define name="corpo">
 
 
+            <h3>Registrar Nova Turma</h3>
+
+            <p:separator />
             <!-- Formulário para cadastro de turmas.-->
             <!-- Formulário concluído e validado -->
             <h:form>
-                <h3>Registrar Nova Turma</h3>
-                <h:panelGrid columns="1">
+
+                <p:commandButton action="#{turmaRegistrarBean.registrar()}" value="Salvar" title="Registrar Professor"
+                                 disabled="#{turmaRegistrarBean.disabledBotaoRegistrar}" id="registrar" icon="ui-icon-check"
+                                 update="@form"/>
+                
+                <p:panel>
 
 
-                    <h:outputLabel value="Nome da Turma:" for="inputNome"/>
-                    <h:inputText id="inputNome" value="#{turmaRegistrarBean.turma.nome}" required="true" 
-                                 requiredMessage="Informe o nome da turma." pt:placeholder="Nome da turma"/>
+                    <p:messages autoUpdate="true" showIcon="false"/>
 
-                    <h:outputLabel value="Professor:" for="professor"/>
                     <h:panelGrid columns="2">
-                        <h:inputText value="#{turmaRegistrarBean.turma.professor.nome}" disabled="true" id="professor" required="true"
-                                     requiredMessage="A turma necessita de um professor." size="20"/>
-                        <p:commandButton icon="ui-icon-search" value="Pesquisar"  title="Selecionar Professor" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
-                                         process="@this">
-                            <p:ajax event="dialogReturn" listener="#{turmaRegistrarBean.eventoSelecaoProfessor}" update="professor registrar"/>
-                        </p:commandButton>
+
+
+                        <p:outputLabel value="Nome da Turma"/>
+                        <p:inputText value="#{turmaRegistrarBean.turma.nome}" required="true" 
+                                     requiredMessage="Informe o nome da turma." pt:placeholder="Nome da turma"/>
+
+                        <p:outputLabel value="Professor"/>
+                        <h:panelGrid columns="2" >
+                            <p:inputText value="#{turmaRegistrarBean.turma.professor.nome}"   id="professor" disabled="true"                                           
+                                         />
+                            <p:commandButton icon="ui-icon-search"  title="Selecionar Professor" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{turmaRegistrarBean.eventoSelecaoProfessor}" update="professor registrar"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+
+                        
+
+
+
                     </h:panelGrid>
-
-                    <h:commandButton action="#{turmaRegistrarBean.registrar()}" value="Registrar" title="Registrar Professor"
-                                     disabled="#{turmaRegistrarBean.disabledBotaoRegistrar}" id="registrar"/>
-                    <p:messages autoUpdate="true"/>
-
-
-                </h:panelGrid>
+                </p:panel>
             </h:form>
 
         </ui:define>

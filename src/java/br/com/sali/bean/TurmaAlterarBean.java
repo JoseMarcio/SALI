@@ -17,22 +17,23 @@ import org.primefaces.event.SelectEvent;
  * @author SALI
  */
 @ManagedBean(name = "turmaAlterarBean")
-//@ViewScoped
+@ViewScoped
 public class TurmaAlterarBean implements Serializable{
 
     // Atributos.
     private Turma turma;
-    private boolean disabledBotaoProfessor;
-    private boolean disabledBotaoAtualizar;
+    private boolean renderPainelMensagem;
+    private boolean renderPainelAlterar;
     private TurmaRN turmaRN;
     private String nomeAtualTurma;
+    
 
     // Construtor
     @PostConstruct
     public void init() {
         turma = new Turma();
-        disabledBotaoProfessor = true;
-        disabledBotaoAtualizar = true;
+        renderPainelAlterar = false;
+        renderPainelMensagem = true;
         turmaRN = new TurmaRN();
         nomeAtualTurma = "";
     }
@@ -46,21 +47,23 @@ public class TurmaAlterarBean implements Serializable{
         this.turma = turma;
     }
 
-    public boolean isDisabledBotaoProfessor() {
-        return disabledBotaoProfessor;
+    public boolean isRenderPainelMensagem() {
+        return renderPainelMensagem;
     }
 
-    public void setDisabledBotaoProfessor(boolean disabledBotaoProfessor) {
-        this.disabledBotaoProfessor = disabledBotaoProfessor;
+    public void setRenderPainelMensagem(boolean renderPainelMensagem) {
+        this.renderPainelMensagem = renderPainelMensagem;
     }
 
-    public boolean isDisabledBotaoAtualizar() {
-        return disabledBotaoAtualizar;
+    public boolean isRenderPainelAlterar() {
+        return renderPainelAlterar;
     }
 
-    public void setDisabledBotaoAtualizar(boolean disabledBotaoAtualizar) {
-        this.disabledBotaoAtualizar = disabledBotaoAtualizar;
+    public void setRenderPainelAlterar(boolean renderPainelAlterar) {
+        this.renderPainelAlterar = renderPainelAlterar;
     }
+
+   
 
     public String getNomeAtualTurma() {
         return nomeAtualTurma;
@@ -87,7 +90,8 @@ public class TurmaAlterarBean implements Serializable{
     public void eventoSelecaoTurma(SelectEvent event) {
         Turma turmaSelecionada = (Turma) event.getObject();
         setTurma(turmaSelecionada);
-        setDisabledBotaoProfessor(false);
+        setRenderPainelMensagem(false);
+        setRenderPainelAlterar(true);
         setNomeAtualTurma(turmaSelecionada.getNome());
 
     }
@@ -101,7 +105,6 @@ public class TurmaAlterarBean implements Serializable{
     public void eventoSelecaoProfessor(SelectEvent event) {
         Professor professorSelecionado = (Professor) event.getObject();
         getTurma().setProfessor(professorSelecionado);
-        setDisabledBotaoAtualizar(false);
     }
 
     /**

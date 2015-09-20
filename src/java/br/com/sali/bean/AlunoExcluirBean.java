@@ -23,6 +23,8 @@ public class AlunoExcluirBean implements Serializable{
     private AlunoRN alunoRN;
     private Aluno alunoSelecionado;
     private boolean disabledBotaoExcluir;
+    private boolean renderPainelInformacoes;
+    private boolean renderPainelMensagem;
 
     // Construtor.
     @PostConstruct
@@ -30,6 +32,8 @@ public class AlunoExcluirBean implements Serializable{
         alunoRN = new AlunoRN();
         alunoSelecionado = new Aluno();
         disabledBotaoExcluir = true;
+        renderPainelInformacoes = false;
+        renderPainelMensagem = true;
     }
 
     //============================ Gets e Sets =================================
@@ -49,6 +53,24 @@ public class AlunoExcluirBean implements Serializable{
         this.disabledBotaoExcluir = disabledBotaoExcluir;
     }
 
+    public boolean isRenderPainelInformacoes() {
+        return renderPainelInformacoes;
+    }
+
+    public void setRenderPainelInformacoes(boolean renderPainelInformacoes) {
+        this.renderPainelInformacoes = renderPainelInformacoes;
+    }
+
+    public boolean isRenderPainelMensagem() {
+        return renderPainelMensagem;
+    }
+
+    public void setRenderPainelMensagem(boolean renderPainelMensagem) {
+        this.renderPainelMensagem = renderPainelMensagem;
+    }
+    
+    
+
     //=========================== Métodos ======================================
     /**
      * Reinicia os atributos da bean.
@@ -67,6 +89,8 @@ public class AlunoExcluirBean implements Serializable{
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
         setDisabledBotaoExcluir(false);
+        setRenderPainelInformacoes(true);
+        setRenderPainelMensagem(false);
     }
 
     /**

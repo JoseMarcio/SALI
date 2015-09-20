@@ -29,7 +29,9 @@ public class AlunoAlterarBean implements Serializable {
     private String emailAtualAluno;
     private Integer matriculaAtualAluno;
     private String confirmaSenha;
-    private boolean disabledBotaoAtualizar;
+    private String matriculaString;
+    private boolean renderPainelMensagem;
+    private boolean renderPainelAlterar;
 
     // Construtor.
     @PostConstruct
@@ -37,9 +39,11 @@ public class AlunoAlterarBean implements Serializable {
         alunoRN = new AlunoRN();
         alunoSelecionado = new Aluno();
         confirmaSenha = "";
-        disabledBotaoAtualizar = true;
         emailAtualAluno = "";
         matriculaAtualAluno = 0;
+        matriculaString = "";
+        renderPainelMensagem = true;
+        renderPainelAlterar = false;
     }
 
     //========================= Gets e Sets ====================================
@@ -75,12 +79,28 @@ public class AlunoAlterarBean implements Serializable {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public boolean isDisabledBotaoAtualizar() {
-        return disabledBotaoAtualizar;
+    public String getMatriculaString() {
+        return matriculaString;
     }
 
-    public void setDisabledBotaoAtualizar(boolean disabledBotaoAtualizar) {
-        this.disabledBotaoAtualizar = disabledBotaoAtualizar;
+    public void setMatriculaString(String matriculaString) {
+        this.matriculaString = matriculaString;
+    }
+
+    public boolean isRenderPainelMensagem() {
+        return renderPainelMensagem;
+    }
+
+    public void setRenderPainelMensagem(boolean renderPainelMensagem) {
+        this.renderPainelMensagem = renderPainelMensagem;
+    }
+
+    public boolean isRenderPainelAlterar() {
+        return renderPainelAlterar;
+    }
+
+    public void setRenderPainelAlterar(boolean renderPainelAlterar) {
+        this.renderPainelAlterar = renderPainelAlterar;
     }
 
     //======================= Métodos ==========================================
@@ -101,8 +121,11 @@ public class AlunoAlterarBean implements Serializable {
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
         setMatriculaAtualAluno(aluno.getMatricula());
+        setMatriculaString(Integer.toString(aluno.getMatricula()));
         setEmailAtualAluno(aluno.getEmail());
-        setDisabledBotaoAtualizar(false);
+        setRenderPainelMensagem(false);
+        setRenderPainelAlterar(true);
+
     }
 
     /**
@@ -121,11 +144,11 @@ public class AlunoAlterarBean implements Serializable {
      *
      */
     public void atualizar() {
-        if (!ValidacoesUtil.isValidaMatricula(alunoSelecionado.getMatricula())) {
+        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Erro!", "Informe uma matrícula válida."));
 
-        } else if (ValidacoesUtil.isExistenteMatricula(alunoSelecionado.getMatricula())
+        } else if (ValidacoesUtil.isExistenteMatricula(matriculaString)
                 && (matriculaAtualAluno != alunoSelecionado.getMatricula())) {
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -143,14 +166,17 @@ public class AlunoAlterarBean implements Serializable {
 
         } else {
             try {
+
+                alunoSelecionado.setMatricula(Integer.parseInt(matriculaString));
                 alunoRN.atualizarAluno(alunoSelecionado);
+                limpar();
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Sucesso!", "Atualização conluída com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }
-            limpar();
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Sucesso!", "Atualização conluída com sucesso."));
+
         }
     }
 

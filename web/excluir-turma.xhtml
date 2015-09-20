@@ -17,17 +17,26 @@
 
         <ui:define name="corpo">
 
-            <h1>Excluir Turma</h1>
+            <h3>Excluir Turma</h3>
+            <p:separator />
+
+
 
             <!-- Formulário para exclusão de turma. -->
             <h:form>
-                <p:commandButton icon="ui-icon-check" action="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
+
+                <p:messages autoUpdate="true" showIcon="false"/>
+
+
+                <p:commandButton icon="ui-icon-search" value="Pesquisar" title="Pesquisar Turma" action="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
                     <p:ajax event="dialogReturn" listener="#{turmaExcluirBean.eventoSelecaoTurma}" update="@form"/>
                 </p:commandButton>
                 <p:commandButton action="#{turmaExcluirBean.excluir()}" value="Excluir" disabled="#{turmaExcluirBean.disabledBotaoExcluir}"
-                                 update="@form">
-                    <p:confirm header="Atenção!" message="Está ciente disso?" icon="ui-icon-alert" />
+                                 update="@form" icon="ui-icon-circle-close" title="Excluir Turma">
+                    <p:confirm header="Atenção!" message="Excluir Turma?" icon="ui-icon-alert" />
                 </p:commandButton>
+
+
 
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -35,17 +44,36 @@
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
 
+                <p:panel id="painelMensagem" rendered="#{turmaExcluirBean.renderPainelMensagem}">
+
+                    <p:separator />
+
+                    <h1>Nenhuma Turma Selecionada</h1>
+
+                </p:panel>
 
 
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Nome da Turma:"/>
-                    <h:outputText value="#{turmaExcluirBean.turmaSelecionada.nome}"/>
-                    <h:outputLabel value="Professor Docente:"/>
-                    <h:outputText value="#{turmaExcluirBean.turmaSelecionada.professor.nome}"/>
-                </h:panelGrid>
 
 
-                <p:messages autoUpdate="true"/>
+                <p:panel id="painelInformacoes" rendered="#{turmaExcluirBean.renderPainelInformacoes}">
+
+                    <p:separator />
+
+                    <h1>Informações da Turma</h1>
+
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Nome da Turma:"/>
+                        <h:outputText value="#{turmaExcluirBean.turmaSelecionada.nome}"/>
+                        <p:outputLabel value="Professor Docente:"/>
+                        <h:outputText value="#{turmaExcluirBean.turmaSelecionada.professor.nome}"/>
+                    </h:panelGrid>
+
+                </p:panel>
+
+
+
+
+
             </h:form>
 
 

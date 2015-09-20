@@ -12,36 +12,45 @@
     <h:body>
 
         <!-- Formulario para realização de pesquisa de alunos. -->
-        <h:form>
+        <h:form id="pesquisa">
+            <p:messages autoUpdate="true" showIcon="false"/>
             <!-- Organização dos labels e inputs em uma coluna.-->
             <h:panelGrid columns="1" cellpadding="7">
 
-                <h:panelGrid columns="3">
-                    <h:inputText value="#{alunoPesquisarBean.filtroDePesquisa}"  
-                                 pt:placeholder="Nome ou Matrícula" required="true" requiredMessage="Informe um dado para pesquisar."/>
+                <h:panelGrid columns="3" cellspacing="2">
+                    <p:inputText value="#{alunoPesquisarBean.filtroDePesquisa}"  
+                                 placeholder="Nome ou Matrícula" required="true" requiredMessage="Informe um dado para pesquisar."
+                                 id="inputFiltro"/>
 
-                    <h:commandButton action="#{alunoPesquisarBean.pesquisar()}" value="Pesquisar"/>
+                    <p:commandButton action="#{alunoPesquisarBean.pesquisar()}" value="Pesquisar" update="@form"/>
+
+
+                    <h:form>
+                        <p:commandButton action="#{alunoPesquisarBean.limpar()}" value="Limpar" title="Limpar Dados" 
+                                         update=":pesquisa:tabela :pesquisa:inputFiltro"
+                                         process="@this"/>
+                    </h:form>
                 </h:panelGrid>
 
-                
-                
+
+
                 <!-- Tabela de exibição de dados (aluno) -->
                 <p:dataTable value="#{alunoPesquisarBean.listaDeAlunos}" var="aluno" 
-                             emptyMessage="Nenhum dado a exibir.">
+                             emptyMessage="Nenhum resultado." id="tabela">
 
-                    <p:column headerText="Matrícula" width="120" style="text-align: left;">
+                    <p:column headerText="Matrícula" width="80" style="text-align: left;">
                         <h:outputLabel value="#{aluno.matricula}"/>
                     </p:column>
 
                     <p:column headerText="Nome" style="text-align: left;">
                         <h:outputLabel value="#{aluno.nome}"/>
                     </p:column>
-                    
+
                     <p:column headerText="Turma" style="text-align: left;" width="120">
-                         <h:outputLabel value="#{aluno.turma.nome}"/>
+                        <h:outputLabel value="#{aluno.turma.nome}"/>
                     </p:column>
 
-                    <p:column width="100" style="text-align: center;">
+                    <p:column width="40" style="text-align: center;">
                         <p:commandButton icon="ui-icon-check" title="Selecionar" action="#{alunoPesquisarBean.selecionarAluno(aluno)}"
                                          process="@this"/>
                     </p:column>
@@ -49,13 +58,10 @@
 
             </h:panelGrid>
 
-            <p:messages autoUpdate="true"/>
+            
 
         </h:form>
 
-        <h:form>
-            <h:commandButton action="#{alunoPesquisarBean.limpar()}" value="Limpar" title="Limpar Dados"/>
-        </h:form>
 
 
 

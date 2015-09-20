@@ -16,13 +16,15 @@ import org.primefaces.event.SelectEvent;
  * @author SALI
  */
 @ManagedBean(name = "turmaExcluirBean")
-//@ViewScoped
+@ViewScoped
 public class TurmaBeanExcluir implements Serializable{
 
     // Atributos.
     private Turma turmaSelecionada;
     private TurmaRN turmaRN;
     private boolean disabledBotaoExcluir;
+    private boolean renderPainelInformacoes;
+    private boolean renderPainelMensagem;
 
     // Construtor.
     @PostConstruct
@@ -30,6 +32,8 @@ public class TurmaBeanExcluir implements Serializable{
         turmaSelecionada = new Turma();
         turmaRN = new TurmaRN();
         disabledBotaoExcluir = true;
+        renderPainelInformacoes = false;
+        renderPainelMensagem = true;
     }
 
     //============================== Gets e Sets ===============================
@@ -49,6 +53,25 @@ public class TurmaBeanExcluir implements Serializable{
         this.disabledBotaoExcluir = disabledBotaoExcluir;
     }
 
+    public boolean isRenderPainelInformacoes() {
+        return renderPainelInformacoes;
+    }
+
+    public void setRenderPainelInformacoes(boolean renderPainelInformacoes) {
+        this.renderPainelInformacoes = renderPainelInformacoes;
+    }
+
+    public boolean isRenderPainelMensagem() {
+        return renderPainelMensagem;
+    }
+
+    public void setRenderPainelMensagem(boolean renderPainelMensagem) {
+        this.renderPainelMensagem = renderPainelMensagem;
+    }
+
+    
+    
+    
     //============================== Métodos ===================================
     /**
      * Reinicia os atributos da bean.
@@ -67,6 +90,8 @@ public class TurmaBeanExcluir implements Serializable{
         Turma turma = (Turma) event.getObject();
         setTurmaSelecionada(turma);
         setDisabledBotaoExcluir(false);
+        setRenderPainelInformacoes(true);
+        setRenderPainelMensagem(false);
     }
 
     /**

@@ -18,7 +18,7 @@ import org.primefaces.event.SelectEvent;
  * @author SALI
  */
 @ManagedBean(name = "turmaRegistrarBean")
-//@ViewScoped
+@ViewScoped
 public class TurmaRegistrarBean implements Serializable {
 
     // Atributos.
@@ -76,8 +76,9 @@ public class TurmaRegistrarBean implements Serializable {
      */
     public void registrar() {
         if (turmaRN.isExistenteNome(turma.getNome())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro!", "Já existe uma turma com esse nome."));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe uma turma com esse nome.", ""));
+
         } else {
             turmaRN.registrarTurma(turma);
             limpar();

@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -16,8 +16,8 @@ import org.primefaces.context.RequestContext;
  *
  * @author SALI
  */
-@ManagedBean(name = "turmaPesquisarBean")
-//@ViewScoped
+@ManagedBean(name = "turmaPesquisarBean", eager = true)
+@ApplicationScoped
 public class TurmaPesquisarBean implements Serializable{
 
     // Atributos.

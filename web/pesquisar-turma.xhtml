@@ -14,20 +14,27 @@
     <h:body>
 
 
-        <h:form>
+        <h:form id="pesquisa">
+            <p:messages autoUpdate="true" showIcon="false"/>
             <!-- Organização dos labels e inputs em uma coluna.-->
             <h:panelGrid columns="1" cellpadding="7">
 
-                <h:panelGrid columns="3">
-                    <h:inputText value="#{turmaPesquisarBean.filtroDePesquisa}"  
-                                 pt:placeholder="Nome da turma" required="true" requiredMessage="Informe um dado para pesquisar."/>
+                <h:panelGrid columns="3" cellspacing="2">
+                    <p:inputText value="#{turmaPesquisarBean.filtroDePesquisa}"  
+                                 placeholder="Nome da turma" required="true" requiredMessage="Informe um dado para pesquisar."
+                                 id="inputFiltro"/>
 
-                    <h:commandButton action="#{turmaPesquisarBean.pesquisar()}" value="Pesquisar" title="Pesquisar"/>
+                    <p:commandButton action="#{turmaPesquisarBean.pesquisar()}" value="Pesquisar" title="Pesquisar" update="@form"/>
+
+                    <h:form>
+                        <p:commandButton action="#{turmaPesquisarBean.limpar()}" value="Limpar" process="@this" title="Limpar Dados"
+                                         update=":pesquisa:tabela :pesquisa:inputFiltro"/>
+                    </h:form>
                 </h:panelGrid>
 
                 <!-- Tabela de exibição de dados (professor) -->
                 <p:dataTable value="#{turmaPesquisarBean.listaDeTurmas}" var="turma" 
-                             emptyMessage="Nenhum dado a exibir.">
+                             emptyMessage="Nenhum resultado." id="tabela">
 
                     <p:column headerText="Cód." width="120" style="text-align: left;">
                         <h:outputLabel value="#{turma.id}"/>
@@ -45,13 +52,11 @@
 
             </h:panelGrid>
 
-            <p:messages autoUpdate="true"/>
+
 
         </h:form>
 
-        <h:form>
-            <h:commandButton action="#{turmaPesquisarBean.limpar()}" value="Limpar"/>
-        </h:form>
+
 
 
 

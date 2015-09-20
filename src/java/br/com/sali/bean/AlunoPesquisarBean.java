@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -16,9 +16,9 @@ import org.primefaces.context.RequestContext;
  *
  * @author SALI
  */
-@ManagedBean(name = "alunoPesquisarBean")
-@ViewScoped
-public class AlunoPesquisarBean implements Serializable{
+@ManagedBean(name = "alunoPesquisarBean", eager = true)
+@ApplicationScoped
+public class AlunoPesquisarBean implements Serializable {
 
     // Atributos.
     private AlunoRN alunoRN;
@@ -50,7 +50,6 @@ public class AlunoPesquisarBean implements Serializable{
         this.filtroDePesquisa = filtroDePesquisa;
     }
 
-   
     //========================== Métodos =======================================
     /**
      * Reinicia os atributos da bean.

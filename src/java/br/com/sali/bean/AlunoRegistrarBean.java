@@ -21,13 +21,14 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "alunoRegistrarBean")
 @ViewScoped
-public class AlunoRegistrarBean implements Serializable{
+public class AlunoRegistrarBean implements Serializable {
 
     // Atributos.
     private Aluno aluno;
     private AlunoRN alunoRN;
     private String confirmaSenha;
     private boolean disabledBotaoRegistrar;
+    private String matriculaString;
 
     // Construtor.
     @PostConstruct
@@ -36,6 +37,7 @@ public class AlunoRegistrarBean implements Serializable{
         alunoRN = new AlunoRN();
         confirmaSenha = "";
         disabledBotaoRegistrar = true;
+        matriculaString = "";
     }
 
     //======================Gets e Sets=========================================
@@ -61,6 +63,14 @@ public class AlunoRegistrarBean implements Serializable{
 
     public void setDisabledBotaoRegistrar(boolean disabledBotaoRegistrar) {
         this.disabledBotaoRegistrar = disabledBotaoRegistrar;
+    }
+
+    public String getMatriuclaString() {
+        return matriculaString;
+    }
+
+    public void setMatriuclaString(String matriuclaString) {
+        this.matriculaString = matriuclaString;
     }
 
     //=======================Métodos============================================
@@ -98,10 +108,10 @@ public class AlunoRegistrarBean implements Serializable{
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(aluno.getMatricula())) {
+        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Erro!", "Informe uma matrícula válida."));
-        } else if (ValidacoesUtil.isExistenteMatricula(aluno.getMatricula())) {
+        } else if (ValidacoesUtil.isExistenteMatricula(matriculaString)) {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Erro!", "Matrícula já cadastrada."));
 
@@ -115,14 +125,16 @@ public class AlunoRegistrarBean implements Serializable{
         } else {
             try {
                 // Depois de tudo está validado, deve-se salvar o aluno.
+                aluno.setMatricula(Integer.parseInt(matriculaString));
                 alunoRN.registrarAluno(aluno);
+                limpar();
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Sucesso!", "Registro efetuado com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }
-            limpar();
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Sucesso!", "Registro efetuado com sucesso."));
+
         }
     }
 }

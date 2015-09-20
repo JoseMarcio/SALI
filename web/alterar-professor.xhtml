@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template/area-instituicao.xhtml">
+
         <ui:define name="titulo">
             Alterar Professor
         </ui:define>
@@ -15,81 +16,105 @@
         <ui:define name="corpo">
 
             <h3>Alterar Professor</h3>
-
             <p:separator />
+
             <!-- Formulário para alterar professores. -->
             <h:form>
-
-
-                <p:commandButton value="Pesquisar" icon="ui-icon-search"  title="Pesquisar Professor"
+                <p:commandButton value="Pesquisar" 
+                                 icon="ui-icon-search"  
+                                 title="Pesquisar Professor"
                                  actionListener="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
-                    <p:ajax event="dialogReturn" listener="#{alterarProfessorBean.eventoSelecaoProfessor}"  update="@all"/>
+
+                    <p:ajax event="dialogReturn" 
+                            listener="#{alterarProfessorBean.eventoSelecaoProfessor}" 
+                            update="@all"/>
+
                 </p:commandButton>                        
-
             </h:form>
-            
-            <p:panel id="painelMensagem" rendered="#{alterarProfessorBean.renderPainelMensagem}">
-                    
-                    <p:separator />
 
-                    <h1>Nenhum Professor Selecionado</h1>
-                    
-                </p:panel>
-            
-            
+
+            <p:panel id="painelMensagem" rendered="#{alterarProfessorBean.renderPainelMensagem}">
+
+                <p:separator />
+
+                <h1>Nenhum Professor Selecionado</h1>
+
+            </p:panel>
+
+
 
             <p:panel id="painelAlterarProfessor" rendered="#{alterarProfessorBean.renderPainelAlterarProfessor}">
 
 
                 <p:separator />
-                
+
                 <h:form>
+
                     <p:messages autoUpdate="true" showIcon="false"/>                
 
                     <h:panelGrid columns="2">
 
                         <p:outputLabel value="Nome Completo"/>
-                        <p:inputText value="#{alterarProfessorBean.professorSelecionado.nome}" required="true" 
-                                     requiredMessage="Informe o nome do professor." placeholder="Informe o nome" 
-                                     />
+                        <p:inputText value="#{alterarProfessorBean.professorSelecionado.nome}" 
+                                     required="true" 
+                                     requiredMessage="Informe o nome do professor." 
+                                     placeholder="Informe o nome completo"/>
 
 
                         <p:outputLabel value="Matrícula Escolar"/>
                         <p:inputText value="#{alterarProfessorBean.matriculaString}" 
                                      required="true"
-                                     requiredMessage="Informe uma matrícula." label="Matrícula" maxlength="6" 
+                                     requiredMessage="Informe uma matrícula."
+                                     label="Matrícula"
+                                     maxlength="6" 
                                      placeholder="Somente números">
+
                             <f:convertNumber integerOnly="true" type="number"/>
                         </p:inputText>
 
 
-                        <p:outputLabel value="Email"/>
-                        <p:inputText value="#{alterarProfessorBean.professorSelecionado.email}" required="true"
-                                     requiredMessage="Informe um e-mail." validatorMessage="Informe um e-mail válido." 
-                                     placeholder="Informe o e-mail" style="text-transform: lowercase;"
-                                    >
+                        <p:outputLabel value="E-mail"/>
+                        <p:inputText value="#{alterarProfessorBean.professorSelecionado.email}"
+                                     required="true"
+                                     requiredMessage="Informe um e-mail."
+                                     validatorMessage="Informe um e-mail válido." 
+                                     placeholder="Informe um e-mail"
+                                     style="text-transform: lowercase;">
+
                             <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
                         </p:inputText>
 
 
                         <p:outputLabel value="Senha"/>
-                        <p:password value="#{alterarProfessorBean.professorSelecionado.senha}" required="true" requiredMessage="Informe uma senha."
-                                    placeholder="Senha" validatorMessage="Senha: É exido no mínimo 6 caracteres." maxlength="10"
-                                    >
+                        <p:password value="#{alterarProfessorBean.professorSelecionado.senha}" 
+                                    required="true" 
+                                    requiredMessage="Informe uma senha."
+                                    placeholder="Senha"
+                                    validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
+                                    maxlength="10">
+
                             <f:validateLength minimum="6"/>
                         </p:password>
 
 
                         <p:outputLabel value="Confirme a Senha"/>
-                        <p:password value="#{alterarProfessorBean.confirmaSenha}" required="true" requiredMessage="Confirme a senha."
-                                    placeholder="Confirmar Senha" validatorMessage="Senha: É exido no mínimo 6 caracteres." maxlength="10"
-                                    >
+                        <p:password value="#{alterarProfessorBean.confirmaSenha}" 
+                                    required="true" 
+                                    requiredMessage="Confirme a senha."
+                                    placeholder="Confirmar Senha" 
+                                    validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
+                                    maxlength="10">
+
                             <f:validateLength minimum="6"/>
                         </p:password>
 
 
                         <h:outputText />
-                        <p:commandButton action="#{alterarProfessorBean.atualizar()}" value="Salvar" icon="ui-icon-check"  update="@all"
+                        <p:commandButton action="#{alterarProfessorBean.atualizar()}" 
+                                         value="Salvar" 
+                                         icon="ui-icon-check"  
+                                         title="Salvar Alterações"
+                                         update="@all"
                                          style="width: 195px;"/>
 
                     </h:panelGrid>
@@ -97,12 +122,6 @@
 
 
             </p:panel>
-
-
-
-
-
-
 
         </ui:define>
     </ui:composition>

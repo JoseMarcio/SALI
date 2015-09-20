@@ -5,56 +5,91 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template/area-instituicao.xhtml">
+        
         <ui:define name="titulo">
             Alterar Turma
         </ui:define>
 
+        
         <ui:define name="corpo">
 
             <h3>Alterar Turma</h3>
-
+            <p:separator />
 
             <!-- Formulário para alterar professores. -->
             <h:form>
-                <p:commandButton icon="ui-icon-check"  title="Selecionar Turma"
+                <p:commandButton value="Pesquisar" 
+                                 icon="ui-icon-search"  
+                                 title="Pesquisar Turma"
                                  actionListener="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
+                    
                     <p:ajax event="dialogReturn" listener="#{turmaAlterarBean.eventoSelecaoTurma}"  update="@all"/>
                 </p:commandButton>
-
             </h:form>
 
 
-            <h:form>
-                <h:panelGrid columns="1">
+            <p:panel id="painelMensagem" rendered="#{turmaAlterarBean.renderPainelMensagem}">
 
+                <p:separator />
 
-                    <h:outputLabel value="Nome da Turma:" for="inputNome"/>
-                    <h:inputText id="inputNome" value="#{turmaAlterarBean.turma.nome}" required="true" 
-                                 requiredMessage="Informe o nome da turma." pt:placeholder="Nome da turma"/>
+                <h1>Nenhuma Turma Selecionada</h1>
 
+            </p:panel>
+            
+
+            <p:panel id="painelAlterarTurma" rendered="#{turmaAlterarBean.renderPainelAlterar}">
+
+                <p:separator />
+
+                <h:form>
                     
-                    <h:outputLabel value="Professor:" for="professor"/>
+                    <p:messages autoUpdate="true" showIcon="false"/>
+                    
                     <h:panelGrid columns="2">
-                        <h:inputText value="#{turmaAlterarBean.turma.professor.nome}" disabled="true" id="professor" size="20"/>
-                        <p:commandButton icon="ui-icon-check" title="Selecionar Turma" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
-                                         process="@this" disabled="#{turmaAlterarBean.disabledBotaoProfessor}">
-                            <p:ajax event="dialogReturn" listener="#{turmaAlterarBean.eventoSelecaoProfessor}" update="professor atualizar"/>
-                        </p:commandButton>
+
+
+                        <p:outputLabel value="Nome da Turma"/>
+                        <p:inputText value="#{turmaAlterarBean.turma.nome}"
+                                     required="true" 
+                                     requiredMessage="Informe o nome da turma." 
+                                     placeholder="Nome da turma"/>
+
+
+                        <p:outputLabel value="Professor"/>
+                        <h:panelGrid columns="2">
+                            <p:inputText value="#{turmaAlterarBean.turma.professor.nome}"
+                                         disabled="true" 
+                                         id="professor" />
+                            
+                            <p:commandButton icon="ui-icon-search"
+                                             title="Pesquisar Professor" 
+                                             action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
+                                             process="@this" 
+                                             immediate="true">
+                                
+                                <p:ajax event="dialogReturn" 
+                                        listener="#{turmaAlterarBean.eventoSelecaoProfessor}"
+                                        update="professor atualizar"/>
+                                
+                            </p:commandButton>
+                        </h:panelGrid>
+
+
+                        <h:outputText />
+                        <p:commandButton action="#{turmaAlterarBean.atualizar()}" 
+                                         value="Salvar" 
+                                         icon="ui-icon-check"
+                                         title="Salvar Alterações"
+                                         id="atualizar" 
+                                         style="width: 195px;" 
+                                         update="@all"/>                        
+
                     </h:panelGrid>
-
-                    
-                    <h:commandButton action="#{turmaAlterarBean.atualizar()}" value="Atualizar" disabled="#{turmaAlterarBean.disabledBotaoAtualizar}"
-                                     id="atualizar"/>
-                    <p:messages autoUpdate="true"/>
-
-                </h:panelGrid>
-            </h:form>
-
-
+                </h:form>
+            </p:panel>
 
 
         </ui:define>

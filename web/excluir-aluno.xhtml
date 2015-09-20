@@ -17,16 +17,20 @@
 
         <ui:define name="corpo">
 
-            <h1>Excluir Aluno</h1>
+            <h3>Excluir Aluno</h3>
+
+            <p:separator />
 
             <!-- Formulário para exclusão de professor. -->
             <h:form>
-                <p:commandButton icon="ui-icon-check" action="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
+                <p:messages autoUpdate="true" showIcon="false"/>
+                
+                <p:commandButton icon="ui-icon-search" title="Pesquisar Professor" value="Pesquisar" action="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
                     <p:ajax event="dialogReturn" listener="#{alunoExcluirBean.eventoSelecaoAluno}" update="@form"/>
                 </p:commandButton>
                 <p:commandButton action="#{alunoExcluirBean.excluir()}" value="Excluir" disabled="#{alunoExcluirBean.disabledBotaoExcluir}"
-                                 update="@form">
-                    <p:confirm header="Atenção!" message="Está ciente disso?" icon="ui-icon-alert" />
+                                 update="@form" icon="ui-icon-circle-close" title="Excluir Aluno">
+                    <p:confirm header="Atenção!" message="Excluir Aluno?" icon="ui-icon-alert" />
                 </p:commandButton>
 
 
@@ -35,21 +39,34 @@
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
 
+                <p:panel id="painelMensagem" rendered="#{alunoExcluirBean.renderPainelMensagem}">
+                    <p:separator />
+                    <h1>Nenhum Aluno Selecionado</h1>
+                </p:panel>
 
 
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Nome:"/>
-                    <h:outputText value="#{alunoExcluirBean.alunoSelecionado.nome}"/>
-                    <h:outputLabel value="Matrícula:"/>
-                    <h:outputText value="#{alunoExcluirBean.alunoSelecionado.matricula}"/>
-                    <h:outputLabel value="E-Mail:"/>
-                    <h:outputText value="#{alunoExcluirBean.alunoSelecionado.email}"/>
-                    <h:outputLabel value="Turma:"/>
-                    <h:outputText value="#{alunoExcluirBean.alunoSelecionado.turma.nome}"/>
-                </h:panelGrid>
+                <p:panel id="painelInformacoes" rendered="#{alunoExcluirBean.renderPainelInformacoes}">
+                    
+                    <p:separator />
+                    
+                     <h1>Informações do Aluno</h1>
+                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Nome:"/>
+                        <h:outputText value="#{alunoExcluirBean.alunoSelecionado.nome}"/>
+                        <p:outputLabel value="Matrícula:"/>
+                        <h:outputText value="#{alunoExcluirBean.alunoSelecionado.matricula}"/>
+                        <p:outputLabel value="E-Mail:"/>
+                        <h:outputText value="#{alunoExcluirBean.alunoSelecionado.email}"/>
+                        <p:outputLabel value="Turma:"/>
+                        <h:outputText value="#{alunoExcluirBean.alunoSelecionado.turma.nome}"/>
+                    </h:panelGrid>
+                </p:panel>
 
 
-                <p:messages autoUpdate="true"/>
+
+
+               
             </h:form>
 
 
