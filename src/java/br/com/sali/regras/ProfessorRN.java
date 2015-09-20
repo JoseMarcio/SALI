@@ -3,6 +3,7 @@ package br.com.sali.regras;
 import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -35,6 +36,7 @@ public class ProfessorRN {
      * @throws java.io.UnsupportedEncodingException
      */
     public void registrarProfessor(Professor professor) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        
         professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
         professorDAO.salvar(professor);
     }

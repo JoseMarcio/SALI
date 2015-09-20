@@ -18,6 +18,7 @@
         <ui:define name="corpo">
 
             <h3>Excluir Turma</h3>
+            
             <p:separator />
 
 
@@ -27,23 +28,38 @@
 
                 <p:messages autoUpdate="true" showIcon="false"/>
 
-
-                <p:commandButton icon="ui-icon-search" value="Pesquisar" title="Pesquisar Turma" action="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
-                    <p:ajax event="dialogReturn" listener="#{turmaExcluirBean.eventoSelecaoTurma}" update="@form"/>
+                <p:commandButton icon="ui-icon-search" 
+                                 value="Pesquisar" 
+                                 title="Pesquisar Turma"
+                                 action="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
+                    
+                    <p:ajax event="dialogReturn"
+                            listener="#{turmaExcluirBean.eventoSelecaoTurma}" 
+                            update="@form"/>
                 </p:commandButton>
-                <p:commandButton action="#{turmaExcluirBean.excluir()}" value="Excluir" disabled="#{turmaExcluirBean.disabledBotaoExcluir}"
-                                 update="@form" icon="ui-icon-circle-close" title="Excluir Turma">
-                    <p:confirm header="Atenção!" message="Excluir Turma?" icon="ui-icon-alert" />
+                
+                
+                <p:commandButton action="#{turmaExcluirBean.excluir()}"
+                                 value="Excluir" 
+                                 disabled="#{turmaExcluirBean.disabledBotaoExcluir}"
+                                 update="@form" 
+                                 icon="ui-icon-circle-close" 
+                                 title="Excluir Turma">
+                    
+                    <p:confirm header="Atenção!" 
+                               message="Excluir Turma?"
+                               icon="ui-icon-alert" />
                 </p:commandButton>
 
 
 
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
 
+                
                 <p:panel id="painelMensagem" rendered="#{turmaExcluirBean.renderPainelMensagem}">
 
                     <p:separator />
@@ -51,8 +67,6 @@
                     <h1>Nenhuma Turma Selecionada</h1>
 
                 </p:panel>
-
-
 
 
                 <p:panel id="painelInformacoes" rendered="#{turmaExcluirBean.renderPainelInformacoes}">
@@ -69,9 +83,6 @@
                     </h:panelGrid>
 
                 </p:panel>
-
-
-
 
 
             </h:form>

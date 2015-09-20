@@ -4,12 +4,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition template="/template/area-instituicao.xhtml">
 
+        
         <ui:define name="titulo">
             Excluir Aluno
         </ui:define>
@@ -23,27 +22,51 @@
 
             <!-- Formulário para exclusão de professor. -->
             <h:form>
+                
                 <p:messages autoUpdate="true" showIcon="false"/>
                 
-                <p:commandButton icon="ui-icon-search" title="Pesquisar Professor" value="Pesquisar" action="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
-                    <p:ajax event="dialogReturn" listener="#{alunoExcluirBean.eventoSelecaoAluno}" update="@form"/>
+                <p:commandButton icon="ui-icon-search" 
+                                 title="Pesquisar Professor" 
+                                 value="Pesquisar" 
+                                 action="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
+                    
+                    <p:ajax event="dialogReturn" 
+                            listener="#{alunoExcluirBean.eventoSelecaoAluno}" 
+                            update="@form"/>
+                    
                 </p:commandButton>
-                <p:commandButton action="#{alunoExcluirBean.excluir()}" value="Excluir" disabled="#{alunoExcluirBean.disabledBotaoExcluir}"
-                                 update="@form" icon="ui-icon-circle-close" title="Excluir Aluno">
+                
+                
+                
+                <p:commandButton action="#{alunoExcluirBean.excluir()}" 
+                                 value="Excluir" 
+                                 disabled="#{alunoExcluirBean.disabledBotaoExcluir}"
+                                 update="@form"
+                                 icon="ui-icon-circle-close" 
+                                 title="Excluir Aluno">
+                    
                     <p:confirm header="Atenção!" message="Excluir Aluno?" icon="ui-icon-alert" />
                 </p:commandButton>
 
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
+                
+                
 
                 <p:panel id="painelMensagem" rendered="#{alunoExcluirBean.renderPainelMensagem}">
+                    
                     <p:separator />
+                    
                     <h1>Nenhum Aluno Selecionado</h1>
+                    
                 </p:panel>
 
+                
+                
+                
 
                 <p:panel id="painelInformacoes" rendered="#{alunoExcluirBean.renderPainelInformacoes}">
                     
@@ -62,13 +85,8 @@
                         <h:outputText value="#{alunoExcluirBean.alunoSelecionado.turma.nome}"/>
                     </h:panelGrid>
                 </p:panel>
-
-
-
-
                
             </h:form>
-
 
         </ui:define>
     </ui:composition>
