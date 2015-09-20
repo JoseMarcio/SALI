@@ -5,28 +5,31 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition template="/template/area-instituicao.xhtml">
+
         <ui:define name="titulo">
             Registrar Turma
         </ui:define>
 
         <ui:define name="corpo">
 
-
             <h3>Registrar Nova Turma</h3>
-
             <p:separator />
+
             <!-- Formulário para cadastro de turmas.-->
             <!-- Formulário concluído e validado -->
             <h:form>
 
-                <p:commandButton action="#{turmaRegistrarBean.registrar()}" value="Salvar" title="Registrar Professor"
-                                 disabled="#{turmaRegistrarBean.disabledBotaoRegistrar}" id="registrar" icon="ui-icon-check"
+                <p:commandButton action="#{turmaRegistrarBean.registrar()}"
+                                 value="Salvar" 
+                                 title="Salvar Turma"
+                                 disabled="#{turmaRegistrarBean.disabledBotaoRegistrar}" 
+                                 id="registrar" 
+                                 icon="ui-icon-check"
                                  update="@form"/>
-                
+
                 <p:panel>
 
 
@@ -36,23 +39,26 @@
 
 
                         <p:outputLabel value="Nome da Turma"/>
-                        <p:inputText value="#{turmaRegistrarBean.turma.nome}" required="true" 
-                                     requiredMessage="Informe o nome da turma." pt:placeholder="Nome da turma"/>
+                        <p:inputText value="#{turmaRegistrarBean.turma.nome}" 
+                                     required="true" 
+                                     requiredMessage="Informe o nome da turma." 
+                                     placeholder="Nome da turma"/>
 
                         <p:outputLabel value="Professor"/>
                         <h:panelGrid columns="2" >
-                            <p:inputText value="#{turmaRegistrarBean.turma.professor.nome}"   id="professor" disabled="true"                                           
-                                         />
-                            <p:commandButton icon="ui-icon-search"  title="Selecionar Professor" action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
+                            <p:inputText value="#{turmaRegistrarBean.turma.professor.nome}"   
+                                         id="professor" 
+                                         disabled="true"/>
+
+                            <p:commandButton icon="ui-icon-search" 
+                                             title="Pesquisar Professor" 
+                                             action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
                                              process="@this" >
+
                                 <p:ajax event="dialogReturn" listener="#{turmaRegistrarBean.eventoSelecaoProfessor}" update="professor registrar"/>
                             </p:commandButton>
-                        </h:panelGrid>
-
                         
-
-
-
+                        </h:panelGrid>
                     </h:panelGrid>
                 </p:panel>
             </h:form>
