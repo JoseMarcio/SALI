@@ -8,8 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Trata asRealizar Operações com o modelo Instituição de modo que sejam aplicadas as devidas
- * regras (se necessário).
+ * Trata asRealizar Operações com o modelo Instituição de modo que sejam
+ * aplicadas as devidas regras (se necessário).
  *
  * @author SALI
  */
@@ -49,8 +49,8 @@ public class InstituicaoRN {
     }
 
     /**
-     * Verifica se o e-mail informado já existe no banco de dados. Se existir 
-     * é retornado "true", senão existir é retornado "false".
+     * Verifica se o e-mail informado já existe no banco de dados. Se existir é
+     * retornado "true", senão existir é retornado "false".
      *
      * @param email
      * @return
@@ -58,21 +58,21 @@ public class InstituicaoRN {
     public boolean isExistenteEmail(String email) {
         return instituicaDAO.isExistenteEmail(Instituicao.class, email);
     }
-    
-    
+
     /**
      * Cria uma Instituição inicial no banco de dados (com dados padrão).
      */
-    public void criaInstituicao(){
+    public void criaInstituicao() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
         Instituicao instituicao = new Instituicao();
         Endereco endereco = new Endereco();
-        
-        instituicao.setEmail("admin@sali.com");
-        instituicao.setSenha("admin");
-              
+
+        instituicao.setEmail("admsali@sali.com");
+        instituicao.setSenha(CriptografiaUtil.criptografaSenha("adm"));
         endereco.setInstituicao(instituicao);
         instituicao.setEndereco(endereco);
-        
+
         instituicaDAO.salvar(instituicao);
+
     }
 }

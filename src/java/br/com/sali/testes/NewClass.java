@@ -5,6 +5,8 @@ import br.com.sali.util.*;
 import br.com.sali.dao.*;
 import br.com.sali.modelo.*;
 import br.com.sali.bean.*;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Exclusiva para realizar testes.
@@ -13,8 +15,11 @@ import br.com.sali.bean.*;
  */
 public class NewClass {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         // Realizar alguns testes.
+        
+              
+        
     }
 }
