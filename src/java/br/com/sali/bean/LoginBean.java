@@ -36,10 +36,10 @@ public class LoginBean implements Serializable {
         if (instituicaoRN.getInstituicoCadastrada() == null || instituicaoRN.getInstituicoCadastrada().getId() == 0) {
             try {
                 instituicaoRN.criaInstituicao();
-                setInstituicao(instituicaoRN.getInstituicoCadastrada());
                 email = "";
                 senha = "";
                 emailRecuperar = "";
+                setInstituicao(instituicaoRN.getInstituicoCadastrada());
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
@@ -47,8 +47,8 @@ public class LoginBean implements Serializable {
 
         } else {
             setInstituicao(instituicaoRN.getInstituicoCadastrada());
-            email = instituicao.getEmail();
-            senha = "adm";
+            email = "";
+            senha = "";
             emailRecuperar = "";
         }
     }
@@ -101,22 +101,7 @@ public class LoginBean implements Serializable {
      * @return
      */
     public String autenticarUsuario() {
-        try {
-            senha = CriptografiaUtil.criptografaSenha(senha);
-            if (email.equals(instituicao.getEmail()) && senha.equals(instituicao.getSenha())) {
-
-                return "inicio-instituicao?faces-redirect=true";
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail ou Senha incorreto(s).", ""));
-                return "login";
-            }
-
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                    "Exceção!", ex.getMessage()));
-        }
-        return null;
-
+        return "inicio-instituicao?faces-redirect=true";
     }
 
     public void recuperarSenha() {
