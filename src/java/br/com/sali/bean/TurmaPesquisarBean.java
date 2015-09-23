@@ -85,6 +85,6 @@ public class TurmaPesquisarBean implements Serializable{
         options.put("resizable", false);
         options.put("contentHeight", 320);
 
-        RequestContext.getCurrentInstance().openDialog("pesquisar-turma", options, null);
+        RequestContext.getCurrentInstance().openDialog("/professor-instituicao/pesquisar-turma", options, null);
     }
 }

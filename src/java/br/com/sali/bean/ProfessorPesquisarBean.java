@@ -85,6 +85,6 @@ public class ProfessorPesquisarBean implements Serializable{
         options.put("resizable", false);
         options.put("contentHeight", 320);
 
-        RequestContext.getCurrentInstance().openDialog("pesquisar-professor", options, null);
+        RequestContext.getCurrentInstance().openDialog("/instituicao/pesquisar-professor", options, null);
     }
 }

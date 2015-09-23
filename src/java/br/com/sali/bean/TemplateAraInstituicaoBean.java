@@ -17,7 +17,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irInicioInstituicao() {
-        return "inicio-instituicao?faces-redirect=true";
+        return "/instituicao/inicio-instituicao?faces-redirect=true";
     }
 
     /**
@@ -26,7 +26,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irAlterarProfessor() {
-        return "alterar-professor?faces-redirect=true";
+        return "/instituicao/alterar-professor?faces-redirect=true";
     }
 
     /**
@@ -35,7 +35,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irExcluirProfessor() {
-        return "excluir-professor?faces-redirect=true";
+        return "/instituicao/excluir-professor?faces-redirect=true";
     }
 
     /**
@@ -44,7 +44,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irRegistrarProfessor() {
-        return "registrar-professor?faces-redirect=true";
+        return "/instituicao/registrar-professor?faces-redirect=true";
     }
 
     /**
@@ -53,7 +53,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irRegistrarTurma() {
-        return "registrar-turma?faces-redirect=true";
+        return "/instituicao/registrar-turma?faces-redirect=true";
     }
 
     /**
@@ -62,7 +62,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irAlterarTurma() {
-        return "alterar-turma?faces-redirect=true";
+        return "/instituicao/alterar-turma?faces-redirect=true";
     }
 
     /**
@@ -71,7 +71,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irExcluirTurma() {
-        return "excluir-turma?faces-redirect=true";
+        return "/instituicao/excluir-turma?faces-redirect=true";
     }
 
     /**
@@ -80,7 +80,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irRegistrarAluno() {
-        return "registrar-aluno?faces-redirect=true";
+        return "/instituicao/registrar-aluno?faces-redirect=true";
     }
 
     /**
@@ -89,7 +89,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irAlterarAluno() {
-        return "alterar-aluno?faces-redirect=true";
+        return "/instituicao/alterar-aluno?faces-redirect=true";
     }
 
     /**
@@ -98,7 +98,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irExcluirAluno() {
-        return "excluir-aluno?faces-redirect=true";
+        return "/instituicao/excluir-aluno?faces-redirect=true";
     }
 
      /**
@@ -107,7 +107,7 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irAlterarInstituicao() {
-        return "alterar-instituicao?faces-redirect=true";
+        return "/instituicao/alterar-instituicao?faces-redirect=true";
     }
     
     /**
@@ -116,6 +116,6 @@ public class TemplateAraInstituicaoBean implements Serializable{
      * @return
      */
     public String irLogin() {
-        return "login?faces-redirect=true";
+        return "/publico/login?faces-redirect=true";
     }
 }

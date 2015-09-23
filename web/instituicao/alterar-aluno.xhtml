@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+    
+    <!-- Herda características do template área instituição -->
+    <ui:composition template="/template/area-instituicao.xhtml">
+        
+        
+        <ui:define name="titulo">
+            Alterar Aluno
+        </ui:define>
+
+        <ui:define name="corpo">
+
+            <h3>Alterar Aluno</h3>
+            <p:separator />
+
+            <h:form>
+                <p:commandButton icon="ui-icon-search" 
+                                 value="Pesquisar"  
+                                 title="Pesquisar Aluno"
+                                 actionListener="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
+                    
+                    <p:ajax event="dialogReturn" 
+                            listener="#{alunoAlterarBean.eventoSelecaoAluno}" 
+                            update="@all"/>
+                </p:commandButton>
+            </h:form>
+
+            
+            
+            <p:panel id="painelMensagem" rendered="#{alunoAlterarBean.renderPainelMensagem}">
+
+                <p:separator />
+
+                <h1>Nenhum Aluno Selecionado</h1>
+
+            </p:panel>
+
+            
+            
+
+            <p:panel rendered="#{alunoAlterarBean.renderPainelAlterar}">
+                
+                <h:form>
+
+                    <p:separator />
+
+                    <p:messages autoUpdate="true" showIcon="false"/>
+
+                    <h:panelGrid columns="2">
+
+                        <p:outputLabel value="Nome Completo"/>
+                        <p:inputText value="#{alunoAlterarBean.alunoSelecionado.nome}"
+                                     required="true" 
+                                     requiredMessage="Informe o nome do aluno."
+                                     placeholder="Informe o nome completo"/>
+
+
+                        <p:outputLabel value="Matrícula Escolar"/>
+                        <p:inputText value="#{alunoAlterarBean.matriculaString}"
+                                     required="true"
+                                     requiredMessage="Informe uma matrícula."
+                                     label="Matrícula" 
+                                     maxlength="6" 
+                                     placeholder="Somente números">
+                            <f:convertNumber integerOnly="true" type="number"/>
+                        </p:inputText>
+
+
+                        <p:outputLabel value="E-mail"/>
+                        <p:inputText value="#{alunoAlterarBean.alunoSelecionado.email}"
+                                     required="true"
+                                     requiredMessage="Informe um e-mail."
+                                     validatorMessage="Informe um e-mail válido." 
+                                     placeholder="Informe o e-mail" 
+                                     style="text-transform: lowercase;">
+                            <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                        </p:inputText>
+
+
+                        <p:outputLabel value="Turma"/>
+                        <h:panelGrid columns="2">
+                            <p:inputText value="#{alunoAlterarBean.alunoSelecionado.turma.nome}" 
+                                         id="turma"
+                                         disabled="true"/>
+                            <p:commandButton icon="ui-icon-search" 
+                                             title="Pesquisar Turma" 
+                                             action="#{turmaPesquisarBean.abrirDialogoPesquisa()}"
+                                             process="@this">
+                                
+                                <p:ajax event="dialogReturn"
+                                        listener="#{alunoAlterarBean.eventoSelecaoTurma}" 
+                                        update="turma"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+
+                        <h:outputLabel value="Senha"/>
+                        <p:password value="#{alunoAlterarBean.alunoSelecionado.senha}"
+                                    required="true" 
+                                    requiredMessage="Informe uma senha."
+                                    placeholder="Senha" 
+                                    validatorMessage="Senha: É exido no mínimo 6 caracteres." 
+                                    maxlength="10">
+                            
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+
+                        <p:outputLabel value="Confirme a Senha"/>
+                        <p:password value="#{alunoAlterarBean.confirmaSenha}"
+                                    required="true" 
+                                    requiredMessage="Confirme a senha."
+                                    placeholder="Confirmar Senha"
+                                    validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres." 
+                                    maxlength="10">
+
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+
+
+                        <h:outputText />
+                        <p:commandButton action="#{alunoAlterarBean.atualizar()}" 
+                                         value="Salvar" 
+                                         title="Salvar Alterações"
+                                         style="width: 195px;"
+                                         icon="ui-icon-check"
+                                         update="@all"/>
+                    </h:panelGrid>
+                </h:form>
+
+            </p:panel>
+
+        </ui:define>
+
+
+    </ui:composition>
+</html>
+

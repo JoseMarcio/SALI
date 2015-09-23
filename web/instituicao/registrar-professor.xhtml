@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/template/area-instituicao.xhtml">
+        <ui:define name="titulo">
+            Registrar Professor
+        </ui:define>
+
+        <ui:define name="corpo">
+
+
+            <h3>Registrar Novo Professor</h3>
+            <p:separator />
+            <!-- Formulário para cadastro de professores.-->
+            <!-- Formulário concluído e validado -->
+            <h:form id="formulario_registrar_professor">
+                
+                <p:commandButton action="#{registrarProfessorBean.registrar()}" 
+                                 value="Salvar"
+                                 title="Salvar Professor"
+                                 icon="ui-icon-check"
+                                 update="@form"/>
+
+                <p:panel>
+                    <p:messages autoUpdate="true" showIcon="false"/>
+                   
+
+                    <h:panelGrid columns="2">
+
+
+                        <p:outputLabel value="Nome Completo"/>
+                        <p:inputText value="#{registrarProfessorBean.professor.nome}" 
+                                     required="true" 
+                                     requiredMessage="Informe o nome do professor." 
+                                     placeholder="Informe o nome"/>
+
+
+                        <p:outputLabel value="Matrícula Escolar"/>
+                        <p:inputText value="#{registrarProfessorBean.matriculaString}" 
+                                     required="true"
+                                     requiredMessage="Informe uma matrícula." 
+                                     label="Matrícula"
+                                     maxlength="6"
+                                     placeholder="Somente números">
+                            
+                            <f:convertNumber integerOnly="true" type="number"/>
+                        </p:inputText>
+
+
+                        <p:outputLabel value="Email"/>
+                        <p:inputText value="#{registrarProfessorBean.professor.email}" 
+                                     required="true"
+                                     requiredMessage="Informe um e-mail."
+                                     validatorMessage="Informe um e-mail válido." 
+                                     placeholder="Informe um e-mail" 
+                                     style="text-transform: lowercase;">
+                            
+                            <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                        </p:inputText>
+
+
+                        <p:outputLabel value="Senha"/>
+                        <p:password  value="#{registrarProfessorBean.professor.senha}"
+                                     required="true"
+                                     requiredMessage="Informe uma senha."
+                                     placeholder="Senha" 
+                                     validatorMessage="Senha: É exido no mínimo 6 caracteres." 
+                                     maxlength="10">
+                            
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+
+                        <p:outputLabel value="Confirme a Senha"/>
+                        <p:password value="#{registrarProfessorBean.confirmaSenha}" 
+                                    required="true" 
+                                    requiredMessage="Confirme a senha."
+                                    placeholder="Confirma Senha"
+                                    validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres." 
+                                    maxlength="10">
+                            
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+
+
+
+                    </h:panelGrid>
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

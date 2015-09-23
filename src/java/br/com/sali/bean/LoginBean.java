@@ -101,7 +101,7 @@ public class LoginBean implements Serializable {
      * @return
      */
     public String autenticarUsuario() {
-        return "inicio-instituicao?faces-redirect=true";
+        return "/instituicao/inicio-instituicao?faces-redirect=true";
     }
 
     public void recuperarSenha() {
