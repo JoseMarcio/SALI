@@ -6,11 +6,35 @@
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     <http>
 
-        <form-login login-page="/login/login.jsf"
-                          always-use-default-target="true" default-target-url="/redireciona/redireciona.jsf"
-                          authentication-failure-url="/login/login.jsf?login_error=1" />
+        <intercept-url pattern="/template/**" access="ROLE_NIGUEM"/>        
+        <intercept-url pattern="/redireciona/**" access="ROLE_INSTITUICAO,ROLE_PROFESSOR,ROLE_ALUNO"/>
+        <intercept-url pattern="/aluno/**" access="ROLE_ALUNO"/>
+        <intercept-url pattern="/instituicao/**" access="ROLE_INSTITUICAO"/>
+        <intercept-url pattern="/professor/**" access="ROLE_PROFESSOR"/>
+        <intercept-url pattern="/professor-instituicao/**" access="ROLE_PROFESSOR,ROLE_INSTITUICAO"/>
+        
+        
+        <form-login login-page="/publico/login.jsf"
+                    always-use-default-target="true" default-target-url="/redireciona/redireciona.jsf"
+                    authentication-failure-url="/publico/login.jsf?login_error=1" />
         <logout/>
         <remember-me />
+        
     </http>
+    
+    <authentication-manager>
+        <authentication-provider>
+            <password-encoder hash="sha-256"/>
+            <jdbc-user-service data-source-ref="saliDataSource"
+                               authorities-by-username-query="SELECT u.email, p.permissao 
+                                                              FROM usuario u, usuario_permissao p 
+				                              WHERE u.codigo = p.usuario 
+							      AND u.email = ?"
+                               
+                               users-by-username-query="SELECT email, senha, tipo 
+						        FROM usuario 
+							WHERE email = ?" />
+        </authentication-provider>
+    </authentication-manager>
 
 </b:beans>
