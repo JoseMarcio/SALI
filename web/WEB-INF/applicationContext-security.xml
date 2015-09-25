@@ -17,13 +17,19 @@
         <form-login login-page="/publico/login.jsf"
                     always-use-default-target="true" default-target-url="/redireciona/redireciona.jsf"
                     authentication-failure-url="/publico/login.jsf?login_error=1" />
-        <logout/>
-        <remember-me />
+        <logout logout-success-url="/publico/login.jsf"/>
+        <remember-me/>
         
     </http>
     
     <authentication-manager>
         <authentication-provider>
+            <user-service>
+                <user name="instituicao" password="i" authorities="ROLE_INSTITUICAO"/>
+                <user name="professor" password="p" authorities="ROLE_PROFESSOR"/>
+                <user name="aluno" password="a" authorities="ROLE_ALUNO"/>
+            </user-service>            
+            <!--
             <password-encoder hash="sha-256"/>
             <jdbc-user-service data-source-ref="saliDataSource"
                                authorities-by-username-query="SELECT u.email, p.permissao 
@@ -31,9 +37,9 @@
 				                              WHERE u.codigo = p.usuario 
 							      AND u.email = ?"
                                
-                               users-by-username-query="SELECT email, senha, tipo 
+                               users-by-username-query="SELECT email, senha 
 						        FROM usuario 
-							WHERE email = ?" />
+							WHERE email = ?" />-->
         </authentication-provider>
     </authentication-manager>
 

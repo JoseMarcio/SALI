@@ -146,15 +146,13 @@
             -->
 
             <h:panelGroup rendered="#{!empty param.login_error}">
-                <span style="color:red"> Erro ao efetuar o login.</span><br />
-                <br/>
-                Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+                <span style="color:red"> Acesso Negado.</span><br />
             </h:panelGroup>
 
             <form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
                 <table>
                     <tr><td>Email</td>
-                        <td><input type='email' name='j_username' required="true"/></td></tr>
+                        <td><input type='text' name='j_username' required="true"/></td></tr>
                     <tr><td>Senha</td>
                         <td><input type='password' name='j_password' required=""/></td></tr>
                     <tr><td align="right"><input type="checkbox" name="_spring_security_remember_me"/></td>
@@ -167,7 +165,7 @@
                     document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
                 </script>
             </form>
-            
+
         </p:dialog>
 
     </h:body>

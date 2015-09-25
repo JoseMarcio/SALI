@@ -115,7 +115,6 @@ public class TurmaAlterarBean implements Serializable {
 
         } else {
             turmaRN.atualizarTurma(turma);
-            limpar();
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Sucesso!", "Atualização concluída com sucesso."));
         }

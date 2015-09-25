@@ -3,10 +3,11 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:p="http://primefaces.org/ui">
-    
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
-        
+
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>
@@ -16,19 +17,19 @@
 
     </h:head>
 
-    
-    
-    
+
+
+
     <h:body>
 
         <section id="cabecalho">
             <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  
         </section>
 
-        
+
         <section id="conteiner">
-            
-            
+
+
             <header>
 
                 <section>
@@ -37,18 +38,25 @@
                             <p:menubar>
                                 <p:menuitem value="Início" action="#{beanTemplateInstituicao.irInicioInstituicao()}" ajax="false"></p:menuitem>
                                 <p:menuitem value="Alterar Instituição" action="#{beanTemplateInstituicao.irAlterarInstituicao()}" ajax="false"></p:menuitem>
-                                <p:menuitem value="Sair" action="#{beanTemplateInstituicao.irLogin()}" ajax="false"></p:menuitem>
+
+                                
+                                <f:facet name="options">
+                                    <h:outputText value="Usuário: #{request.remoteUser}  "/>
+                                    <h:outputLink value="#{request.contextPath}/j_spring_security_logout">
+                                        Sair
+                                    </h:outputLink>
+                                </f:facet>
                             </p:menubar> 
                         </h:form>
                     </nav>
                 </section>
             </header>
 
-            
+
             <section id="conteudo">
 
                 <section>
-                    
+
                     <nav id="menuLateral">
                         <h:form>
                             <p:tieredMenu style="width: 215px;margin-top: 3px;border-radius: 6%;">
@@ -73,13 +81,13 @@
                             </p:tieredMenu>
                         </h:form>
                     </nav>
-                    
+
                 </section>
 
                 <section id="corpo">
                     <ui:insert name="corpo" />
                 </section>
-                
+
             </section>
 
             <footer>
@@ -87,6 +95,6 @@
             </footer>
 
         </section>        
-        
+
     </h:body>
 </html>

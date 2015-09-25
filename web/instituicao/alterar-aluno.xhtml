@@ -8,11 +8,11 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">
 
-    
+
     <!-- Herda características do template área instituição -->
     <ui:composition template="/template/area-instituicao.xhtml">
-        
-        
+
+
         <ui:define name="titulo">
             Alterar Aluno
         </ui:define>
@@ -27,29 +27,29 @@
                                  value="Pesquisar"  
                                  title="Pesquisar Aluno"
                                  actionListener="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
-                    
+
                     <p:ajax event="dialogReturn" 
                             listener="#{alunoAlterarBean.eventoSelecaoAluno}" 
                             update="@all"/>
                 </p:commandButton>
-            </h:form>
 
-            
-            
-            <p:panel id="painelMensagem" rendered="#{alunoAlterarBean.renderPainelMensagem}">
 
-                <p:separator />
 
-                <h1>Nenhum Aluno Selecionado</h1>
 
-            </p:panel>
+                <p:panel id="painelMensagem" rendered="#{alunoAlterarBean.renderPainelMensagem}">
 
-            
-            
+                    <p:separator />
 
-            <p:panel rendered="#{alunoAlterarBean.renderPainelAlterar}">
-                
-                <h:form>
+                    <h1>Nenhum Aluno Selecionado</h1>
+
+                </p:panel>
+
+
+
+
+                <p:panel rendered="#{alunoAlterarBean.renderPainelAlterar}">
+
+
 
                     <p:separator />
 
@@ -95,7 +95,7 @@
                                              title="Pesquisar Turma" 
                                              action="#{turmaPesquisarBean.abrirDialogoPesquisa()}"
                                              process="@this">
-                                
+
                                 <p:ajax event="dialogReturn"
                                         listener="#{alunoAlterarBean.eventoSelecaoTurma}" 
                                         update="turma"/>
@@ -109,7 +109,7 @@
                                     placeholder="Senha" 
                                     validatorMessage="Senha: É exido no mínimo 6 caracteres." 
                                     maxlength="10">
-                            
+
                             <f:validateLength minimum="6"/>
                         </p:password>
 
@@ -131,11 +131,13 @@
                                          title="Salvar Alterações"
                                          style="width: 195px;"
                                          icon="ui-icon-check"
-                                         update="@all"/>
+                                         update="@form"/>
                     </h:panelGrid>
-                </h:form>
 
-            </p:panel>
+
+                </p:panel>
+
+            </h:form>
 
         </ui:define>
 

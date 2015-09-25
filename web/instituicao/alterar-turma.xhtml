@@ -8,12 +8,12 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template/area-instituicao.xhtml">
-        
+
         <ui:define name="titulo">
             Alterar Turma
         </ui:define>
 
-        
+
         <ui:define name="corpo">
 
             <h3>Alterar Turma</h3>
@@ -25,29 +25,28 @@
                                  icon="ui-icon-search"  
                                  title="Pesquisar Turma"
                                  actionListener="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
-                    
+
                     <p:ajax event="dialogReturn" listener="#{turmaAlterarBean.eventoSelecaoTurma}"  update="@all"/>
                 </p:commandButton>
-            </h:form>
 
 
-            <p:panel id="painelMensagem" rendered="#{turmaAlterarBean.renderPainelMensagem}">
+                <p:panel id="painelMensagem" rendered="#{turmaAlterarBean.renderPainelMensagem}">
 
-                <p:separator />
+                    <p:separator />
 
-                <h1>Nenhuma Turma Selecionada</h1>
+                    <h1>Nenhuma Turma Selecionada</h1>
 
-            </p:panel>
-            
+                </p:panel>
 
-            <p:panel id="painelAlterarTurma" rendered="#{turmaAlterarBean.renderPainelAlterar}">
 
-                <p:separator />
+                <p:panel id="painelAlterarTurma" rendered="#{turmaAlterarBean.renderPainelAlterar}">
 
-                <h:form>
-                    
+                    <p:separator />
+
+
+
                     <p:messages autoUpdate="true" showIcon="false"/>
-                    
+
                     <h:panelGrid columns="2">
 
 
@@ -63,17 +62,17 @@
                             <p:inputText value="#{turmaAlterarBean.turma.professor.nome}"
                                          disabled="true" 
                                          id="professor" />
-                            
+
                             <p:commandButton icon="ui-icon-search"
                                              title="Pesquisar Professor" 
                                              action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
                                              process="@this" 
                                              immediate="true">
-                                
+
                                 <p:ajax event="dialogReturn" 
                                         listener="#{turmaAlterarBean.eventoSelecaoProfessor}"
                                         update="professor atualizar"/>
-                                
+
                             </p:commandButton>
                         </h:panelGrid>
 
@@ -85,12 +84,13 @@
                                          title="Salvar Alterações"
                                          id="atualizar" 
                                          style="width: 195px;" 
-                                         update="@all"/>                        
+                                         update="@form"/>                        
 
                     </h:panelGrid>
-                </h:form>
-            </p:panel>
 
+                </p:panel>
+
+            </h:form>
 
         </ui:define>
     </ui:composition>

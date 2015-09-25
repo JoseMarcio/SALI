@@ -168,7 +168,6 @@ public class AlunoAlterarBean implements Serializable {
 
                 alunoSelecionado.setMatricula(Integer.parseInt(matriculaString));
                 alunoRN.atualizarAluno(alunoSelecionado);
-                limpar();
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Atualização concluída com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {

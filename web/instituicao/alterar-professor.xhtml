@@ -30,25 +30,25 @@
                             update="@all"/>
 
                 </p:commandButton>                        
-            </h:form>
-
-
-            <p:panel id="painelMensagem" rendered="#{alterarProfessorBean.renderPainelMensagem}">
-
-                <p:separator />
-
-                <h1>Nenhum Professor Selecionado</h1>
-
-            </p:panel>
 
 
 
-            <p:panel id="painelAlterarProfessor" rendered="#{alterarProfessorBean.renderPainelAlterarProfessor}">
+                <p:panel id="painelMensagem" rendered="#{alterarProfessorBean.renderPainelMensagem}">
+
+                    <p:separator />
+
+                    <h1>Nenhum Professor Selecionado</h1>
+
+                </p:panel>
 
 
-                <p:separator />
 
-                <h:form>
+                <p:panel id="painelAlterarProfessor" rendered="#{alterarProfessorBean.renderPainelAlterarProfessor}">
+
+
+                    <p:separator />
+
+
 
                     <p:messages autoUpdate="true" showIcon="false"/>                
 
@@ -114,14 +114,15 @@
                                          value="Salvar" 
                                          icon="ui-icon-check"  
                                          title="Salvar Alterações"
-                                         update="@all"
+                                         update="@form"
                                          style="width: 195px;"/>
 
                     </h:panelGrid>
-                </h:form>
 
 
-            </p:panel>
+
+                </p:panel>
+            </h:form>
 
         </ui:define>
     </ui:composition>

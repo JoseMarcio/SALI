@@ -113,8 +113,6 @@ public class ProfessorAlterarBean implements Serializable {
     public void setRenderBotaoAlterarProfessor(boolean renderBotaoAlterarProfessor) {
         this.renderBotaoAlterarProfessor = renderBotaoAlterarProfessor;
     }
-    
-    
 
     //=========================== Métodos ======================================
     /**
@@ -138,7 +136,7 @@ public class ProfessorAlterarBean implements Serializable {
         setMatriculaString(Integer.toString(professor.getMatricula()));
         setRenderPainelMensagem(false);
         setRenderPainelAlterarProfessor(true);
-        setRenderBotaoAlterarProfessor(true);       
+        setRenderBotaoAlterarProfessor(true);
 
     }
 
@@ -169,7 +167,6 @@ public class ProfessorAlterarBean implements Serializable {
             try {
                 professorSelecionado.setMatricula(Integer.parseInt(matriculaString));
                 professorRN.atualizarProfessor(professorSelecionado);
-                limpar();
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Atualização concluída com sucesso."));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
