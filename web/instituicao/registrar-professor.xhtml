@@ -47,26 +47,27 @@
                                      requiredMessage="Informe uma matrícula." 
                                      label="Matrícula"
                                      maxlength="6"
-                                     placeholder="Somente números">
+                                     placeholder="Somente números"
+                                     validatorMessage="Matrícula inválida.">
                             
-                            <f:convertNumber integerOnly="true" type="number"/>
+                            <f:validateRegex pattern="^[0-9]+$"/>
                         </p:inputText>
 
 
                         <p:outputLabel value="Email"/>
-                        <p:inputText value="#{registrarProfessorBean.professor.email}" 
+                        <p:inputText value="#{registrarProfessorBean.professor.usuario.email}" 
                                      required="true"
                                      requiredMessage="Informe um e-mail."
                                      validatorMessage="Informe um e-mail válido." 
                                      placeholder="Informe um e-mail" 
                                      style="text-transform: lowercase;">
                             
-                            <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                            <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                         </p:inputText>
 
 
                         <p:outputLabel value="Senha"/>
-                        <p:password  value="#{registrarProfessorBean.professor.senha}"
+                        <p:password  value="#{registrarProfessorBean.professor.usuario.senha}"
                                      required="true"
                                      requiredMessage="Informe uma senha."
                                      placeholder="Senha" 

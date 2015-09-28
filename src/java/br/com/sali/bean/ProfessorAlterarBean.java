@@ -132,7 +132,7 @@ public class ProfessorAlterarBean implements Serializable {
         Professor professor = (Professor) event.getObject();
         setProfessorSelecionado(professor);
         setMatriculaAtualDoProfessor(professor.getMatricula());
-        setEmailAtualDoProfessor(professor.getEmail());
+        setEmailAtualDoProfessor(professor.getUsuario().getEmail());
         setMatriculaString(Integer.toString(professor.getMatricula()));
         setRenderPainelMensagem(false);
         setRenderPainelAlterarProfessor(true);
@@ -144,8 +144,13 @@ public class ProfessorAlterarBean implements Serializable {
      * Atualiza o dados do professor no banco de dados.
      */
     public void atualizar() {
+        professorSelecionado.getUsuario().setEmail(professorSelecionado.getUsuario().getEmail().toLowerCase());
 
-        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
+        if (ValidacoesUtil.soTemEspaco(professorSelecionado.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
 
@@ -154,12 +159,20 @@ public class ProfessorAlterarBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
 
-        } else if (ValidacoesUtil.isExistenteEmail(professorSelecionado.getEmail())
-                && (!emailAtualDoProfessor.equals(professorSelecionado.getEmail()))) {
+        } else if (ValidacoesUtil.isExistenteEmail(professorSelecionado.getUsuario().getEmail())
+                && (!emailAtualDoProfessor.equals(professorSelecionado.getUsuario().getEmail()))) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
 
-        } else if (!confirmaSenha.equals(professorSelecionado.getSenha())) {
+        } else if (ValidacoesUtil.temEspacoNoTexto(professorSelecionado.getUsuario().getSenha())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
+
+        } else if (!confirmaSenha.equals(professorSelecionado.getUsuario().getSenha())) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
 
@@ -169,7 +182,7 @@ public class ProfessorAlterarBean implements Serializable {
                 professorRN.atualizarProfessor(professorSelecionado);
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Atualização concluída com sucesso."));
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            } catch (NoSuchAlgorithmException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }

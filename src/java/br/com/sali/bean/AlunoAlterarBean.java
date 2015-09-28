@@ -123,7 +123,7 @@ public class AlunoAlterarBean implements Serializable {
         setAlunoSelecionado(aluno);
         setMatriculaAtualAluno(aluno.getMatricula());
         setMatriculaString(Integer.toString(aluno.getMatricula()));
-        setEmailAtualAluno(aluno.getEmail());
+        setEmailAtualAluno(aluno.getUsuario().getEmail());
         setRenderPainelMensagem(false);
         setRenderPainelAlterar(true);
 

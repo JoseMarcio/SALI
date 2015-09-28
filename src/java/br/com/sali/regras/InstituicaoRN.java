@@ -3,9 +3,13 @@ package br.com.sali.regras;
 import br.com.sali.dao.InstituicaoDAO;
 import br.com.sali.modelo.Endereco;
 import br.com.sali.modelo.Instituicao;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
-import java.io.UnsupportedEncodingException;
+import br.com.sali.util.PermissoesUtil;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
 
 /**
  * Trata asRealizar Operações com o modelo Instituição de modo que sejam
@@ -13,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author SALI
  */
-public class InstituicaoRN {
+public class InstituicaoRN implements Serializable {
 
     // Atributos.
     private final InstituicaoDAO instituicaDAO;
@@ -24,6 +28,14 @@ public class InstituicaoRN {
     public InstituicaoRN() {
         instituicaDAO = new InstituicaoDAO();
         instituicoCadastrada = (Instituicao) instituicaDAO.getObjectById(Instituicao.class, idMyInstituicao);
+        if (instituicoCadastrada == null) {
+            try {
+                criaInstituicao();
+            } catch (NoSuchAlgorithmException ex) {
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                        "Exceção!", ex.getMessage()));
+            }
+        }
     }
 
     //========================= Gets e Sets ====================================
@@ -41,35 +53,32 @@ public class InstituicaoRN {
      *
      * @param instituicao
      * @throws java.security.NoSuchAlgorithmException
-     * @throws java.io.UnsupportedEncodingException
      */
-    public void atualizarInstituicao(Instituicao instituicao) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        instituicao.setSenha(CriptografiaUtil.criptografaSenha(instituicao.getSenha()));
+    public void atualizarInstituicao(Instituicao instituicao) throws NoSuchAlgorithmException {
+        instituicao.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(instituicao.getUsuario().getSenha()));
         instituicaDAO.atualizar(instituicao);
     }
 
     /**
-     * Verifica se o e-mail informado já existe no banco de dados. Se existir é
-     * retornado "true", senão existir é retornado "false".
-     *
-     * @param email
-     * @return
-     */
-    public boolean isExistenteEmail(String email) {
-        return instituicaDAO.isExistenteEmail(Instituicao.class, email);
-    }
-
-    /**
      * Cria uma Instituição inicial no banco de dados (com dados padrão).
+     *
+     * @throws java.security.NoSuchAlgorithmException
      */
-    public void criaInstituicao() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public void criaInstituicao() throws NoSuchAlgorithmException {
 
         Instituicao instituicao = new Instituicao();
         Endereco endereco = new Endereco();
+        Usuario usuario = new Usuario();
 
-        instituicao.setEmail("admsali@sali.com");
-        instituicao.setSenha(CriptografiaUtil.criptografaSenha("adm"));
-        endereco.setInstituicao(instituicao);
+        // Criando um usuário para a instituição.
+        String email = "adm@sali.com";
+        usuario.setAtivo(true);
+        usuario.setEmail(email.toLowerCase());
+        usuario.setSenha(CriptografiaUtil.criptografaSenha("adm"));
+        usuario.setPermissao(PermissoesUtil.getPermissaoInstituicao());
+
+        instituicao.setUsuario(usuario);
+
         instituicao.setEndereco(endereco);
 
         instituicaDAO.salvar(instituicao);

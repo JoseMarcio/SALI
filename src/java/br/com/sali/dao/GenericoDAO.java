@@ -2,6 +2,7 @@ package br.com.sali.dao;
 
 import br.com.sali.manuseiodb.ManuseioDb;
 import br.com.sali.util.ValidacoesUtil;
+import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
@@ -13,7 +14,7 @@ import org.hibernate.criterion.Restrictions;
  * @author SALI
  * @param <T>
  */
-public class GenericoDAO<T> extends ManuseioDb {
+public class GenericoDAO<T> extends ManuseioDb implements Serializable{
 
     /**
      * Salva um determinado objeto.

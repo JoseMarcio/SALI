@@ -10,7 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * Representa o Professor.
@@ -27,17 +30,21 @@ public class Professor implements Serializable {
     @Column(name = "id_professor")
     private Long id;
     private String nome;
-    private String email;
     private int matricula;
-    private String senha;
+    
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
     private List<Turma> turmas;
 
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Usuario usuario;
+    
     // Construtor.
     public Professor() {
     }
 
     //========================= Gets e Sets ====================================
+
     public Long getId() {
         return id;
     }
@@ -54,28 +61,12 @@ public class Professor implements Serializable {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getMatricula() {
         return matricula;
     }
 
     public void setMatricula(int matricula) {
         this.matricula = matricula;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public List<Turma> getTurmas() {
@@ -86,16 +77,22 @@ public class Professor implements Serializable {
         this.turmas = turmas;
     }
 
-    //========================== Equals e HashCode =============================
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.email);
-        hash = 53 * hash + this.matricula;
-        hash = 53 * hash + Objects.hashCode(this.senha);
-        hash = 53 * hash + Objects.hashCode(this.turmas);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.nome);
+        hash = 89 * hash + this.matricula;
+        hash = 89 * hash + Objects.hashCode(this.turmas);
+        hash = 89 * hash + Objects.hashCode(this.usuario);
         return hash;
     }
 
@@ -108,25 +105,24 @@ public class Professor implements Serializable {
             return false;
         }
         final Professor other = (Professor) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
         if (this.matricula != other.matricula) {
-            return false;
-        }
-        if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
         if (!Objects.equals(this.turmas, other.turmas)) {
             return false;
         }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
         return true;
     }
+    
+    
 
 }

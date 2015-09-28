@@ -1,7 +1,8 @@
 package br.com.sali.util;
 
+import br.com.sali.dao.UsuarioDao;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
-import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.TurmaRN;
 
@@ -40,7 +41,29 @@ public class ValidacoesUtil {
      * @return
      */
     public static boolean soTemLetras(String texto) {
-        return texto.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$");
+        return texto.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü ]*$");
+    }
+
+    /**
+     * Verifica se só tem espaço. Se tiver somente espaços na String é retornado
+     * "true", senão é retornado "false".
+     *
+     * @param texto
+     * @return
+     */
+    public static boolean soTemEspaco(String texto) {
+        return texto.trim().isEmpty();
+    }
+
+    /**
+     * Verifica se tem algum espaço no texto. Se tiver algum espaço no texto é
+     * retornado "true", senão é retornado "false".
+     *
+     * @param texto
+     * @return
+     */
+    public static boolean temEspacoNoTexto(String texto) {
+        return texto.contains(" ");
     }
 
     /**
@@ -70,17 +93,8 @@ public class ValidacoesUtil {
      * @return
      */
     public static boolean isExistenteEmail(String email) {
-        AlunoRN alunoRN = new AlunoRN();
-        ProfessorRN professorRN = new ProfessorRN();
-        InstituicaoRN instituicaoRN = new InstituicaoRN();
-
-        if (instituicaoRN.isExistenteEmail(email)) {
-            return true;
-        } else if (professorRN.isExistenteEmail(email)) {
-            return true;
-        } else {
-            return alunoRN.isExistenteEmail(email);
-        }
+        UsuarioDao usuarioDao = new UsuarioDao();
+        return usuarioDao.isExistenteEmail(Usuario.class, email);
     }
 
     /**

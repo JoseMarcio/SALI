@@ -1,6 +1,7 @@
 package br.com.sali.manuseiodb;
 
 import br.com.sali.util.HibernateUtil;
+import java.io.Serializable;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -10,7 +11,7 @@ import org.hibernate.Transaction;
  * 
  * @author SALI
  */
-public abstract class ManuseioDb {
+public abstract class ManuseioDb implements Serializable{
     
     // Atributos.
     private Session sessao;

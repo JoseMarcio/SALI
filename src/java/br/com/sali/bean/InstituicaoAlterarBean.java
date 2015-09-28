@@ -4,7 +4,6 @@ import br.com.sali.modelo.Instituicao;
 import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -33,9 +32,8 @@ public class InstituicaoAlterarBean implements Serializable {
     public void init() {
         instituicaoRN = new InstituicaoRN();
         instituicaoCadastrada = instituicaoRN.getInstituicoCadastrada();
-        emailAtualInstituicao = instituicaoCadastrada.getEmail();
+        setEmailAtualInstituicao(instituicaoCadastrada.getUsuario().getEmail());
         confirmaSenha = "";
-
     }
 
     //======================= Gets e Sets ======================================
@@ -71,17 +69,47 @@ public class InstituicaoAlterarBean implements Serializable {
      * @return
      */
     public boolean isSenhasIguais() {
-        return instituicaoCadastrada.getSenha().equals(confirmaSenha);
+        return instituicaoCadastrada.getUsuario().getSenha().equals(confirmaSenha);
     }
 
     /**
      * Atualiza os dados da Instituição.
      */
     public void atualizar() {
-        if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getEmail())
-                && (!emailAtualInstituicao.equals(instituicaoCadastrada.getEmail()))) {
+        instituicaoCadastrada.getUsuario().setEmail(instituicaoCadastrada.getUsuario().getEmail().toLowerCase());
+
+        if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (ValidacoesUtil.isExistenteEmail(instituicaoCadastrada.getUsuario().getEmail())
+                && (!emailAtualInstituicao.equals(instituicaoCadastrada.getUsuario().getEmail()))) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(instituicaoCadastrada.getUsuario().getSenha())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
+
+        } else if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getEndereco().getRua())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não informe espaços para a rua.", ""));
+
+        } else if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getEndereco().getNumero())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não informe espaços para o número.", ""));
+
+        } else if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getEndereco().getBairro())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não informe espaços para o bairro.", ""));
+
+        } else if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getEndereco().getCidade())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não informe espaços para a cidade.", ""));
 
         } else if (!isSenhasIguais()) {
 
@@ -92,7 +120,7 @@ public class InstituicaoAlterarBean implements Serializable {
                 instituicaoRN.atualizarInstituicao(instituicaoCadastrada);
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Atualização concluída com sucesso."));
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            } catch (NoSuchAlgorithmException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }

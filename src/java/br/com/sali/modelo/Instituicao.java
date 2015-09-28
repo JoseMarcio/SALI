@@ -27,20 +27,21 @@ public class Instituicao implements Serializable {
     @Column(name = "id_instituicao")
     private Long id;
     private String nome;
-    private String email;
     private String telefone;
-    private String senha;
-    @OneToOne(mappedBy = "instituicao")
+    @OneToOne
     @Cascade(CascadeType.ALL)
     private Endereco endereco;
+        
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Usuario usuario;
 
     // Construtor.
     public Instituicao() {
     }
 
-    //========================== Gets e Sets ===================================
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -55,28 +56,12 @@ public class Instituicao implements Serializable {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getTelefone() {
         return telefone;
     }
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public Endereco getEndereco() {
@@ -87,18 +72,22 @@ public class Instituicao implements Serializable {
         this.endereco = endereco;
     }
 
-    
-    //====================== Equals e HashCode =================================
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 97 * hash + Objects.hashCode(this.id);
         hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + Objects.hashCode(this.email);
         hash = 97 * hash + Objects.hashCode(this.telefone);
-        hash = 97 * hash + Objects.hashCode(this.senha);
         hash = 97 * hash + Objects.hashCode(this.endereco);
+        hash = 97 * hash + Objects.hashCode(this.usuario);
         return hash;
     }
 
@@ -117,19 +106,18 @@ public class Instituicao implements Serializable {
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
         if (!Objects.equals(this.telefone, other.telefone)) {
-            return false;
-        }
-        if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
         if (!Objects.equals(this.endereco, other.endereco)) {
             return false;
         }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
         return true;
     }
+    
+    
 
 }

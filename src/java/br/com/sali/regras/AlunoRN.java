@@ -3,7 +3,7 @@ package br.com.sali.regras;
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.modelo.Aluno;
 import br.com.sali.util.CriptografiaUtil;
-import java.io.UnsupportedEncodingException;
+import br.com.sali.util.PermissoesUtil;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -31,10 +31,13 @@ public class AlunoRN {
      *
      * @param aluno
      * @throws java.security.NoSuchAlgorithmException
-     * @throws java.io.UnsupportedEncodingException
      */
-    public void registrarAluno(Aluno aluno) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        aluno.setSenha(CriptografiaUtil.criptografaSenha(aluno.getSenha()));
+    public void registrarAluno(Aluno aluno) throws NoSuchAlgorithmException{
+        aluno.getUsuario().setPermissao(PermissoesUtil.getPermissaoAluno());
+        aluno.getUsuario().setAtivo(true);
+        
+        aluno.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(aluno.getUsuario().getSenha()));
+        
         alunoDAO.salvar(aluno);
     }
 
@@ -43,10 +46,10 @@ public class AlunoRN {
      *
      * @param aluno
      * @throws java.security.NoSuchAlgorithmException
-     * @throws java.io.UnsupportedEncodingException
      */
-    public void atualizarAluno(Aluno aluno) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        aluno.setSenha(CriptografiaUtil.criptografaSenha(aluno.getSenha()));
+    public void atualizarAluno(Aluno aluno) throws NoSuchAlgorithmException {
+        aluno.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(aluno.getUsuario().getSenha()));
+        
         alunoDAO.atualizar(aluno);
     }
 
@@ -78,17 +81,7 @@ public class AlunoRN {
         alunoDAO.excluir(aluno);
     }
 
-    /**
-     * Verifica se o e-mail informado já existe no banco de dados. Se existir é
-     * retornado "true", senão existir é retornado "false".
-     *
-     * @param email
-     * @return
-     */
-    public boolean isExistenteEmail(String email) {
-        return alunoDAO.isExistenteEmail(Aluno.class, email);
-    }
-
+    
     /**
      * Verifica se a matrícula informada já existe no banco de dados. Se existir
      * é retornado "true", senão existir é retornado "false".

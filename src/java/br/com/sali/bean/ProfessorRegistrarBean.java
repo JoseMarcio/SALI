@@ -1,10 +1,10 @@
 package br.com.sali.bean;
 
 import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,6 +24,7 @@ public class ProfessorRegistrarBean implements Serializable {
 
     // Atributos.
     private Professor professor;
+    private Usuario usuarioProfessor;
     private ProfessorRN professorRN;
     private String confirmaSenha;
     private String matriculaString;
@@ -31,8 +32,11 @@ public class ProfessorRegistrarBean implements Serializable {
     // Construtor da classe.
     @PostConstruct
     public void init() {
+        usuarioProfessor = new Usuario();
         professor = new Professor();
+        professor.setUsuario(usuarioProfessor);
         professorRN = new ProfessorRN();
+
         confirmaSenha = "";
         matriculaString = "";
     }
@@ -62,6 +66,14 @@ public class ProfessorRegistrarBean implements Serializable {
         this.matriculaString = matriculaString;
     }
 
+    public Usuario getUsuarioProfessor() {
+        return usuarioProfessor;
+    }
+
+    public void setUsuarioProfessor(Usuario usuarioProfessor) {
+        this.usuarioProfessor = usuarioProfessor;
+    }
+
     //=============================== Métodos ==================================
     /**
      * Reinicia os atributos da bean.
@@ -77,7 +89,7 @@ public class ProfessorRegistrarBean implements Serializable {
      * @return
      */
     public boolean isSenhasIguais() {
-        return professor.getSenha().equals(confirmaSenha);
+        return professor.getUsuario().getSenha().equals(confirmaSenha);
     }
 
     /**
@@ -85,7 +97,13 @@ public class ProfessorRegistrarBean implements Serializable {
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
+        professor.getUsuario().setEmail(professor.getUsuario().getEmail().toLowerCase());
+
+        if (ValidacoesUtil.soTemEspaco(professor.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
 
@@ -93,9 +111,17 @@ public class ProfessorRegistrarBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
 
-        } else if (ValidacoesUtil.isExistenteEmail(professor.getEmail())) {
+        } else if (ValidacoesUtil.isExistenteEmail(professor.getUsuario().getEmail())) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(professor.getUsuario().getSenha())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
 
         } else if (!isSenhasIguais()) {
 
@@ -109,7 +135,7 @@ public class ProfessorRegistrarBean implements Serializable {
                 limpar();
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Registro efetuado com sucesso."));
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            } catch (NoSuchAlgorithmException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }

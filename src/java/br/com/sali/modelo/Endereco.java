@@ -7,19 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- *  Represena o Endereço.
- *  É uma entidade, tabela do banco de dados.
- * 
+ * Represena o Endereço. É uma entidade, tabela do banco de dados.
+ *
  * @author SALI
  */
 @Entity
 @Table
-public class Endereco implements Serializable{
+public class Endereco implements Serializable {
 
     // Atributos.
     @Id
@@ -31,20 +28,18 @@ public class Endereco implements Serializable{
     private String bairro;
     private String cidade;
     private String estado;
-    @OneToOne
-    @JoinColumn(name = "id_instituicao")
-    private Instituicao instituicao;
 
     // Construtor.
     public Endereco() {
     }
 
     //=========================== Gets e Sets ==================================
+
     public Long getId() {
-        return this.id;
+        return id;
     }
-    
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -88,25 +83,15 @@ public class Endereco implements Serializable{
         this.estado = estado;
     }
 
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
-    }
-
-    //======================== Equals e HashCode ===============================
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.id);
-        hash = 43 * hash + Objects.hashCode(this.rua);
-        hash = 43 * hash + Objects.hashCode(this.numero);
-        hash = 43 * hash + Objects.hashCode(this.bairro);
-        hash = 43 * hash + Objects.hashCode(this.cidade);
-        hash = 43 * hash + Objects.hashCode(this.estado);
-        hash = 43 * hash + Objects.hashCode(this.instituicao);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.rua);
+        hash = 59 * hash + Objects.hashCode(this.numero);
+        hash = 59 * hash + Objects.hashCode(this.bairro);
+        hash = 59 * hash + Objects.hashCode(this.cidade);
+        hash = 59 * hash + Objects.hashCode(this.estado);
         return hash;
     }
 
@@ -137,9 +122,8 @@ public class Endereco implements Serializable{
         if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
-        if (!Objects.equals(this.instituicao, other.instituicao)) {
-            return false;
-        }
         return true;
     }
+
+   
 }

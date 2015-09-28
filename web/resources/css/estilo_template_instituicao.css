@@ -17,6 +17,7 @@ body {
     width: 70%;
     margin:0 auto;			
     text-align:left;
+    margin-bottom: 1%;
 }
 
 #conteudo {
@@ -45,6 +46,7 @@ body {
 }
 
 footer{
+    margin-top: 15px;
     text-align: center;
     font-size: 15px;
     height: 20%;

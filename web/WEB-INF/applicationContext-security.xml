@@ -6,41 +6,32 @@
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     <http>
 
-        <intercept-url pattern="/template/**" access="ROLE_NIGUEM"/>        
-        <intercept-url pattern="/redireciona/**" access="ROLE_INSTITUICAO,ROLE_PROFESSOR,ROLE_ALUNO"/>
-        <intercept-url pattern="/aluno/**" access="ROLE_ALUNO"/>
-        <intercept-url pattern="/instituicao/**" access="ROLE_INSTITUICAO"/>
-        <intercept-url pattern="/professor/**" access="ROLE_PROFESSOR"/>
-        <intercept-url pattern="/professor-instituicao/**" access="ROLE_PROFESSOR,ROLE_INSTITUICAO"/>
-        
+        <intercept-url pattern="/aluno/**" access="ROLE_ALUNO" />
+        <intercept-url pattern="/instituicao/**" access="ROLE_INSTITUICAO" />
+        <intercept-url pattern="/professor/**" access="ROLE_PROFESSOR" />
+        <intercept-url pattern="/professor-instituicao/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR" />
+        <intercept-url pattern="/redireciona/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR, ROLE_ALUNO" />
         
         <form-login login-page="/publico/login.jsf"
-                    always-use-default-target="true" default-target-url="/redireciona/redireciona.jsf"
+                    always-use-default-target="true" 
+                    default-target-url="/redireciona/redireciona.jsf"
                     authentication-failure-url="/publico/login.jsf?login_error=1" />
-        <logout logout-success-url="/publico/login.jsf"/>
-        <remember-me/>
+        
+        <logout/>
         
     </http>
-    
+
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="instituicao" password="i" authorities="ROLE_INSTITUICAO"/>
-                <user name="professor" password="p" authorities="ROLE_PROFESSOR"/>
-                <user name="aluno" password="a" authorities="ROLE_ALUNO"/>
-            </user-service>            
-            <!--
             <password-encoder hash="sha-256"/>
-            <jdbc-user-service data-source-ref="saliDataSource"
-                               authorities-by-username-query="SELECT u.email, p.permissao 
-                                                              FROM usuario u, usuario_permissao p 
-				                              WHERE u.codigo = p.usuario 
-							      AND u.email = ?"
-                               
-                               users-by-username-query="SELECT email, senha 
-						        FROM usuario 
-							WHERE email = ?" />-->
+            <jdbc-user-service data-source-ref="saliDS"
+                               authorities-by-username-query="SELECT email, permissao 
+						              FROM usuario 
+						              WHERE email = ?"
+                                                                         
+                               users-by-username-query="SELECT email, senha, ativo 
+							FROM usuario 
+							WHERE email = ?" />
         </authentication-provider>
     </authentication-manager>
-
 </b:beans>

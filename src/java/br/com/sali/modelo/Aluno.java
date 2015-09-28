@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * Representa o Aluno.
@@ -27,18 +30,22 @@ public class Aluno implements Serializable {
     private Long id;
     private String nome;
     private int matricula;
-    private String email;
-    private String senha;
     @ManyToOne
     @JoinColumn(name = "id_turma")
     private Turma turma;
 
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Usuario usuario;
+    
+    
     // Construtor.
     public Aluno() {
 
     }
 
     //=============================== Gets e Sets ==============================
+
     public Long getId() {
         return id;
     }
@@ -63,22 +70,6 @@ public class Aluno implements Serializable {
         this.matricula = matricula;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Turma getTurma() {
         return turma;
     }
@@ -87,16 +78,22 @@ public class Aluno implements Serializable {
         this.turma = turma;
     }
 
-    //========================== Equals e HashCode =============================
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + this.matricula;
-        hash = 59 * hash + Objects.hashCode(this.email);
-        hash = 59 * hash + Objects.hashCode(this.senha);
-        hash = 59 * hash + Objects.hashCode(this.turma);
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.nome);
+        hash = 17 * hash + this.matricula;
+        hash = 17 * hash + Objects.hashCode(this.turma);
+        hash = 17 * hash + Objects.hashCode(this.usuario);
         return hash;
     }
 
@@ -118,16 +115,15 @@ public class Aluno implements Serializable {
         if (this.matricula != other.matricula) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.senha, other.senha)) {
-            return false;
-        }
         if (!Objects.equals(this.turma, other.turma)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
             return false;
         }
         return true;
     }
+    
+
 
 }

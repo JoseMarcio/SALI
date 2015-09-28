@@ -1,6 +1,5 @@
 package br.com.sali.util;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -14,22 +13,27 @@ public class CriptografiaUtil {
     /**
      * Recebe uma senha e criptografa ela. Logo após criptografar, retorna a
      * senha já com a criptorafia.
-     * 
+     *
      * O hash utilizado para a criptografia: SHA-256.
      *
      * @param senha
      * @return
      * @throws java.security.NoSuchAlgorithmException
-     * @throws java.io.UnsupportedEncodingException
      */
-    public static String criptografaSenha(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static String criptografaSenha(String senha) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte messageDigest[] = md.digest(senha.getBytes("UTF-8"));
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : messageDigest) {
-            hexString.append(String.format("%02X", 0xFF & b));
+        md.update(senha.getBytes());
+        byte[] bytes = md.digest();
+
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            int parteAlta = ((bytes[i] >> 4) & 0xf) << 4;
+            int parteBaixa = bytes[i] & 0xf;
+            if (parteAlta == 0) {
+                s.append('0');
+            }
+            s.append(Integer.toHexString(parteAlta | parteBaixa));
         }
-        String senhaCriptografada = hexString.toString();
-        return senhaCriptografada;
+        return s.toString();
     }
 }

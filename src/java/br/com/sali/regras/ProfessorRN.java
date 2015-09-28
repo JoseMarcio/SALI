@@ -3,9 +3,8 @@ package br.com.sali.regras;
 import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
-import br.com.sali.modelo.Turma;
 import br.com.sali.util.CriptografiaUtil;
-import java.io.UnsupportedEncodingException;
+import br.com.sali.util.PermissoesUtil;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -33,11 +32,14 @@ public class ProfessorRN {
      *
      * @param professor
      * @throws java.security.NoSuchAlgorithmException
-     * @throws java.io.UnsupportedEncodingException
      */
-    public void registrarProfessor(Professor professor) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public void registrarProfessor(Professor professor) throws NoSuchAlgorithmException {
+        professor.getUsuario().setPermissao(PermissoesUtil.getPermissaoProfessor());
         
-        professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
+        professor.getUsuario().setAtivo(true);
+
+        professor.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(professor.getUsuario().getSenha()));
+
         professorDAO.salvar(professor);
     }
 
@@ -46,10 +48,10 @@ public class ProfessorRN {
      *
      * @param professor
      * @throws java.security.NoSuchAlgorithmException
-     * @throws java.io.UnsupportedEncodingException
      */
-    public void atualizarProfessor(Professor professor) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        professor.setSenha(CriptografiaUtil.criptografaSenha(professor.getSenha()));
+    public void atualizarProfessor(Professor professor) throws NoSuchAlgorithmException {
+         professor.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(professor.getUsuario().getSenha()));
+         
         professorDAO.atualizar(professor);
     }
 
@@ -81,19 +83,9 @@ public class ProfessorRN {
         }
     }
 
+ 
     /**
-     * Verifica se o e-mail informado já existe no banco de dados.  Se existir 
-     * é retornado "true", senão existir é retornado "false".
-     *
-     * @param email
-     * @return
-     */
-    public boolean isExistenteEmail(String email) {
-        return professorDAO.isExistenteEmail(Professor.class, email);
-    }
-
-    /**
-     * Verifica se a matrícula informada já existe no banco de dados.  Se existir 
+     * Verifica se a matrícula informada já existe no banco de dados. Se existir
      * é retornado "true", senão existir é retornado "false".
      *
      * @param matricula

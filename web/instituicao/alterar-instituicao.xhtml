@@ -54,20 +54,20 @@
 
 
                         <p:outputLabel value="E-mail"/>
-                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.email}"
+                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.email}"
                                      required="true"
                                      requiredMessage="Informe um e-mail." 
                                      placeholder="E-mail"
                                      validatorMessage="Informe um e-mail válido." 
-                                     style="text-transform: lowercase;">
+                                     style="text-transform: lowercase;"
+                                     >
 
-                            <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                            <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                         </p:inputText>
 
-
-
+                        
                         <p:outputLabel value="Senha"/>
-                        <p:password value="#{instituicaoAlterarBean.instituicaoCadastrada.senha}" 
+                        <p:password value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.senha}" 
                                     required="true"
                                     requiredMessage="Informe uma senha."
                                     placeholder="Senha" 
@@ -127,7 +127,7 @@
                             <p:selectOneMenu value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.estado}"
                                              required="true"
                                              requiredMessage="Informe o nome do Estado.">
-                                
+
                                 <f:selectItem itemLabel="..." itemValue="" />
                                 <f:selectItem itemLabel="Acre" itemValue="Acre" />
                                 <f:selectItem itemLabel="Alagoas" itemValue="Alagoas" />
