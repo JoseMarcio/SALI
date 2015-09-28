@@ -3,6 +3,7 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.TurmaRN;
+import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -75,7 +76,11 @@ public class TurmaRegistrarBean implements Serializable {
      * Registra o aluno no banco de dados.
      */
     public void registrar() {
-        if (turmaRN.isExistenteNome(turma.getNome())) {
+         if (ValidacoesUtil.soTemEspaco(turma.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (turmaRN.isExistenteNome(turma.getNome())) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe uma turma com esse nome.", ""));
 

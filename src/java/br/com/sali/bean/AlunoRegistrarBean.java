@@ -2,6 +2,7 @@ package br.com.sali.bean;
 
 import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Turma;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class AlunoRegistrarBean implements Serializable {
 
     // Atributos.
     private Aluno aluno;
+    private Usuario usuarioAluno;
     private AlunoRN alunoRN;
     private String confirmaSenha;
     private boolean disabledBotaoRegistrar;
@@ -34,7 +36,9 @@ public class AlunoRegistrarBean implements Serializable {
     // Construtor.
     @PostConstruct
     public void init() {
+        usuarioAluno = new Usuario();
         aluno = new Aluno();
+        aluno.setUsuario(usuarioAluno);
         alunoRN = new AlunoRN();
         confirmaSenha = "";
         disabledBotaoRegistrar = true;
@@ -101,7 +105,7 @@ public class AlunoRegistrarBean implements Serializable {
      * @return
      */
     public boolean isSenhasIguais() {
-        return aluno.getSenha().equals(confirmaSenha);
+        return aluno.getUsuario().getSenha().equals(confirmaSenha);
     }
 
     /**
@@ -109,24 +113,40 @@ public class AlunoRegistrarBean implements Serializable {
      *
      */
     public void registrar() {
-        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
-            
+        aluno.getUsuario().setEmail(aluno.getUsuario().getEmail().toLowerCase());
+
+        if (ValidacoesUtil.soTemEspaco(aluno.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (!ValidacoesUtil.soTemLetras(aluno.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Formato de nome inválido.", ""));
+
+        } else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
-            
+
         } else if (ValidacoesUtil.isExistenteMatricula(matriculaString)) {
-           
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
-            
-            
-        } else if (ValidacoesUtil.isExistenteEmail(aluno.getEmail())) {
-            
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
-            
-           
+
+        } else if (ValidacoesUtil.isExistenteEmail(aluno.getUsuario().getEmail())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(aluno.getUsuario().getSenha())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
+
         } else if (!isSenhasIguais()) {
-            
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
-             
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
+
         } else {
             try {
                 // Depois de tudo está validado, deve-se salvar o aluno.
@@ -135,7 +155,7 @@ public class AlunoRegistrarBean implements Serializable {
                 limpar();
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Registro efetuado com sucesso."));
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            } catch (NoSuchAlgorithmException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }

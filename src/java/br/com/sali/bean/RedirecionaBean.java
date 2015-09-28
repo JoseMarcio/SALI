@@ -34,4 +34,5 @@ public class RedirecionaBean {
             nav.performNavigation("/aluno/inicio-aluno?faces-redirect=true");
         }
     }
+
 }

@@ -5,7 +5,6 @@ import br.com.sali.modelo.Turma;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -145,7 +144,17 @@ public class AlunoAlterarBean implements Serializable {
      *
      */
     public void atualizar() {
-        if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
+        alunoSelecionado.getUsuario().setEmail(alunoSelecionado.getUsuario().getEmail().toLowerCase());
+
+        if (ValidacoesUtil.soTemEspaco(alunoSelecionado.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (!ValidacoesUtil.soTemLetras(alunoSelecionado.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Formato de nome inválido.", ""));
+
+        } else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
 
@@ -154,12 +163,20 @@ public class AlunoAlterarBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matrícula já cadastrada.", ""));
 
-        } else if (ValidacoesUtil.isExistenteEmail(alunoSelecionado.getEmail())
-                && (!emailAtualAluno.equals(alunoSelecionado.getEmail()))) {
+        } else if (ValidacoesUtil.isExistenteEmail(alunoSelecionado.getUsuario().getEmail())
+                && (!emailAtualAluno.equals(alunoSelecionado.getUsuario().getEmail()))) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
 
-        } else if (!confirmaSenha.equals(alunoSelecionado.getSenha())) {
+        } else if (ValidacoesUtil.temEspacoNoTexto(alunoSelecionado.getUsuario().getSenha())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
+
+        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
+
+        } else if (!confirmaSenha.equals(alunoSelecionado.getUsuario().getSenha())) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
 
@@ -170,7 +187,7 @@ public class AlunoAlterarBean implements Serializable {
                 alunoRN.atualizarAluno(alunoSelecionado);
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Sucesso!", "Atualização concluída com sucesso."));
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            } catch (NoSuchAlgorithmException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
             }

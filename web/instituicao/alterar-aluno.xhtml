@@ -70,8 +70,10 @@
                                      requiredMessage="Informe uma matrícula."
                                      label="Matrícula" 
                                      maxlength="6" 
-                                     placeholder="Somente números">
-                            <f:convertNumber integerOnly="true" type="number"/>
+                                     placeholder="Somente números"
+                                     validatorMessage="Matrícula inválida.">
+
+                            <f:validateRegex pattern="^[0-9]+$"/>
                         </p:inputText>
 
 
@@ -82,7 +84,8 @@
                                      validatorMessage="Informe um e-mail válido." 
                                      placeholder="Informe o e-mail" 
                                      style="text-transform: lowercase;">
-                            <f:validateRegex pattern="[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})"/>
+                            
+                            <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                         </p:inputText>
 
 

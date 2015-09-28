@@ -4,7 +4,6 @@ import br.com.sali.modelo.Professor;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -149,6 +148,10 @@ public class ProfessorAlterarBean implements Serializable {
         if (ValidacoesUtil.soTemEspaco(professorSelecionado.getNome())) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (!ValidacoesUtil.soTemLetras(professorSelecionado.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Formato de nome inválido.", ""));
 
         } else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
 

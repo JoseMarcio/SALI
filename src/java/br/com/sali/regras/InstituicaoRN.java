@@ -17,7 +17,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author SALI
  */
-public class InstituicaoRN implements Serializable {
+public class InstituicaoRN {
 
     // Atributos.
     private final InstituicaoDAO instituicaDAO;

@@ -3,6 +3,7 @@ package br.com.sali.bean;
 import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import br.com.sali.regras.TurmaRN;
+import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -108,8 +109,11 @@ public class TurmaAlterarBean implements Serializable {
      * Atualiza o dados da turma no banco de dados.
      */
     public void atualizar() {
+        if (ValidacoesUtil.soTemEspaco(turma.getNome())) {
 
-        if (turmaRN.isExistenteNome(turma.getNome()) && (!turma.getNome().equals(nomeAtualTurma))) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
+
+        } else if (turmaRN.isExistenteNome(turma.getNome()) && (!turma.getNome().equals(nomeAtualTurma))) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe uma turma com esse nome.", ""));
 

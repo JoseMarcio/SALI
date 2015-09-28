@@ -1,9 +1,8 @@
 package br.com.sali.bean;
 
 import br.com.sali.regras.InstituicaoRN;
-import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 /**
  * Managed Bean Login.
@@ -11,8 +10,8 @@ import javax.faces.bean.ViewScoped;
  * @author SALI
  */
 @ManagedBean(name = "loginBean")
-@ViewScoped
-public class LoginBean implements Serializable {
+@RequestScoped
+public class LoginBean {
 
     public void carregarInstituicao() {
         InstituicaoRN instituicaoRN = new InstituicaoRN();

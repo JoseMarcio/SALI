@@ -103,7 +103,13 @@ public class ProfessorRegistrarBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O nome não pode ser vazio.", ""));
 
-        } else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
+        } 
+        else if (!ValidacoesUtil.soTemLetras(professor.getNome())) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Formato de nome inválido.", ""));
+
+        }         
+        else if (!ValidacoesUtil.isValidaMatricula(matriculaString)) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe uma matrícula válida.", ""));
 

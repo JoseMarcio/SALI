@@ -156,5 +156,20 @@ public class GenericoDAO<T> extends ManuseioDb implements Serializable{
         getSessao().close();
         return object;
     }
+    
+    /**
+     * Pegar o objeto do banco de dados por email.
+     *
+     * @param myClass
+     * @param email
+     * @return
+     */
+    public Object getObjectByEmail(Class<T> myClass, String email) {
+        Criteria criteria = getSessao().createCriteria(myClass);
+        Object object = (Object) criteria.add(Restrictions.eq("email", email)).uniqueResult();
+        getTransacao().commit();
+        getSessao().close();
+        return object;
+    }
 
 }

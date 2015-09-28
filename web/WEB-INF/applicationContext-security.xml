@@ -12,6 +12,8 @@
         <intercept-url pattern="/professor-instituicao/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR" />
         <intercept-url pattern="/redireciona/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR, ROLE_ALUNO" />
         
+        <intercept-url pattern="/professor-aluno/**" access="ROLE_PROFESSOR, ROLE_ALUNO" />
+        
         <form-login login-page="/publico/login.jsf"
                     always-use-default-target="true" 
                     default-target-url="/redireciona/redireciona.jsf"
