@@ -9,3 +9,10 @@ body{
     font-size: 15px;
     color: #ffffff;
 }
+
+
+#mensagemLogin{
+    color: #ffffff;
+    font-size: 20px;
+    margin-left: 43px;
+}
