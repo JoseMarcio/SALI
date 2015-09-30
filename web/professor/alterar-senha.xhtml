@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+    <ui:composition template="/template/area-professor.xhtml">
+        <ui:define name="titulo">
+            Alterar Senha
+        </ui:define>
+
+        <ui:define name="corpo">
+
+
+            <h1>Altere sua senha</h1>
+
+            <p:separator />
+
+            <h:form>
+                <p:commandButton value="Salvar" 
+                                 title="Salvar Alterações"
+                                 update="@form"
+                                 icon="ui-icon-check"
+                                 action="#{alteraSenhaBean.salvarAlteracoes()}"
+                                 />
+
+                <p:panel>
+
+                    <p:messages autoUpdate="true" showIcon="false"/>
+
+                    <h:panelGrid columns="2">
+
+                        <p:outputLabel value="Senha atual"/>
+                        <p:password value="#{alteraSenhaBean.senha}"
+                                    required="true" 
+                                    requiredMessage="Informe uma senha."
+                                    placeholder="Senha" 
+                                    validatorMessage="Senha: É exido no mínimo 6 caracteres."
+                                    maxlength="10">
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+
+                        <p:outputLabel value="Nova Senha"/>
+                        <p:password value="#{alteraSenhaBean.novaSenha}"
+                                    required="true" 
+                                    requiredMessage="Informe uma nova senha."
+                                    placeholder="Nova Senha" 
+                                    validatorMessage="Nova Senha: É exido no mínimo 6 caracteres."
+                                    maxlength="10">
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+
+                        <p:outputLabel value="Confirmação de senha"/>
+                        <p:password value="#{alteraSenhaBean.confirmacaoSenha}"
+                                    required="true" 
+                                    requiredMessage="Confirme a nova senha."
+                                    placeholder="Nova Senha" 
+                                    validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres."
+                                    maxlength="10">
+                            <f:validateLength minimum="6"/>
+                        </p:password>
+                    </h:panelGrid>
+
+                </p:panel>
+
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>
+

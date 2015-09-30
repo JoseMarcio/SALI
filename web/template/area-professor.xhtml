@@ -16,11 +16,9 @@
             <ui:insert name="titulo">SALI</ui:insert>
         </title>
 
-        <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />     
+        <h:outputStylesheet library="css" name="estilo_template_professor.css" />     
 
     </h:head>
-
-
 
 
     <h:body>
@@ -39,12 +37,10 @@
                     <nav id="menu">
                         <h:form>
                             <p:menubar>
-                                <p:menuitem value="Início" action="#{beanTemplateInstituicao.irInicioInstituicao()}" ajax="false"></p:menuitem>
-                                <p:menuitem value="Alterar Instituição" action="#{beanTemplateInstituicao.irAlterarInstituicao()}" ajax="false"></p:menuitem>
-
+                                <p:menuitem value="Início" action="#{beanTemplateProfessor.irInicioProfessor()}" ajax="false"></p:menuitem>
 
                                 <f:facet name="options">
-                                    <h:outputText value="#{beanTemplateInstituicao.instituicaoConectado.nome}   "/>
+                                    <h:outputText value="#{beanTemplateProfessor.professorConectado.nome}  "/>
                                     <h:outputLink value="#{request.contextPath}/j_spring_security_logout">
                                         Sair
                                     </h:outputLink>
@@ -63,24 +59,9 @@
                     <nav id="menuLateral">
                         <h:form>
                             <p:tieredMenu style="width: 215px;margin-top: 3px;border-radius: 6%;">
-                                <p:submenu label="Alunos">
-                                    <p:menuitem action="#{beanTemplateInstituicao.irRegistrarAluno()}" value="Registrar Aluno" ajax="false"></p:menuitem>
-                                    <p:menuitem action="#{beanTemplateInstituicao.irAlterarAluno()}" value="Alterar Aluno" ajax="false"></p:menuitem>
-                                    <p:menuitem action="#{beanTemplateInstituicao.irExcluirAluno()}" value="Excluir Aluno" ajax="false"></p:menuitem>
+                                <p:submenu label="Opções">
+                                    <p:menuitem action="#{beanTemplateProfessor.irAlterarSenha()}" value="Alterar Senha" ajax="false"></p:menuitem>
                                 </p:submenu>
-
-                                <p:submenu label="Professores">
-                                    <p:menuitem action="#{beanTemplateInstituicao.irRegistrarProfessor()}" value="Registrar Professor" ajax="false"></p:menuitem>
-                                    <p:menuitem action="#{beanTemplateInstituicao.irAlterarProfessor()}" value="Alterar Professor" ajax="false"></p:menuitem>
-                                    <p:menuitem action="#{beanTemplateInstituicao.irExcluirProfessor()}" value="Excluir Professor" ajax="false"></p:menuitem>
-                                </p:submenu>
-
-                                <p:submenu label="Turmas">
-                                    <p:menuitem action="#{beanTemplateInstituicao.irRegistrarTurma()}" value="Registrar Turma" ajax="false"></p:menuitem>
-                                    <p:menuitem action="#{beanTemplateInstituicao.irAlterarTurma()}" value="Alterar Turma" ajax="false"></p:menuitem>
-                                    <p:menuitem action="#{beanTemplateInstituicao.irExcluirTurma()}" value="Excluir Turma" ajax="false"></p:menuitem>
-                                </p:submenu>
-
                             </p:tieredMenu>
                         </h:form>
                     </nav>
@@ -96,8 +77,6 @@
                 </footer>
 
             </section>
-
-
 
         </section>        
 

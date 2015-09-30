@@ -1,34 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-
-        <h1>Área Professor</h1>
-        <h1>Bem Vindo #{request.remoteUser}</h1>
-        <h:outputLink value="#{request.contextPath}/j_spring_security_logout">
-            Sair
-        </h:outputLink>
 
 
-        <!-- ALTERA SENHA DO USUÁRIO -->
-        <h:form>
-            <p:commandButton value="Alterar Senha" 
-                             title="Alterar Senha"
-                             actionListener="#{alteraSenha.abrirAlterarSenha()}">
-                <p:ajax event="dialogReturn" 
-                        listener="#{alteraSenha.exibeMensagem()}" 
-                        />
+    <ui:composition template="/template/area-professor.xhtml">
+        <ui:define name="titulo">
+            Início
+        </ui:define>
 
-            </p:commandButton>
+        <ui:define name="corpo">
 
+            <h1>Bem Vindo ao Sali</h1>
 
-        </h:form>
-
-    </h:body>
+           
+        </ui:define>
+    </ui:composition>
 </html>
 

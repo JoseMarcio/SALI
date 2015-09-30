@@ -2,6 +2,8 @@ package br.com.sali.regras;
 
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.modelo.Aluno;
+import br.com.sali.modelo.Instituicao;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.PermissoesUtil;
 import java.security.NoSuchAlgorithmException;
@@ -93,4 +95,13 @@ public class AlunoRN {
         return alunoDAO.isExisteEssaMatricula(Aluno.class, matricula);
     }
 
+    
+     /**
+     * Retorna o aluno pelo Usuário.
+     * @param usuario
+     * @return 
+     */
+    public Aluno getAlunoByUsuario(Usuario usuario){
+        return (Aluno) alunoDAO.getObjectByUsuario(Aluno.class, usuario);
+    }
 }

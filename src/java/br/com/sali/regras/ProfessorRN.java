@@ -3,6 +3,7 @@ package br.com.sali.regras;
 import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.PermissoesUtil;
 import java.security.NoSuchAlgorithmException;
@@ -102,5 +103,15 @@ public class ProfessorRN {
      */
     public List<Professor> listarTodos() {
         return professorDAO.listarTodos(Professor.class);
+    }
+    
+    
+     /**
+     * Retorna o professor pelo Usuário.
+     * @param usuario
+     * @return 
+     */
+    public Professor getProfessorByUsuario(Usuario usuario){
+        return (Professor) professorDAO.getObjectByUsuario(Professor.class, usuario);
     }
 }

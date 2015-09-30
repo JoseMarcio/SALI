@@ -16,4 +16,6 @@ public class LoginBean {
     public void carregarInstituicao() {
         InstituicaoRN instituicaoRN = new InstituicaoRN();
     }
+    
+    
 }

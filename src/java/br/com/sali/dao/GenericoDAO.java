@@ -1,6 +1,7 @@
 package br.com.sali.dao;
 
 import br.com.sali.manuseiodb.ManuseioDb;
+import br.com.sali.modelo.Usuario;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -172,4 +173,19 @@ public class GenericoDAO<T> extends ManuseioDb implements Serializable{
         return object;
     }
 
+    
+    /**
+     * Pegar o objeto do banco de dados por email.
+     *
+     * @param myClass
+     * @param usuario
+     * @return
+     */
+    public Object getObjectByUsuario(Class<T> myClass, Usuario usuario) {
+        Criteria criteria = getSessao().createCriteria(myClass);
+        Object object = (Object) criteria.add(Restrictions.eq("usuario", usuario)).uniqueResult();
+        getTransacao().commit();
+        getSessao().close();
+        return object;
+    }
 }

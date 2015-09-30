@@ -84,4 +84,14 @@ public class InstituicaoRN {
         instituicaDAO.salvar(instituicao);
 
     }
+    
+    
+    /**
+     * Retorna a instituição pelo Usuário.
+     * @param usuario
+     * @return 
+     */
+    public Instituicao getInstituicaoByUsuario(Usuario usuario){
+        return (Instituicao) instituicaDAO.getObjectByUsuario(Instituicao.class, usuario);
+    }
 }

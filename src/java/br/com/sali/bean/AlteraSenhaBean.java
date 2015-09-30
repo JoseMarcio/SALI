@@ -19,7 +19,7 @@ import org.primefaces.context.RequestContext;
  * @author SALI
  */
 @ManagedBean
-public class AlteraSenha {
+public class AlteraSenhaBean {
 
     private String senha;
     private String novaSenha;
@@ -27,14 +27,12 @@ public class AlteraSenha {
     private Usuario usuario;
     private UsuarioRN usuarioRN;
 
-    
     @PostConstruct
     public void init() {
         senha = "";
         novaSenha = "";
         confirmacaoSenha = "";
-        
-        
+
         usuarioRN = new UsuarioRN();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -47,7 +45,6 @@ public class AlteraSenha {
     }
 
     // =========================================================================
-    
     public String getSenha() {
         return senha;
     }
@@ -73,7 +70,6 @@ public class AlteraSenha {
     }
 
     // =========================================================================
-    
     /**
      * Abre um diálogo para alteração de senha do usuário.
      */
@@ -86,31 +82,22 @@ public class AlteraSenha {
 
         RequestContext.getCurrentInstance().openDialog("/professor-aluno/alterar-senha", options, null);
     }
-    
-    
+
     /**
      * Fecha o diálogo de alteração de senha do usuário.
      */
-    public void fechadialogo(){
+    public void fechadialogo() {
         RequestContext.getCurrentInstance().closeDialog(null);
     }
-    
-    /**
-     * Exibe mensagem de sucesso após atualizar a senha do usuário.
-     */
-    public void exibeMensagem(){
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Sucesso!", "Atualização concluída com sucesso."));
-    }
+
     
     /**
      * Reinicia os atributos do bean.
      */
-    public void limpar(){
+    public void limpar() {
         init();
     }
-    
-    
+
     /**
      * Altera a senha do usuário.
      */
@@ -128,7 +115,7 @@ public class AlteraSenha {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirmação de senha inválida.", ""));
 
         } else {
-            
+
             try {
                 senha = CriptografiaUtil.criptografaSenha(senha);
             } catch (NoSuchAlgorithmException ex) {
@@ -144,12 +131,10 @@ public class AlteraSenha {
                 usuario.setSenha(novaSenha);
                 try {
                     usuarioRN.alterarSenha(usuario);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Atualização concluída com sucesso!", ""));
                     limpar();
-                    fechadialogo();
-                    
-                    
-                    
-                    
+
                 } catch (NoSuchAlgorithmException ex) {
                     RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                             "Exceção!", ex.getMessage()));
