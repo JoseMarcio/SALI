@@ -16,7 +16,7 @@ public class NewClass {
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         
-        System.out.println(ValidacoesUtil.soTemEspaco("   y   ¨*&¨8762876872623 "));
+       
        
         
         

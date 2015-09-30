@@ -21,8 +21,8 @@
                   header="Informe o seu e-mail"  
                   width="300" 
                   minWidth="300"
-                  height="150" 
-                  minHeight="150"
+                  height="160" 
+                  minHeight="160"
                   modal="true"
                   closable="true" 
                   position="center"
@@ -32,18 +32,29 @@
                   class="dialogo">
 
             <h:form>
-                <h:messages />                
                 <center>
-                    <input value="#{loginBean.emailInformado}" type='email' name='j_username' required="true" style="text-transform: lowercase;margin-top: 40px;"/>
-                    <br />
-
-                    <h:commandButton value="Enviar"
+                    <p:inputText value="#{loginBean.emailInformado}" required="true" style="text-transform: lowercase;margin-top: 40px;"
+                                 requiredMessage="Informe seu e-mail"
+                                 validatorMessage="E-mail inválido">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
+                    </p:inputText>
+                 
+                    <p:commandButton value="Enviar"
                                      title="Enviar"
                                      style="cursor: pointer;"
                                      action="#{loginBean.recuperarEmail()}"
-                                     />
+                                     process="@form"
+                                     update="@form"
+                                     >
+                      
+                    </p:commandButton>
+                    
+                                   
+                
                     
                 </center>
+           
+                <p:messages style="color: #ffffff;" autoUpdate="true" showIcon="false"/> 
 
             </h:form>
         </p:dialog>
