@@ -59,9 +59,22 @@
                     <nav id="menuLateral">
                         <h:form>
                             <p:tieredMenu style="width: 215px;margin-top: 3px;border-radius: 6%;">
+
+                                <p:menuitem value="Lições" ajax="false"/>
+
+
+                                <p:menuitem value="Estudar Conteúdos" ajax="false"/>
+
+
+                                <p:menuitem value="Realizar Quiz" ajax="false"/>
+
+
+                                <p:menuitem value="Fórum" ajax="false"/>
+
                                 <p:submenu label="Opções">
                                     <p:menuitem action="#{beanTemplateAluno.irAlterarSenha()}" value="Alterar Senha" ajax="false"></p:menuitem>
                                 </p:submenu>
+
                             </p:tieredMenu>
                         </h:form>
                     </nav>

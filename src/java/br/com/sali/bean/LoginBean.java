@@ -5,11 +5,8 @@ import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.InstituicaoRN;
 import br.com.sali.regras.UsuarioRN;
 import br.com.sali.util.CriptografiaUtil;
-import br.com.sali.util.EmailUtil;
 import br.com.sali.util.GeraSenha;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -49,7 +46,7 @@ public class LoginBean {
         } else {
             String novaSenha = GeraSenha.novaSenha();
             String texto = "SALI\nE-mail: " + usuario.getEmail() + "\nNova Senha: " + novaSenha;
-            EmailUtil.enviaEmail(emailInformado, texto);
+            //EmailUtil.enviarEmailRecuperacaoSenha(emailUtil, novaSenha);
             try {
                 usuario.setSenha(CriptografiaUtil.criptografaSenha(novaSenha));
             } catch (NoSuchAlgorithmException ex) {

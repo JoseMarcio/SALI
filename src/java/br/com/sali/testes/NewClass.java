@@ -1,9 +1,8 @@
 package br.com.sali.testes;
 
-import br.com.sali.util.*;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import org.hibernate.Session;
+import javax.mail.MessagingException;
 
 /**
  * 
@@ -13,12 +12,9 @@ import org.hibernate.Session;
  */
 public class NewClass {
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, MessagingException {
 
-        
-       
-       
-        
+     
         
     }
 }
