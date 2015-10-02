@@ -32,6 +32,17 @@ public class TemplateAreaProfessorBean {
     public String irAlterarSenha() {
         return "/professor/alterar-senha?faces-redirect=true";
     }
+    
+    
+    
+    /**
+     * Direciona a tela  de lições.
+     * 
+     * @return 
+     */
+    public String irLicoes(){
+        return "/professor/licoes?faces-redirect=true";
+    }
 
     /**
      * Retorna o professor autenticada no momento.

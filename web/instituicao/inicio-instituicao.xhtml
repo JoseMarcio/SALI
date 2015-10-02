@@ -6,8 +6,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    
-    
+
+
     <ui:composition template="/template/area-instituicao.xhtml">
         <ui:define name="titulo">
             Início
@@ -15,9 +15,13 @@
 
         <ui:define name="corpo">
 
-            <h1>Bem Vindo ao Sali</h1>
-            
-                                    
+            <center>
+                <br />
+                <p>Bem Vindo ao SALI,   #{beanTemplateInstituicao.instituicaoConectado.nome} !</p>
+                <br />
+                <p>Esta é a Área Institucional</p>
+            </center>
+
         </ui:define>
     </ui:composition>
 
