@@ -17,43 +17,59 @@
 
     <h:body>
         <!-- Dialog para informar e-mail de recuperar senha-->
-        <p:dialog widgetVar="recuperarEmail" 
-                  header="Informe o seu e-mail"  
-                  width="300" 
-                  minWidth="300"
-                  height="160" 
-                  minHeight="160"
-                  modal="true"
-                  closable="true" 
-                  position="center"
-                  showEffect="effect"
-                  draggable="false" 
-                  resizable="false" 
-                  class="dialogo">
+        <p:dialog   widgetVar="recuperarEmail" 
+                    header="Informe o seu e-mail"  
+                    width="350" 
+                    minWidth="350"
+                    height="160" 
+                    minHeight="160"
+                    modal="true"
+                    closable="false" 
+                    position="center"
+                    showEffect="effect"
+                    draggable="false" 
+                    resizable="false" 
+                    class="dialogo">
+
 
             <h:form>
                 <center>
-                    <p:inputText value="#{loginBean.emailInformado}" required="true" style="text-transform: lowercase;margin-top: 40px;"
-                                 requiredMessage="Informe seu e-mail"
+                    <p:inputText value="#{loginBean.emailInformado}"  style="text-transform: lowercase;margin-top: 40px;"
                                  validatorMessage="E-mail inválido">
                         <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                     </p:inputText>
-                 
-                    <p:commandButton value="Enviar"
-                                     title="Enviar"
-                                     style="cursor: pointer;"
-                                     action="#{loginBean.recuperarEmail()}"
-                                     process="@form"
-                                     update="@form"
-                                     >
-                      
-                    </p:commandButton>
-                    
-                                   
-                
-                    
+
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Enviar"
+                                         title="Enviar nova senha"
+                                         style="cursor: pointer;"
+                                         action="#{loginBean.recuperarEmail()}"
+                                         process="@form"
+                                         update="@form"
+                                         onclick=""
+                                         >
+
+                        </p:commandButton>
+
+                        <p:commandButton value="Fechar"
+                                         title="Cancelar Operação"
+                                         style="cursor: pointer;"
+                                         action="#{loginBean.limpar()}"
+                                         process="@this"
+                                         update="@form"
+                                         onclick="PF('recuperarEmail').hide();"
+                                         >
+
+                        </p:commandButton>
+                    </h:panelGrid>
+
+
+
+
+
                 </center>
-           
+
                 <p:messages style="color: #ffffff;" autoUpdate="true" showIcon="false"/> 
 
             </h:form>
@@ -101,7 +117,8 @@
                             <input type="submit" value="Acessar" style="cursor: pointer;"/>
 
                             <h:form>
-                                <h:commandLink value="Esqueceu sua senha?" style="margin-left: 0px;" onclick="PF('recuperarEmail').show();"/>
+                                <h:commandLink value="Esqueceu sua senha?" style="margin-left: 0px;" onclick="PF('recuperarEmail').show();"
+                                               action="#{loginBean.limpar()}"/>
                             </h:form>
 
 

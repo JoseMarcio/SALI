@@ -6,7 +6,6 @@ import br.com.sali.modelo.Instituicao;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.PermissoesUtil;
-import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
 import org.primefaces.context.RequestContext;
@@ -71,7 +70,7 @@ public class InstituicaoRN {
         Usuario usuario = new Usuario();
 
         // Criando um usuário para a instituição.
-        String email = "adm@sali.com";
+        String email = "sali.testes@gmail.com";
         usuario.setAtivo(true);
         usuario.setEmail(email.toLowerCase());
         usuario.setSenha(CriptografiaUtil.criptografaSenha("adm"));
