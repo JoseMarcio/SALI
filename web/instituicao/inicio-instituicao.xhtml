@@ -4,7 +4,8 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 
 
@@ -15,12 +16,94 @@
 
         <ui:define name="corpo">
 
-            <center>
-                <br />
-                <p>Bem Vindo ao SALI,   #{beanTemplateInstituicao.instituicaoConectado.nome} !</p>
-                <br />
-                <p>Esta é a Área Institucional</p>
-            </center>
+            <p:panel>
+                <h3>Bem Vindo ao SALI</h3>
+                <p:separator />
+                <center>Área Institucional</center>
+
+
+                <h:panelGrid columns="1">
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText value="Usuário: #{beanTemplateInstituicao.instituicaoConectado.nome}"/>
+                    <h:outputText value="E-mail: #{beanTemplateInstituicao.instituicaoConectado.usuario.email}"/>
+                </h:panelGrid>
+
+                <script type="text/javascript">
+                    function time()
+                    {
+                        today = new Date();
+                        h = today.getHours();
+                        m = today.getMinutes();
+                        s = today.getSeconds();
+                        document.getElementById('horaAtual').innerHTML = h + "h: " + m + "m";
+                        setTimeout('time()', 500);
+                    }
+
+                    function data()
+                    {
+                        now = new Date();
+
+                        dayName = new Array("Domingo",
+                                "Segunda-Feira",
+                                "Terça-Feira",
+                                "Quarta-Feira",
+                                "Quinta-Feira",
+                                "Sexta-Feira",
+                                "Sábado");
+
+                        monName = new Array("Janeiro",
+                                "Fevereiro",
+                                "Março",
+                                "Abril",
+                                "Maio",
+                                "Junho",
+                                "Julho",
+                                "Agosto",
+                                "Setembro",
+                                "Outubro",
+                                "Novembro",
+                                "Dezembro");
+
+
+                        document.getElementById('data').innerHTML = dayName[now.getDay() ] +
+                                ", " + now.getDate() + " de " + monName [now.getMonth() ] + " de " +
+                                now.getFullYear() + ".";
+                    }
+
+
+
+                </script>
+
+
+                <h:panelGrid columns="1">
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    <h:outputText />
+                    
+                    <div id="data"></div>
+
+                    <div id="horaAtual"></div>
+                    
+                </h:panelGrid>
+
+            </p:panel>
 
         </ui:define>
     </ui:composition>

@@ -18,10 +18,30 @@
 
         <h:outputStylesheet library="css" name="estilo_template_aluno.css" />     
 
+        
+        <script type="text/javascript">
+
+            function noBack() {
+                window.history.forward();
+            }
+            noBack();
+
+            window.onload = noBack;
+
+            window.onpageshow = function (evt) {
+                if (evt.persisted)
+                    noBack();
+            };
+
+            window.onunload = function () {
+                void(0);
+            };
+        </script>
     </h:head>
 
 
-    <h:body>
+    <h:body onload="time();
+            data();">
 
         <section id="cabecalho">
             <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  

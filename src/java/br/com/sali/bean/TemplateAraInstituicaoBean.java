@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "beanTemplateInstituicao")
 public class TemplateAraInstituicaoBean implements Serializable {
 
+    
     /**
      * Direciona página Inicial.
      *

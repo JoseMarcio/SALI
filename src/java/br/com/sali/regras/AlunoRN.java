@@ -2,7 +2,6 @@ package br.com.sali.regras;
 
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.modelo.Aluno;
-import br.com.sali.modelo.Instituicao;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.PermissoesUtil;

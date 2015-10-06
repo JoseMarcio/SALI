@@ -17,11 +17,31 @@
         </title>
 
         <h:outputStylesheet library="css" name="estilo_template_professor.css" />     
+        
+        <script type="text/javascript">
+
+            function noBack() {
+                window.history.forward();
+            }
+            noBack();
+
+            window.onload = noBack;
+
+            window.onpageshow = function (evt) {
+                if (evt.persisted)
+                    noBack();
+            };
+
+            window.onunload = function () {
+                void(0);
+            };
+        </script>
 
     </h:head>
 
 
-    <h:body>
+    <h:body onload="time();
+            data();">
 
         <section id="cabecalho">
             <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  
@@ -38,6 +58,7 @@
                         <h:form>
                             <p:menubar>
                                 <p:menuitem value="Início" action="#{beanTemplateProfessor.irInicioProfessor()}" ajax="false"></p:menuitem>
+                                <p:menuitem value="Turma Atual: #{beanTemplateProfessor.professorConectado.turmaAtual.nome}" ajax="false" disabled="true"/>
 
                                 <f:facet name="options">
                                     <h:outputText value="#{beanTemplateProfessor.professorConectado.nome}  "/>
@@ -62,7 +83,7 @@
 
                                 <p:menuitem value="Lições"  ajax="false"/>
 
-                                <p:menuitem value="Gerar Quiz" ajax="false"/>
+                                <p:menuitem value="Gerar Quiz" ajax="false" action="#{beanTemplateProfessor.irGerarQuiz()}"/>
 
                                 <p:menuitem value="Fórum" ajax="false"/>
 
@@ -75,6 +96,8 @@
                                     <p:menuitem action="#{beanTemplateProfessor.irAlterarSenha()}" value="Alterar Senha" ajax="false"></p:menuitem>
                                 </p:submenu>
 
+                               
+                                
                             </p:tieredMenu>
                         </h:form>
                     </nav>

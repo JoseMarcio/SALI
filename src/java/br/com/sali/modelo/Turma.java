@@ -1,6 +1,7 @@
 package br.com.sali.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 /**
  * Representa a Turma.
@@ -34,12 +36,15 @@ public class Turma implements Serializable {
     private Professor professor;
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
+    
+    @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Quiz> quizesDaTurma = new ArrayList<>();
 
     // Construtor.
     public Turma() {
     }
 
-    //=============================== Gets e Sets ==============================
     public Long getId() {
         return id;
     }
@@ -72,14 +77,22 @@ public class Turma implements Serializable {
         this.alunos = alunos;
     }
 
-    //============================== Equals e HashCode =========================
+    public List<Quiz> getQuizesDaTurma() {
+        return quizesDaTurma;
+    }
+
+    public void setQuizesDaTurma(List<Quiz> quizesDaTurma) {
+        this.quizesDaTurma = quizesDaTurma;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 29 * hash + Objects.hashCode(this.nome);
-        hash = 29 * hash + Objects.hashCode(this.professor);
-        hash = 29 * hash + Objects.hashCode(this.alunos);
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.nome);
+        hash = 17 * hash + Objects.hashCode(this.professor);
+        hash = 17 * hash + Objects.hashCode(this.alunos);
+        hash = 17 * hash + Objects.hashCode(this.quizesDaTurma);
         return hash;
     }
 
@@ -92,7 +105,7 @@ public class Turma implements Serializable {
             return false;
         }
         final Turma other = (Turma) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {
@@ -104,7 +117,12 @@ public class Turma implements Serializable {
         if (!Objects.equals(this.alunos, other.alunos)) {
             return false;
         }
+        if (!Objects.equals(this.quizesDaTurma, other.quizesDaTurma)) {
+            return false;
+        }
         return true;
     }
+
+   
 
 }

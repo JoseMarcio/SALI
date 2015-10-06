@@ -18,12 +18,32 @@
 
         <h:outputStylesheet library="css" name="estilo_template_instituicao.css" />     
 
+        
+        <script type="text/javascript">
+
+            function noBack() {
+                window.history.forward();
+            }
+            noBack();
+
+            window.onload = noBack;
+
+            window.onpageshow = function (evt) {
+                if (evt.persisted)
+                    noBack();
+            };
+
+            window.onunload = function () {
+                void(0);
+            };
+        </script>
     </h:head>
 
 
 
 
-    <h:body>
+    <h:body onload="time();
+            data();">
 
         <section id="cabecalho">
             <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  
@@ -45,7 +65,9 @@
 
                                 <f:facet name="options">
                                     <h:outputText value="#{beanTemplateInstituicao.instituicaoConectado.nome}   "/>
-                                    <h:outputLink value="#{request.contextPath}/j_spring_security_logout">
+                                                   
+                                    <h:outputLink value="#{request.contextPath}/j_spring_security_logout"
+                                                  style="text-decoration: none;">
                                         Sair
                                     </h:outputLink>
                                 </f:facet>

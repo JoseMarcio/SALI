@@ -56,10 +56,10 @@ public class TurmaDAO extends GenericoDAO<Turma> {
 
     /**
      * Lista as turmas por "NOME" (Somente).
-     * 
+     *
      * @param myClass
      * @param filtro
-     * @return 
+     * @return
      */
     @Override
     public List<Turma> listarPorFiltro(Class<Turma> myClass, String filtro) {
@@ -70,4 +70,14 @@ public class TurmaDAO extends GenericoDAO<Turma> {
         getSessao().close();
         return resultados;
     }
+
+    public List<Turma> getTurmaProfessor(Professor professor) {
+        Criteria criteria = getSessao().createCriteria(Turma.class);
+        List<Turma> turmasListadas = criteria.add(Restrictions.eq("professor", professor)).list();
+        getTransacao().commit();
+        getSessao().close();
+
+        return turmasListadas;
+    }
+
 }

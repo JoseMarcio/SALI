@@ -1,6 +1,7 @@
 package br.com.sali.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -32,8 +33,12 @@ public class Professor implements Serializable {
     private String nome;
     private int matricula;
     
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    private Turma turmaAtual;
+    
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-    private List<Turma> turmas;
+    private List<Turma> turmas = new ArrayList<>();
 
     @OneToOne
     @Cascade(CascadeType.ALL)
@@ -84,6 +89,16 @@ public class Professor implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public Turma getTurmaAtual() {
+        return turmaAtual;
+    }
+
+    public void setTurmaAtual(Turma turmaAtual) {
+        this.turmaAtual = turmaAtual;
+    }
+    
+    
 
     @Override
     public int hashCode() {

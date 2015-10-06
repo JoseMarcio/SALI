@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>Gerar Quiz</title>        
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <p:commandButton action="#{quizProfessor.gerar()}" value="Salvar" process="@this" update="@form"/>
+
+            <h3>Questões já inseridas: #{quizProfessor.questoesInseridas.size()}</h3>
+
+            <p:commandButton value="Inserir" action="#{quizProfessor.inserirQuestaoNoQuiz()}"
+                             update="@all"/>
+
+            <p:panel>
+
+                <h3>Inserir Questão</h3>
+
+                <p:separator />
+
+                <p:messages autoUpdate="true" showIcon="false"/>
+
+                <h:panelGrid columns="1">
+
+                    <p:inputTextarea value="#{quizProfessor.pergunta}"
+                                     id="pergunta"
+                                     style="width: 600px;text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a pergunta"
+                                     autoResize="false"
+                                     placeholder="Pergunta"/>
+
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaA}"
+                                     id="alternativa-a"
+                                     style="width: 600px;text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'A'"
+                                     autoResize="false"
+                                     placeholder="alternativa a"/>
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaB}"
+                                     id="alternativa-b"
+                                     style="width: 600px;text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'B'"
+                                     autoResize="false"
+                                     placeholder="alternativa b"
+                                     />
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaC}"
+                                     id="alternativa-c"
+                                     style="width: 600px;text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'C'"
+                                     autoResize="false"
+                                     placeholder="alternativa c"
+                                     />
+
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaD}"
+                                     id="alternativa-d"
+                                     style="width: 600px;text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'D'"
+                                     autoResize="false"
+                                     placeholder="alternativa d"
+                                     />
+
+
+
+                </h:panelGrid>
+
+
+
+            </p:panel>
+
+        </h:form>
+
+    </h:body>
+</html>
+
