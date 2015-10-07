@@ -41,8 +41,23 @@
                     <h:outputText />
                     <h:outputText />
                     <h:panelGrid columns="2">
-                        <p:outputLabel value="Turma Atual: "/>
-                        <h:outputText value="#{beanTemplateProfessor.professorConectado.turmaAtual}"/>
+                        <p:outputLabel value="Mudar de Turma: "/>
+
+                        <h:form rendered="#{beanTemplateProfessor.renderSelect}">
+                            <p:selectOneMenu value="#{beanTemplateProfessor.turmaContextoAtual}">
+                                <f:selectItem itemValue="null" itemLabel="-- Selecione --"/>
+                                <f:selectItems value="#{beanTemplateProfessor.turmasProfessor}" 
+                                               var="turma" 
+                                               itemLabel="#{turma.nome}" 
+                                               itemValue="#{turma}"/>
+
+                                <p:ajax  event="change" listener="#{beanTemplateProfessor.atualizaTurmaAtual()}" update="@form"/>
+
+                            </p:selectOneMenu>
+
+
+                        </h:form>
+
                     </h:panelGrid>
 
                 </h:panelGrid>

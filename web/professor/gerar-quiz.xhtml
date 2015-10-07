@@ -15,48 +15,40 @@
 
         <ui:define name="corpo">
 
-
-
             <h:form>
 
                 <p:panel>
                     <h3>Gerar Novo Quiz</h3>
 
                     <p:separator />
-                    <p:messages autoUpdate="true"/>
+                    <p:messages />
 
                     <h:panelGrid columns="1">
                         <p:outputLabel value="Titulo"/>
-                        <p:inputText />
+                        <p:inputText value="#{quizProfessor.quiz.titulo}"
+                                     required="true"
+                                     requiredMessage="Informe um título para o Quiz."
+                                     style="width: 350px;text-transform: uppercase"/>
 
-                        <p:outputLabel value="Descrição"/>
-                        <p:inputTextarea />
 
-                        <p:commandButton value="Inserir Perguntas"
-                                         action="#{quizProfessor.abrirDialogoInserir()}"
-                                         process="@this" >
+                        <h:panelGrid columns="2">
 
-                        </p:commandButton>
+                            <p:commandButton value="Inserir Questões"
+                                             action="#{quizProfessor.inserirQuestoes()}"
+                                             process="@this">
 
-                        <p:panel>
-                            <h3>Seu Quiz:</h3>
-                            <p:separator />
+                            </p:commandButton>
 
-                            01) Sua pergunta? <br />
-                            a)<br />
-                            b)<br />
-                            c)<br />
-                            d)<br />
 
-                            <br /><br />
+                            <p:commandButton value="Gerar"
+                                             disabled="true"
+                                             action="#{quizProfessor.gerar()}"/>
 
-                            <p:commandButton value="Gerar"/>
-
-                        </p:panel>
+                        </h:panelGrid>
                     </h:panelGrid>
-
-
                 </p:panel>
+
+
             </h:form>
 
         </ui:define>

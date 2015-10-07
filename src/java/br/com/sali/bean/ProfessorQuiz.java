@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
@@ -22,7 +24,7 @@ import org.primefaces.context.RequestContext;
  * @author SALI
  */
 @ManagedBean(name = "quizProfessor")
-@ViewScoped
+@SessionScoped
 public class ProfessorQuiz {
 
     private QuizRN quizRN;
@@ -60,6 +62,15 @@ public class ProfessorQuiz {
         alternativaC = "";
         alternativaD = "";
         alternativaCorreta = -1;
+
+    }
+
+    public void inserirQuestoes() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ConfigurableNavigationHandler nav
+                = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
+
+        nav.performNavigation("/professor/inserir-questao-quiz?faces-redirect=true");
 
     }
 
@@ -134,6 +145,7 @@ public class ProfessorQuiz {
             questao.setAlternativaCorreta(alternativaCorreta);
 
             quiz.getQuestoes().add(questao);
+
             limparQuestao();
         }
 
@@ -212,15 +224,12 @@ public class ProfessorQuiz {
         this.alternativaCorreta = alternativaCorreta;
     }
 
-    
-    
-    
-    public void abrirDialogoInserir(){
+    public void abrirDialogoInserir() {
         Map<String, Object> options = new HashMap<>();
         options.put("modal", true);
         options.put("draggable", false);
         options.put("resizable", false);
-        options.put("contentHeight", 320);
+        //options.put("contentHeight", 320);
 
         RequestContext.getCurrentInstance().openDialog("/professor/inserir-questao-quiz", options, null);
     }
