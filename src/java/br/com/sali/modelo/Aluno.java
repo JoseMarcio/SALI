@@ -1,6 +1,7 @@
 package br.com.sali.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,8 @@ public class Aluno implements Serializable {
     @Cascade(CascadeType.ALL)
     private Usuario usuario;
     
+    
+    private List<Long> quizesRealizados;
     
     // Construtor.
     public Aluno() {
@@ -86,6 +89,14 @@ public class Aluno implements Serializable {
         this.usuario = usuario;
     }
 
+    public List<Long> getQuizesRealizados() {
+        return quizesRealizados;
+    }
+
+    public void setQuizesRealizados(List<Long> quizesRealizados) {
+        this.quizesRealizados = quizesRealizados;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -94,6 +105,7 @@ public class Aluno implements Serializable {
         hash = 17 * hash + this.matricula;
         hash = 17 * hash + Objects.hashCode(this.turma);
         hash = 17 * hash + Objects.hashCode(this.usuario);
+        hash = 17 * hash + Objects.hashCode(this.quizesRealizados);
         return hash;
     }
 
@@ -121,9 +133,13 @@ public class Aluno implements Serializable {
         if (!Objects.equals(this.usuario, other.usuario)) {
             return false;
         }
+        if (!Objects.equals(this.quizesRealizados, other.quizesRealizados)) {
+            return false;
+        }
         return true;
     }
+
     
-
-
+    
+    
 }

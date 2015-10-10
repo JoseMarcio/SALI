@@ -83,7 +83,11 @@
 
                                 <p:menuitem value="Lições"  ajax="false"/>
 
-                                <p:menuitem value="Gerar Quiz" ajax="false" action="#{beanTemplateProfessor.irGerarQuiz()}"/>
+                                <p:submenu label="Quiz">
+                                    <p:menuitem value="Gerar Novo" ajax="false" action="#{beanTemplateProfessor.irGerarQuiz()}"/>
+                                    <p:menuitem value="Lista de Quizes Gerados" ajax="false" action="#{beanTemplateProfessor.irListarQuiz()}"/>
+                                </p:submenu>
+                             
 
                                 <p:menuitem value="Fórum" ajax="false"/>
 

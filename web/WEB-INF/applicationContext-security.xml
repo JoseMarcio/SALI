@@ -5,13 +5,14 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     
-    <http access-denied-page="/publico/acesso-negado.jsf">
+    <http access-denied-page="/acesso-negado/acesso-negado.jsf">
 
         <intercept-url pattern="/aluno/**" access="ROLE_ALUNO" />
         <intercept-url pattern="/instituicao/**" access="ROLE_INSTITUICAO" />
         <intercept-url pattern="/professor/**" access="ROLE_PROFESSOR" />
         <intercept-url pattern="/professor-instituicao/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR" />
         <intercept-url pattern="/redireciona/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR, ROLE_ALUNO" />
+        <intercept-url pattern="/acesso-negado/**" access="ROLE_INSTITUICAO, ROLE_PROFESSOR, ROLE_ALUNO" />
                 
         
         <form-login login-page="/publico/login.jsf"

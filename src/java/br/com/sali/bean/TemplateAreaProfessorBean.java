@@ -177,5 +177,11 @@ public class TemplateAreaProfessorBean implements Serializable{
         }
 
     }
+    
+    
+    
+    public String irListarQuiz(){
+        return "/professor/lista-quiz?faces-redirect=true";
+    }
 
 }

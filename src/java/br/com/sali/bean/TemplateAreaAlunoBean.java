@@ -32,6 +32,17 @@ public class TemplateAreaAlunoBean {
     public String irAlterarSenha() {
         return "/aluno/alterar-senha?faces-redirect=true";
     }
+    
+    
+    /**
+     * Direciona página quiz.
+     *
+     * @return
+     */
+    public String irQuizes() {
+        return "/aluno/quiz?faces-redirect=true";
+    }
+    
 
     /**
      * Retorna o aluno autenticada no momento.

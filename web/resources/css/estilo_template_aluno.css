@@ -42,7 +42,8 @@ body {
     min-height: 500px;
     height: auto;
     background: #ffffff;   
-    border-radius: 3%;
+        
+    border-radius: 3% 3% 0 0;
 }
 
 footer{

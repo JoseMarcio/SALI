@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+
+    <ui:composition template="/template/area-aluno.xhtml">
+
+        <ui:define name="titulo">
+            Quiz
+        </ui:define>
+
+        <ui:define name="corpo">
+
+
+            <p:dataList value="#{quizAluno.quizesDaTurma}" 
+                        var="quiz" 
+                        emptyMessage="Nenhum quiz disponível."
+                        rendered="#{!empty quizAluno.quizesDaTurma}"
+                        >
+                <f:facet name="header">
+                    Quizes Disponíveis
+                </f:facet>
+
+
+                <h:form>
+                    <h:commandLink action="#{quizAluno.realizarQuiz(quiz)}" value="#{quiz.titulo}"/> 
+                </h:form>
+                <br />
+            </p:dataList>
+
+
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

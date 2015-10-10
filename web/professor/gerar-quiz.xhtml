@@ -21,7 +21,7 @@
                     <h3>Gerar Novo Quiz</h3>
 
                     <p:separator />
-                    <p:messages />
+
 
                     <h:panelGrid columns="1">
                         <p:outputLabel value="Titulo"/>
@@ -31,23 +31,79 @@
                                      style="width: 350px;text-transform: uppercase"/>
 
 
-                        <h:panelGrid columns="2">
+                        <h:panelGrid columns="3">
+
+
+
+
+                            <p:commandButton value="Gerar"
+                                             disabled="#{quizProfessor.habilitaBotaoGerar}"
+                                             action="#{quizProfessor.gerar()}"
+                                             update="@form"
+                                             title="Salvar quiz"/>
 
                             <p:commandButton value="Inserir Questões"
                                              action="#{quizProfessor.inserirQuestoes()}"
-                                             process="@this">
+                                             process="@this"
+                                             title="Inserir questões no quiz">
 
                             </p:commandButton>
 
 
-                            <p:commandButton value="Gerar"
-                                             disabled="true"
-                                             action="#{quizProfessor.gerar()}"/>
+                            <h:form>
+                                <p:commandButton value="Limpar"
+
+                                                 action="#{quizProfessor.limparBean()}"
+                                                 update="@all"
+                                                 title="Limpar"
+                                                 process="@form"
+                                                 immediate="true"/>
+                            </h:form>
+
 
                         </h:panelGrid>
+
+
                     </h:panelGrid>
                 </p:panel>
 
+
+                <p:messages autoUpdate="true" showIcon="false"/>
+
+
+                <p:dataList value="#{quizProfessor.quiz.questoes}" var="q" type="ordered"
+                            emptyMessage="Nenhuma questão inserida."
+                            rendered="#{!empty quizProfessor.quiz.questoes}"
+                            id="data"
+                            >
+                    <f:facet name="header">
+                        Questões Inseridas Neste Quiz
+                    </f:facet>
+
+                    #{q.pergunta}
+                    <br />
+                    <br />
+                    <h:outputText value="a) #{q.alternativas[0]}"/>
+                    <br />
+                    <br />
+                    <h:outputText value="b) #{q.alternativas[1]}"/>
+                    <br />
+                    <br />
+                    <h:outputText value="c) #{q.alternativas[2]}"/>
+                    <br />
+                    <br />
+                    <h:outputText value="d) #{q.alternativas[3]}"/>
+                    <br />
+                    <br />
+
+                    <h:outputText value="Alternatica Correta: #{q.alternativas[q.alternativaCorreta]}"/>
+
+                    <br />
+                    <br />
+                    
+                    <p:separator />
+
+                </p:dataList>
 
             </h:form>
 

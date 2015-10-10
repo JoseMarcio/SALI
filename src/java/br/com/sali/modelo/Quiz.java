@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -25,10 +27,23 @@ public class Quiz implements Serializable {
     private Long id;
     private String titulo;
     
-    @OneToMany
+    
     @Cascade(CascadeType.ALL)
+    @OneToMany
     private List<Questao> questoes;
 
+    @OneToOne
+    private Turma turma;
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+    
+    
     public Quiz() {
     }
 
@@ -59,9 +74,10 @@ public class Quiz implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.titulo);
-        hash = 53 * hash + Objects.hashCode(this.questoes);
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.titulo);
+        hash = 23 * hash + Objects.hashCode(this.questoes);
+        hash = 23 * hash + Objects.hashCode(this.turma);
         return hash;
     }
 
@@ -83,9 +99,14 @@ public class Quiz implements Serializable {
         if (!Objects.equals(this.questoes, other.questoes)) {
             return false;
         }
+        if (!Objects.equals(this.turma, other.turma)) {
+            return false;
+        }
         return true;
     }
 
+    
+    
 
   
 }

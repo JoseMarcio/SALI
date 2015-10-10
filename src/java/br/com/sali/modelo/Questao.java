@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,6 +25,9 @@ public class Questao implements Serializable {
     private String[] alternativas;
     private int alternativaCorreta;
 
+    @OneToOne
+    private Quiz quiz;
+    
     public Questao() {
     }
 
@@ -59,13 +63,22 @@ public class Questao implements Serializable {
         this.alternativaCorreta = alternativaCorreta;
     }
 
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.pergunta);
-        hash = 13 * hash + Arrays.deepHashCode(this.alternativas);
-        hash = 13 * hash + this.alternativaCorreta;
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.pergunta);
+        hash = 89 * hash + Arrays.deepHashCode(this.alternativas);
+        hash = 89 * hash + this.alternativaCorreta;
+        hash = 89 * hash + Objects.hashCode(this.quiz);
         return hash;
     }
 
@@ -90,8 +103,14 @@ public class Questao implements Serializable {
         if (this.alternativaCorreta != other.alternativaCorreta) {
             return false;
         }
+        if (!Objects.equals(this.quiz, other.quiz)) {
+            return false;
+        }
         return true;
     }
+    
+    
+    
 
     
     

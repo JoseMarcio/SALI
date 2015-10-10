@@ -1,23 +1,23 @@
 package br.com.sali.bean;
 
-import br.com.sali.dao.TurmaDAO;
+import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Questao;
 import br.com.sali.modelo.Quiz;
 import br.com.sali.modelo.Turma;
+import br.com.sali.modelo.Usuario;
+import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.QuizRN;
+import br.com.sali.regras.UsuarioRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -38,6 +38,10 @@ public class ProfessorQuiz {
     private int alternativaCorreta;
     private List<Questao> questoesInseridas;
 
+    private boolean habilitaBotaoInserir;
+    private boolean habilitaBotaoTerminar;
+    private boolean habilitaBotaoGerar;
+
     @PostConstruct
     public void init() {
         quizRN = new QuizRN();
@@ -51,6 +55,10 @@ public class ProfessorQuiz {
         alternativaCorreta = -1;
         questoesInseridas = new ArrayList<>();
         quiz.setQuestoes(questoesInseridas);
+
+        habilitaBotaoInserir = false;
+        habilitaBotaoTerminar = true;
+        habilitaBotaoGerar = true;
 
     }
 
@@ -74,6 +82,15 @@ public class ProfessorQuiz {
 
     }
 
+    public void terminarQuestoes() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ConfigurableNavigationHandler nav
+                = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
+
+        nav.performNavigation("/professor/gerar-quiz?faces-redirect=true");
+
+    }
+
     public void limparBean() {
         quizRN = new QuizRN();
         quiz = new Quiz();
@@ -87,27 +104,64 @@ public class ProfessorQuiz {
 
         questoesInseridas = new ArrayList<>();
         quiz.setQuestoes(questoesInseridas);
+        habilitaBotaoGerar = true;
+
+        habilitaBotaoInserir = false;
+        habilitaBotaoTerminar = true;
     }
 
+   
+
     public void gerar() {
+
         if (quiz.getQuestoes().size() <= 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não é possível salvar um quiz que "
-                    + "não tenha nenhuma pergunta", ""));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe perguntas para o quiz.", ""));
+
         } else {
+            quiz.setTitulo(quiz.getTitulo().toUpperCase());
 
-            TurmaDAO turmaDAO = new TurmaDAO();
-            Turma turma = (Turma) turmaDAO.getObjectById(Turma.class, Integer.toUnsignedLong(1));
+            Turma turma = getProfessorConectado().getTurmaAtual();
 
-            turma.getQuizesDaTurma().add(quiz);
+            quiz.setTurma(turma);
 
-            turmaDAO.atualizar(turma);
+            
+            
+            quizRN.salvar(quiz);
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "quiz salvo", ""));
             limparBean();
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Quiz gerado com sucesso!", ""));
+            
         }
 
     }
 
+    
+    /**
+     * Retorna o professor autenticada no momento.
+     *
+     * @return
+     */
+    public Professor getProfessorConectado() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext external = context.getExternalContext();
+
+        String emailUsuario = external.getRemoteUser();
+
+        UsuarioRN usuarioRN = new UsuarioRN();
+        Usuario usuario = usuarioRN.getUsuarioByEmail(emailUsuario);
+
+        ProfessorRN professorRN = new ProfessorRN();
+
+        Professor professor = professorRN.getProfessorByUsuario(usuario);
+
+        return professor;
+    }
+
+    
+    
     public void inserirQuestaoNoQuiz() {
 
         if (ValidacoesUtil.soTemEspaco(pergunta)) {
@@ -134,8 +188,8 @@ public class ProfessorQuiz {
             setPergunta(pergunta.toUpperCase());
             setAlternativaA(alternativaA.toUpperCase());
             setAlternativaB(alternativaB.toUpperCase());
-            setAlternativaB(alternativaC.toUpperCase());
-            setAlternativaB(alternativaD.toUpperCase());
+            setAlternativaC(alternativaC.toUpperCase());
+            setAlternativaD(alternativaD.toUpperCase());
 
             Questao questao = new Questao();
             String[] alternativas = {alternativaA, alternativaB, alternativaC, alternativaD};
@@ -144,7 +198,22 @@ public class ProfessorQuiz {
             questao.setAlternativas(alternativas);
             questao.setAlternativaCorreta(alternativaCorreta);
 
+            
+            questao.setQuiz(quiz);
+            
             quiz.getQuestoes().add(questao);
+
+            if (quiz.getQuestoes().size() >= 10) {
+                setHabilitaBotaoInserir(true);
+            }
+
+            if (quiz.getQuestoes().size() > 0) {
+                setHabilitaBotaoTerminar(false);
+                setHabilitaBotaoGerar(false);
+            } else {
+                setHabilitaBotaoTerminar(true);
+                setHabilitaBotaoGerar(true);
+            }
 
             limparQuestao();
         }
@@ -224,13 +293,28 @@ public class ProfessorQuiz {
         this.alternativaCorreta = alternativaCorreta;
     }
 
-    public void abrirDialogoInserir() {
-        Map<String, Object> options = new HashMap<>();
-        options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        //options.put("contentHeight", 320);
-
-        RequestContext.getCurrentInstance().openDialog("/professor/inserir-questao-quiz", options, null);
+    public boolean isHabilitaBotaoInserir() {
+        return habilitaBotaoInserir;
     }
+
+    public void setHabilitaBotaoInserir(boolean habilitaBotaoInserir) {
+        this.habilitaBotaoInserir = habilitaBotaoInserir;
+    }
+
+    public boolean isHabilitaBotaoTerminar() {
+        return habilitaBotaoTerminar;
+    }
+
+    public void setHabilitaBotaoTerminar(boolean habilitaBotaoTerminar) {
+        this.habilitaBotaoTerminar = habilitaBotaoTerminar;
+    }
+
+    public boolean isHabilitaBotaoGerar() {
+        return habilitaBotaoGerar;
+    }
+
+    public void setHabilitaBotaoGerar(boolean habilitaBotaoGerar) {
+        this.habilitaBotaoGerar = habilitaBotaoGerar;
+    }
+
 }

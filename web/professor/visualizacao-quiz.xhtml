@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/area-professor.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="titulo">
+        Vizualização de Quiz
+    </ui:define>
+
+    <ui:define name="corpo">
+
+        <p:dataList emptyMessage="Nenhuma Visualização Disponível"
+                    var="quiz"
+                    value="#{quizProfessorListarQuiz.quizExibir.questoes}"
+                    type="ordered">
+
+            <f:facet name="header">
+                #{quizProfessorListarQuiz.quizExibir.titulo}
+            </f:facet>
+
+            <h:outputText value="#{quiz.pergunta}"/>
+            <br />
+            <br />
+            <h:outputText value="a) #{quiz.alternativas[0]}"/>
+            <br />
+            <br />
+            <h:outputText value="b) #{quiz.alternativas[1]}"/>
+            <br />
+            <br />
+            <h:outputText value="c) #{quiz.alternativas[2]}"/>
+            <br />
+            <br />
+            <h:outputText value="d) #{quiz.alternativas[3]}"/>
+            <br />
+            <br />
+            <h:outputText value="Alternativa Correta:  #{quiz.alternativas[quiz.alternativaCorreta]}"/>
+            <br />
+            <br />
+            
+            <p:separator />
+
+
+        </p:dataList>
+
+    </ui:define>
+</ui:composition>
