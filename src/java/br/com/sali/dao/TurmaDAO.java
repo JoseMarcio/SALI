@@ -71,6 +71,13 @@ public class TurmaDAO extends GenericoDAO<Turma> {
         return resultados;
     }
 
+    
+    /**
+     * Lista as turmas que possuem o professor informado.
+     * 
+     * @param professor
+     * @return 
+     */
     public List<Turma> getTurmaProfessor(Professor professor) {
         Criteria criteria = getSessao().createCriteria(Turma.class);
         List<Turma> turmasListadas = criteria.add(Restrictions.eq("professor", professor)).list();

@@ -25,32 +25,33 @@ public class ProfessorVisualizarQuiz {
 
     private List<Quiz> quizesTurmaAtual;
     private QuizRN quizRN;
-    
     private Quiz quizExibir;
 
-    
     @PostConstruct
-    public void init(){
+    public void init() {
         quizRN = new QuizRN();
         quizExibir = new Quiz();
-        quizesTurmaAtual = quizRN.litarQuizesPorTurma(getProfessorConectado().getTurmaAtual());        
+        quizesTurmaAtual = quizRN.litarQuizesPorTurma(getProfessorConectado().getTurmaAtual());
     }
+
     
-    
-    
-    
-    public String selecionarQuiz(Quiz quiz){
+    /**
+     * Seleciona o Quiz desejado, e direciona para a página de "visualização"
+     * de Quiz.
+     * 
+     * @param quiz
+     * @return 
+     */
+    public String selecionarQuiz(Quiz quiz) {
         QuestaoDAO questaoDAO = new QuestaoDAO();
         List<Questao> myQuestoes = questaoDAO.getQuestaoByQuiz(quiz);
-        
-        
+
         setQuizExibir(quiz);
         getQuizExibir().setQuestoes(myQuestoes);
-        
+
         return "/professor/visualizacao-quiz?faces-redirect=true";
     }
-            
-    
+
     /**
      * Retorna o professor autenticado no momento.
      *
@@ -90,6 +91,4 @@ public class ProfessorVisualizarQuiz {
         this.quizExibir = quizExibir;
     }
 
-    
-    
 }

@@ -43,6 +43,13 @@ public class LoginBean {
         this.emailInformado = emailInformado;
     }
 
+    /**
+     * Carrega a instituição. Se ainda não tiver nenhuma cadastrada A InstituicaoRN
+     * trata de criar uma nova.
+     * 
+     * Se um usuário solicitar a página de login e o mesmo tiver autenticado será 
+     * direcionado para a sua página inicial.
+     */
     public void carregarInstituicao() {
         InstituicaoRN instituicaoRN = new InstituicaoRN();
         
@@ -64,6 +71,13 @@ public class LoginBean {
         }
     }
 
+    
+    
+    /**
+     * Recupera o acesso do usuário ao sistema.
+     * Criando uma nova senha para o mesmo e enviando para o seu e-mail.
+     * 
+     */
     public void recuperarEmail() {
         if (emailInformado.equalsIgnoreCase("")) {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -107,6 +121,9 @@ public class LoginBean {
 
     }
 
+    /**
+     * Limpa o e-mail informado.
+     */
     public void limpar() {
         emailInformado = "";
     }

@@ -33,9 +33,6 @@
 
                         <h:panelGrid columns="3">
 
-
-
-
                             <p:commandButton value="Gerar"
                                              disabled="#{quizProfessor.habilitaBotaoGerar}"
                                              action="#{quizProfessor.gerar()}"
@@ -71,7 +68,8 @@
                 <p:messages autoUpdate="true" showIcon="false"/>
 
 
-                <p:dataList value="#{quizProfessor.quiz.questoes}" var="q" type="ordered"
+                <p:dataList value="#{quizProfessor.quiz.questoes}" 
+                            var="q" type="ordered"
                             emptyMessage="Nenhuma questão inserida."
                             rendered="#{!empty quizProfessor.quiz.questoes}"
                             id="data"

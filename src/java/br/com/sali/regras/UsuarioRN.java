@@ -13,10 +13,22 @@ public class UsuarioRN {
 
     private final UsuarioDao usuarioDao = new UsuarioDao();
 
+    /**
+     * Busca o usuário por meio do e-mail.
+     * 
+     * @param email
+     * @return 
+     */
     public Usuario getUsuarioByEmail(String email) {
         return (Usuario) usuarioDao.getObjectByEmail(Usuario.class, email);
     }
 
+    /**
+     * Altera a senha do usuário.
+     * 
+     * @param usuario
+     * @throws NoSuchAlgorithmException 
+     */
     public void alterarSenha(Usuario usuario) throws NoSuchAlgorithmException {
         
         usuario.setSenha(CriptografiaUtil.criptografaSenha(usuario.getSenha()));

@@ -14,7 +14,7 @@ public class QuizDAO extends GenericoDAO<Quiz> {
 
     
     /**
-     * Retorna os quizes fiiltrados por turma.
+     * Lista os quizes filtrados por turma.
      * 
      * @param turma
      * @return 

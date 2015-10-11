@@ -6,7 +6,6 @@ import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.util.ValidacoesUtil;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

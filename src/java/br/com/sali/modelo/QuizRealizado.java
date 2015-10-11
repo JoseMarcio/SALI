@@ -1,6 +1,7 @@
 package br.com.sali.modelo;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class QuizRealizado implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,6 +25,8 @@ public class QuizRealizado implements Serializable {
     private Long idQuizRealizado;
     private double aproveitamento;
     private String questoesCorretas;
+    private int[] respostas;
+
     @OneToOne
     private Aluno alunnoQueRealizouQuiz;
 
@@ -62,6 +65,14 @@ public class QuizRealizado implements Serializable {
         this.questoesCorretas = questoesCorretas;
     }
 
+    public int[] getRespostas() {
+        return respostas;
+    }
+
+    public void setRespostas(int[] respostas) {
+        this.respostas = respostas;
+    }
+
     public Aluno getAlunnoQueRealizouQuiz() {
         return alunnoQueRealizouQuiz;
     }
@@ -73,11 +84,12 @@ public class QuizRealizado implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.id);
-        hash = 31 * hash + Objects.hashCode(this.idQuizRealizado);
-        hash = 31 * hash + (int) (Double.doubleToLongBits(this.aproveitamento) ^ (Double.doubleToLongBits(this.aproveitamento) >>> 32));
-        hash = 31 * hash + Objects.hashCode(this.questoesCorretas);
-        hash = 31 * hash + Objects.hashCode(this.alunnoQueRealizouQuiz);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.idQuizRealizado);
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.aproveitamento) ^ (Double.doubleToLongBits(this.aproveitamento) >>> 32));
+        hash = 89 * hash + Objects.hashCode(this.questoesCorretas);
+        hash = 89 * hash + Arrays.hashCode(this.respostas);
+        hash = 89 * hash + Objects.hashCode(this.alunnoQueRealizouQuiz);
         return hash;
     }
 
@@ -102,14 +114,13 @@ public class QuizRealizado implements Serializable {
         if (!Objects.equals(this.questoesCorretas, other.questoesCorretas)) {
             return false;
         }
+        if (!Arrays.equals(this.respostas, other.respostas)) {
+            return false;
+        }
         if (!Objects.equals(this.alunnoQueRealizouQuiz, other.alunnoQueRealizouQuiz)) {
             return false;
         }
         return true;
     }
-    
 
-    
-    
-    
 }

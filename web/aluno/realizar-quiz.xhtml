@@ -8,8 +8,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
-
-
     <ui:composition template="/template/area-aluno.xhtml">
 
         <ui:define name="titulo">
@@ -18,10 +16,16 @@
 
         <ui:define name="corpo">
 
+            <!--  EXTREMAMENTE IMPORTANTE -->
+            <!-- VERIFICA SE O QUIZ JÁ FOI REALIZADO, E ENTÃO DESABILITA O BOTÃO CONLCUIR E EXIBE UMA MENSAGEM -->
+            #{quizAluno.exibeMsg()}
+
             <h:form>
 
-                <p:messages autoUpdate="true"/>
-                
+                <p:messages autoUpdate="true"
+                            showIcon="false"/>
+
+
                 <p:dataList value="#{quizAluno.quizRealizar.questoes}"
                             var="questao" 
                             emptyMessage="Nenhuma questão disponível."
@@ -30,21 +34,20 @@
                             >
 
                     <f:facet name="header">
-
                         #{quizAluno.quizRealizar.titulo}
-
-
                     </f:facet>
 
                     #{questao.pergunta}
                     <br />
                     <br />
 
-
-                    <p:selectOneRadio columns="1" layout="grid" value="#{quizAluno.respostas[quizAluno.quizRealizar.questoes.indexOf(questao)]}" 
+                    <p:selectOneRadio columns="1" 
+                                      layout="grid"
+                                      value="#{quizAluno.respostas[quizAluno.quizRealizar.questoes.indexOf(questao)]}" 
                                       required="true"
-                                      requiredMessage="Informe a resposta.">
-                        
+                                      requiredMessage="Informe a resposta da questão 
+                                      #{quizAluno.quizRealizar.questoes.indexOf(questao)+1}.">
+
                         <f:selectItem itemLabel="a) #{questao.alternativas[0]}" itemValue="0"/>
                         <f:selectItem itemLabel="b) #{questao.alternativas[1]}" itemValue="1"/>
                         <f:selectItem itemLabel="c) #{questao.alternativas[2]}" itemValue="2"/>
@@ -57,24 +60,13 @@
 
                 </p:dataList>
 
-
-
                 <p:commandButton value="Concluir"
                                  title="Concluir o Quiz"
                                  rendered="#{!empty quizAluno.quizRealizar.questoes}"
-                                 action="#{quizAluno.concluir()}"/>
-
-
+                                 action="#{quizAluno.concluir()}"
+                                 disabled="#{quizAluno.disabledBtnConcluir}"/>
+            
             </h:form>
-
-
-
-
-
-
-
-
-
 
         </ui:define>
 

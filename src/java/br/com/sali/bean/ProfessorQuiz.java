@@ -29,7 +29,6 @@ public class ProfessorQuiz {
 
     private QuizRN quizRN;
     private Quiz quiz;
-
     private String pergunta;
     private String alternativaA;
     private String alternativaB;
@@ -37,7 +36,6 @@ public class ProfessorQuiz {
     private String alternativaD;
     private int alternativaCorreta;
     private List<Questao> questoesInseridas;
-
     private boolean habilitaBotaoInserir;
     private boolean habilitaBotaoTerminar;
     private boolean habilitaBotaoGerar;
@@ -63,6 +61,10 @@ public class ProfessorQuiz {
     }
 
     //==========================================================================
+    /**
+     * Limpa a questão atual.
+     *
+     */
     public void limparQuestao() {
         pergunta = "";
         alternativaA = "";
@@ -73,6 +75,9 @@ public class ProfessorQuiz {
 
     }
 
+    /**
+     * Direciona a página de inserir questões.
+     */
     public void inserirQuestoes() {
         FacesContext context = FacesContext.getCurrentInstance();
         ConfigurableNavigationHandler nav
@@ -82,6 +87,9 @@ public class ProfessorQuiz {
 
     }
 
+    /**
+     * Direciona a página de gerar Quiz.
+     */
     public void terminarQuestoes() {
         FacesContext context = FacesContext.getCurrentInstance();
         ConfigurableNavigationHandler nav
@@ -91,6 +99,10 @@ public class ProfessorQuiz {
 
     }
 
+    /**
+     * Reinicia a bean. Como se fosse chamar o construtor nesse método.
+     *
+     */
     public void limparBean() {
         quizRN = new QuizRN();
         quiz = new Quiz();
@@ -108,16 +120,17 @@ public class ProfessorQuiz {
 
         habilitaBotaoInserir = false;
         habilitaBotaoTerminar = true;
+        
     }
 
-   
-
+    /**
+     * Salva o Quiz no banco de dados.
+     *
+     */
     public void gerar() {
 
         if (quiz.getQuestoes().size() <= 0) {
-
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe perguntas para o quiz.", ""));
-
         } else {
             quiz.setTitulo(quiz.getTitulo().toUpperCase());
 
@@ -125,21 +138,18 @@ public class ProfessorQuiz {
 
             quiz.setTurma(turma);
 
-            
-            
             quizRN.salvar(quiz);
 
             limparBean();
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Quiz gerado com sucesso!", ""));
-            
+
         }
 
     }
 
-    
     /**
-     * Retorna o professor autenticada no momento.
+     * Retorna o professor autenticado no momento.
      *
      * @return
      */
@@ -161,7 +171,9 @@ public class ProfessorQuiz {
     }
 
     
-    
+    /**
+     * Insere uma nova questão no Quiz que está sendo criado.
+     */
     public void inserirQuestaoNoQuiz() {
 
         if (ValidacoesUtil.soTemEspaco(pergunta)) {
@@ -198,12 +210,11 @@ public class ProfessorQuiz {
             questao.setAlternativas(alternativas);
             questao.setAlternativaCorreta(alternativaCorreta);
 
-            
             questao.setQuiz(quiz);
-            
+
             quiz.getQuestoes().add(questao);
 
-            if (quiz.getQuestoes().size() >= 10) {
+            if (quiz.getQuestoes().size() >= 9) {
                 setHabilitaBotaoInserir(true);
             }
 

@@ -15,7 +15,7 @@ public class QuestaoDAO extends GenericoDAO<Questao>{
     
     
     /**
-     * Retorna as questões de um quiz.
+     * Lista todas as questões de um quiz.
      * 
      * @param quiz
      * @return 

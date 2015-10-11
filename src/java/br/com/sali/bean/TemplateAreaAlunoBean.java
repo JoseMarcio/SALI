@@ -45,7 +45,7 @@ public class TemplateAreaAlunoBean {
     
 
     /**
-     * Retorna o aluno autenticada no momento.
+     * Retorna o aluno autenticado no momento.
      *
      * @return
      */

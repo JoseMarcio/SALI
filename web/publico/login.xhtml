@@ -8,6 +8,7 @@
 
 
     <f:event listener="#{loginBean.carregarInstituicao()}" type="preRenderView"/>
+    
     <h:head>
 
         <title>Área de Acesso</title>
@@ -56,8 +57,10 @@
 
             <h:form>
                 <center>
-                    <p:inputText value="#{loginBean.emailInformado}"  style="text-transform: lowercase;margin-top: 40px;"
+                    <p:inputText value="#{loginBean.emailInformado}"  
+                                 style="text-transform: lowercase;margin-top: 40px;"
                                  validatorMessage="E-mail inválido">
+                        
                         <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                     </p:inputText>
 

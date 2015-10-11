@@ -1,7 +1,5 @@
 package br.com.sali.util;
 
-import java.util.UUID;
-
 /**
  *
  * @author SALI
