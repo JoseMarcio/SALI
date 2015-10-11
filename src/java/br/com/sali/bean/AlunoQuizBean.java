@@ -2,9 +2,11 @@ package br.com.sali.bean;
 
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.dao.QuestaoDAO;
+import br.com.sali.dao.QuizRealizadoDAO;
 import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Questao;
 import br.com.sali.modelo.Quiz;
+import br.com.sali.modelo.QuizRealizado;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.QuizRN;
@@ -41,40 +43,70 @@ public class AlunoQuizBean {
 
     }
 
-    public double calcPercentual(int total, int acertos) {
-        return (100 * acertos) / total;
+    public double calcPercentual(int totalDeQuestoes, int totalDeAcertos) {
+        return (100 * totalDeAcertos) / totalDeQuestoes;
     }
 
     public void concluir() {
 
-        if (getAlunoConectado().getQuizesRealizados().contains(getQuizRealizar().getId())) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("Você já responder esse Quiz. Não pode responder"
-                    + "novamente!"));
+        QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
+        List<QuizRealizado> lista = quizRealizadoDAO.getQuizRealizadoByAluno(getAlunoConectado());
+
+        boolean jaExiste = false;
+
+        for (QuizRealizado q : lista) {
+
+            if (q.getId().equals(getQuizRealizar().getId())) {
+                jaExiste = true;
+                break;
+            }
+
+        }
+
+       
+        if (jaExiste == true) {
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Você já realizou este "
+                    + "Quiz.<br /><br /> Só é possível realizar um Quiz somente uma vez.");
+            
+            RequestContext.getCurrentInstance().showMessageInDialog(msg);
+            
+            
         } else {
-            
-            
 
-            int count = 0;
-
+            int acertos = 0;
             for (int i = 0; i < getQuizRealizar().getQuestoes().size(); i++) {
-                if (getQuizRealizar().getQuestoes().get(i).getAlternativaCorreta() == respostas[i]) {
-                    ++count;
+                if (getQuizRealizar().getQuestoes().get(i).getAlternativaCorreta() == getRespostas()[i]) {
+                    ++acertos;
                 }
             }
 
-            String text = "Você acertou " + count + " de " + getQuizRealizar().
-                    getQuestoes().size() + " Questões.\n Aproveitamento de " + calcPercentual(getQuizRealizar().getQuestoes().size(), count) + "% !";
+            double percentualAcerto = calcPercentual(getQuizRealizar().getQuestoes().size(), acertos);
 
-            
-            
-            getAlunoConectado().getQuizesRealizados().add(getQuizRealizar().getId());
-            
+            String questoesCorretas = "Acertos: " + acertos + " de " + getQuizRealizar().getQuestoes().size() + " Questões.";
+
+            String msg = questoesCorretas + "<br /> <br />Aproveitamento: " + percentualAcerto + "%.";
+
+            QuizRealizado meuQuiz = new QuizRealizado();
+            meuQuiz.setIdQuizRealizado(getQuizRealizar().getId());
+            meuQuiz.setAlunnoQueRealizouQuiz(getAlunoConectado());
+            meuQuiz.setQuestoesCorretas(questoesCorretas);
+            meuQuiz.setAproveitamento(percentualAcerto);
+
+            List<QuizRealizado> listaRealizados = quizRealizadoDAO.getQuizRealizadoByAluno(getAlunoConectado());
+            listaRealizados.add(meuQuiz);
+
+            getAlunoConectado().setQuizesRealizados(listaRealizados);
+
+            quizRealizadoDAO.salvar(meuQuiz);
+
             AlunoDAO alunoDAO = new AlunoDAO();
             alunoDAO.atualizar(getAlunoConectado());
-            
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(text));
-        }
 
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "", msg);
+            RequestContext.getCurrentInstance().showMessageInDialog(m);
+
+        }
     }
 
     /**

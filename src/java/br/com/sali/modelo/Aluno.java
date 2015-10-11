@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
@@ -40,7 +41,8 @@ public class Aluno implements Serializable {
     private Usuario usuario;
     
     
-    private List<Long> quizesRealizados;
+    @OneToMany(cascade = javax.persistence.CascadeType.ALL)
+    private List<QuizRealizado> quizesRealizados;
     
     // Construtor.
     public Aluno() {
@@ -89,23 +91,23 @@ public class Aluno implements Serializable {
         this.usuario = usuario;
     }
 
-    public List<Long> getQuizesRealizados() {
+    public List<QuizRealizado> getQuizesRealizados() {
         return quizesRealizados;
     }
 
-    public void setQuizesRealizados(List<Long> quizesRealizados) {
+    public void setQuizesRealizados(List<QuizRealizado> quizesRealizados) {
         this.quizesRealizados = quizesRealizados;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        hash = 17 * hash + Objects.hashCode(this.nome);
-        hash = 17 * hash + this.matricula;
-        hash = 17 * hash + Objects.hashCode(this.turma);
-        hash = 17 * hash + Objects.hashCode(this.usuario);
-        hash = 17 * hash + Objects.hashCode(this.quizesRealizados);
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.nome);
+        hash = 53 * hash + this.matricula;
+        hash = 53 * hash + Objects.hashCode(this.turma);
+        hash = 53 * hash + Objects.hashCode(this.usuario);
+        hash = 53 * hash + Objects.hashCode(this.quizesRealizados);
         return hash;
     }
 
@@ -138,6 +140,10 @@ public class Aluno implements Serializable {
         }
         return true;
     }
+
+    
+
+   
 
     
     

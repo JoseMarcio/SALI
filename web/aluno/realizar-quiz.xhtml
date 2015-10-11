@@ -20,6 +20,8 @@
 
             <h:form>
 
+                <p:messages autoUpdate="true"/>
+                
                 <p:dataList value="#{quizAluno.quizRealizar.questoes}"
                             var="questao" 
                             emptyMessage="Nenhuma questão disponível."
@@ -39,7 +41,10 @@
                     <br />
 
 
-                    <p:selectOneRadio columns="1" layout="grid" value="#{quizAluno.respostas[quizAluno.quizRealizar.questoes.indexOf(questao)]}">
+                    <p:selectOneRadio columns="1" layout="grid" value="#{quizAluno.respostas[quizAluno.quizRealizar.questoes.indexOf(questao)]}" 
+                                      required="true"
+                                      requiredMessage="Informe a resposta.">
+                        
                         <f:selectItem itemLabel="a) #{questao.alternativas[0]}" itemValue="0"/>
                         <f:selectItem itemLabel="b) #{questao.alternativas[1]}" itemValue="1"/>
                         <f:selectItem itemLabel="c) #{questao.alternativas[2]}" itemValue="2"/>
