@@ -18,49 +18,38 @@
             <p:panel>
                 <h3>Bem Vindo ao SALI</h3>
                 <p:separator />
-                <center>Área do Professor</center>
+                <center><h3>Área do Professor</h3></center>
 
 
-                <h:panelGrid columns="1">
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText value="Usuário: #{beanTemplateProfessor.professorConectado.nome}"/>
-                    <h:outputText value="E-mail: #{beanTemplateProfessor.professorConectado.usuario.email}"/>
-
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Mudar de Turma: "/>
-
-                        <h:form rendered="#{beanTemplateProfessor.renderSelect}">
-                            <p:selectOneMenu value="#{beanTemplateProfessor.turmaContextoAtual}">
-                                <f:selectItem itemValue="null" itemLabel="-- Selecione --"/>
-                                <f:selectItems value="#{beanTemplateProfessor.turmasProfessor}" 
-                                               var="turma" 
-                                               itemLabel="#{turma.nome}" 
-                                               itemValue="#{turma}"/>
-
-                                <p:ajax  event="change" listener="#{beanTemplateProfessor.atualizaTurmaAtual()}" update="@form"/>
-
-                            </p:selectOneMenu>
+                <br />
+                <br />
+                <h:outputText value="Usuário: #{beanTemplateProfessor.professorConectado.nome}"/>
+                <br />
+                <br />
+                <h:outputText value="E-mail: #{beanTemplateProfessor.professorConectado.usuario.email}"/>
+                <br />
+                <br />
 
 
-                        </h:form>
+                <p:outputLabel value="Mudar de Turma: "/>
 
-                    </h:panelGrid>
+                <h:form rendered="#{beanTemplateProfessor.renderSelect}">
+                    <p:selectOneMenu value="#{beanTemplateProfessor.turmaContextoAtual}">
+                        <f:selectItem itemValue="null" itemLabel="-- Selecione --"/>
+                        <f:selectItems value="#{beanTemplateProfessor.turmasProfessor}" 
+                                       var="turma" 
+                                       itemLabel="#{turma.nome}" 
+                                       itemValue="#{turma}"/>
 
-                </h:panelGrid>
+                        <p:ajax  event="change" listener="#{beanTemplateProfessor.atualizaTurmaAtual()}" update="@form"/>
+
+                    </p:selectOneMenu>
+
+
+                </h:form>
+                <br />
+                <br />
+
 
 
 

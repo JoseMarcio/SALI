@@ -1,23 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html   lang="pt-br" 
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:p="http://primefaces.org/ui"
-        xmlns:f="http://xmlns.jcp.org/jsf/core">
-
-
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="shortcut icon" href="../resources/imagens/miniligo.png"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="shortcut icon" href="../resources/imagens/miniligo.png"/>      
+
         <title>
             <ui:insert name="titulo">SALI</ui:insert>
         </title>
 
-        <h:outputStylesheet library="css" name="estilo_template_professor.css" />     
-        
+        <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
+
         <script type="text/javascript">
 
             function noBack() {
@@ -39,86 +41,116 @@
 
     </h:head>
 
-
     <h:body onload="time();
-            data();">
+            data();"
+            >
 
-        <section id="cabecalho">
-            <h:graphicImage  library="imagens" name="cabecalho.png" width="70%" height="10%"/>  
+        <section class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="../resources/imagens/cabecalho.png" class="img-responsive"/>
+                </div>                    
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h:form>
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <div id="navbar" class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav">
+                                        <li> <h:commandLink value="Início" action="#{beanTemplateProfessor.irInicioProfessor()}"/></li>
+                                        <li> <h:commandLink  style=" pointer-events: none;
+                                                             cursor: default;" value="Turma Atual: #{beanTemplateProfessor.professorConectado.turmaAtual.nome}" action="#"/></li>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><h:outputText value=""/></li>
+                                        <li><a href="#" style=" pointer-events: none;
+                                               cursor: default;">#{beanTemplateProfessor.professorConectado.nome}</a></li>
+                                        <li class="active"><a href="#{request.contextPath}/j_spring_security_logout">Sair</a></li>
+                                    </ul>
+                                </div><!--/.nav-collapse -->
+                            </div><!--/.container-fluid -->
+                        </nav>
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" style="margin-bottom: 10px;">
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Lições">
+
+                            </p:submenu>
+                            <p:submenu label="Quiz">
+                                <p:menuitem action="#{beanTemplateProfessor.irGerarQuiz()}" 
+                                            value="Gerar Novo"
+                                            ajax="false"
+                                            icon="ui-icon-disk"/>                                
+
+                                <p:menuitem action="#{beanTemplateProfessor.irListarQuiz()}" 
+                                            value="Listar Gerados" 
+                                            ajax="false"
+                                            icon="ui-icon-clipboard"/>
+
+                            </p:submenu>
+                            <p:submenu label="Fórum">
+
+                            </p:submenu>
+
+                            <p:submenu label="Relatórios">
+                                <p:menuitem value="Gerar Por Aluno" 
+                                            ajax="false"
+                                            icon="ui-icon-person"/>
+
+                                <p:menuitem value="Gerar Por Turma" 
+                                            ajax="false"
+                                            icon="ui-icon-home"/>
+
+                            </p:submenu>
+                            <p:submenu label="Opções">
+                                <p:menuitem action="#{beanTemplateProfessor.irAlterarSenha()}"
+                                            value="Alterar Senha" 
+                                            ajax="false"
+                                            icon="ui-icon-wrench"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                </div>
+                <div class="col-md-8">
+                    <ui:insert name="corpo"/>
+                </div>
+            </div>
+            <div class="row">
+                <footer class="col-md-12" style="text-align: center;margin-top: 20px;margin-bottom: 10px;background-color: #ffffff" >
+                    <p:outputLabel> Sistema de Auxílio Á Língua Ínglesa</p:outputLabel>
+                </footer>
+            </div>
         </section>
 
 
-        <section id="conteiner">
 
 
-            <header>
-
-                <section>
-                    <nav id="menu">
-                        <h:form>
-                            <p:menubar>
-                                <p:menuitem value="Início" action="#{beanTemplateProfessor.irInicioProfessor()}" ajax="false"></p:menuitem>
-                                <p:menuitem value="Turma Atual: #{beanTemplateProfessor.professorConectado.turmaAtual.nome}" ajax="false" disabled="true"/>
-
-                                <f:facet name="options">
-                                    <h:outputText value="#{beanTemplateProfessor.professorConectado.nome}  "/>
-                                    <h:outputLink value="#{request.contextPath}/j_spring_security_logout">
-                                        Sair
-                                    </h:outputLink>
-                                </f:facet>
-                            </p:menubar> 
-                        </h:form>
-                    </nav>
-                </section>
-            </header>
 
 
-            <section id="conteudo">
 
-                <section>
 
-                    <nav id="menuLateral">
-                        <h:form>
-                            <p:tieredMenu style="width: 215px;margin-top: 3px;border-radius: 6%;">
 
-                                <p:menuitem value="Lições"  ajax="false"/>
 
-                                <p:submenu label="Quiz">
-                                    <p:menuitem value="Gerar Novo" ajax="false" action="#{beanTemplateProfessor.irGerarQuiz()}"/>
-                                    <p:menuitem value="Lista de Quizes Gerados" ajax="false" action="#{beanTemplateProfessor.irListarQuiz()}"/>
-                                </p:submenu>
-                             
-
-                                <p:menuitem value="Fórum" ajax="false"/>
-
-                                <p:submenu label="Relatórios">
-                                    <p:menuitem value="Gerar por Aluno" ajax="false"/>
-                                    <p:menuitem value="Gerar por Turma" ajax="false"/>
-                                </p:submenu>
-
-                                <p:submenu label="Opções">
-                                    <p:menuitem action="#{beanTemplateProfessor.irAlterarSenha()}" value="Alterar Senha" ajax="false"></p:menuitem>
-                                </p:submenu>
-
-                               
-                                
-                            </p:tieredMenu>
-                        </h:form>
-                    </nav>
-
-                </section>
-
-                <section id="corpo">
-                    <ui:insert name="corpo" />
-                </section>
-
-                <footer>
-                    SALI - Sistema de Aprendizado da Língua Ínglesa
-                </footer>
-
-            </section>
-
-        </section>        
-
+        <!-- Arquivos da Página -->        
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--<script src="js/bootstrap.min.js"></script>-->
+        <script src="../resources/js/bootstrap.min.js"></script>
     </h:body>
 </html>
+

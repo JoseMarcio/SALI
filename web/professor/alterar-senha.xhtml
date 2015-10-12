@@ -15,54 +15,54 @@
 
         <ui:define name="corpo">
 
-            <h1>Altere sua senha</h1>
-
-            <p:separator />
-
             <h:form>
-                <p:commandButton value="Salvar" 
-                                 title="Salvar Alterações"
-                                 update="@form"
-                                 icon="ui-icon-check"
-                                 action="#{alteraSenhaBean.salvarAlteracoes()}"
-                                 />
-
                 <p:panel>
+
+                    <p:outputLabel value="Senha atual"/>
+                    <p:password value="#{alteraSenhaBean.senha}"
+                                required="true" 
+                                requiredMessage="Informe uma senha."
+                                placeholder="Senha" 
+                                validatorMessage="Senha: É exido no mínimo 6 caracteres."
+                                maxlength="10"
+                                class="form-control">
+                        <f:validateLength minimum="6"/>
+                    </p:password>
+
+                    <p:outputLabel value="Nova Senha"/>
+                    <p:password value="#{alteraSenhaBean.novaSenha}"
+                                required="true" 
+                                requiredMessage="Informe uma nova senha."
+                                placeholder="Nova Senha" 
+                                validatorMessage="Nova Senha: É exido no mínimo 6 caracteres."
+                                maxlength="10"
+                                class="form-control">
+                        <f:validateLength minimum="6"/>
+                    </p:password>
+
+                    <p:outputLabel value="Confirmação de senha"/>
+                    <p:password value="#{alteraSenhaBean.confirmacaoSenha}"
+                                required="true" 
+                                requiredMessage="Confirme a nova senha."
+                                placeholder="Nova Senha" 
+                                validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres."
+                                maxlength="10"
+                                class="form-control">
+                        <f:validateLength minimum="6"/>
+                    </p:password>
 
                     <p:messages autoUpdate="true" showIcon="false"/>
 
-                    <h:panelGrid columns="2">
+                    <br />
+                    <center>
+                        <p:commandButton value="Salvar" 
+                                         title="Salvar Alterações"
+                                         update="@form"
+                                         icon="ui-icon-check"
+                                         action="#{alteraSenhaBean.salvarAlteracoes()}"
+                                         />
+                    </center>
 
-                        <p:outputLabel value="Senha atual"/>
-                        <p:password value="#{alteraSenhaBean.senha}"
-                                    required="true" 
-                                    requiredMessage="Informe uma senha."
-                                    placeholder="Senha" 
-                                    validatorMessage="Senha: É exido no mínimo 6 caracteres."
-                                    maxlength="10">
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
-                        <p:outputLabel value="Nova Senha"/>
-                        <p:password value="#{alteraSenhaBean.novaSenha}"
-                                    required="true" 
-                                    requiredMessage="Informe uma nova senha."
-                                    placeholder="Nova Senha" 
-                                    validatorMessage="Nova Senha: É exido no mínimo 6 caracteres."
-                                    maxlength="10">
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
-                        <p:outputLabel value="Confirmação de senha"/>
-                        <p:password value="#{alteraSenhaBean.confirmacaoSenha}"
-                                    required="true" 
-                                    requiredMessage="Confirme a nova senha."
-                                    placeholder="Nova Senha" 
-                                    validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres."
-                                    maxlength="10">
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-                    </h:panelGrid>
 
                 </p:panel>
 

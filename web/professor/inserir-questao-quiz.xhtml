@@ -18,25 +18,93 @@
             <h:form>
                 <p:panel>
 
-                    <h3>Questões já inseridas: #{quizProfessor.questoesInseridas.size()}</h3>
+                    <h5>Questões já inseridas: #{quizProfessor.questoesInseridas.size()}</h5>
 
                     <p:separator />
 
-                    <h:panelGrid columns="4">
 
-                        <p:outputLabel value="Alternativa Correta"/>
+                    <p:inputTextarea value="#{quizProfessor.pergunta}"
+                                     id="pergunta"
+                                     style="text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a pergunta"
+                                     autoResize="false"
+                                     placeholder="Pergunta"
+                                     maxlength="190"
+                                     class="form-control"/>
 
-                        <p:selectOneRadio value="#{quizProfessor.alternativaCorreta}"
-                                          required="true"
-                                          requiredMessage="Informe a alternativa correta."
-                                          columns="4">
+                    <br />
 
-                            <f:selectItem itemLabel="a" itemValue="0"/>
-                            <f:selectItem itemLabel="b" itemValue="1"/>
-                            <f:selectItem itemLabel="c" itemValue="2"/>
-                            <f:selectItem itemLabel="d" itemValue="3"/>
 
-                        </p:selectOneRadio>
+                    <p:inputTextarea value="#{quizProfessor.alternativaA}"
+                                     id="alternativa-a"
+                                     style="text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'A'"
+                                     autoResize="false"
+                                     placeholder="alternativa a"
+                                     maxlength="40"
+                                     class="form-control"/>
+
+                    <br />
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaB}"
+                                     id="alternativa-b"
+                                     style="text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'B'"
+                                     autoResize="false"
+                                     placeholder="alternativa b"
+                                     maxlength="40"
+                                     class="form-control"/>
+
+                    <br />
+
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaC}"
+                                     id="alternativa-c"
+                                     style="text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'C'"
+                                     autoResize="false"
+                                     placeholder="alternativa c"
+                                     maxlength="40"
+                                     class="form-control"/>
+
+                    <br />
+
+
+                    <p:inputTextarea value="#{quizProfessor.alternativaD}"
+                                     id="alternativa-d"
+                                     style="text-transform: uppercase;resize: none;"
+                                     required="true"
+                                     requiredMessage="Informe a alternativa 'D'"
+                                     autoResize="false"
+                                     placeholder="alternativa d"
+                                     maxlength="40"
+                                     class="form-control"/>
+
+                    <br />
+                    <p:outputLabel value="Alternativa Correta"/>
+
+                    <p:selectOneRadio value="#{quizProfessor.alternativaCorreta}"
+                                      required="true"
+                                      requiredMessage="Informe a alternativa correta."
+                                      columns="4"
+                                      >
+
+                        <f:selectItem itemLabel="a" itemValue="0"/>
+                        <f:selectItem itemLabel="b" itemValue="1"/>
+                        <f:selectItem itemLabel="c" itemValue="2"/>
+                        <f:selectItem itemLabel="d" itemValue="3"/>
+
+                    </p:selectOneRadio>
+
+
+                    <p:messages autoUpdate="true" showIcon="false"/>
+
+                    <br />
+                    <center>
 
                         <p:commandButton value="Inserir"
                                          action="#{quizProfessor.inserirQuestaoNoQuiz()}"
@@ -53,67 +121,12 @@
                                           action="#{quizProfessor.terminarQuestoes()}"
                                           title="Concluir"/>
 
-                    </h:panelGrid>
-
-
-                    <p:messages autoUpdate="true" showIcon="false"/>
-
-
-                    <h:panelGrid columns="1">
-
-                        <p:inputTextarea value="#{quizProfessor.pergunta}"
-                                         id="pergunta"
-                                         style="width: 600px;text-transform: uppercase;resize: none;"
-                                         required="true"
-                                         requiredMessage="Informe a pergunta"
-                                         autoResize="false"
-                                         placeholder="Pergunta"/>
-
-
-                        <p:inputTextarea value="#{quizProfessor.alternativaA}"
-                                         id="alternativa-a"
-                                         style="width: 600px;text-transform: uppercase;resize: none;"
-                                         required="true"
-                                         requiredMessage="Informe a alternativa 'A'"
-                                         autoResize="false"
-                                         placeholder="alternativa a"/>
-
-
-
-                        <p:inputTextarea value="#{quizProfessor.alternativaB}"
-                                         id="alternativa-b"
-                                         style="width: 600px;text-transform: uppercase;resize: none;"
-                                         required="true"
-                                         requiredMessage="Informe a alternativa 'B'"
-                                         autoResize="false"
-                                         placeholder="alternativa b"
-                                         />
+                    </center>
 
 
 
 
-                        <p:inputTextarea value="#{quizProfessor.alternativaC}"
-                                         id="alternativa-c"
-                                         style="width: 600px;text-transform: uppercase;resize: none;"
-                                         required="true"
-                                         requiredMessage="Informe a alternativa 'C'"
-                                         autoResize="false"
-                                         placeholder="alternativa c"
-                                         />
 
-
-
-
-                        <p:inputTextarea value="#{quizProfessor.alternativaD}"
-                                         id="alternativa-d"
-                                         style="width: 600px;text-transform: uppercase;resize: none;"
-                                         required="true"
-                                         requiredMessage="Informe a alternativa 'D'"
-                                         autoResize="false"
-                                         placeholder="alternativa d"
-                                         />
-
-                    </h:panelGrid>
 
                 </p:panel>
 
