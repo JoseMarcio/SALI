@@ -22,22 +22,19 @@
 
             <h:form>
 
-                <p:messages autoUpdate="true"
-                            showIcon="false"/>
-
 
                 <p:dataList value="#{quizAluno.quizRealizar.questoes}"
                             var="questao" 
                             emptyMessage="Nenhuma questão disponível."
                             rendered="#{!empty quizAluno.quizRealizar.questoes}"
                             type="ordered"
-                            >
+                            style="word-wrap: break-word;">
 
                     <f:facet name="header">
                         #{quizAluno.quizRealizar.titulo}
                     </f:facet>
 
-                    #{questao.pergunta}
+                    <p:outputLabel>#{questao.pergunta}</p:outputLabel>
                     <br />
                     <br />
 
@@ -46,7 +43,8 @@
                                       value="#{quizAluno.respostas[quizAluno.quizRealizar.questoes.indexOf(questao)]}" 
                                       required="true"
                                       requiredMessage="Informe a resposta da questão 
-                                      #{quizAluno.quizRealizar.questoes.indexOf(questao)+1}.">
+                                      #{quizAluno.quizRealizar.questoes.indexOf(questao)+1}."
+                                      >
 
                         <f:selectItem itemLabel="a) #{questao.alternativas[0]}" itemValue="0"/>
                         <f:selectItem itemLabel="b) #{questao.alternativas[1]}" itemValue="1"/>
@@ -60,12 +58,18 @@
 
                 </p:dataList>
 
-                <p:commandButton value="Concluir"
-                                 title="Concluir o Quiz"
-                                 rendered="#{!empty quizAluno.quizRealizar.questoes}"
-                                 action="#{quizAluno.concluir()}"
-                                 disabled="#{quizAluno.disabledBtnConcluir}"/>
-            
+                <p:messages autoUpdate="true"
+                            showIcon="false"/>
+
+                <br />
+                <center>
+                    <p:commandButton value="Concluir"
+                                     title="Concluir o Quiz"
+                                     rendered="#{!empty quizAluno.quizRealizar.questoes}"
+                                     action="#{quizAluno.concluir()}"
+                                     disabled="#{quizAluno.disabledBtnConcluir}"/>
+                </center>
+
             </h:form>
 
         </ui:define>

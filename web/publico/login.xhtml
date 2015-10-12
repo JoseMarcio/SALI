@@ -8,34 +8,32 @@
 
 
     <f:event listener="#{loginBean.carregarInstituicao()}" type="preRenderView"/>
-    
+
     <h:head>
 
         <title>Área de Acesso</title>
         <link rel="shortcut icon" href="../resources/imagens/miniligo.png"/>
-        <link rel="stylesheet" href="../resources/meu-css/estilo_login.css"/>
+        
+
+        <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
 
 
         <script type="text/javascript">
-
             function noBack() {
                 window.history.forward();
             }
             noBack();
-
             window.onload = noBack;
-
             window.onpageshow = function (evt) {
                 if (evt.persisted)
                     noBack();
             };
-
             window.onunload = function () {
                 void(0);
             };
         </script>
 
-      
+
     </h:head>
 
     <h:body>
@@ -59,8 +57,9 @@
                 <center>
                     <p:inputText value="#{loginBean.emailInformado}"  
                                  style="text-transform: lowercase;margin-top: 40px;"
-                                 validatorMessage="E-mail inválido">
-                        
+                                 validatorMessage="E-mail inválido"
+                                 class="form-control">
+
                         <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                     </p:inputText>
 
@@ -72,7 +71,6 @@
                                          action="#{loginBean.recuperarEmail()}"
                                          process="@form"
                                          update="@form"
-                                         onclick=""
                                          >
 
                         </p:commandButton>
@@ -103,11 +101,11 @@
 
         <!-- Dialog formulário login -->
         <p:dialog header="Login"  
-                  width="300" 
-                  minWidth="300"
+                  width="330" 
+                  minWidth="330"
                   widgetVar="login"
-                  height="150" 
-                  minHeight="150"
+                  height="190" 
+                  minHeight="190"
                   modal="true" 
                   closable="false" 
                   position="center"
@@ -126,30 +124,21 @@
                 <!--Motivo: # {SPRING_SECURITY_LAST_EXCEPTION.message}-->
             </h:panelGroup>
 
-            <form id="login"  method="post" action="${request.contextPath}/j_spring_security_check">
-                <table>
-                    <tr>
-                        <td>E-mail</td>
-                        <td><input type='email' name='j_username' required="true" style="text-transform: lowercase;"/></td>
-                    </tr>
+            <form id="login" method="post" action="${request.contextPath}/j_spring_security_check">
+                <input type='email' name='j_username' required="true" style="text-transform: lowercase;" class="form-control"
+                       placeholder="E-mail"/>
+                <input type='password' name='j_password' required="true" class="form-control"
+                       placeholder="Senha"/>
+                
+                <input type="submit" value="Acessar" style="cursor: pointer;"
+                       class="btn btn-lg btn-primary btn-block"/>
 
-                    <tr><td>Senha</td>
-                        <td><input type='password' name='j_password' required="true"/></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="submit" value="Acessar" style="cursor: pointer;"/>
-
-                            <h:form>
-                                <h:commandLink value="Esqueceu sua senha?" style="margin-left: 0px;" onclick="PF('recuperarEmail').show();"
-                                               action="#{loginBean.limpar()}"/>
-                            </h:form>
+                <h:form>
+                    <h:commandLink value="Esqueceu sua senha?" style="margin-left: 0px;" onclick="PF('recuperarEmail').show();"
+                                   action="#{loginBean.limpar()}"/>
+                </h:form>
 
 
-                        </td>
-                    </tr>
-                </table>
 
             </form>
 
@@ -158,4 +147,3 @@
 
     </h:body>
 </html>
-

@@ -15,32 +15,24 @@
             <p:panel>
                 <h3>Bem Vindo ao SALI</h3>
                 <p:separator />
-                <center>Área do Aluno</center>
+                <center><h3>Área do Aluno</h3></center>
 
 
-                <h:panelGrid columns="1">
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText value="Usuário: #{beanTemplateAluno.alunoConectado.nome}"/>
-                    <h:outputText value="E-mail: #{beanTemplateAluno.alunoConectado.usuario.email}"/>
 
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:panelGrid columns="2">
-                        <h:outputLabel value="Turma: "/>
-                        <h:outputText value="#{beanTemplateAluno.alunoConectado.turma.nome}"/>
-                    </h:panelGrid>
-
-                </h:panelGrid>
+                <br />
+                <br />
+                <h:outputText value="Usuário: #{beanTemplateAluno.alunoConectado.nome}"/>
+                <br />
+                <br />
+                <h:outputText value="E-mail: #{beanTemplateAluno.alunoConectado.usuario.email}"/>
+                <br />
+                <br />
+                
+                <h:outputLabel value="Turma:"/>
+                <br />
+                <h:outputText value="#{beanTemplateAluno.alunoConectado.turma.nome}"/>
+                <br />
+                <br />
 
                 <script type="text/javascript">
                     function time()
@@ -89,24 +81,12 @@
                 </script>
 
 
-                <h:panelGrid columns="1">
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
-                    <h:outputText />
 
-                    <div id="data"></div>
+                <div id="data"></div>
 
-                    <div id="horaAtual"></div>
+                <div id="horaAtual"></div>
 
-                </h:panelGrid>
+
 
             </p:panel>
 
