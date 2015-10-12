@@ -1,6 +1,8 @@
 package br.com.sali.regras;
 
+import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
+import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import java.util.List;
 
@@ -53,9 +55,17 @@ public class TurmaRN {
      * Exclui uma turma.
      *
      * @param turma
+     * @return 
      */
-    public void excluirTurma(Turma turma) {
-        turmaDAO.excluir(turma);
+    public boolean excluirTurma(Turma turma) {
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        if (professorDAO.listarProfessoresPorTurmaAtual(turma).isEmpty()) {
+            turmaDAO.excluir(turma);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**

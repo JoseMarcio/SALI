@@ -18,78 +18,67 @@
 
         <ui:define name="corpo">
 
-            <!-- Formulário de alteração de Instituição -->
-            <h3> Alterar Instituição </h3>
-            <p:separator />
-
 
             <h:form>
 
-                <p:commandButton action="#{instituicaoAlterarBean.atualizar()}"
-                                 value="Salvar" 
-                                 icon="ui-icon-check" 
-                                 update="@form"
-                                 title="Salvar Alterações"/>
-
-
                 <p:panel>
-                    <p:messages autoUpdate="true" showIcon="false"/>
+
+                    <p:outputLabel value="Nome da Instituição"/>
+                    <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.nome}" 
+                                 placeholder="Nome da Instituição"
+                                 required="true" 
+                                 requiredMessage="Informe o nome da Instituição."
+                                 class="form-control"/>
 
 
-                    <h:panelGrid columns="2">
-
-                        <p:outputLabel value="Nome da Instituição"/>
-                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.nome}" 
-                                     placeholder="Nome da Instituição"
-                                     required="true" 
-                                     requiredMessage="Informe o nome da Instituição."/>
-
-
-                        <p:outputLabel value="Telefone"/>
-                        <p:inputMask value="#{instituicaoAlterarBean.instituicaoCadastrada.telefone}" 
-                                     mask="(99) 9999-9999" 
-                                     placeholder="Telefone"
-                                     required="true" 
-                                     requiredMessage="Informe um número de telefone."/>
+                    <p:outputLabel value="Telefone"/>
+                    <p:inputMask value="#{instituicaoAlterarBean.instituicaoCadastrada.telefone}" 
+                                 mask="(99) 9999-9999" 
+                                 placeholder="Telefone"
+                                 required="true" 
+                                 requiredMessage="Informe um número de telefone."
+                                 class="form-control"/>
 
 
-                        <p:outputLabel value="E-mail"/>
-                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.email}"
-                                     required="true"
-                                     requiredMessage="Informe um e-mail." 
-                                     placeholder="E-mail"
-                                     validatorMessage="Informe um e-mail válido." 
-                                     style="text-transform: lowercase;"
-                                     >
+                    <p:outputLabel value="E-mail"/>
+                    <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.email}"
+                                 required="true"
+                                 requiredMessage="Informe um e-mail." 
+                                 placeholder="E-mail"
+                                 validatorMessage="Informe um e-mail válido." 
+                                 style="text-transform: lowercase;"
+                                 class="form-control">
 
-                            <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
-                        </p:inputText>
-
-                        
-                        <p:outputLabel value="Senha"/>
-                        <p:password value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.senha}" 
-                                    required="true"
-                                    requiredMessage="Informe uma senha."
-                                    placeholder="Senha" 
-                                    validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
-                                    maxlength="10">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
+                        <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
+                    </p:inputText>
 
 
-                        <p:outputLabel value="Confirme a Senha"/>
-                        <p:password value="#{instituicaoAlterarBean.confirmaSenha}" 
-                                    required="true" 
-                                    requiredMessage="Confirme a senha."
-                                    placeholder="Confirmar Senha"
-                                    validatorMessage="Confirma Senha: É exigido no mínimo 6 caracteres."
-                                    maxlength="10">
+                    <p:outputLabel value="Senha"/>
+                    <p:password value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.senha}" 
+                                required="true"
+                                requiredMessage="Informe uma senha."
+                                placeholder="Senha" 
+                                validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
+                                maxlength="10"
+                                class="form-control">
 
-                            <f:validateLength minimum="6"/>
-                        </p:password>
+                        <f:validateLength minimum="6"/>
+                    </p:password>
 
-                    </h:panelGrid>
+
+                    <p:outputLabel value="Confirme a Senha"/>
+                    <p:password value="#{instituicaoAlterarBean.confirmaSenha}" 
+                                required="true" 
+                                requiredMessage="Confirme a senha."
+                                placeholder="Confirmar Senha"
+                                validatorMessage="Confirma Senha: É exigido no mínimo 6 caracteres."
+                                maxlength="10"
+                                class="form-control">
+
+                        <f:validateLength minimum="6"/>
+                    </p:password>
+
+
 
 
                     <!-- Endereço -->
@@ -97,71 +86,87 @@
 
                         <legend> <p:outputLabel value="Endereço"/></legend>
 
-                        <h:panelGrid columns="2">
 
-                            <p:outputLabel value="Rua"/>
-                            <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.rua}" 
-                                         placeholder="Ex: Rua Exemplo"
+
+                        <p:outputLabel value="Rua"/>
+                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.rua}" 
+                                     placeholder="Ex: Rua Exemplo"
+                                     required="true"
+                                     requiredMessage="Informe o nome da Rua."
+                                     class="form-control"/>
+
+                        <p:outputLabel value="Número"/>
+                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.numero}" 
+                                     placeholder="Ex: 2015, Sem Número"
+                                     required="true"
+                                     requiredMessage="Informe o número do Imóvel."
+                                     class="form-control"/>
+
+                        <p:outputLabel value="Bairro"/>
+                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.bairro}" 
+                                     placeholder="Ex: Centro"
+                                     required="true" 
+                                     requiredMessage="Informe o nome do Bairro."
+                                     class="form-control"/>
+
+                        <p:outputLabel value="Cidade"/>
+                        <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.cidade}" 
+                                     placeholder="Ex: São Paulo"
+                                     required="true" 
+                                     requiredMessage="Informe o nome da Cidade."
+                                     class="form-control"/>
+
+                        <p:outputLabel value="Estado"/>
+                        <br />
+                        <p:selectOneMenu value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.estado}"
                                          required="true"
-                                         requiredMessage="Informe o nome da Rua."/>
+                                         requiredMessage="Informe o nome do Estado."
+                                         style="width: 100%;">
 
-                            <p:outputLabel value="Número"/>
-                            <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.numero}" 
-                                         placeholder="Ex: 2015, Sem Número"
-                                         required="true"
-                                         requiredMessage="Informe o número do Imóvel."/>
+                            <f:selectItem itemLabel="..." itemValue="" />
+                            <f:selectItem itemLabel="Acre" itemValue="Acre" />
+                            <f:selectItem itemLabel="Alagoas" itemValue="Alagoas" />
+                            <f:selectItem itemLabel="Amapá" itemValue="Amapá" />
+                            <f:selectItem itemLabel="Amazonas" itemValue="Amazonas" />
+                            <f:selectItem itemLabel="Bahia" itemValue="Bahia" />
+                            <f:selectItem itemLabel="Ceará" itemValue="Ceará" />
+                            <f:selectItem itemLabel="Distrito Federal" itemValue="Distrito Federal" />
+                            <f:selectItem itemLabel="Espírito Santo" itemValue="Espírito Santo" />
+                            <f:selectItem itemLabel="Goiás" itemValue="Goiás" />
+                            <f:selectItem itemLabel="Maranhão" itemValue="Maranhão" />
+                            <f:selectItem itemLabel="Mato Grosso" itemValue="Mato Grosso" />
+                            <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="Mato Grosso do Sul" />
+                            <f:selectItem itemLabel="Minas Gerais" itemValue="Minas Gerais" />
+                            <f:selectItem itemLabel="Pará" itemValue="Pará" />
+                            <f:selectItem itemLabel="Paraíba" itemValue="Paraíba" />
+                            <f:selectItem itemLabel="Paraná" itemValue="Paraná" />
+                            <f:selectItem itemLabel="Pernambuco" itemValue="Pernambuco" />
+                            <f:selectItem itemLabel="Piauí" itemValue="Piauí" />
+                            <f:selectItem itemLabel="Rio de Janeiro" itemValue="Rio de Janeiro" />
+                            <f:selectItem itemLabel="Rio Grande do Norte" itemValue="Rio Grande do Norte" />
+                            <f:selectItem itemLabel="Rio Grande do Sul" itemValue="Rio Grande do Sul" />
+                            <f:selectItem itemLabel="Rondônia" itemValue="Rondônia" />
+                            <f:selectItem itemLabel="Roraima" itemValue="Roraima" />
+                            <f:selectItem itemLabel="Santa Catarina" itemValue="Santa Catarina" />
+                            <f:selectItem itemLabel="São Paulo" itemValue="São Paulo" />
+                            <f:selectItem itemLabel="Sergipe" itemValue="Sergipe" />
+                            <f:selectItem itemLabel="Tocantins" itemValue="Tocantins" />
+                        </p:selectOneMenu>
 
-                            <p:outputLabel value="Bairro"/>
-                            <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.bairro}" 
-                                         placeholder="Ex: Centro"
-                                         required="true" 
-                                         requiredMessage="Informe o nome do Bairro."/>
-
-                            <p:outputLabel value="Cidade"/>
-                            <p:inputText value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.cidade}" 
-                                         placeholder="Ex: São Paulo"
-                                         required="true" 
-                                         requiredMessage="Informe o nome da Cidade."/>
-
-                            <p:outputLabel value="Estado"/>
-                            <p:selectOneMenu value="#{instituicaoAlterarBean.instituicaoCadastrada.endereco.estado}"
-                                             required="true"
-                                             requiredMessage="Informe o nome do Estado.">
-
-                                <f:selectItem itemLabel="..." itemValue="" />
-                                <f:selectItem itemLabel="Acre" itemValue="Acre" />
-                                <f:selectItem itemLabel="Alagoas" itemValue="Alagoas" />
-                                <f:selectItem itemLabel="Amapá" itemValue="Amapá" />
-                                <f:selectItem itemLabel="Amazonas" itemValue="Amazonas" />
-                                <f:selectItem itemLabel="Bahia" itemValue="Bahia" />
-                                <f:selectItem itemLabel="Ceará" itemValue="Ceará" />
-                                <f:selectItem itemLabel="Distrito Federal" itemValue="Distrito Federal" />
-                                <f:selectItem itemLabel="Espírito Santo" itemValue="Espírito Santo" />
-                                <f:selectItem itemLabel="Goiás" itemValue="Goiás" />
-                                <f:selectItem itemLabel="Maranhão" itemValue="Maranhão" />
-                                <f:selectItem itemLabel="Mato Grosso" itemValue="Mato Grosso" />
-                                <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="Mato Grosso do Sul" />
-                                <f:selectItem itemLabel="Minas Gerais" itemValue="Minas Gerais" />
-                                <f:selectItem itemLabel="Pará" itemValue="Pará" />
-                                <f:selectItem itemLabel="Paraíba" itemValue="Paraíba" />
-                                <f:selectItem itemLabel="Paraná" itemValue="Paraná" />
-                                <f:selectItem itemLabel="Pernambuco" itemValue="Pernambuco" />
-                                <f:selectItem itemLabel="Piauí" itemValue="Piauí" />
-                                <f:selectItem itemLabel="Rio de Janeiro" itemValue="Rio de Janeiro" />
-                                <f:selectItem itemLabel="Rio Grande do Norte" itemValue="Rio Grande do Norte" />
-                                <f:selectItem itemLabel="Rio Grande do Sul" itemValue="Rio Grande do Sul" />
-                                <f:selectItem itemLabel="Rondônia" itemValue="Rondônia" />
-                                <f:selectItem itemLabel="Roraima" itemValue="Roraima" />
-                                <f:selectItem itemLabel="Santa Catarina" itemValue="Santa Catarina" />
-                                <f:selectItem itemLabel="São Paulo" itemValue="São Paulo" />
-                                <f:selectItem itemLabel="Sergipe" itemValue="Sergipe" />
-                                <f:selectItem itemLabel="Tocantins" itemValue="Tocantins" />
-                            </p:selectOneMenu>
-
-                        </h:panelGrid>
 
                     </fieldset>
 
+                    <p:messages autoUpdate="true" showIcon="false"/>
+
+                    <br />
+                    <center>
+                        <p:commandButton action="#{instituicaoAlterarBean.atualizar()}"
+                                         value="Salvar" 
+                                         icon="ui-icon-check" 
+                                         update="@form"
+                                         title="Salvar Alterações"/>
+
+                    </center>
 
                 </p:panel>
             </h:form>

@@ -15,98 +15,101 @@
 
         <ui:define name="corpo">
 
-            <h3>Registrar Novo Aluno</h3>
-            <p:separator />
-            <!-- Formulário para cadastro de alunos.-->
-            <!-- Formulário concluído e validado -->
             <h:form>
 
-                <p:commandButton action="#{alunoRegistrarBean.registrar()}" 
-                                 value="Salvar" 
-                                 title="Salvar Aluno"
-                                 disabled="#{alunoRegistrarBean.disabledBotaoRegistrar}" 
-                                 id="registrar"
-                                 update="@form"
-                                 icon="ui-icon-check"/>
+                <p:panel>                  
+
+                    <p:outputLabel value="Nome Completo"/>
+                    <p:inputText value="#{alunoRegistrarBean.aluno.nome}" 
+                                 required="true" 
+                                 requiredMessage="Insira o nome do aluno." 
+                                 placeholder="Informe o nome"
+                                 class="form-control"/>
 
 
-                <p:panel>
+                    <p:outputLabel value="Matrícula Escolar"/>
+                    <p:inputText value="#{alunoRegistrarBean.matriuclaString}"
+                                 required="true"
+                                 requiredMessage="Informe uma matrícula." 
+                                 label="Matrícula" 
+                                 maxlength="6" 
+                                 placeholder="Somente números"
+                                 validatorMessage="Matrícula inválida."
+                                 class="form-control">
+
+                        <f:validateRegex pattern="^[0-9]+$"/>
+                    </p:inputText>
+
+
+                    <p:outputLabel value="E-mail"/>
+                    <p:inputText value="#{alunoRegistrarBean.aluno.usuario.email}" 
+                                 required="true"
+                                 requiredMessage="Informe um e-mail." 
+                                 validatorMessage="Informe um e-mail válido." 
+                                 placeholder="Informe um e-mail" 
+                                 style="text-transform: lowercase;"
+                                 class="form-control">
+
+                        <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
+                    </p:inputText>
+
+
+                    <p:outputLabel value="Turma"/>
+                    <p:inputText value="#{alunoRegistrarBean.aluno.turma.nome}"
+                                 id="turma" 
+                                 disabled="true"
+                                 class="form-control"/>
+
+                    <p:commandButton icon="ui-icon-search" 
+                                     title="Pesquisar Turma"
+                                     action="#{turmaPesquisarBean.abrirDialogoPesquisa()}"
+                                     process="@this">
+
+                        <p:ajax event="dialogReturn" 
+                                listener="#{alunoRegistrarBean.eventoSelecaoTurma}" 
+                                update="turma registrar"/>
+                    </p:commandButton>
+
+
+                    <br />
+                    <p:outputLabel value="Senha"/>
+                    <p:password value="#{alunoRegistrarBean.aluno.usuario.senha}"
+                                required="true" 
+                                requiredMessage="Informe uma senha."
+                                placeholder="Senha" 
+                                validatorMessage="Senha: É exido no mínimo 6 caracteres."
+                                maxlength="10"
+                                class="form-control">
+
+                        <f:validateLength minimum="6"/>
+                    </p:password>
+
+                    <p:outputLabel value="Confirme a Senha"/>
+                    <p:password value="#{alunoRegistrarBean.confirmaSenha}" 
+                                required="true" 
+                                requiredMessage="Confirme a senha."
+                                placeholder="Confirmar Senha"
+                                validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres." 
+                                maxlength="10"
+                                class="form-control">
+
+                        <f:validateLength minimum="6"/>
+                    </p:password>
+
+
                     <p:messages autoUpdate="true" showIcon="false"/>
 
+                    <br />
+                    <center>
 
-                    <h:panelGrid columns="2">
-
-                        <p:outputLabel value="Nome Completo"/>
-                        <p:inputText value="#{alunoRegistrarBean.aluno.nome}" 
-                                     required="true" 
-                                     requiredMessage="Insira o nome do aluno." 
-                                     placeholder="Informe o nome"/>
-
-
-                        <p:outputLabel value="Matrícula Escolar"/>
-                        <p:inputText value="#{alunoRegistrarBean.matriuclaString}"
-                                     required="true"
-                                     requiredMessage="Informe uma matrícula." 
-                                     label="Matrícula" 
-                                     maxlength="6" 
-                                     placeholder="Somente números"
-                                     validatorMessage="Matrícula inválida.">
-
-                            <f:validateRegex pattern="^[0-9]+$"/>
-                        </p:inputText>
-
-
-                        <p:outputLabel value="E-mail"/>
-                        <p:inputText value="#{alunoRegistrarBean.aluno.usuario.email}" 
-                                     required="true"
-                                     requiredMessage="Informe um e-mail." 
-                                     validatorMessage="Informe um e-mail válido." 
-                                     placeholder="Informe um e-mail" 
-                                     style="text-transform: lowercase;">
-
-                            <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
-                        </p:inputText>
-
-
-                        <p:outputLabel value="Turma"/>
-                        <h:panelGrid columns="2">
-                            <p:inputText value="#{alunoRegistrarBean.aluno.turma.nome}"
-                                         id="turma" 
-                                         disabled="true"/>
-
-                            <p:commandButton icon="ui-icon-search" 
-                                             title="Pesquisar Turma"
-                                             action="#{turmaPesquisarBean.abrirDialogoPesquisa()}"
-                                             process="@this">
-
-                                <p:ajax event="dialogReturn" 
-                                        listener="#{alunoRegistrarBean.eventoSelecaoTurma}" 
-                                        update="turma registrar"/>
-                            </p:commandButton>
-                        </h:panelGrid>
-
-                        <p:outputLabel value="Senha"/>
-                        <p:password value="#{alunoRegistrarBean.aluno.usuario.senha}"
-                                    required="true" 
-                                    requiredMessage="Informe uma senha."
-                                    placeholder="Senha" 
-                                    validatorMessage="Senha: É exido no mínimo 6 caracteres."
-                                    maxlength="10">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
-                        <p:outputLabel value="Confirme a Senha"/>
-                        <p:password value="#{alunoRegistrarBean.confirmaSenha}" 
-                                    required="true" 
-                                    requiredMessage="Confirme a senha."
-                                    placeholder="Confirmar Senha"
-                                    validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres." 
-                                    maxlength="10">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-                    </h:panelGrid>
+                        <p:commandButton action="#{alunoRegistrarBean.registrar()}" 
+                                         value="Salvar" 
+                                         title="Salvar Aluno"
+                                         disabled="#{alunoRegistrarBean.disabledBotaoRegistrar}" 
+                                         id="registrar"
+                                         update="@form"
+                                         icon="ui-icon-check"/>
+                    </center>
                 </p:panel>
 
 

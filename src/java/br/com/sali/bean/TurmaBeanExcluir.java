@@ -1,12 +1,18 @@
 package br.com.sali.bean;
 
+import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
+import br.com.sali.modelo.Usuario;
+import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.TurmaRN;
+import br.com.sali.regras.UsuarioRN;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -91,14 +97,20 @@ public class TurmaBeanExcluir implements Serializable {
         setRenderPainelMensagem(false);
     }
 
+   
     /**
      * Exclui o professor selecionado.
      *
      */
     public void excluir() {
-        turmaRN.excluirTurma(turmaSelecionada);
-        limpar();
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Sucesso!", "Turma excluída com sucesso."));
+        if (turmaRN.excluirTurma(turmaSelecionada)) {
+            limpar();
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Sucesso!", "Turma excluída com sucesso."));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não é possível excluir essa turma."
+                    + " Pois esta é a turma atual de Prof(a) "+turmaSelecionada.getProfessor().getNome()+".", ""));
+        }
+
     }
 }

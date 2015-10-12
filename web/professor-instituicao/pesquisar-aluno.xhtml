@@ -7,6 +7,7 @@
 
     <h:head>
         <title>Pesquisa de Aluno</title>
+        <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
     </h:head>
     <h:body>
 
@@ -51,7 +52,7 @@
                              emptyMessage="Nenhum resultado encontrado." 
                              id="tabela">
 
-                    <p:column headerText="Matrícula" 
+                    <p:column headerText="Mat." 
                               width="80" 
                               style="text-align: left;">
                         
@@ -70,7 +71,7 @@
                         <h:outputText value="#{aluno.turma.nome}"/>
                     </p:column>
 
-                    <p:column width="40" style="text-align: center;">
+                    <p:column width="50" style="text-align: center;">
                         <p:commandButton icon="ui-icon-check" 
                                          title="Selecionar"
                                          action="#{alunoPesquisarBean.selecionarAluno(aluno)}"

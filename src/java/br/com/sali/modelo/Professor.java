@@ -34,7 +34,6 @@ public class Professor implements Serializable {
     private int matricula;
     
     @OneToOne
-    @Cascade(CascadeType.ALL)
     private Turma turmaAtual;
     
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)

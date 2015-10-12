@@ -24,6 +24,12 @@
     </listener>
     <!-- FIM SPRING SECURITY -->
     
+    <!-- Tema Primefaces -->
+    <context-param>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>cupertino</param-value>  
+    </context-param>  
+  <!-- Fim Tema Primefaces -->
   
     <!-- CONEXÃO DATA SOURCE -->
     <resource-ref>

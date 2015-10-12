@@ -36,7 +36,7 @@ public class ProfessorRN {
      */
     public void registrarProfessor(Professor professor) throws NoSuchAlgorithmException {
         professor.getUsuario().setPermissao(PermissoesUtil.getPermissaoProfessor());
-        
+
         professor.getUsuario().setAtivo(true);
 
         professor.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(professor.getUsuario().getSenha()));
@@ -51,8 +51,8 @@ public class ProfessorRN {
      * @throws java.security.NoSuchAlgorithmException
      */
     public void atualizarProfessor(Professor professor) throws NoSuchAlgorithmException {
-         professor.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(professor.getUsuario().getSenha()));
-         
+        professor.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(professor.getUsuario().getSenha()));
+
         professorDAO.atualizar(professor);
     }
 
@@ -84,7 +84,6 @@ public class ProfessorRN {
         }
     }
 
- 
     /**
      * Verifica se a matrícula informada já existe no banco de dados. Se existir
      * é retornado "true", senão existir é retornado "false".
@@ -104,14 +103,14 @@ public class ProfessorRN {
     public List<Professor> listarTodos() {
         return professorDAO.listarTodos(Professor.class);
     }
-    
-    
-     /**
+
+    /**
      * Retorna o professor pelo Usuário.
+     *
      * @param usuario
-     * @return 
+     * @return
      */
-    public Professor getProfessorByUsuario(Usuario usuario){
+    public Professor getProfessorByUsuario(Usuario usuario) {
         return (Professor) professorDAO.getObjectByUsuario(Professor.class, usuario);
     }
 }

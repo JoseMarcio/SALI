@@ -16,40 +16,63 @@
 
         <ui:define name="corpo">
 
-
-            <h3>Excluir Professor</h3>
-
-            <p:separator />
-
             <!-- Formulário para exclusão de professor. -->
             <h:form>
-                
-                <p:messages autoUpdate="true" showIcon="false"/>
+
+                <p:panel id="painelMensagem" rendered="#{excluirProfessorBean.renderPainelMensagem}">
+
+                    <p:separator />
+
+                    <h4>Nenhum Professor Selecionado</h4>
+
+                </p:panel>
+
+
+
+                <p:panel id="painelInformacoes" rendered="#{excluirProfessorBean.renderPainelInformacoes}">
+
+                    <p:separator />
+                    
+                    <p:messages autoUpdate="true" showIcon="false"/>
+
+                    <h4>Informações do Professor</h4>
+                    
+                    <br />
+
+                    
+                        <p:outputLabel value="Nome"/>
+                        <h:inputText value="#{excluirProfessorBean.professorSelecionado.nome}" disabled="true" class="form-control"/>
+                        <p:outputLabel value="Matrícula"/>
+                        <h:inputText value="#{excluirProfessorBean.matriculaString}" disabled="true" class="form-control"/>
+                        <p:outputLabel value="E-Mail"/>
+                        <h:inputText value="#{excluirProfessorBean.professorSelecionado.usuario.email}" disabled="true" class="form-control"/>
+                    
+                </p:panel>
 
                 <p:commandButton value="Pesquisar" 
                                  title="Pesquisar Professor" 
                                  icon="ui-icon-search" 
                                  action="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
-                    
+
                     <p:ajax event="dialogReturn"
                             listener="#{excluirProfessorBean.eventoSelecaoProfessor}"
                             update="@form"/>
-                    
+
                 </p:commandButton>
-                
-                
-                
+
+
+
                 <p:commandButton action="#{excluirProfessorBean.excluir()}" 
                                  value="Excluir"
                                  icon="ui-icon-circle-close" 
                                  disabled="#{excluirProfessorBean.disabledBotaoExcluir}"
                                  update="@form" 
                                  title="Excluir Professor">
-                    
+
                     <p:confirm header="Atenção!" 
                                message="Excluir Professor?" 
                                icon="ui-icon-alert" />
-                    
+
                 </p:commandButton>
 
 
@@ -57,35 +80,6 @@
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
-
-                
-
-                <p:panel id="painelMensagem" rendered="#{excluirProfessorBean.renderPainelMensagem}">
-
-                    <p:separator />
-
-                    <h1>Nenhum Professor Selecionado</h1>
-
-                </p:panel>
-
-
-                
-                <p:panel id="painelInformacoes" rendered="#{excluirProfessorBean.renderPainelInformacoes}">
-
-                    <p:separator />
-
-                    <h1>Informações do Professor</h1>
-
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Nome:"/>
-                        <h:outputText value="#{excluirProfessorBean.professorSelecionado.nome}"/>
-                        <p:outputLabel value="Matrícula:"/>
-                        <h:outputText value="#{excluirProfessorBean.matriculaString}"/>
-                        <p:outputLabel value="E-Mail:"/>
-                        <h:outputText value="#{excluirProfessorBean.professorSelecionado.usuario.email}"/>
-                    </h:panelGrid> 
-                </p:panel>
-
 
             </h:form>
 
