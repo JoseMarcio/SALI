@@ -109,11 +109,13 @@
                             <p:submenu label="Relatórios">
                                 <p:menuitem value="Gerar Por Aluno" 
                                             ajax="false"
-                                            icon="ui-icon-person"/>
+                                            icon="ui-icon-person"
+                                            action="#{beanTemplateProfessor.irRelatorioAluno()}"/>
 
                                 <p:menuitem value="Gerar Por Turma" 
                                             ajax="false"
-                                            icon="ui-icon-home"/>
+                                            icon="ui-icon-home"
+                                            action="#{beanTemplateProfessor.irRelatorioTurma()}"/>
 
                             </p:submenu>
                             <p:submenu label="Opções">

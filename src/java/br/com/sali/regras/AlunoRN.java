@@ -3,6 +3,7 @@ package br.com.sali.regras;
 import br.com.sali.dao.AlunoDAO;
 import br.com.sali.dao.QuizRealizadoDAO;
 import br.com.sali.modelo.Aluno;
+import br.com.sali.modelo.Turma;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.PermissoesUtil;
@@ -126,5 +127,27 @@ public class AlunoRN {
     public boolean isPossivelGerarRelatorioDoAlunoNesseQuiz(Aluno aluno, Long idQuiz) {
         QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
         return !quizRealizadoDAO.listarQuizRealizadosPorAlunoEquiz(aluno, idQuiz).isEmpty();
+    }
+    
+    
+    /**
+     * Listar os alunos por turma.
+     * 
+     * @param turma
+     * @return 
+     */
+    public List<Aluno> listarAlunosPorTurma(Turma turma){
+        return alunoDAO.listarAlunosPorTurma(turma);
+    }
+    
+    /**
+     * Listar os alunos por turma e filtro.
+     * 
+     * @param turma
+     * @param filtro
+     * @return 
+     */
+    public List<Aluno> listarAlunosPorTurmaFiltro(Turma turma, String filtro){
+        return alunoDAO.listarAlunosDaTurmaPorFiltro(turma, filtro);
     }
 }

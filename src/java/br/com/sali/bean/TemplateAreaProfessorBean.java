@@ -25,7 +25,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "beanTemplateProfessor")
 @ViewScoped
-public class TemplateAreaProfessorBean implements Serializable{
+public class TemplateAreaProfessorBean implements Serializable {
 
     private Turma turmaContextoAtual;
     private List<Turma> turmasProfessor;
@@ -54,7 +54,6 @@ public class TemplateAreaProfessorBean implements Serializable{
         }
     }
 
-   
     public boolean isRenderSelect() {
         return renderSelect;
     }
@@ -80,7 +79,6 @@ public class TemplateAreaProfessorBean implements Serializable{
     }
 
     // ==========================================================================
-    
     /**
      * Direciona página Inicial.
      *
@@ -109,7 +107,7 @@ public class TemplateAreaProfessorBean implements Serializable{
     }
 
     /**
-     * Retorna o professor autenticada no momento.
+     * Retorna o professor autenticado no momento.
      *
      * @return
      */
@@ -139,10 +137,10 @@ public class TemplateAreaProfessorBean implements Serializable{
         return "/professor/gerar-quiz?faces-redirect=true";
     }
 
-    
     /**
      * Lista todas as Turmas do professor atual.
-     * @return 
+     *
+     * @return
      */
     public List<Turma> getTurmasProfessoAtual() {
         TurmaDAO turmaDAO = new TurmaDAO();
@@ -150,7 +148,6 @@ public class TemplateAreaProfessorBean implements Serializable{
         return turmaDAO.getTurmaProfessor(getProfessorConectado());
     }
 
-    
     /**
      * Atualiza a turma atual do professor conectado.
      */
@@ -177,14 +174,32 @@ public class TemplateAreaProfessorBean implements Serializable{
         }
 
     }
-    
-    
+
     /**
      * Direciona a listagem de quizes.
-     * @return 
+     *
+     * @return
      */
-    public String irListarQuiz(){
+    public String irListarQuiz() {
         return "/professor/lista-quiz?faces-redirect=true";
+    }
+
+    /**
+     * Direciona a gerar relatório aluno.
+     *
+     * @return
+     */
+    public String irRelatorioAluno() {
+        return "/professor/gerar-relatorio-aluno?faces-redirect=true";
+    }
+
+    /**
+     * Direciona a gerar relatório turma.
+     *
+     * @return
+     */
+    public String irRelatorioTurma() {
+        return "/professor/gerar-relatorio-turma?faces-redirect=true";
     }
 
 }

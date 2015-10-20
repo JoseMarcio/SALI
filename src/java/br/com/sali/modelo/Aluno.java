@@ -32,6 +32,7 @@ public class Aluno implements Serializable {
     private Long id;
     private String nome;
     private int matricula;
+
     @ManyToOne
     @JoinColumn(name = "id_turma")
     private Turma turma;

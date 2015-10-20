@@ -1,0 +1,48 @@
+<ui:composition template="/template/area-professor.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="titulo">
+        Relatório - Aluno
+    </ui:define>
+
+    <ui:define name="corpo">
+
+        <p:panel>
+            <h:form>
+                <h4>Gerar Relatório - Aluno</h4>
+                <p:separator />
+                <h:outputText value="Aluno Selecionado"/>
+                <h:outputText value="#{relatorioAlunoBean.alunoSelecionado.nome}" 
+                              class="form-control"
+                              id="aluno"
+                              />
+                <p:commandButton icon="ui-icon-search" 
+                                 title="Pesquisar Aluno"
+                                 action="#{pesquisarAlunoRelatorioBean.abrirDialogoPesquisa()}"
+                                 process="@this">
+
+                    <p:ajax event="dialogReturn" 
+                            listener="#{relatorioAlunoBean.eventoSelecaoAluno}" 
+                            update=" aluno"/>
+                </p:commandButton>
+
+                <p:messages autoUpdate="true" showIcon="false"/>
+                <br />
+                <center>
+
+                    <p:commandButton value="Emitir Relatório" ajax="false"  id="emitir">
+                        <p:fileDownload value="#{relatorioAlunoBean.relatorio}"/>
+                    </p:commandButton>
+
+
+                </center>
+
+            </h:form>
+        </p:panel>
+
+
+    </ui:define>
+</ui:composition>
