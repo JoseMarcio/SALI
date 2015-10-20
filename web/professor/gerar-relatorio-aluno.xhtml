@@ -26,16 +26,21 @@
 
                     <p:ajax event="dialogReturn" 
                             listener="#{relatorioAlunoBean.eventoSelecaoAluno}" 
-                            update=" aluno"/>
+                            update="emitir aluno"/>
                 </p:commandButton>
 
                 <p:messages autoUpdate="true" showIcon="false"/>
                 <br />
                 <center>
 
-                    <p:commandButton value="Emitir Relatório" ajax="false"  id="emitir">
+                    <p:commandButton value="Emitir Relatório" id="emitir" process="@this" ajax="false" disabled="#{relatorioAlunoBean.selecionou}"
+                                     
+                                     >
+                        
+                        
                         <p:fileDownload value="#{relatorioAlunoBean.relatorio}"/>
                     </p:commandButton>
+                        
 
 
                 </center>

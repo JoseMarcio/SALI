@@ -6,19 +6,17 @@ import br.com.sali.modelo.Turma;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.ProfessorRN;
-import br.com.sali.regras.TurmaRN;
 import br.com.sali.regras.UsuarioRN;
 import br.com.sali.util.relatorio.Relatorio;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.StreamedContent;
@@ -40,7 +38,7 @@ public class RelatorioAlunoBean {
     public void init() {
         this.alunoSelecionado = new Aluno();
         this.alunoRN = new AlunoRN();
-        this.selecionou = false;
+        this.selecionou = true;
     }
 
     /**
@@ -52,11 +50,10 @@ public class RelatorioAlunoBean {
     public void eventoSelecaoAluno(SelectEvent event) {
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
-
+        selecionou = false;
     }
 
     //==========================================================================
-    
     /**
      * Retorna o professor autenticado no momento.
      *
@@ -78,37 +75,38 @@ public class RelatorioAlunoBean {
 
         return professor;
     }
-    
-    
+
     public StreamedContent getRelatorio() {
+        if (alunoRN.isPossivelGerarRelatorioDesseAluno(this.alunoSelecionado)) {
+            String nomeRelatorioJasper = "relatorioAluno";
+            String nomeDoArquivoDeSaida = "Relatorio Aluno";
+            Map<String, Object> parametros = new HashMap<>();
 
-        // if (alunoRN.isPossivelGerarRelatorioDesseAluno(this.alunoSelecionado)) {
-        String nomeRelatorioJasper = "relatorioAluno";
-        String nomeDoArquivoDeSaida = "Relatorio Aluno";
-        Map<String, Object> parametros = new HashMap<>();
-        
-        Turma turma = getProfessorConectado().getTurmaAtual();
-        
-        parametros.put("id_turma_aluno", Integer.toUnsignedLong(1));
-        parametros.put("id_aluno", this.alunoSelecionado.getId());
-        parametros.put("nome_aluno", this.alunoSelecionado.getNome());
-        parametros.put("matricula_aluno", this.alunoSelecionado.getMatricula());
-        parametros.put("turma_aluno",turma.getNome());
+            Turma turma = getProfessorConectado().getTurmaAtual();
 
-        Relatorio relatorioGerado = new Relatorio(nomeRelatorioJasper, nomeDoArquivoDeSaida, parametros);
+            parametros.put("id_turma_aluno", turma.getId());
+            parametros.put("id_aluno", this.alunoSelecionado.getId());
+            parametros.put("nome_aluno", this.alunoSelecionado.getNome());
+            parametros.put("matricula_aluno", this.alunoSelecionado.getMatricula());
+            parametros.put("turma_aluno", turma.getNome());
 
-        try {
-            this.relatorio = relatorioGerado.gerarRelatorio();
-            return this.relatorio;
-        } catch (Exception ex) {
-            FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exceção!", ex.getMessage());
-            RequestContext.getCurrentInstance().showMessageInDialog(msgs);
-            return null;
+            Relatorio relatorioGerado = new Relatorio(nomeRelatorioJasper, nomeDoArquivoDeSaida, parametros);
+
+            try {
+                FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exceção!", this.alunoSelecionado.getNome());
+                RequestContext.getCurrentInstance().showMessageInDialog(msgs);
+                this.relatorio = relatorioGerado.gerarRelatorio();
+                return this.relatorio;
+            } catch (Exception ex) {
+                FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exceção!", ex.getMessage());
+                RequestContext.getCurrentInstance().showMessageInDialog(msgs);
+                return null;
+            }
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este aluno ainda não realizou Quiz.", "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-      //  } else {
-        //     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Não é possível gerar relatório para o aluno selecionado.");
-        //        RequestContext.getCurrentInstance().showMessageInDialog(msg);
-        //   }
+        return null;
     }
 
     public void setRelatorio(StreamedContent relatorio) {

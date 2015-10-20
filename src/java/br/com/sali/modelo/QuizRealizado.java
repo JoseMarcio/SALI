@@ -26,6 +26,7 @@ public class QuizRealizado implements Serializable {
     private double aproveitamento;
     private String questoesCorretas;
     private int[] respostas;
+    private String nomeQuizRealizado;
 
     @OneToOne
     private Aluno alunnoQueRealizouQuiz;
@@ -81,15 +82,24 @@ public class QuizRealizado implements Serializable {
         this.alunnoQueRealizouQuiz = alunnoQueRealizouQuiz;
     }
 
+    public String getNomeQuizRealizado() {
+        return nomeQuizRealizado;
+    }
+
+    public void setNomeQuizRealizado(String nomeQuizRealizado) {
+        this.nomeQuizRealizado = nomeQuizRealizado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.idQuizRealizado);
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.aproveitamento) ^ (Double.doubleToLongBits(this.aproveitamento) >>> 32));
-        hash = 89 * hash + Objects.hashCode(this.questoesCorretas);
-        hash = 89 * hash + Arrays.hashCode(this.respostas);
-        hash = 89 * hash + Objects.hashCode(this.alunnoQueRealizouQuiz);
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.idQuizRealizado);
+        hash = 41 * hash + (int) (Double.doubleToLongBits(this.aproveitamento) ^ (Double.doubleToLongBits(this.aproveitamento) >>> 32));
+        hash = 41 * hash + Objects.hashCode(this.questoesCorretas);
+        hash = 41 * hash + Arrays.hashCode(this.respostas);
+        hash = 41 * hash + Objects.hashCode(this.nomeQuizRealizado);
+        hash = 41 * hash + Objects.hashCode(this.alunnoQueRealizouQuiz);
         return hash;
     }
 
@@ -117,10 +127,16 @@ public class QuizRealizado implements Serializable {
         if (!Arrays.equals(this.respostas, other.respostas)) {
             return false;
         }
+        if (!Objects.equals(this.nomeQuizRealizado, other.nomeQuizRealizado)) {
+            return false;
+        }
         if (!Objects.equals(this.alunnoQueRealizouQuiz, other.alunnoQueRealizouQuiz)) {
             return false;
         }
         return true;
     }
+
+    
+    
 
 }

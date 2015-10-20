@@ -69,15 +69,16 @@ public class AlunoQuizBean {
 
         double percentualAcerto = calcPercentual(getQuizRealizar().getQuestoes().size(), acertos);
 
-        String questoesCorretas = "Acertos: " + acertos + " de " + getQuizRealizar().getQuestoes().size() + " Questões.";
+        String questoesCorretas = acertos + " de " + getQuizRealizar().getQuestoes().size() + " Questões.";
 
-        String msg = questoesCorretas + "<br /> <br />Aproveitamento: " + percentualAcerto + "%.";
+        String msg = "Acertos: " + questoesCorretas + "<br /> <br />Aproveitamento: " + percentualAcerto + "%.";
 
         QuizRealizado meuQuiz = new QuizRealizado();
         meuQuiz.setIdQuizRealizado(getQuizRealizar().getId());
         meuQuiz.setAlunnoQueRealizouQuiz(getAlunoConectado());
         meuQuiz.setQuestoesCorretas(questoesCorretas);
         meuQuiz.setAproveitamento(percentualAcerto);
+        meuQuiz.setNomeQuizRealizado(getQuizRealizar().getTitulo());
         meuQuiz.setRespostas(respostas);
 
         QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
