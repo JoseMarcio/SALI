@@ -1,6 +1,7 @@
 package br.com.sali.regras;
 
 import br.com.sali.dao.AlunoDAO;
+import br.com.sali.dao.QuizRealizadoDAO;
 import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
@@ -33,12 +34,12 @@ public class AlunoRN {
      * @param aluno
      * @throws java.security.NoSuchAlgorithmException
      */
-    public void registrarAluno(Aluno aluno) throws NoSuchAlgorithmException{
+    public void registrarAluno(Aluno aluno) throws NoSuchAlgorithmException {
         aluno.getUsuario().setPermissao(PermissoesUtil.getPermissaoAluno());
         aluno.getUsuario().setAtivo(true);
-        
+
         aluno.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(aluno.getUsuario().getSenha()));
-        
+
         alunoDAO.salvar(aluno);
     }
 
@@ -50,7 +51,7 @@ public class AlunoRN {
      */
     public void atualizarAluno(Aluno aluno) throws NoSuchAlgorithmException {
         aluno.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(aluno.getUsuario().getSenha()));
-        
+
         alunoDAO.atualizar(aluno);
     }
 
@@ -82,7 +83,6 @@ public class AlunoRN {
         alunoDAO.excluir(aluno);
     }
 
-    
     /**
      * Verifica se a matrícula informada já existe no banco de dados. Se existir
      * é retornado "true", senão existir é retornado "false".
@@ -94,13 +94,37 @@ public class AlunoRN {
         return alunoDAO.isExisteEssaMatricula(Aluno.class, matricula);
     }
 
-    
-     /**
+    /**
      * Retorna o aluno pelo Usuário.
+     *
      * @param usuario
-     * @return 
+     * @return
      */
-    public Aluno getAlunoByUsuario(Usuario usuario){
+    public Aluno getAlunoByUsuario(Usuario usuario) {
         return (Aluno) alunoDAO.getObjectByUsuario(Aluno.class, usuario);
+    }
+
+    /**
+     * Verifica se é possível gerar o relatório do aluno informado. Se for
+     * possível retorna "true", senão retorna "false".
+     *
+     * @param aluno
+     * @return
+     */
+    public boolean isPossivelGerarRelatorioDesseAluno(Aluno aluno) {
+        QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
+        return !quizRealizadoDAO.getQuizRealizadoByAluno(aluno).isEmpty();
+    }
+
+    /**
+     * Verifica se é possível gerar o relatório do aluno, no quiz informado.
+     *
+     * @param aluno
+     * @param idQuiz
+     * @return
+     */
+    public boolean isPossivelGerarRelatorioDoAlunoNesseQuiz(Aluno aluno, Long idQuiz) {
+        QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
+        return !quizRealizadoDAO.listarQuizRealizadosPorAlunoEquiz(aluno, idQuiz).isEmpty();
     }
 }

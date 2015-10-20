@@ -1,8 +1,9 @@
 package br.com.sali.regras;
 
+import br.com.sali.dao.AlunoDAO;
 import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
-import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Turma;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class TurmaRN {
      * Exclui uma turma.
      *
      * @param turma
-     * @return 
+     * @return
      */
     public boolean excluirTurma(Turma turma) {
         ProfessorDAO professorDAO = new ProfessorDAO();
@@ -86,5 +87,32 @@ public class TurmaRN {
      */
     public List<Turma> listarTodas() {
         return turmaDAO.listarTodos(Turma.class);
+    }
+
+    /**
+     * Verifica se é possivel gerar o relatório da turma informada.
+     *
+     * @param turma
+     * @param idQuiz
+     * @return
+     */
+    public boolean isPossivelGerarRelatorioTurma(Turma turma, Long idQuiz) {
+        AlunoDAO alunoDAO = new AlunoDAO();
+        AlunoRN alunoRN = new AlunoRN();
+        List<Aluno> alunosDaTurma = alunoDAO.listarAlunosPorTurma(turma);
+
+        if (alunosDaTurma == null || alunosDaTurma.isEmpty()) {
+            return false;
+        } else {
+
+            for (Aluno aluno : alunosDaTurma) {
+                if (alunoRN.isPossivelGerarRelatorioDoAlunoNesseQuiz(aluno, idQuiz)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }
