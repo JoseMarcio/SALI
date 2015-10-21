@@ -5,28 +5,28 @@
                 xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="titulo">
-        Relatório - Aluno
+        Relatório - Turma
     </ui:define>
 
     <ui:define name="corpo">
 
         <p:panel>
             <h:form>
-                <h4>Gerar Relatório - Aluno</h4>
+                <h4>Gerar Relatório - Turma</h4>
                 <p:separator />
-                <h:outputText value="Aluno Selecionado"/>
-                <h:outputText value="#{relatorioAlunoBean.alunoSelecionado.nome}" 
+                <h:outputText value="Turma Selecionada"/>
+                <h:outputText value="#{relatorioTurmaBean.turmaSelecionada.nome}" 
                               class="form-control"
-                              id="aluno"
+                              id="turma"
                               />
                 <p:commandButton icon="ui-icon-search" 
-                                 title="Pesquisar Aluno"
-                                 action="#{pesquisarAlunoRelatorioBean.abrirDialogoPesquisa()}"
+                                 title="Pesquisar Turma"
+                                 action="#{pesquisarTurmaRelatorioBean.abrirDialogoPesquisa()}"
                                  process="@this">
 
                     <p:ajax event="dialogReturn" 
-                            listener="#{relatorioAlunoBean.eventoSelecaoAluno}" 
-                            update="emitir aluno"/>
+                            listener="#{relatorioTurmaBean.eventoSelecaoTurma}" 
+                            update="emitir turma"/>
                 </p:commandButton>
 
                 <p:messages autoUpdate="true" showIcon="false"/>
@@ -39,7 +39,7 @@
                                      title="Emitir Relatório">
 
 
-                        <p:fileDownload value="#{relatorioAlunoBean.relatorio}"/>
+                        <p:fileDownload value="#{relatorioTurmaBean.relatorio}"/>
                     </p:commandButton>
                 </center>
 

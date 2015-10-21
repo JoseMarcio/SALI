@@ -13,7 +13,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -32,13 +31,13 @@ public class RelatorioAlunoBean {
     private StreamedContent relatorio;
     private Aluno alunoSelecionado;
     private AlunoRN alunoRN;
-    private boolean selecionou;
+    private boolean disabilitaBtnEmitir;
 
     @PostConstruct
     public void init() {
         this.alunoSelecionado = new Aluno();
         this.alunoRN = new AlunoRN();
-        this.selecionou = true;
+        this.disabilitaBtnEmitir = true;
     }
 
     /**
@@ -50,7 +49,7 @@ public class RelatorioAlunoBean {
     public void eventoSelecaoAluno(SelectEvent event) {
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
-        selecionou = false;
+        setDisabilitaBtnEmitir(false);
     }
 
     //==========================================================================
@@ -76,30 +75,30 @@ public class RelatorioAlunoBean {
         return professor;
     }
 
+    /**
+     * Pega o relatorio gerado. E retorna ele para o cliente.
+     *
+     * @return
+     */
     public StreamedContent getRelatorio() {
         if (alunoRN.isPossivelGerarRelatorioDesseAluno(this.alunoSelecionado)) {
             String nomeRelatorioJasper = "relatorioAluno";
-            String nomeDoArquivoDeSaida = "Relatorio Aluno";
+            String nomeDoArquivoDeSaida = "SALI - Relatorio Aluno";
             Map<String, Object> parametros = new HashMap<>();
-
             Turma turma = getProfessorConectado().getTurmaAtual();
-
             parametros.put("id_turma_aluno", turma.getId());
             parametros.put("id_aluno", this.alunoSelecionado.getId());
             parametros.put("nome_aluno", this.alunoSelecionado.getNome());
             parametros.put("matricula_aluno", this.alunoSelecionado.getMatricula());
             parametros.put("turma_aluno", turma.getNome());
-
-            Relatorio relatorioGerado = new Relatorio(nomeRelatorioJasper, nomeDoArquivoDeSaida, parametros);
+            Relatorio relatorioJasper = new Relatorio(nomeRelatorioJasper, nomeDoArquivoDeSaida, parametros);
 
             try {
-                FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exceção!", this.alunoSelecionado.getNome());
-                RequestContext.getCurrentInstance().showMessageInDialog(msgs);
-                this.relatorio = relatorioGerado.gerarRelatorio();
+                this.relatorio = relatorioJasper.gerarRelatorio();
                 return this.relatorio;
-            } catch (Exception ex) {
-                FacesMessage msgs = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exceção!", ex.getMessage());
-                RequestContext.getCurrentInstance().showMessageInDialog(msgs);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: "+e.getMessage(), "");
+                RequestContext.getCurrentInstance().showMessageInDialog(msg);
                 return null;
             }
         } else {
@@ -129,12 +128,12 @@ public class RelatorioAlunoBean {
         this.alunoRN = alunoRN;
     }
 
-    public boolean isSelecionou() {
-        return selecionou;
+    public boolean isDisabilitaBtnEmitir() {
+        return disabilitaBtnEmitir;
     }
 
-    public void setSelecionou(boolean selecionou) {
-        this.selecionou = selecionou;
+    public void setDisabilitaBtnEmitir(boolean disabilitaBtnEmitir) {
+        this.disabilitaBtnEmitir = disabilitaBtnEmitir;
     }
 
 }

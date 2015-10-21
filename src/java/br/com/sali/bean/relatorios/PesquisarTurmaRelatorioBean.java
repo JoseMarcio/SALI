@@ -1,10 +1,10 @@
 package br.com.sali.bean.relatorios;
 
-import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Professor;
+import br.com.sali.modelo.Turma;
 import br.com.sali.modelo.Usuario;
-import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.ProfessorRN;
+import br.com.sali.regras.TurmaRN;
 import br.com.sali.regras.UsuarioRN;
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +22,16 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @ViewScoped
-public class PesquisarAlunoRelatorioBean {
+public class PesquisarTurmaRelatorioBean {
 
-    private AlunoRN alunoRN;
-    private List<Aluno> listaDeAlunosDaTurma;
+    private TurmaRN turmaRN;
+    private List<Turma> listaDeTurmaDoProfessor;
     private String filtroDePesquisa;
 
     @PostConstruct
     public void init() {
-        alunoRN = new AlunoRN();
-        listaDeAlunosDaTurma = alunoRN.listarAlunosPorTurma(getProfessorConectado().getTurmaAtual());
+        turmaRN = new TurmaRN();
+        listaDeTurmaDoProfessor = turmaRN.listarTurmasPorProfessor(getProfessorConectado());
         filtroDePesquisa = "";
     }
 
@@ -43,20 +43,19 @@ public class PesquisarAlunoRelatorioBean {
     }
 
     /**
-     * Realiza a listagem dos alunos de acordo com o filtro (nome ou matrícula)
-     * informado.
+     * Realiza a listagem das turmas de acordo com o filtro (nome) informado.
      */
     public void pesquisar() {
-        listaDeAlunosDaTurma = alunoRN.listarAlunosPorTurmaFiltro(getProfessorConectado().getTurmaAtual(), filtroDePesquisa);
+        listaDeTurmaDoProfessor = turmaRN.listarTurmasPorProfessorEfiltro(getProfessorConectado(), filtroDePesquisa);
     }
 
     /**
-     * Seleciona o aluno do diálogo de pesquisa.
+     * Seleciona a turma do diálogo de pesquisa.
      *
-     * @param aluno
+     * @param turma
      */
-    public void selecionarAluno(Aluno aluno) {
-        RequestContext.getCurrentInstance().closeDialog(aluno);
+    public void selecionarTurma(Turma turma) {
+        RequestContext.getCurrentInstance().closeDialog(turma);
     }
 
     /**
@@ -69,7 +68,7 @@ public class PesquisarAlunoRelatorioBean {
         options.put("resizable", false);
         options.put("contentHeight", 320);
 
-        RequestContext.getCurrentInstance().openDialog("/professor/pesquisar-aluno-relatorio", options, null);
+        RequestContext.getCurrentInstance().openDialog("/professor/pesquisar-turma-relatorio", options, null);
     }
 
     /**
@@ -95,20 +94,21 @@ public class PesquisarAlunoRelatorioBean {
     }
 
     //==========================================================================
-    public AlunoRN getAlunoRN() {
-        return alunoRN;
+
+    public TurmaRN getTurmaRN() {
+        return turmaRN;
     }
 
-    public void setAlunoRN(AlunoRN alunoRN) {
-        this.alunoRN = alunoRN;
+    public void setTurmaRN(TurmaRN turmaRN) {
+        this.turmaRN = turmaRN;
     }
 
-    public List<Aluno> getListaDeAlunosDaTurma() {
-        return listaDeAlunosDaTurma;
+    public List<Turma> getListaDeTurmaDoProfessor() {
+        return listaDeTurmaDoProfessor;
     }
 
-    public void setListaDeAlunosDaTurma(List<Aluno> listaDeAlunosDaTurma) {
-        this.listaDeAlunosDaTurma = listaDeAlunosDaTurma;
+    public void setListaDeTurmaDoProfessor(List<Turma> listaDeTurmaDoProfessor) {
+        this.listaDeTurmaDoProfessor = listaDeTurmaDoProfessor;
     }
 
     public String getFiltroDePesquisa() {
@@ -118,5 +118,6 @@ public class PesquisarAlunoRelatorioBean {
     public void setFiltroDePesquisa(String filtroDePesquisa) {
         this.filtroDePesquisa = filtroDePesquisa;
     }
-
+    
+    
 }

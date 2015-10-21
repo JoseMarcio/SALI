@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -54,6 +57,14 @@ public class Relatorio {
         StreamedContent arquivo = null;
 
         try {
+
+            GregorianCalendar cal = new GregorianCalendar();
+            Locale local = new Locale("pt", "BR");
+            SimpleDateFormat formate = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' ás 'HH':'mm' hrs'", local);
+            String dataEmissao = formate.format(cal.getTime());
+            
+            this.parametros.put("data", dataEmissao);
+
             relatorioStream = new FileInputStream(caminhoArquivoJasper);
             JasperPrint print = JasperFillManager.fillReport(relatorioStream, this.parametros, this.getConexao());
             JRExporter exportador = new JRPdfExporter();

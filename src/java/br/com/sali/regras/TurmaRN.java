@@ -4,6 +4,7 @@ import br.com.sali.dao.AlunoDAO;
 import br.com.sali.dao.ProfessorDAO;
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Aluno;
+import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
 import java.util.List;
 
@@ -93,10 +94,9 @@ public class TurmaRN {
      * Verifica se é possivel gerar o relatório da turma informada.
      *
      * @param turma
-     * @param idQuiz
      * @return
      */
-    public boolean isPossivelGerarRelatorioTurma(Turma turma, Long idQuiz) {
+    public boolean isPossivelGerarRelatorioTurma(Turma turma) {
         AlunoDAO alunoDAO = new AlunoDAO();
         AlunoRN alunoRN = new AlunoRN();
         List<Aluno> alunosDaTurma = alunoDAO.listarAlunosPorTurma(turma);
@@ -106,7 +106,7 @@ public class TurmaRN {
         } else {
 
             for (Aluno aluno : alunosDaTurma) {
-                if (alunoRN.isPossivelGerarRelatorioDoAlunoNesseQuiz(aluno, idQuiz)) {
+                if (alunoRN.isPossivelGerarRelatorioDesseAluno(aluno)) {
                     return true;
                 }
             }
@@ -115,4 +115,26 @@ public class TurmaRN {
         }
 
     }
+
+    /**
+     * Lista as turmas filtradas por professor.
+     *
+     * @param professor
+     * @return
+     */
+    public List<Turma> listarTurmasPorProfessor(Professor professor) {
+        return this.turmaDAO.getTurmaProfessor(professor);
+    }
+
+    /**
+     * Lista as turmas que possuem o professor e o filtro informado.
+     *
+     * @param professor
+     * @param filtro
+     * @return
+     */
+    public List<Turma> listarTurmasPorProfessorEfiltro(Professor professor, String filtro) {
+        return this.turmaDAO.listarPorProfessorFiltro(professor, filtro);
+    }
+
 }
