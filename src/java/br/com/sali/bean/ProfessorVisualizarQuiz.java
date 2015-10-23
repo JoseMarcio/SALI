@@ -34,6 +34,9 @@ public class ProfessorVisualizarQuiz {
         quizesTurmaAtual = quizRN.litarQuizesPorTurma(getProfessorConectado().getTurmaAtual());
     }
 
+    public void atualiza(){
+        quizesTurmaAtual = quizRN.litarQuizesPorTurma(getProfessorConectado().getTurmaAtual());
+    }
     
     /**
      * Seleciona o Quiz desejado, e direciona para a página de "visualização"

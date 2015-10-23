@@ -58,6 +58,7 @@ public class Relatorio {
 
         try {
 
+            
             GregorianCalendar cal = new GregorianCalendar();
             Locale local = new Locale("pt", "BR");
             SimpleDateFormat formate = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' ás 'HH':'mm' hrs'", local);

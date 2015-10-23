@@ -9,11 +9,14 @@
 
     <ui:composition template="/template/area-aluno.xhtml">
 
+        #{quizAluno.atualiza()}
+        
         <ui:define name="titulo">
             Quiz
         </ui:define>
 
         <ui:define name="corpo">
+            
 
             <p:dataList value="#{quizAluno.quizesDaTurma}" 
                         var="quiz" 

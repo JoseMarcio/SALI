@@ -11,10 +11,13 @@
 
     <ui:define name="corpo">
 
+      
+        
         <p:dataList emptyMessage="Nenhuma Visualização Disponível."
                     var="quiz"
                     value="#{quizProfessorListarQuiz.quizExibir.questoes}"
-                    type="ordered">
+                    type="ordered"
+                    id="lista">
 
             <f:facet name="header">
                 #{quizProfessorListarQuiz.quizExibir.titulo}

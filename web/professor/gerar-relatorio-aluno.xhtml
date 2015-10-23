@@ -10,7 +10,7 @@
 
     <ui:define name="corpo">
 
-        <p:panel>
+        <p:panel id="panel">
             <h:form>
                 <h4>Gerar Relatório - Aluno</h4>
                 <p:separator />
@@ -36,9 +36,13 @@
                                      id="emitir" 
                                      process="@this" 
                                      ajax="false"
-                                     title="Emitir Relatório">
+                                     title="Emitir Relatório"
+                                     disabled="#{relatorioAlunoBean.disabilitaBtnEmitir}"
+                                     update="panel">
 
 
+                        
+                        
                         <p:fileDownload value="#{relatorioAlunoBean.relatorio}"/>
                     </p:commandButton>
                 </center>

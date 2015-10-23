@@ -10,7 +10,7 @@
 
     <ui:define name="corpo">
 
-        <p:panel>
+        <p:panel id="panel">
             <h:form>
                 <h4>Gerar Relatório - Turma</h4>
                 <p:separator />
@@ -36,7 +36,9 @@
                                      id="emitir" 
                                      process="@this" 
                                      ajax="false"
-                                     title="Emitir Relatório">
+                                     title="Emitir Relatório"
+                                     disabled="#{relatorioTurmaBean.disabilitaBtnEmitir}"
+                                     update="panel">
 
 
                         <p:fileDownload value="#{relatorioTurmaBean.relatorio}"/>

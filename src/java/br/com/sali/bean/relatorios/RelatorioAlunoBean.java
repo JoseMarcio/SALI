@@ -8,6 +8,7 @@ import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.UsuarioRN;
 import br.com.sali.util.relatorio.Relatorio;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -26,7 +27,7 @@ import org.primefaces.model.StreamedContent;
  */
 @ManagedBean
 @ViewScoped
-public class RelatorioAlunoBean {
+public class RelatorioAlunoBean implements Serializable{
 
     private StreamedContent relatorio;
     private Aluno alunoSelecionado;
@@ -74,6 +75,10 @@ public class RelatorioAlunoBean {
 
         return professor;
     }
+    
+    public String teste(){
+        return "/professor/inicio-professor";
+    }
 
     /**
      * Pega o relatorio gerado. E retorna ele para o cliente.
@@ -82,6 +87,7 @@ public class RelatorioAlunoBean {
      */
     public StreamedContent getRelatorio() {
         if (alunoRN.isPossivelGerarRelatorioDesseAluno(this.alunoSelecionado)) {
+            setDisabilitaBtnEmitir(true);
             String nomeRelatorioJasper = "relatorioAluno";
             String nomeDoArquivoDeSaida = "SALI - Relatorio Aluno";
             Map<String, Object> parametros = new HashMap<>();
@@ -95,6 +101,7 @@ public class RelatorioAlunoBean {
 
             try {
                 this.relatorio = relatorioJasper.gerarRelatorio();
+                
                 return this.relatorio;
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: "+e.getMessage(), "");

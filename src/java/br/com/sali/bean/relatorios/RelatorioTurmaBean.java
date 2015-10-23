@@ -56,6 +56,7 @@ public class RelatorioTurmaBean {
     public StreamedContent getRelatorio() {
 
         if (this.turmaRN.isPossivelGerarRelatorioTurma(this.turmaSelecionada)) {
+            setDisabilitaBtnEmitir(true);
             String nomeRelatorioJasper = "relatorioTurma";
             String nomeDoArquivoDeSaida = "SALI - Relatorio Turma";
             Map<String, Object> parametros = new HashMap<>();

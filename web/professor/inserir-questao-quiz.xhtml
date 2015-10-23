@@ -18,7 +18,7 @@
             <h:form>
                 <p:panel>
 
-                    <h5>Questões já inseridas: #{quizProfessor.questoesInseridas.size()}</h5>
+                    <h5><h:outputText  id="qt" value="Questões já inseridas: #{quizProfessor.questoesInseridas.size()}" /></h5>
 
                     <p:separator />
 
@@ -91,6 +91,7 @@
                                       required="true"
                                       requiredMessage="Informe a alternativa correta."
                                       columns="4"
+                                      id="select"
                                       >
 
                         <f:selectItem itemLabel="a" itemValue="0"/>
@@ -108,7 +109,7 @@
 
                         <p:commandButton value="Inserir"
                                          action="#{quizProfessor.inserirQuestaoNoQuiz()}"
-                                         update="@all"
+                                         update="qt pergunta alternativa-a alternativa-b alternativa-c alternativa-d select concluir"
                                          disabled="${quizProfessor.habilitaBotaoInserir}"
                                          title="Inserir questões no quiz"
                                          />
@@ -119,7 +120,8 @@
                                           update="@form" 
                                           disabled="#{quizProfessor.habilitaBotaoTerminar}"
                                           action="#{quizProfessor.terminarQuestoes()}"
-                                          title="Concluir"/>
+                                          title="Concluir"
+                                          id="concluir"/>
 
                     </center>
 

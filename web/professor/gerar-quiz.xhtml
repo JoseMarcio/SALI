@@ -15,16 +15,17 @@
 
         <ui:define name="corpo">
 
-            <h:form>
+            <h:form id="frm-geral">
 
-                <p:panel>
+                <p:panel id="painel-1">
 
                     <p:outputLabel value="Titulo"/>
                     <p:inputText value="#{quizProfessor.quiz.titulo}"
                                  required="true"
                                  requiredMessage="Informe um título para o Quiz."
                                  style="text-transform: uppercase"
-                                 class="form-control"/>
+                                 class="form-control"
+                                 id="titulo-quiz"/>
 
 
 
@@ -32,8 +33,9 @@
                     <p:commandButton value="Gerar"
                                      disabled="#{quizProfessor.habilitaBotaoGerar}"
                                      action="#{quizProfessor.gerar()}"
-                                     update="@all"
-                                     title="Salvar quiz"/>
+                                     update=":frm-geral:painel-1"
+                                     title="Salvar quiz"
+                                     id="gerar"/>
 
                     <p:commandButton value="Inserir Questões"
                                      action="#{quizProfessor.inserirQuestoes()}"
@@ -43,28 +45,20 @@
                     </p:commandButton>
 
 
-                    <h:form>
+                    
                         <p:commandButton value="Limpar"
 
                                          action="#{quizProfessor.limparBean()}"
-                                         update="@all"
+                                         update=":frm-geral:painel-1"
                                          title="Limpar"
-                                         process="@form"
+                                         process="@this"
                                          immediate="true"/>
-                    </h:form>
+                    
 
-                    <p:messages autoUpdate="true" showIcon="false"/>
+                        <p:messages autoUpdate="true" showIcon="false" closable="true"/>
+                    <br />
 
-
-                </p:panel>
-
-
-
-
-
-
-
-                <p:dataList value="#{quizProfessor.quiz.questoes}" 
+                     <p:dataList value="#{quizProfessor.quiz.questoes}" 
                             var="q" type="ordered"
                             emptyMessage="Nenhuma questão inserida."
                             rendered="#{!empty quizProfessor.quiz.questoes}"
@@ -99,6 +93,9 @@
                     <p:separator />
 
                 </p:dataList>
+
+                </p:panel>
+
 
             </h:form>
 

@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/area-professor.xhtml">
+
+    <ui:define name="titulo">
+        Anexar Lição
+    </ui:define>
+
+    <ui:define name="corpo">
+
+        <p:panel>
+            <h4>Anexar Nova Lição</h4>
+            <p:separator />
+            <h:form>              
+
+                <p:outputLabel value="Título"/>
+                <p:inputText class="form-control"
+                             placeholder="Informe o nome o da lição"
+                             required="true"
+                             requiredMessage="Informe um título para a lição."
+                             value="#{anexarLicaoBean.licao.tituloLicao}"
+                             />
+
+                <p:outputLabel value="Arquivo PDF"/>
+                <p:outputLabel class="form-control"
+                               value="#{anexarLicaoBean.nomeArquivoSelecionado}"/>
+                
+                <p:commandButton icon="ui-icon-circle-plus"
+                                 title="Selecionar Arquivo"
+                                 process="@this"
+                                 update="@this"
+                                 />
+
+
+                <p:messages autoUpdate="true"
+                            showIcon="false"/>
+
+                <br />
+                <center>
+                    <p:commandButton value="Salvar"
+                                     title="Salvar Lição"
+                                     action="#{anexarLicaoBean.salvarLicao()}"
+                                     />
+                </center>
+
+
+            </h:form>
+        </p:panel>
+
+
+    </ui:define>
+</ui:composition>
+

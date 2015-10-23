@@ -11,6 +11,7 @@ import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.QuizRN;
 import br.com.sali.regras.UsuarioRN;
+import br.com.sali.util.ValidacoesUtil;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -43,6 +44,11 @@ public class AlunoQuizBean {
 
     }
 
+    
+    public void atualiza(){
+        quizesDaTurma = quizRN.litarQuizesPorTurma(getAlunoConectado().getTurma());
+    }
+    
     /**
      * Calcula o percentual de acerto das questões.
      *
@@ -60,42 +66,44 @@ public class AlunoQuizBean {
      */
     public void concluir() {
 
-        int acertos = 0;
-        for (int i = 0; i < getQuizRealizar().getQuestoes().size(); i++) {
-            if (getQuizRealizar().getQuestoes().get(i).getAlternativaCorreta() == getRespostas()[i]) {
-                ++acertos;
+       
+            int acertos = 0;
+            for (int i = 0; i < getQuizRealizar().getQuestoes().size(); i++) {
+                if (getQuizRealizar().getQuestoes().get(i).getAlternativaCorreta() == getRespostas()[i]) {
+                    ++acertos;
+                }
             }
-        }
 
-        double percentualAcerto = calcPercentual(getQuizRealizar().getQuestoes().size(), acertos);
+            double percentualAcerto = calcPercentual(getQuizRealizar().getQuestoes().size(), acertos);
 
-        String questoesCorretas = acertos + " de " + getQuizRealizar().getQuestoes().size() + " Questões.";
+            String questoesCorretas = acertos + " de " + getQuizRealizar().getQuestoes().size() + " Questões.";
 
-        String msg = "Acertos: " + questoesCorretas + "<br /> <br />Aproveitamento: " + percentualAcerto + "%.";
+            String msg = "Acertos: " + questoesCorretas + "<br /> <br />Aproveitamento: " + percentualAcerto + "%.";
 
-        QuizRealizado meuQuiz = new QuizRealizado();
-        meuQuiz.setIdQuizRealizado(getQuizRealizar().getId());
-        meuQuiz.setAlunnoQueRealizouQuiz(getAlunoConectado());
-        meuQuiz.setQuestoesCorretas(questoesCorretas);
-        meuQuiz.setAproveitamento(percentualAcerto);
-        meuQuiz.setNomeQuizRealizado(getQuizRealizar().getTitulo());
-        meuQuiz.setRespostas(respostas);
+            QuizRealizado meuQuiz = new QuizRealizado();
+            meuQuiz.setIdQuizRealizado(getQuizRealizar().getId());
+            meuQuiz.setAlunnoQueRealizouQuiz(getAlunoConectado());
+            meuQuiz.setQuestoesCorretas(questoesCorretas);
+            meuQuiz.setAproveitamento(percentualAcerto);
+            meuQuiz.setNomeQuizRealizado(getQuizRealizar().getTitulo());
+            meuQuiz.setRespostas(respostas);
 
-        QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
-        List<QuizRealizado> listaRealizados = quizRealizadoDAO.getQuizRealizadoByAluno(getAlunoConectado());
-        listaRealizados.add(meuQuiz);
+            QuizRealizadoDAO quizRealizadoDAO = new QuizRealizadoDAO();
+            List<QuizRealizado> listaRealizados = quizRealizadoDAO.getQuizRealizadoByAluno(getAlunoConectado());
+            listaRealizados.add(meuQuiz);
 
-        getAlunoConectado().setQuizesRealizados(listaRealizados);
+            getAlunoConectado().setQuizesRealizados(listaRealizados);
 
-        quizRealizadoDAO.salvar(meuQuiz);
+            quizRealizadoDAO.salvar(meuQuiz);
 
-        AlunoDAO alunoDAO = new AlunoDAO();
-        alunoDAO.atualizar(getAlunoConectado());
+            AlunoDAO alunoDAO = new AlunoDAO();
+            alunoDAO.atualizar(getAlunoConectado());
 
-        setDisabledBtnConcluir(true);
+            setDisabledBtnConcluir(true);
 
-        FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Concluído com sucesso!", msg);
-        RequestContext.getCurrentInstance().showMessageInDialog(m);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Concluído com sucesso!", msg);
+            RequestContext.getCurrentInstance().showMessageInDialog(m);
+        
 
     }
 
@@ -134,7 +142,7 @@ public class AlunoQuizBean {
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Você já realizou este Quiz.", "");
 
-                FacesMessage msg2 = new FacesMessage(FacesMessage.SEVERITY_WARN, quizRealizado.getQuestoesCorretas(), "");
+                FacesMessage msg2 = new FacesMessage(FacesMessage.SEVERITY_WARN, "Acertou: "+quizRealizado.getQuestoesCorretas(), "");
 
                 FacesMessage msg3 = new FacesMessage(FacesMessage.SEVERITY_WARN, "Aproveitamento: " + quizRealizado.getAproveitamento() + "%.", "");
 
@@ -149,7 +157,6 @@ public class AlunoQuizBean {
 
     }
 
-    
     /**
      * Retorna o aluno autenticado no momento.
      *
@@ -173,10 +180,10 @@ public class AlunoQuizBean {
     }
 
     /**
-     * Seleciona o Quiz desejado para poder realizar ele. 
-     * 
+     * Seleciona o Quiz desejado para poder realizar ele.
+     *
      * @param quiz
-     * @return 
+     * @return
      */
     public String realizarQuiz(Quiz quiz) {
 

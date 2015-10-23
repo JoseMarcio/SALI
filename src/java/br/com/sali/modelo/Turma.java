@@ -40,6 +40,11 @@ public class Turma implements Serializable {
     @OneToMany
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Quiz> quizesDaTurma = new ArrayList<>();
+    
+    @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Licao> licoesDaTurma = new ArrayList<>();
+            
 
     // Construtor.
     public Turma() {
@@ -85,14 +90,23 @@ public class Turma implements Serializable {
         this.quizesDaTurma = quizesDaTurma;
     }
 
+    public List<Licao> getLicoesDaTurma() {
+        return licoesDaTurma;
+    }
+
+    public void setLicoesDaTurma(List<Licao> licoesDaTurma) {
+        this.licoesDaTurma = licoesDaTurma;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        hash = 17 * hash + Objects.hashCode(this.nome);
-        hash = 17 * hash + Objects.hashCode(this.professor);
-        hash = 17 * hash + Objects.hashCode(this.alunos);
-        hash = 17 * hash + Objects.hashCode(this.quizesDaTurma);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.nome);
+        hash = 89 * hash + Objects.hashCode(this.professor);
+        hash = 89 * hash + Objects.hashCode(this.alunos);
+        hash = 89 * hash + Objects.hashCode(this.quizesDaTurma);
+        hash = 89 * hash + Objects.hashCode(this.licoesDaTurma);
         return hash;
     }
 
@@ -120,8 +134,14 @@ public class Turma implements Serializable {
         if (!Objects.equals(this.quizesDaTurma, other.quizesDaTurma)) {
             return false;
         }
+        if (!Objects.equals(this.licoesDaTurma, other.licoesDaTurma)) {
+            return false;
+        }
         return true;
     }
+
+    
+    
 
    
 

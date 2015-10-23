@@ -201,5 +201,14 @@ public class TemplateAreaProfessorBean implements Serializable {
     public String irRelatorioTurma() {
         return "/professor/gerar-relatorio-turma?faces-redirect=true";
     }
+    
+    /**
+     * Direciona a anexar lições.
+     *
+     * @return
+     */
+    public String irAnexarLicao() {
+        return "/professor/anexar-licao?faces-redirect=true";
+    }
 
 }

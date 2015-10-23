@@ -120,7 +120,7 @@ public class ProfessorQuiz {
 
         habilitaBotaoInserir = false;
         habilitaBotaoTerminar = true;
-        
+
     }
 
     /**
@@ -129,21 +129,27 @@ public class ProfessorQuiz {
      */
     public void gerar() {
 
-        if (quiz.getQuestoes().size() <= 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe perguntas para o quiz.", ""));
+        if (ValidacoesUtil.soTemEspaco(this.quiz.getTitulo())) {
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Título inválido.", "");
+            FacesContext.getCurrentInstance().addMessage(null, m);
         } else {
-            quiz.setTitulo(quiz.getTitulo().toUpperCase());
 
-            Turma turma = getProfessorConectado().getTurmaAtual();
+            if (quiz.getQuestoes().size() <= 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe perguntas para o quiz.", ""));
+            } else {
+                quiz.setTitulo(quiz.getTitulo().toUpperCase());
 
-            quiz.setTurma(turma);
+                Turma turma = getProfessorConectado().getTurmaAtual();
 
-            quizRN.salvar(quiz);
+                quiz.setTurma(turma);
 
-            limparBean();
+                quizRN.salvar(quiz);
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Quiz gerado com sucesso!", ""));
+                limparBean();
 
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Quiz gerado com sucesso!", ""));
+
+            }
         }
 
     }
@@ -170,7 +176,6 @@ public class ProfessorQuiz {
         return professor;
     }
 
-    
     /**
      * Insere uma nova questão no Quiz que está sendo criado.
      */
