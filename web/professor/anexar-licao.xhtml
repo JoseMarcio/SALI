@@ -11,10 +11,10 @@
 
     <ui:define name="corpo">
 
-        <p:panel>
+        <p:panel id="painel">
             <h4>Anexar Nova Lição</h4>
             <p:separator />
-            <h:form>              
+            <h:form id="frm-geral">              
 
                 <p:outputLabel value="Título"/>
                 <p:inputText class="form-control"
@@ -26,30 +26,59 @@
 
                 <p:outputLabel value="Arquivo PDF"/>
                 <p:outputLabel class="form-control"
-                               value="#{anexarLicaoBean.nomeArquivoSelecionado}"/>
-                
+                               value="#{anexarLicaoBean.nomeArquivoSelecionado}"
+                               id="nome"/>
+
                 <p:commandButton icon="ui-icon-circle-plus"
                                  title="Selecionar Arquivo"
                                  process="@this"
                                  update="@this"
-                                 />
+                                 onclick="PF('t').show()"/>
 
 
                 <p:messages autoUpdate="true"
-                            showIcon="false"/>
+                            showIcon="false"
+                            closable="true"/>
 
                 <br />
                 <center>
                     <p:commandButton value="Salvar"
                                      title="Salvar Lição"
                                      action="#{anexarLicaoBean.salvarLicao()}"
-                                     />
+                                     update=":painel"/>
                 </center>
 
 
             </h:form>
         </p:panel>
 
+
+        <p:dialog widgetVar="t"
+                  resizable="false"
+                  modal="true"
+                  closable="false"
+                  draggable="true"
+                  header="Insira o arquivo PDF"
+                  position="center"
+                  width="600"
+                  height="200">
+
+
+            <h:form enctype="multipart/form-data"> 
+                <p:fileUpload fileUploadListener="#{anexarLicaoBean.upload}" 
+                              label="Selecionar" 
+                              cancelLabel="Cancelar"
+                              uploadLabel="Anexar"
+                              /> 
+            </h:form> 
+
+
+            <p:messages autoUpdate="true" showIcon="false" closable="false"/> 
+
+            <h:form>
+                <p:commandButton value="Fechar" onclick="PF('t').hide()" update=":frm-geral:nome"/>
+            </h:form>
+        </p:dialog>
 
     </ui:define>
 </ui:composition>
