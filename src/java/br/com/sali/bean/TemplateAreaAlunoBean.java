@@ -14,7 +14,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "beanTemplateAluno")
 public class TemplateAreaAlunoBean {
-    
+
     /**
      * Direciona página Inicial.
      *
@@ -32,8 +32,7 @@ public class TemplateAreaAlunoBean {
     public String irAlterarSenha() {
         return "/aluno/alterar-senha?faces-redirect=true";
     }
-    
-    
+
     /**
      * Direciona página quiz.
      *
@@ -42,7 +41,6 @@ public class TemplateAreaAlunoBean {
     public String irQuizes() {
         return "/aluno/quiz?faces-redirect=true";
     }
-    
 
     /**
      * Retorna o aluno autenticado no momento.
@@ -64,5 +62,14 @@ public class TemplateAreaAlunoBean {
         Aluno aluno = alunoRN.getAlunoByUsuario(usuario);
 
         return aluno;
+    }
+
+    /**
+     * Direciona a área de realização de lições.
+     *
+     * @return
+     */
+    public String irLicoes() {
+        return "/aluno/licoes?faces-redirect=true";
     }
 }

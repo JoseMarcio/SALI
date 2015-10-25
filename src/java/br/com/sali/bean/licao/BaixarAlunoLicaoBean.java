@@ -17,7 +17,7 @@ import org.primefaces.model.StreamedContent;
  */
 @ManagedBean
 @ViewScoped
-public class BaixarLicaoBean implements Serializable{
+public class BaixarAlunoLicaoBean implements Serializable{
 
     private StreamedContent file;
     private String caminhoArquivo;

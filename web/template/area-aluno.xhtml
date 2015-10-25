@@ -86,7 +86,11 @@
                     <h:form>
                         <p:menu>
                             <p:submenu label="Lições">
-
+                                <p:menuitem value="Suas Lições"
+                                            ajax="false"
+                                            icon="ui-icon-person"
+                                            action="#{beanTemplateAluno.irLicoes()}"
+                                            title="Lições"/>
                             </p:submenu>
                             <p:submenu label="Quiz">
                                 <p:menuitem value="Realizar" 

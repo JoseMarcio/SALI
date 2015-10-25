@@ -45,6 +45,24 @@ public class QuizRealizadoDAO extends GenericoDAO<QuizRealizado> {
         criteria.add(criterioDeBusca1);
         criteria.add(criterioDeBusca2);
         List<QuizRealizado> quizes = criteria.list();
+        getTransacao().commit();
+        getSessao().close();
+        return quizes;
+    }
+    
+    /**
+     * Lista todos os quizes realizados de um aluno.
+     *
+     * @param aluno
+     * @return
+     */
+    public List<QuizRealizado> listarQuizRealizadosPorAluno(Aluno aluno) {
+        Criteria criteria = getSessao().createCriteria(QuizRealizado.class);
+        Criterion criterioDeBusca1 = Restrictions.eq("alunnoQueRealizouQuiz", aluno);
+        criteria.add(criterioDeBusca1);
+        List<QuizRealizado> quizes = criteria.list();
+         getTransacao().commit();
+        getSessao().close();
         return quizes;
     }
 }

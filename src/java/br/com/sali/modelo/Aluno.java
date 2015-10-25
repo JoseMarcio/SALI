@@ -42,7 +42,8 @@ public class Aluno implements Serializable {
     private Usuario usuario;
     
     
-    @OneToMany(cascade = javax.persistence.CascadeType.ALL)
+    @OneToMany
+    @Cascade(CascadeType.ALL)
     private List<QuizRealizado> quizesRealizados;
     
     // Construtor.

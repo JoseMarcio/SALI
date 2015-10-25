@@ -29,7 +29,8 @@
                 </p:panel>
 
 
-                <p:panel rendered="#{alunoAlterarBean.renderPainelAlterar}">
+                <p:panel rendered="#{alunoAlterarBean.renderPainelAlterar}"
+                         id="editar">
 
                     <p:separator />
 
@@ -134,11 +135,13 @@
                 <p:commandButton icon="ui-icon-search" 
                                  value="Pesquisar"  
                                  title="Pesquisar Aluno"
-                                 actionListener="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
+                                 actionListener="#{alunoPesquisarBean.abrirDialogoPesquisa()}"
+                                 process="@this">
 
                     <p:ajax event="dialogReturn" 
                             listener="#{alunoAlterarBean.eventoSelecaoAluno}" 
-                            update="@all"/>
+                            update="@form"
+                            immediate="true"/>
                 </p:commandButton>
 
             </h:form>

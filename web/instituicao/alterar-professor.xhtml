@@ -108,11 +108,13 @@
                 <p:commandButton value="Pesquisar" 
                                  icon="ui-icon-search"  
                                  title="Pesquisar Professor"
-                                 actionListener="#{pesquisarProfessorBean.abrirDialogoPesquisa()}">
+                                 actionListener="#{pesquisarProfessorBean.abrirDialogoPesquisa()}"
+                                 process="@this">
 
                     <p:ajax event="dialogReturn" 
                             listener="#{alterarProfessorBean.eventoSelecaoProfessor}" 
-                            update="@all"/>
+                            update="@form"
+                            immediate="true"/>
 
                 </p:commandButton>      
             </h:form>

@@ -56,7 +56,8 @@
                 <p:commandButton icon="ui-icon-search" 
                                  title="Pesquisar Professor" 
                                  value="Pesquisar" 
-                                 action="#{alunoPesquisarBean.abrirDialogoPesquisa()}">
+                                 action="#{alunoPesquisarBean.abrirDialogoPesquisa()}"
+                                 process="@this">
 
                     <p:ajax event="dialogReturn" 
                             listener="#{alunoExcluirBean.eventoSelecaoAluno}" 

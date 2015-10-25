@@ -19,12 +19,12 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @RequestScoped
-public class VisualizarLicaoBean implements Serializable {
+public class VisualizarAlunoLicaoBean implements Serializable {
 
     private Long idLicao;
     private LicaoRN licaoRN;
 
-    public VisualizarLicaoBean() {
+    public VisualizarAlunoLicaoBean() {
         this.licaoRN = new LicaoRN();
     }
     //==========================================================================
@@ -37,7 +37,7 @@ public class VisualizarLicaoBean implements Serializable {
      * @return
      */
     public String urlVisualizarArquivoLicao(Long idLicao) {
-        return "http://localhost:8080/SALI/professor/visualizar-licao.jsf?id=" + idLicao;
+        return "http://localhost:8080/SALI/aluno/visualizar-licao.jsf?id=" + idLicao;
     }
 
     /**

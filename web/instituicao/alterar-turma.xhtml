@@ -79,9 +79,10 @@
                 <p:commandButton value="Pesquisar" 
                                  icon="ui-icon-search"  
                                  title="Pesquisar Turma"
-                                 actionListener="#{turmaPesquisarBean.abrirDialogoPesquisa()}">
+                                 actionListener="#{turmaPesquisarBean.abrirDialogoPesquisa()}"
+                                 process="@this">
 
-                    <p:ajax event="dialogReturn" listener="#{turmaAlterarBean.eventoSelecaoTurma}"  update="@all"/>
+                    <p:ajax event="dialogReturn" listener="#{turmaAlterarBean.eventoSelecaoTurma}"  update="@form" immediate="true"/>
                 </p:commandButton>
 
             </h:form>
