@@ -91,23 +91,27 @@
                                 <p:menuitem value="Anexar"
                                             ajax="false"
                                             icon="ui-icon-disk"
-                                            action="#{beanTemplateProfessor.irAnexarLicao()}"/>
+                                            action="#{beanTemplateProfessor.irAnexarLicao()}"
+                                            title="Anexar uma nova lição"/>
                                 
                                 <p:menuitem value="Listar Todas"
                                             ajax="false"
-                                            icon="ui-icon-disk"
-                                            action="#{beanTemplateProfessor.irVerLicao()}"/>
+                                            icon="ui-icon-clipboard"
+                                            action="#{beanTemplateProfessor.irVerLicao()}"
+                                            title="Listar todas as lições"/>
                             </p:submenu>
                             <p:submenu label="Quiz">
                                 <p:menuitem action="#{beanTemplateProfessor.irGerarQuiz()}" 
                                             value="Gerar Novo"
                                             ajax="false"
-                                            icon="ui-icon-disk"/>                                
+                                            icon="ui-icon-disk"
+                                            title="Criar um novo Quiz"/>                                
 
                                 <p:menuitem action="#{beanTemplateProfessor.irListarQuiz()}" 
                                             value="Listar Gerados" 
                                             ajax="false"
-                                            icon="ui-icon-clipboard"/>
+                                            icon="ui-icon-clipboard"
+                                            title="Listar todos os quizes"/>
 
                             </p:submenu>
                             <p:submenu label="Fórum">
@@ -118,19 +122,22 @@
                                 <p:menuitem value="Por Aluno" 
                                             ajax="false"
                                             icon="ui-icon-person"
-                                            action="#{beanTemplateProfessor.irRelatorioAluno()}"/>
+                                            action="#{beanTemplateProfessor.irRelatorioAluno()}"
+                                            title="Gerar relatório por aluno"/>
 
                                 <p:menuitem value="Por Turma" 
                                             ajax="false"
                                             icon="ui-icon-home"
-                                            action="#{beanTemplateProfessor.irRelatorioTurma()}"/>
+                                            action="#{beanTemplateProfessor.irRelatorioTurma()}"
+                                            title="Gerar relatório por turma"/>
 
                             </p:submenu>
                             <p:submenu label="Opções">
                                 <p:menuitem action="#{beanTemplateProfessor.irAlterarSenha()}"
                                             value="Alterar Senha" 
                                             ajax="false"
-                                            icon="ui-icon-wrench"/>
+                                            icon="ui-icon-wrench"
+                                            title="Alterar a sua senha de acesso"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>

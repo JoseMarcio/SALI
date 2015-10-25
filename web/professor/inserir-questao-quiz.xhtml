@@ -102,7 +102,7 @@
                     </p:selectOneRadio>
 
 
-                    <p:messages autoUpdate="true" showIcon="false"/>
+                    <p:messages autoUpdate="true" showIcon="false" closable="true"/>
 
                     <br />
                     <center>
@@ -111,17 +111,18 @@
                                          action="#{quizProfessor.inserirQuestaoNoQuiz()}"
                                          update="qt pergunta alternativa-a alternativa-b alternativa-c alternativa-d select concluir"
                                          disabled="${quizProfessor.habilitaBotaoInserir}"
-                                         title="Inserir questões no quiz"
-                                         />
+                                         title="Adicinar essa questão"
+                                         icon="ui-icon-check"/>
 
 
-                        <p:commandButton  value="Concluir" 
+                        <p:commandButton  value="Finalizar" 
                                           process="@this" 
                                           update="@form" 
                                           disabled="#{quizProfessor.habilitaBotaoTerminar}"
                                           action="#{quizProfessor.terminarQuestoes()}"
-                                          title="Concluir"
-                                          id="concluir"/>
+                                          title="Finalizar a inserção de questões"
+                                          id="concluir"
+                                          icon="ui-icon-disk"/>
 
                     </center>
 

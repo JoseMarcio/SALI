@@ -12,6 +12,7 @@ import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.QuizRN;
 import br.com.sali.regras.UsuarioRN;
 import br.com.sali.util.ValidacoesUtil;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -41,12 +42,14 @@ public class AlunoQuizBean {
         quizRN = new QuizRN();
         quizRealizar = new Quiz();
         quizesDaTurma = quizRN.litarQuizesPorTurma(getAlunoConectado().getTurma());
+        Collections.reverse(quizesDaTurma);
 
     }
 
     
     public void atualiza(){
         quizesDaTurma = quizRN.litarQuizesPorTurma(getAlunoConectado().getTurma());
+        Collections.reverse(quizesDaTurma);
     }
     
     /**

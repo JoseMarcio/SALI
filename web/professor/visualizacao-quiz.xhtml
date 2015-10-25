@@ -17,26 +17,19 @@
                     var="quiz"
                     value="#{quizProfessorListarQuiz.quizExibir.questoes}"
                     type="ordered"
-                    id="lista">
+                    id="lista"
+                    >
 
             <f:facet name="header">
                 #{quizProfessorListarQuiz.quizExibir.titulo}
             </f:facet>
 
-            <h:outputText value="#{quiz.pergunta}"/>
+            <h:outputText value="#{quiz.pergunta}" class="form-control"/>
             <br />
-            <br />
-            <h:outputText value="a) #{quiz.alternativas[0]}"/>
-            <br />
-            <br />
-            <h:outputText value="b) #{quiz.alternativas[1]}"/>
-            <br />
-            <br />
-            <h:outputText value="c) #{quiz.alternativas[2]}"/>
-            <br />
-            <br />
-            <h:outputText value="d) #{quiz.alternativas[3]}"/>
-            <br />
+            <h:outputText value="a) #{quiz.alternativas[0]}" class="form-control"/>
+            <h:outputText value="b) #{quiz.alternativas[1]}" class="form-control"/>
+            <h:outputText value="c) #{quiz.alternativas[2]}" class="form-control"/>
+            <h:outputText value="d) #{quiz.alternativas[3]}" class="form-control"/>
             <br />
             <h:outputText value="Alternativa Correta:  #{quiz.alternativas[quiz.alternativaCorreta]}"/>
             <br />

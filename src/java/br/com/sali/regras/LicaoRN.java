@@ -47,4 +47,9 @@ public class LicaoRN {
     public boolean isExisteNomeLicao(String nome, Turma turma){
         return this.licaoDao.isExistenteNomeLição(nome, turma);
     }
+    
+    
+    public Licao pegarLicaoPorId(Long id){
+        return (Licao) this.licaoDao.getObjectById(Licao.class, id);
+    }
 }

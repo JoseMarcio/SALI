@@ -39,7 +39,7 @@
                             #{quizAluno.quizRealizar.titulo}
                         </f:facet>
 
-                        <p:outputLabel>#{questao.pergunta}</p:outputLabel>
+                        <p:outputLabel class="form-control">#{questao.pergunta}</p:outputLabel>
                         <br />
                         <br />
 
@@ -64,16 +64,18 @@
                     </p:dataList>
 
                     <p:messages autoUpdate="true"
-                                showIcon="false"/>
+                                showIcon="false"
+                                closable="true"/>
 
                     <br />
                     <center>
                         <p:commandButton value="Concluir"
-                                         title="Concluir o Quiz"
+                                         title="Finalizar a resolução deste Quiz"
                                          rendered="#{!empty quizAluno.quizRealizar.questoes}"
                                          action="#{quizAluno.concluir()}"
                                          disabled="#{quizAluno.disabledBtnConcluir}"
-                                         update="panel"/>
+                                         update="panel"
+                                         icon="ui-icon-check"/>
                     </center>
 
                 </p:panel>

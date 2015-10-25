@@ -18,17 +18,17 @@
         <p:dataList emptyMessage="Nenhum Quiz Disponível"
                     var="quiz"
                     value="#{quizProfessorListarQuiz.quizesTurmaAtual}"
-                    >            
+                    type="none">            
 
             <f:facet name="header">
-                Quizes Gerados
+                Todos os quizes
             </f:facet>
 
 
             <h:form>
                 <h:commandLink action="#{quizProfessorListarQuiz.selecionarQuiz(quiz)}"
                                value="#{quiz.titulo}"
-                               />
+                               class="form-control"/>
             </h:form>
 
             <br />

@@ -19,7 +19,7 @@
 
                 <p:panel id="painel-1">
 
-                    <p:outputLabel value="Titulo"/>
+                    <p:outputLabel value="Título"/>
                     <p:inputText value="#{quizProfessor.quiz.titulo}"
                                  required="true"
                                  requiredMessage="Informe um título para o Quiz."
@@ -30,17 +30,19 @@
 
 
 
-                    <p:commandButton value="Gerar"
+                    <p:commandButton value="Salvar"
                                      disabled="#{quizProfessor.habilitaBotaoGerar}"
                                      action="#{quizProfessor.gerar()}"
                                      update=":frm-geral:painel-1"
                                      title="Salvar quiz"
-                                     id="gerar"/>
+                                     id="gerar"
+                                     icon="ui-icon-folder-open"/>
 
                     <p:commandButton value="Inserir Questões"
                                      action="#{quizProfessor.inserirQuestoes()}"
                                      process="@this"
-                                     title="Inserir questões no quiz">
+                                     title="Inserir questões no quiz"
+                                     icon="ui-icon-plus">
 
                     </p:commandButton>
 
@@ -50,9 +52,10 @@
 
                                          action="#{quizProfessor.limparBean()}"
                                          update=":frm-geral:painel-1"
-                                         title="Limpar"
+                                         title="Limpar dados"
                                          process="@this"
-                                         immediate="true"/>
+                                         immediate="true"
+                                         icon="ui-icon-close"/>
                     
 
                         <p:messages autoUpdate="true" showIcon="false" closable="true"/>

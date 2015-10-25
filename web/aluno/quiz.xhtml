@@ -22,16 +22,17 @@
                         var="quiz" 
                         emptyMessage="Nenhum quiz disponível."
                         style="word-wrap: break-word;"
-                        >
+                        type="none">
 
                 <f:facet name="header">
-                    Quizes Disponíveis
+                    Todos os quizes
                 </f:facet>
 
 
                 <h:form>
                     <h:commandLink action="#{quizAluno.realizarQuiz(quiz)}" 
-                                   value="#{quiz.titulo}"/> 
+                                   value="#{quiz.titulo}"
+                                   class="form-control"/> 
                     
                 </h:form>
                 <br />

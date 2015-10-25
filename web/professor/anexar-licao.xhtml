@@ -45,7 +45,8 @@
                     <p:commandButton value="Salvar"
                                      title="Salvar Lição"
                                      action="#{anexarLicaoBean.salvarLicao()}"
-                                     update=":painel"/>
+                                     update=":painel"
+                                     icon="ui-icon-check"/>
                 </center>
 
 
@@ -58,7 +59,7 @@
                   modal="true"
                   closable="false"
                   draggable="true"
-                  header="Insira o arquivo PDF"
+                  header="Insira um arquivo PDF"
                   position="center"
                   width="600"
                   height="250">
@@ -82,7 +83,11 @@
             
 
             <h:form>
-                <p:commandButton value="Fechar" onclick="PF('t').hide()" update=":frm-geral:nome"/>
+                <p:commandButton value="Fechar" 
+                                 onclick="PF('t').hide()" 
+                                 update=":frm-geral:nome"
+                                 icon="ui-icon-close"
+                                 title="Fechar diálogo"/>
             </h:form>
             
             <p:messages autoUpdate="true" showIcon="false" closable="true"/> 

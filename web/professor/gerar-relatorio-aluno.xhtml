@@ -29,7 +29,7 @@
                             update="emitir aluno"/>
                 </p:commandButton>
 
-                <p:messages autoUpdate="true" showIcon="false"/>
+                <p:messages autoUpdate="true" showIcon="false" closable="true"/>
                 <br />
                 <center>
                     <p:commandButton value="Emitir"
@@ -38,7 +38,8 @@
                                      ajax="false"
                                      title="Emitir Relatório"
                                      disabled="#{relatorioAlunoBean.disabilitaBtnEmitir}"
-                                     update="panel">
+                                     update="panel"
+                                     icon="ui-icon-check">
 
 
                         

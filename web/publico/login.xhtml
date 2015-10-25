@@ -66,12 +66,12 @@
 
                     <h:panelGrid columns="2">
                         <p:commandButton value="Enviar"
-                                         title="Enviar nova senha"
+                                         title="Enviar nova senha para o e-mail"
                                          style="cursor: pointer;"
                                          action="#{loginBean.recuperarEmail()}"
                                          process="@form"
                                          update="@form"
-                                         >
+                                         icon="ui-icon-check">
 
                         </p:commandButton>
 
@@ -82,7 +82,7 @@
                                          process="@this"
                                          update="@form"
                                          onclick="PF('recuperarEmail').hide();"
-                                         >
+                                         icon="ui-icon-close">
 
                         </p:commandButton>
                     </h:panelGrid>

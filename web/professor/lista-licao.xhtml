@@ -10,9 +10,9 @@
     </ui:define>
 
     <ui:define name="corpo">
-        
+
         #{verLicoesBean.atualizarLicoes()}
-        
+
         <p:dataList emptyMessage="Nenhuma lição encontrada"
                     var="licao"
                     value="#{verLicoesBean.licoesDaTurma}"
@@ -25,18 +25,27 @@
 
             <h:outputText value="#{licao.tituloLicao}" class="form-control"/>
             <h:form>
-                <h:commandButton value="Baixar" style="margin-right: 10px;">
+                <p:commandButton value="Baixar" 
+                                 style="margin-right: 10px;" 
+                                 ajax="false" 
+                                 icon="ui-icon-arrowthick-1-s"
+                                 title="Baixar esta lição">
+                   
                     <f:setPropertyActionListener target="#{baixarLicaoBean.caminhoArquivo}" value="#{licao.arquivo}"/>
                     <f:setPropertyActionListener target="#{baixarLicaoBean.nomeLicao}" value="#{licao.tituloLicao}"/>
                     <p:fileDownload value="#{baixarLicaoBean.file}"/>
-                </h:commandButton>
-                <h:commandButton value="Visualizar" action="#{visualizarLicaoBean.visualizarLicao(licao.arquivo, licao.tituloLicao)}"/>
+                </p:commandButton>
+                
+                <p:commandButton value="Visualizar" 
+                                 onclick="window.open('#{visualizarLicaoBean.url(licao.id)}')"
+                                 ajax="false"
+                                 icon="ui-icon-play"
+                                 title="Visualizar esta lição"/>
+                    
+                
             </h:form>
             <br/>
-            
-        </p:dataList>
-        
-     
 
+        </p:dataList>
     </ui:define>
 </ui:composition>

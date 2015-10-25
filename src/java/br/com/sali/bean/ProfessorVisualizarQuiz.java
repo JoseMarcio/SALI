@@ -8,6 +8,7 @@ import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.QuizRN;
 import br.com.sali.regras.UsuarioRN;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -32,10 +33,12 @@ public class ProfessorVisualizarQuiz {
         quizRN = new QuizRN();
         quizExibir = new Quiz();
         quizesTurmaAtual = quizRN.litarQuizesPorTurma(getProfessorConectado().getTurmaAtual());
+        Collections.reverse(quizesTurmaAtual);
     }
 
     public void atualiza(){
         quizesTurmaAtual = quizRN.litarQuizesPorTurma(getProfessorConectado().getTurmaAtual());
+        Collections.reverse(quizesTurmaAtual);
     }
     
     /**
