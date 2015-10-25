@@ -16,13 +16,22 @@
             <p:separator />
             <h:form id="frm-geral">              
 
-                <p:outputLabel value="Título"/>
+                <p:outputLabel value="Nome da Lição"/>
                 <p:inputText class="form-control"
-                             placeholder="Informe o nome o da lição"
+                             placeholder="Informe o nome da lição"
                              required="true"
-                             requiredMessage="Informe um título para a lição."
+                             requiredMessage="Informe um nome para a lição."
                              value="#{anexarLicaoBean.licao.tituloLicao}"
                              maxlength="85"/>
+                
+                <p:outputLabel value="Descrição"/>
+                <p:inputTextarea class="form-control"
+                             placeholder="Informe uma descrição para a lição"
+                             required="true"
+                             requiredMessage="Informe uma descrição para a lição."
+                             value="#{anexarLicaoBean.licao.descricao}"
+                             maxlength="200"
+                             />
 
                 <p:outputLabel value="Arquivo PDF"/>
                 <p:outputLabel class="form-control"

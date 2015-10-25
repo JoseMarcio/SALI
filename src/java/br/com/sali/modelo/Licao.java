@@ -22,6 +22,7 @@ public class Licao implements Serializable {
     private Long id;
     private String tituloLicao;
     private String arquivo;
+    private String descricao;
     @OneToOne
     private Turma turma;
 
@@ -52,6 +53,14 @@ public class Licao implements Serializable {
         this.arquivo = arquivo;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public Turma getTurma() {
         return turma;
     }
@@ -62,11 +71,12 @@ public class Licao implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        hash = 73 * hash + Objects.hashCode(this.tituloLicao);
-        hash = 73 * hash + Objects.hashCode(this.arquivo);
-        hash = 73 * hash + Objects.hashCode(this.turma);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.tituloLicao);
+        hash = 37 * hash + Objects.hashCode(this.arquivo);
+        hash = 37 * hash + Objects.hashCode(this.descricao);
+        hash = 37 * hash + Objects.hashCode(this.turma);
         return hash;
     }
 
@@ -88,12 +98,17 @@ public class Licao implements Serializable {
         if (!Objects.equals(this.arquivo, other.arquivo)) {
             return false;
         }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
         if (!Objects.equals(this.turma, other.turma)) {
             return false;
         }
         return true;
     }
 
+ 
+    
     
     
     
