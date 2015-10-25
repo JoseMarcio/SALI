@@ -1,0 +1,42 @@
+<ui:composition  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 template="/template/area-professor.xhtml"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+    <ui:define name="titulo">
+        Lições
+    </ui:define>
+
+    <ui:define name="corpo">
+        
+        #{verLicoesBean.atualizarLicoes()}
+        
+        <p:dataList emptyMessage="Nenhuma lição encontrada"
+                    var="licao"
+                    value="#{verLicoesBean.licoesDaTurma}"
+                    type="none">            
+
+            <f:facet name="header">
+                Todas as lições
+            </f:facet>
+
+
+            <h:outputText value="#{licao.tituloLicao}" class="form-control"/>
+            <h:form>
+                <h:commandButton value="Baixar" style="margin-right: 10px;">
+                    <f:setPropertyActionListener target="#{baixarLicaoBean.caminhoArquivo}" value="#{licao.arquivo}"/>
+                    <f:setPropertyActionListener target="#{baixarLicaoBean.nomeLicao}" value="#{licao.tituloLicao}"/>
+                    <p:fileDownload value="#{baixarLicaoBean.file}"/>
+                </h:commandButton>
+                <h:commandButton value="Visualizar" action="#{visualizarLicaoBean.visualizarLicao(licao.arquivo, licao.tituloLicao)}"/>
+            </h:form>
+            <br/>
+            
+        </p:dataList>
+        
+     
+
+    </ui:define>
+</ui:composition>

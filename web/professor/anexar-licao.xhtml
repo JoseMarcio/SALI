@@ -22,7 +22,7 @@
                              required="true"
                              requiredMessage="Informe um título para a lição."
                              value="#{anexarLicaoBean.licao.tituloLicao}"
-                             />
+                             maxlength="85"/>
 
                 <p:outputLabel value="Arquivo PDF"/>
                 <p:outputLabel class="form-control"
@@ -61,7 +61,7 @@
                   header="Insira o arquivo PDF"
                   position="center"
                   width="600"
-                  height="200">
+                  height="250">
 
 
             <h:form enctype="multipart/form-data"> 
@@ -69,15 +69,23 @@
                               label="Selecionar" 
                               cancelLabel="Cancelar"
                               uploadLabel="Anexar"
-                              /> 
+                              fileLimit="1"
+                              fileLimitMessage="É permitido anexar somente um arquivo."
+                              allowTypes="/(\.|\/)(pdf)$/"
+                              invalidFileMessage="Anexe aquivo em formato PDF."/>
+                
+                 
             </h:form> 
 
 
-            <p:messages autoUpdate="true" showIcon="false" closable="false"/> 
+            
+            
 
             <h:form>
                 <p:commandButton value="Fechar" onclick="PF('t').hide()" update=":frm-geral:nome"/>
             </h:form>
+            
+            <p:messages autoUpdate="true" showIcon="false" closable="true"/> 
         </p:dialog>
 
     </ui:define>

@@ -48,12 +48,25 @@ public class AnexarLicaoBean implements Serializable {
         this.licaoRN = new LicaoRN();
     }
 
+    /**
+     * Evento de upload do arquivo da lição.
+     * 
+     * @param fileUploadEvent
+     * @throws IOException 
+     */
     public void upload(FileUploadEvent fileUploadEvent) throws IOException {
         this.inputStream = fileUploadEvent.getFile().getInputstream();
         this.nomeArquivoSelecionado = fileUploadEvent.getFile().getFileName();
         setAnexouArquivo(true);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Arquivo anexado com sucesso.", "");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    /**
+     * Salva uma nova lição no banco de dados.
+     * 
+     * @throws IOException 
+     */
     public void salvarLicao() throws IOException {
         if (ValidacoesUtil.soTemEspaco(this.licao.getTituloLicao())) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Título inválido.", "");
@@ -61,7 +74,11 @@ public class AnexarLicaoBean implements Serializable {
         } else if (!isAnexouArquivo()) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Anexe um arquivo.", "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else {
+        } else if (this.licaoRN.isExisteNomeLicao(this.licao.getTituloLicao(), getProfessorConectado().getTurmaAtual())){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe uma lição com esse nome.", "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        else{
 
             String pastaPadrao = FacesContext.getCurrentInstance().
                     getExternalContext().getRealPath("/resources/licoes") + File.separator;
@@ -84,9 +101,9 @@ public class AnexarLicaoBean implements Serializable {
             this.licao.setTurma(getProfessorConectado().getTurmaAtual());
             this.licaoRN.salvarLicao(this.licao);
 
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro efetuado com sucesso.", "");
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Lição gerada com sucesso.", "");
             FacesContext.getCurrentInstance().addMessage(null, m);
-            
+
             limparBean();
         }
     }

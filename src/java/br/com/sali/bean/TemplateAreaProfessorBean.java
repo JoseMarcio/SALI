@@ -216,8 +216,8 @@ public class TemplateAreaProfessorBean implements Serializable {
      *
      * @return
      */
-    public String irVerAnexarLicao() {
-        return "/professor/list-licao?faces-redirect=true";
+    public String irVerLicao() {
+        return "/professor/lista-licao?faces-redirect=true";
     }
 
 }
