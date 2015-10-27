@@ -23,10 +23,15 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_endereco")
     private Long id;
+    @Column
     private String rua;
+    @Column
     private String numero;
+    @Column
     private String bairro;
+    @Column
     private String cidade;
+    @Column
     private String estado;
 
     // Construtor.

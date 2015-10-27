@@ -30,15 +30,17 @@ public class Professor implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_professor")
     private Long id;
+    @Column
     private String nome;
-    private int matricula;
+    @Column
+    private int matricula;    
     
     @OneToOne
-    private Turma turmaAtual;
+    private Turma turmaAtual;    
     
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
     private List<Turma> turmas = new ArrayList<>();
-
+    
     @OneToOne
     @Cascade(CascadeType.ALL)
     private Usuario usuario;

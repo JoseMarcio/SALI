@@ -2,6 +2,7 @@ package br.com.sali.modelo;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +20,13 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String email;
+    @Column
     private String senha;
+    @Column
     private boolean ativo;
+    @Column
     private String permissao;
 
     public Usuario() {

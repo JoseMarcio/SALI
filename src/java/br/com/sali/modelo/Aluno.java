@@ -30,7 +30,9 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_aluno")
     private Long id;
+    @Column
     private String nome;
+    @Column
     private int matricula;
 
     @ManyToOne
@@ -42,7 +44,7 @@ public class Aluno implements Serializable {
     private Usuario usuario;
     
     
-    @OneToMany
+    @OneToMany(mappedBy = "alunnoQueRealizouQuiz")
     @Cascade(CascadeType.ALL)
     private List<QuizRealizado> quizesRealizados;
     

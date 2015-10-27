@@ -30,19 +30,20 @@ public class Turma implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_turma")
     private Long id;
+    @Column
     private String nome;
+    
     @ManyToOne
     @JoinColumn(name = "id_professor")
     private Professor professor;
+    
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
     
-    @OneToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Quiz> quizesDaTurma = new ArrayList<>();
     
-    @OneToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<Licao> licoesDaTurma = new ArrayList<>();
             
 

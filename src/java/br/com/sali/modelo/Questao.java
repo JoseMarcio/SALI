@@ -3,10 +3,13 @@ package br.com.sali.modelo;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,11 +24,15 @@ public class Questao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String pergunta;
+    @Column
     private String[] alternativas;
+    @Column
     private int alternativaCorreta;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "id_quiz")
     private Quiz quiz;
     
     public Questao() {

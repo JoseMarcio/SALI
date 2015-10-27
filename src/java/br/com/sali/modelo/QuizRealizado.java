@@ -3,11 +3,13 @@ package br.com.sali.modelo;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,12 +25,17 @@ public class QuizRealizado implements Serializable {
     private Long id;
 
     private Long idQuizRealizado;
+    @Column
     private double aproveitamento;
+    @Column
     private String questoesCorretas;
+    @Column
     private int[] respostas;
+    @Column
     private String nomeQuizRealizado;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "id_aluno")
     private Aluno alunnoQueRealizouQuiz;
 
     public QuizRealizado() {

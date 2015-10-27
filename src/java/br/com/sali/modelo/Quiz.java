@@ -3,12 +3,14 @@ package br.com.sali.modelo;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -24,14 +26,15 @@ public class Quiz implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String titulo;
-    
-    
+
+    @OneToMany(mappedBy = "quiz")
     @Cascade(CascadeType.ALL)
-    @OneToMany
     private List<Questao> questoes;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "id_turma")
     private Turma turma;
 
     public Turma getTurma() {
@@ -41,8 +44,7 @@ public class Quiz implements Serializable {
     public void setTurma(Turma turma) {
         this.turma = turma;
     }
-    
-    
+
     public Quiz() {
     }
 
@@ -104,8 +106,4 @@ public class Quiz implements Serializable {
         return true;
     }
 
-    
-    
-
-  
 }

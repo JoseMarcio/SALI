@@ -26,7 +26,9 @@ public class Instituicao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_instituicao")
     private Long id;
+    @Column
     private String nome;
+    @Column
     private String telefone;
     @OneToOne
     @Cascade(CascadeType.ALL)
