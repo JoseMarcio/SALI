@@ -1,0 +1,71 @@
+<ui:composition  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 template="/template/area-professor.xhtml"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{visualizarProfessorTopicoBean.idTopico}"/>
+        <f:viewAction action="#{visualizarProfessorTopicoBean.carregarTopico()}"/>
+    </f:metadata>
+
+    <ui:define name="titulo">
+        Visualizar Tópico
+    </ui:define>
+    <ui:define name="corpo">
+
+        <p:panel>
+            <h1>Tópico: #{visualizarProfessorTopicoBean.topico.nome}</h1>
+            <p:separator />
+            <h3>Assunto: #{visualizarProfessorTopicoBean.topico.assunto}</h3>
+            <h6>Autor: #{visualizarProfessorTopicoBean.topico.autor}</h6>
+            <p:separator />
+
+            <h:form>
+                <p:dialog widgetVar="novaMenssagem"
+                          modal="true"
+                          width="500"
+                          height="200"
+                          header="Nova Menssagem"
+                          resizable="false"
+                          draggable="false">
+
+
+                    
+                    <br />
+                    <p:inputTextarea placeholder="Digite a sua menssagem aqui"
+                                     class="form-control"
+                                     maxlength="255"
+                                     style="resize: none"
+                                     autoResize="false"/>
+                    <p:commandButton value="Enviar"
+                                     />
+                    
+                    
+                </p:dialog>
+
+
+                <p:dataList emptyMessage="Nenhuma discussão nesse tópico"
+                            value="#{visualizarProfessorTopicoBean.menssagensDoTopico}"
+                            var="menssagem"
+                            type="none">
+
+
+                    <f:facet name="footer">
+
+                        <p:commandButton value="Nova Menssagem"
+                                         onclick="PF('novaMenssagem').show()"/>
+
+                    </f:facet>
+
+
+
+                </p:dataList>
+
+            </h:form>
+        </p:panel>
+
+
+
+    </ui:define>
+</ui:composition>

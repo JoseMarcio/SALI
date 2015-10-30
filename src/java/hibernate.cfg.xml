@@ -18,5 +18,7 @@
     <mapping class="br.com.sali.modelo.Quiz"/>
     <mapping class="br.com.sali.modelo.QuizRealizado"/>
     <mapping class="br.com.sali.modelo.Licao"/>
+    <mapping class="br.com.sali.modelo.MenssagemTopico"/>
+    <mapping class="br.com.sali.modelo.Topico"/>
   </session-factory>
 </hibernate-configuration>

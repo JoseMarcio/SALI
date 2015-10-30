@@ -7,6 +7,7 @@ import br.com.sali.modelo.Turma;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.PermissoesUtil;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author SALI
  */
-public class AlunoRN {
+public class AlunoRN implements Serializable{
 
     // Atributos.
     private final AlunoDAO alunoDAO;

@@ -6,6 +6,7 @@ import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Aluno;
 import br.com.sali.modelo.Professor;
 import br.com.sali.modelo.Turma;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author SALI
  */
-public class TurmaRN {
+public class TurmaRN implements Serializable{
 
     // Atributos.
     private final TurmaDAO turmaDAO;

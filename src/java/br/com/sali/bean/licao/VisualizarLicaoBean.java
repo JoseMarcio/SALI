@@ -33,10 +33,10 @@ public class VisualizarLicaoBean implements Serializable {
      * Direciona para a página que carrega o arquivo pdf pertencente a lição
      * selecionada.
      *
-     * @param idLicao
+     * @param idTopico
      * @return
      */
-    public String urlVisualizarArquivoLicao(Long idLicao) {
+    public String urlVisualizarTopico(Long idTopico) {
         return "http://localhost:8080/SALI/professor/visualizar-licao.jsf?id=" + idLicao;
     }
 

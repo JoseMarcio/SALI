@@ -219,5 +219,15 @@ public class TemplateAreaProfessorBean implements Serializable {
     public String irVerLicao() {
         return "/professor/lista-licao?faces-redirect=true";
     }
+    
+    
+    /**
+     * Direciona a tópicos.
+     *
+     * @return
+     */
+    public String irTopicos() {
+        return "/professor/topicos?faces-redirect=true";
+    }
 
 }

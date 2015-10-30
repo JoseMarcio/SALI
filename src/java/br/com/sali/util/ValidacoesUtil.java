@@ -1,9 +1,11 @@
 package br.com.sali.util;
 
 import br.com.sali.dao.UsuarioDao;
+import br.com.sali.modelo.Turma;
 import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.AlunoRN;
 import br.com.sali.regras.ProfessorRN;
+import br.com.sali.regras.TopicoRN;
 import br.com.sali.regras.TurmaRN;
 
 /**
@@ -83,6 +85,19 @@ public class ValidacoesUtil {
         } else {
             return professorRN.isExisteEssaMatricula(matricula);
         }
+    }
+
+    /**
+     * Verifica se já existe um tópico com o mesmo nome que está sendo
+     * informado.
+     *
+     * @param nome
+     * @param turma
+     * @return
+     */
+    public static boolean isExistenteNomeTopico(String nome, Turma turma) {
+        TopicoRN topicoRN = new TopicoRN();
+        return topicoRN.isExiteNomeTopico(nome,turma);
     }
 
     /**

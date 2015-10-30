@@ -72,4 +72,13 @@ public class TemplateAreaAlunoBean {
     public String irLicoes() {
         return "/aluno/licoes?faces-redirect=true";
     }
+    
+    /**
+     * Direciona a tópicos.
+     *
+     * @return
+     */
+    public String irTopicos() {
+        return "/aluno/topicos?faces-redirect=true";
+    }
 }

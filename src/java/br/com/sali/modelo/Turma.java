@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
 
 /**
  * Representa a Turma.
@@ -44,7 +43,10 @@ public class Turma implements Serializable {
     private List<Quiz> quizesDaTurma = new ArrayList<>();
     
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
-    private List<Licao> licoesDaTurma = new ArrayList<>();
+    private List<Licao> licoesDaTurma = new ArrayList<>();    
+    
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
+    private List<Topico> listaTopicos = new ArrayList<>();
             
 
     // Construtor.
@@ -99,15 +101,24 @@ public class Turma implements Serializable {
         this.licoesDaTurma = licoesDaTurma;
     }
 
+    public List<Topico> getListaTopicos() {
+        return listaTopicos;
+    }
+
+    public void setListaTopicos(List<Topico> listaTopicos) {
+        this.listaTopicos = listaTopicos;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.nome);
-        hash = 89 * hash + Objects.hashCode(this.professor);
-        hash = 89 * hash + Objects.hashCode(this.alunos);
-        hash = 89 * hash + Objects.hashCode(this.quizesDaTurma);
-        hash = 89 * hash + Objects.hashCode(this.licoesDaTurma);
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.nome);
+        hash = 79 * hash + Objects.hashCode(this.professor);
+        hash = 79 * hash + Objects.hashCode(this.alunos);
+        hash = 79 * hash + Objects.hashCode(this.quizesDaTurma);
+        hash = 79 * hash + Objects.hashCode(this.licoesDaTurma);
+        hash = 79 * hash + Objects.hashCode(this.listaTopicos);
         return hash;
     }
 
@@ -138,12 +149,11 @@ public class Turma implements Serializable {
         if (!Objects.equals(this.licoesDaTurma, other.licoesDaTurma)) {
             return false;
         }
+        if (!Objects.equals(this.listaTopicos, other.listaTopicos)) {
+            return false;
+        }
         return true;
     }
 
     
-    
-
-   
-
 }
