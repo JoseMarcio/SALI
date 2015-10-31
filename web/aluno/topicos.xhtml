@@ -1,12 +1,59 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 template="/template/area-aluno.xhtml"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
+
+    <ui:define name="titulo">
+        Tópicos
+    </ui:define>
+    <ui:define name="corpo">
+
+        <p:panel>
+            <h:form>
+                <p:commandButton value="Novo Tópico"
+                                 title="Adicionar um novo tópico ao fórum"
+                                 icon="ui-icon-plus"
+                                 process="@this"
+                                 update="@this"
+                                 action="#{topicosAlunoDisponiveisBean.irNovoTopico()}"/>
+            </h:form>
+            <p:separator />
+            <p:dataList emptyMessage="Nenhum tópico disponível"
+                        value="#{topicosAlunoDisponiveisBean.topicosDaTurma}"
+                        var="topico"
+                        type="none">
+                <f:facet name="header">
+                    Seus Tópicos
+                </f:facet>
+
+                <div>
+                    <h:outputText value="#{topico.nome}"
+                                  class="form-control" 
+                                  style="overflow: hidden;"/>
+                </div>
+                <p:inputTextarea value="Assunto: #{topico.assunto}" 
+                                 class="form-control"
+                                 style="resize: none;"
+                                 disabled="true"
+                                 autoResize="false"/>
+
+                <h:form>
+                    <p:commandButton value="Ver" 
+                                     ajax="false"
+                                     icon="ui-icon-play"
+                                     title="Visualizar tópico"
+                                     onclick="window.open('visualizar-topico.jsf?id=#{topico.id}')"
+                                     update="@this"
+                                     process="@this"
+                                     />
+                    
+                                
+                </h:form>
+                <p:separator />
+            </p:dataList>
+        </p:panel>
+
+    </ui:define>
+</ui:composition>

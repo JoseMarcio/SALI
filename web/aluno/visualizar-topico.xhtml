@@ -1,12 +1,87 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 template="/template/area-aluno.xhtml"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
+    <f:metadata>
+        <f:viewParam name="id" value="#{visualizarAlunoTopicoBean.idTopico}"/>
+        <f:viewAction action="#{visualizarAlunoTopicoBean.carregarTopico()}"/>
+    </f:metadata>
+
+    <ui:define name="titulo">
+        Visualizar Tópico
+    </ui:define>
+    <ui:define name="corpo">
+
+        
+              
+        <p:panel style="overflow: hidden">
+            <h1>#{visualizarAlunoTopicoBean.topico.nome}</h1>
+            <p:separator />
+            <h3>Assunto: #{visualizarAlunoTopicoBean.topico.assunto}</h3>
+            <h6>Criado por: #{visualizarAlunoTopicoBean.topico.autor}</h6>
+            <p:separator />
+
+            <h:form>
+                <p:dialog widgetVar="novaMenssagem"
+                          modal="true"
+                          width="500"
+                          height="200"
+                          header="Nova Mensagem"
+                          resizable="false"
+                          draggable="false">
+
+
+                    
+                    <br />
+                    <p:inputTextarea placeholder="Digite a sua mensagem aqui"
+                                     class="form-control"
+                                     maxlength="255"
+                                     style="resize: none"
+                                     autoResize="false"
+                                     value="#{visualizarAlunoTopicoBean.menssagemTopico.texto}"/>
+
+                    <p:commandButton value="Enviar"
+                                     icon="ui-icon-extlink"
+                                     title="Enviar mesagem"
+                                     update="@form"
+                                     action="#{visualizarAlunoTopicoBean.enviarMensagem()}"
+                                     />
+                    
+                    
+                </p:dialog>
+
+
+                <p:dataList emptyMessage="Nenhuma discussão nesse tópico"
+                            value="#{visualizarAlunoTopicoBean.menssagensDoTopico}"
+                            var="mensagem"
+                            type="none"
+                            >
+
+
+                    <div style="width: 100%; overflow: auto;background: white;padding-left: 1%;">
+                    #{mensagem.texto}
+                    <br/>
+                    (#{mensagem.autor})
+                    <br/>
+                    <br/>
+                    </div>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Nova Mensagem"
+                                         onclick="PF('novaMenssagem').show()"
+                                         process="@this"
+                                         update="@this"
+                                         icon="ui-icon-comment"
+                                         title="Enviar uma nova mensagem"/>
+                    </f:facet>
+                </p:dataList>
+
+            </h:form>
+        </p:panel>
+
+
+
+    </ui:define>
+</ui:composition>

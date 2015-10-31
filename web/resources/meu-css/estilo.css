@@ -1,0 +1,14 @@
+.body{
+    background-image: url(../imagens/fundo.png);
+}
+
+.estilo_container{
+    background-image: url('../imagens/plano_1.jpg');
+}
+
+footer{
+     text-align: center;
+     margin-top: 20px;
+     margin-bottom: 10px;
+     color:#ffffff;
+}
