@@ -15,10 +15,10 @@
     <ui:define name="corpo">
 
         <p:panel>
-            <h1>Tópico: #{visualizarProfessorTopicoBean.topico.nome}</h1>
+            <h1>#{visualizarProfessorTopicoBean.topico.nome}</h1>
             <p:separator />
             <h3>Assunto: #{visualizarProfessorTopicoBean.topico.assunto}</h3>
-            <h6>Autor: #{visualizarProfessorTopicoBean.topico.autor}</h6>
+            <h6>Criado por: #{visualizarProfessorTopicoBean.topico.autor}</h6>
             <p:separator />
 
             <h:form>
@@ -37,8 +37,14 @@
                                      class="form-control"
                                      maxlength="255"
                                      style="resize: none"
-                                     autoResize="false"/>
+                                     autoResize="false"
+                                     value="#{visualizarProfessorTopicoBean.menssagemTopico.texto}"/>
+
                     <p:commandButton value="Enviar"
+                                     icon="ui-icon-extlink"
+                                     title="Enviar mesagem"
+                                     update="@form"
+                                     action="#{visualizarProfessorTopicoBean.enviarMensagem()}"
                                      />
                     
                     
@@ -47,19 +53,25 @@
 
                 <p:dataList emptyMessage="Nenhuma discussão nesse tópico"
                             value="#{visualizarProfessorTopicoBean.menssagensDoTopico}"
-                            var="menssagem"
-                            type="none">
+                            var="mensagem"
+                            type="none"
+                            >
 
+
+                    #{mensagem.texto}
+                    <br/>
+                    (#{mensagem.autor})
+                    <br/>
+                    <br/>
 
                     <f:facet name="footer">
-
-                        <p:commandButton value="Nova Menssagem"
-                                         onclick="PF('novaMenssagem').show()"/>
-
+                        <p:commandButton value="Nova Mensagem"
+                                         onclick="PF('novaMenssagem').show()"
+                                         process="@this"
+                                         update="@this"
+                                         icon="ui-icon-comment"
+                                         title="Enviar uma nova mensagem"/>
                     </f:facet>
-
-
-
                 </p:dataList>
 
             </h:form>
