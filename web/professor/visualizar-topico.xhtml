@@ -31,7 +31,7 @@
                           draggable="false">
 
 
-                    
+
                     <br />
                     <p:inputTextarea placeholder="Digite a sua menssagem aqui"
                                      class="form-control"
@@ -46,8 +46,8 @@
                                      update="@form"
                                      action="#{visualizarProfessorTopicoBean.enviarMensagem()}"
                                      />
-                    
-                    
+
+
                 </p:dialog>
 
 
@@ -58,11 +58,13 @@
                             >
 
 
-                    #{mensagem.texto}
-                    <br/>
-                    (#{mensagem.autor})
-                    <br/>
-                    <br/>
+                    <div style="width: 100%; overflow: auto;background: white;padding-left: 1%;">
+                        #{mensagem.texto}
+                        <br/>
+                        (#{mensagem.autor})
+                        <br/>
+                        <br/>
+                    </div>
 
                     <f:facet name="footer">
                         <p:commandButton value="Nova Mensagem"

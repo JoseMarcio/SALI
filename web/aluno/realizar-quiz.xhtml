@@ -18,7 +18,7 @@
 
             <!--  EXTREMAMENTE IMPORTANTE -->
             <!-- VERIFICA SE O QUIZ JÁ FOI REALIZADO, E ENTÃO DESABILITA O BOTÃO CONLCUIR E EXIBE UMA MENSAGEM -->
-           
+
 
 
 
@@ -26,7 +26,11 @@
 
                 <p:panel id="panel">
 
-                     #{quizAluno.exibeMsg()}
+                    #{quizAluno.exibeMsg()}
+
+                    <h4>Realizar Quiz</h4>
+                    <p:separator />
+
 
                     <p:dataList value="#{quizAluno.quizRealizar.questoes}"
                                 var="questao" 
@@ -36,10 +40,10 @@
                                 style="word-wrap: break-word;">
 
                         <f:facet name="header">
-                            #{quizAluno.quizRealizar.titulo}
+                            <h:outputText value="Quiz: #{quizAluno.quizRealizar.titulo}"/>
                         </f:facet>
 
-                        <p:outputLabel class="form-control">#{questao.pergunta}</p:outputLabel>
+                        <p:outputLabel>#{questao.pergunta}</p:outputLabel>
                         <br />
                         <br />
 

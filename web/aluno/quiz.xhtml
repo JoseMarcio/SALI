@@ -9,35 +9,40 @@
 
     <ui:composition template="/template/area-aluno.xhtml">
 
-        
-        
+
+
         <ui:define name="titulo">
             Quiz
         </ui:define>
 
         <ui:define name="corpo">
-            
+
             #{quizAluno.atualiza()}
 
-            <p:dataList value="#{quizAluno.quizesDaTurma}" 
-                        var="quiz" 
-                        emptyMessage="Nenhum quiz disponível."
-                        style="word-wrap: break-word;"
-                        type="none">
+            <p:panel>
+                <h4>Quizes Disponíveis</h4>
+                <p:separator />
 
-                <f:facet name="header">
-                    Todos os quizes
-                </f:facet>
+                <p:dataList value="#{quizAluno.quizesDaTurma}" 
+                            var="quiz" 
+                            emptyMessage="Nenhum quiz disponível."
+                            style="word-wrap: break-word;"
+                            type="none">
+
+                    <f:facet name="header">
+                        Todos os quizes
+                    </f:facet>
 
 
-                <h:form>
-                    <h:commandLink action="#{quizAluno.realizarQuiz(quiz)}" 
-                                   value="#{quiz.titulo}"
-                                   class="form-control"/> 
-                    
-                </h:form>
-                <br />
-            </p:dataList>
+                    <h:form>
+                        <h:commandLink action="#{quizAluno.realizarQuiz(quiz)}" 
+                                       value="#{quiz.titulo}"
+                                       class="form-control"/> 
+
+                    </h:form>
+                    <br />
+                </p:dataList>
+            </p:panel>
 
         </ui:define>
 
