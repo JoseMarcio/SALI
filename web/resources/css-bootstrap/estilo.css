@@ -1,0 +1,69 @@
+
+/*classes relacionadas ao template de intituição*/
+.fundo{
+    background:#f6f6f8;
+    
+}
+
+.conteiner{
+    background:#1b6d85;
+    margin-top: 1%;
+   
+}
+
+.footer{
+    background: #6abee2;
+    text-align: center;
+    color: #000;
+    margin-top: 1%;
+    border-radius: 5px;
+}
+
+/*classes relacionadas ao template de professor*/
+
+.fundo2{
+    background:#f6f6f8;
+    
+}
+
+.conteiner2{
+    background:#1b6d85;
+    margin-top: 1%;
+   
+}
+
+.footer2{
+    background: #6abee2;
+    text-align: center;
+    color: #000;
+    margin-top: 1%;
+    border-radius: 5px;
+}
+
+/*classes relacionadas ao template de aluno*/
+
+.fundo3{
+    background:#f6f6f8;
+    
+}
+
+.conteiner3{
+    background:#1b6d85;
+    margin-top: 1%;
+   
+}
+
+.footer3{
+    background: #6abee2;
+    text-align: center;
+    color: #000;
+    margin-top: 1%;
+    border-radius: 5px;
+}
+
+
+
+
+
+    
+

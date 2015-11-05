@@ -21,7 +21,7 @@
         </title>
 
         <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
-        <h:outputStylesheet library="meu-css" name="estilo_it.css"/>
+        <h:outputStylesheet library="css-bootstrap" name="estilo.css"/>
         <script type="text/javascript">
 
             function noBack() {
@@ -45,16 +45,17 @@
 
     <h:body onload="time();
             data();"
-                >
+                 class="fundo">
+             
 
-        <section class="container estilo_container">
+        <section class="container conteiner">
             <div class="row">
-                <div class="col-md-12">
-                    <img src="../resources/imagens/cabecalho.png" class="img-responsive"/>
-                </div>                    
+                <!--<div class="col-md-12">-->
+                    <img src="../resources/imagens/areaInst.png" class="img-responsive image"/>
+                <!--</divss>-->                    
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <!--<div class="col-md-12">-->
                     <h:form>
                         <nav class="navbar navbar-default">
                             <div class="container-fluid">
@@ -81,10 +82,10 @@
                             </div><!--/.container-fluid -->
                         </nav>
                     </h:form>
-                </div>
+                <!--</div>-->
             </div>
 
-            <div class="row">
+            <div class="row teste">
                 <div class="col-md-2" style="margin-bottom: 10px;">
                     <h:form>
                         <p:menu>
@@ -155,8 +156,8 @@
                 </div>
             </div>
             <div class="row">
-                <footer class="col-md-12">
-                    <p:outputLabel> Sistema de Auxílio Á Língua Ínglesa</p:outputLabel>
+                <footer class="col-md-12 footer">
+                    <p:outputLabel> Sistema de Auxílio à Língua Ínglesa</p:outputLabel>
                 </footer>
             </div>
         </section>
