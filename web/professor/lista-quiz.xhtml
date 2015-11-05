@@ -12,28 +12,34 @@
 
 
     <ui:define name="corpo">
-        
-          #{quizProfessorListarQuiz.atualiza()}
 
-        <p:dataList emptyMessage="Nenhum Quiz Disponível"
-                    var="quiz"
-                    value="#{quizProfessorListarQuiz.quizesTurmaAtual}"
-                    type="none">            
+        #{quizProfessorListarQuiz.atualiza()}
 
-            <f:facet name="header">
-                Todos os quizes
-            </f:facet>
+        <p:panel id="painel-1">
+            <h4>Quizes Gerados</h4>
+            <p:separator />
+
+            <p:dataList emptyMessage="Nenhum Quiz Disponível"
+                        var="quiz"
+                        value="#{quizProfessorListarQuiz.quizesTurmaAtual}"
+                        type="none">            
+
+                <f:facet name="header">
+                    Todos os quizes
+                </f:facet>
 
 
-            <h:form>
-                <h:commandLink action="#{quizProfessorListarQuiz.selecionarQuiz(quiz)}"
-                               value="#{quiz.titulo}"
-                               class="form-control"/>
-            </h:form>
+                <h:form>
+                    <h:commandLink action="#{quizProfessorListarQuiz.selecionarQuiz(quiz)}"
+                                   value="#{quiz.titulo}"
+                                   class="form-control"/>
+                </h:form>
 
-            <br />
+                <br />
 
-        </p:dataList>
+            </p:dataList>
+
+        </p:panel>
 
     </ui:define>
 

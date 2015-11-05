@@ -18,6 +18,8 @@
             <h:form id="frm-geral">
 
                 <p:panel id="painel-1">
+                    <h4>Gerar Novo Quiz</h4>
+                    <p:separator />
 
                     <p:outputLabel value="Título"/>
                     <p:inputText value="#{quizProfessor.quiz.titulo}"
@@ -30,7 +32,7 @@
 
 
 
-                    <p:commandButton value="Salvar"
+                    <p:commandButton value="Salvar Quiz"
                                      disabled="#{quizProfessor.habilitaBotaoGerar}"
                                      action="#{quizProfessor.gerar()}"
                                      update=":frm-geral:painel-1"
@@ -38,64 +40,64 @@
                                      id="gerar"
                                      icon="ui-icon-folder-open"/>
 
-                    <p:commandButton value="Inserir Questões"
+                    <p:commandButton value="Criar Questões"
                                      action="#{quizProfessor.inserirQuestoes()}"
                                      process="@this"
-                                     title="Inserir questões no quiz"
+                                     title="Cria questões para o quiz"
                                      icon="ui-icon-plus">
 
                     </p:commandButton>
 
 
-                    
-                        <p:commandButton value="Limpar"
 
-                                         action="#{quizProfessor.limparBean()}"
-                                         update=":frm-geral:painel-1"
-                                         title="Limpar dados"
-                                         process="@this"
-                                         immediate="true"
-                                         icon="ui-icon-close"/>
-                    
+                    <p:commandButton value="Limpar"
 
-                        <p:messages autoUpdate="true" showIcon="false" closable="true"/>
-                    <br />
+                                     action="#{quizProfessor.limparBean()}"
+                                     update=":frm-geral:painel-1"
+                                     title="Limpar dados"
+                                     process="@this"
+                                     immediate="true"
+                                     icon="ui-icon-close"/>
 
-                     <p:dataList value="#{quizProfessor.quiz.questoes}" 
-                            var="q" type="ordered"
-                            emptyMessage="Nenhuma questão inserida."
-                            rendered="#{!empty quizProfessor.quiz.questoes}"
-                            id="data"
-                            >
-                    <f:facet name="header">
-                        Questões Inseridas Neste Quiz
-                    </f:facet>
 
-                    <p:outputLabel>#{q.pergunta}</p:outputLabel>
-                    
-                    <br />
-                    <br />
-                    <h:outputText value="a) #{q.alternativas[0]}"/>
-                    <br />
-                    <br />
-                    <h:outputText value="b) #{q.alternativas[1]}"/>
-                    <br />
-                    <br />
-                    <h:outputText value="c) #{q.alternativas[2]}"/>
-                    <br />
-                    <br />
-                    <h:outputText value="d) #{q.alternativas[3]}"/>
-                    <br />
+                    <p:messages autoUpdate="true" showIcon="false" closable="true"/>
                     <br />
 
-                    <h:outputText value="Alternatica Correta: #{q.alternativas[q.alternativaCorreta]}"/>
+                    <p:dataList value="#{quizProfessor.quiz.questoes}" 
+                                var="q" type="ordered"
+                                emptyMessage="Nenhuma questão inserida."
+                                rendered="#{!empty quizProfessor.quiz.questoes}"
+                                id="data"
+                                >
+                        <f:facet name="header">
+                            Questões Adicionadas Neste Quiz
+                        </f:facet>
 
-                    <br />
-                    <br />
+                        <p:outputLabel>#{q.pergunta}</p:outputLabel>
 
-                    <p:separator />
+                        <br />
+                        <br />
+                        <h:outputText value="a) #{q.alternativas[0]}"/>
+                        <br />
+                        <br />
+                        <h:outputText value="b) #{q.alternativas[1]}"/>
+                        <br />
+                        <br />
+                        <h:outputText value="c) #{q.alternativas[2]}"/>
+                        <br />
+                        <br />
+                        <h:outputText value="d) #{q.alternativas[3]}"/>
+                        <br />
+                        <br />
 
-                </p:dataList>
+                        <h:outputText value="Alternatica Correta: #{q.alternativas[q.alternativaCorreta]}"/>
+
+                        <br />
+                        <br />
+
+                        <p:separator />
+
+                    </p:dataList>
 
                 </p:panel>
 

@@ -25,7 +25,7 @@
                         var="topico"
                         type="none"
                         >
-                
+
                 <f:facet name="header">
                     Seus Tópicos
                 </f:facet>
@@ -40,16 +40,11 @@
                                  autoResize="false"/>
 
                 <h:form>
-                    <p:commandButton value="Ver" 
-                                     ajax="false"
-                                     icon="ui-icon-play"
-                                     title="Visualizar tópico"
-                                     onclick="window.open('visualizar-topico.jsf?id=#{topico.id}')"
-                                     update="@this"
-                                     process="@this"
-                                     />
-                    
-                                
+                    <p:button outcome="visualizar-topico.jsf?id=#{topico.id}"
+                              value="Ver"
+                              icon="ui-icon-play"
+                              title="Visualizar tópico"
+                              />
                 </h:form>
                 <p:separator />
             </p:dataList>

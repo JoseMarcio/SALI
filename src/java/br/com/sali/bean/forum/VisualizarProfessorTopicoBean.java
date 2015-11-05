@@ -56,7 +56,7 @@ public class VisualizarProfessorTopicoBean implements Serializable {
 
     public void enviarMensagem() {
         if (this.menssagemTopico.getTexto() == null || ValidacoesUtil.soTemEspaco(this.menssagemTopico.getTexto())) {
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", "É interessante inserir texto nas suas mensagens!");
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", "Digite algum texto na sua mensagem!");
             RequestContext.getCurrentInstance().showMessageInDialog(m);
         } else {
             this.menssagemTopico.setAutor(getProfessorConectado().getNome());

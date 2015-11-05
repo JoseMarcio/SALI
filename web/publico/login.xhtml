@@ -12,10 +12,9 @@
     <h:head>
 
         <title>Área de Acesso</title>
-        <link rel="shortcut icon" href="../resources/imagens/miniligo.png"/>
-        
-
+        <link rel="shortcut icon" href="../resources/imagens/LogoSALI.png"/> 
         <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css-bootstrap" name="estilo.css"/>
 
 
         <script type="text/javascript">
@@ -32,8 +31,6 @@
                 void(0);
             };
         </script>
-
-
     </h:head>
 
     <h:body>
@@ -75,14 +72,14 @@
 
                         </p:commandButton>
 
-                        <p:commandButton value="Fechar"
-                                         title="Cancelar Operação"
+                        <p:commandButton value="Voltar"
+                                         title="Volta para a página de acesso"
                                          style="cursor: pointer;"
                                          action="#{loginBean.limpar()}"
                                          process="@this"
                                          update="@form"
                                          onclick="PF('recuperarEmail').hide();"
-                                         icon="ui-icon-close">
+                                         icon="ui-icon-arrowreturnthick-1-w">
 
                         </p:commandButton>
                     </h:panelGrid>
@@ -100,7 +97,7 @@
 
 
         <!-- Dialog formulário login -->
-        <p:dialog header="Login"  
+        <p:dialog header="Acesso ao SALI"  
                   width="330" 
                   minWidth="330"
                   widgetVar="login"
@@ -113,7 +110,7 @@
                   draggable="false"
                   resizable="false"
                   visible="true" 
-                  class="dialogo">
+                  >
 
 
 
@@ -141,7 +138,6 @@
 
 
             </form>
-
         </p:dialog>
         <!-- FIM FORMULÁRIO DE LOGIN -->
 

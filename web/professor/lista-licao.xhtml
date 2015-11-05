@@ -13,40 +13,45 @@
 
         #{verLicoesBean.atualizarLicoes()}
 
-        <p:dataList emptyMessage="Nenhuma lição encontrada"
-                    var="licao"
-                    value="#{verLicoesBean.licoesDaTurma}"
-                    type="none">            
+        <p:panel>        
+            <h4>Lições disponíveis</h4>
+            <p:separator />
 
-            <f:facet name="header">
-                Todas as lições
-            </f:facet>
+            <p:dataList emptyMessage="Nenhuma lição encontrada"
+                        var="licao"
+                        value="#{verLicoesBean.licoesDaTurma}"
+                        type="none">            
+
+                <f:facet name="header">
+                    Todas as lições
+                </f:facet>
 
 
-            <h:outputText value="#{licao.tituloLicao}" class="form-control"/>
-            <p:inputTextarea disabled="true" value="#{licao.descricao}" class="form-control"/>
-            <h:form>
-                <p:commandButton value="Baixar" 
-                                 style="margin-right: 10px;" 
-                                 ajax="false" 
-                                 icon="ui-icon-arrowthick-1-s"
-                                 title="Baixar esta lição">
-                   
-                    <f:setPropertyActionListener target="#{baixarLicaoBean.caminhoArquivo}" value="#{licao.arquivo}"/>
-                    <f:setPropertyActionListener target="#{baixarLicaoBean.nomeLicao}" value="#{licao.tituloLicao}"/>
-                    <p:fileDownload value="#{baixarLicaoBean.file}"/>
-                </p:commandButton>
-                
-                <p:commandButton value="Visualizar" 
-                                 onclick="window.open('#{visualizarLicaoBean.urlVisualizarArquivoLicao(licao.id)}')"
-                                 ajax="false"
-                                 icon="ui-icon-play"
-                                 title="Visualizar esta lição"/>
-                    
-                
-            </h:form>
-            <br/>
+                <h:outputText value="#{licao.tituloLicao}" class="form-control"/>
+                <p:inputTextarea disabled="true" value="#{licao.descricao}" class="form-control"/>
+                <h:form>
+                    <p:commandButton value="Baixar" 
+                                     style="margin-right: 10px;" 
+                                     ajax="false" 
+                                     icon="ui-icon-arrowthick-1-s"
+                                     title="Baixar esta lição">
 
-        </p:dataList>
+                        <f:setPropertyActionListener target="#{baixarLicaoBean.caminhoArquivo}" value="#{licao.arquivo}"/>
+                        <f:setPropertyActionListener target="#{baixarLicaoBean.nomeLicao}" value="#{licao.tituloLicao}"/>
+                        <p:fileDownload value="#{baixarLicaoBean.file}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Visualizar" 
+                                     onclick="window.open('#{visualizarLicaoBean.urlVisualizarArquivoLicao(licao.id)}')"
+                                     ajax="false"
+                                     icon="ui-icon-play"
+                                     title="Visualizar esta lição"/>
+
+
+                </h:form>
+                <br/>
+
+            </p:dataList>
+        </p:panel>        
     </ui:define>
 </ui:composition>

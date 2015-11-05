@@ -18,7 +18,7 @@
             <h:form>
                 <p:panel>
 
-                    <h5><h:outputText  id="qt" value="Questões já inseridas: #{quizProfessor.questoesInseridas.size()}" /></h5>
+                    <h5><h:outputText  id="qt" value="#{quizProfessor.questoesInseridas.size()} Questão(ões) criada(s)" /></h5>
 
                     <p:separator />
 
@@ -107,22 +107,22 @@
                     <br />
                     <center>
 
-                        <p:commandButton value="Inserir"
+                        <p:commandButton value="Salvar Questão"
                                          action="#{quizProfessor.inserirQuestaoNoQuiz()}"
                                          update="qt pergunta alternativa-a alternativa-b alternativa-c alternativa-d select concluir"
                                          disabled="${quizProfessor.habilitaBotaoInserir}"
-                                         title="Adicinar essa questão"
-                                         icon="ui-icon-check"/>
+                                         title="Salva a questão"
+                                         icon="ui-icon-disk"/>
 
 
-                        <p:commandButton  value="Finalizar" 
+                        <p:commandButton  value="Voltar" 
                                           process="@this" 
                                           update="@form" 
                                           disabled="#{quizProfessor.habilitaBotaoTerminar}"
                                           action="#{quizProfessor.terminarQuestoes()}"
-                                          title="Finalizar a inserção de questões"
+                                          title="Volta para página anterior"
                                           id="concluir"
-                                          icon="ui-icon-disk"/>
+                                          icon="ui-icon-arrowreturnthick-1-w"/>
 
                     </center>
 
