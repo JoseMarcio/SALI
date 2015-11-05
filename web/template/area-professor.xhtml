@@ -4,21 +4,18 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <link rel="shortcut icon" href="../resources/imagens/LogoSALI.png"/>   
-        <link rel="stylesheet" href="../resources/meu-css/estilo.css"/>
-
         <title>
             <ui:insert name="titulo">SALI</ui:insert>
         </title>
-                
+
+        <link rel="shortcut icon" href="../resources/imagens/LogoSALI.png"/>   
         <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css-bootstrap" name="estilo.css"/>
 
@@ -40,49 +37,44 @@
                 void(0);
             };
         </script>
-
     </h:head>
 
     <h:body onload="time();
             data();"
-            class="fundo2"    >
+            class="fundo2">
 
         <section class="container  conteiner2">
             <div class="row">
-                <!--><div class="col-md-12">-->
-                    <img src="../resources/imagens/areaProf.png" class="img-responsive"/>
-                <!--</div>                    -->
+                <img src="../resources/imagens/areaProf.png" class="img-responsive imagem_cabecalho"/>
             </div>
             <div class="row">
-                <!--<div class="col-md-12">-->
-                    <h:form>
-                        <nav class="navbar navbar-default">
-                            <div class="container-fluid">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                </div>
-                                <div id="navbar" class="navbar-collapse collapse">
-                                    <ul class="nav navbar-nav">
-                                        <li> <h:commandLink value="Início" action="#{beanTemplateProfessor.irInicioProfessor()}"/></li>
-                                        <li> <h:commandLink  style=" pointer-events: none;
-                                                             cursor: default;" value="Turma Atual: #{beanTemplateProfessor.professorConectado.turmaAtual.nome}" action="#"/></li>
-                                    </ul>
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li><h:outputText value=""/></li>
-                                        <li><a href="#" style=" pointer-events: none;
-                                               cursor: default;">#{beanTemplateProfessor.professorConectado.nome}</a></li>
-                                        <li class="active"><a href="#{request.contextPath}/j_spring_security_logout">Sair</a></li>
-                                    </ul>
-                                </div><!--/.nav-collapse -->
-                            </div><!--/.container-fluid -->
-                        </nav>
-                    </h:form>
-                <!--</div>-->
+                <h:form>
+                    <nav class="navbar navbar-default menu">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li> <h:commandLink value="Início" action="#{beanTemplateProfessor.irInicioProfessor()}"/></li>
+                                    <li> <h:commandLink  style=" pointer-events: none;
+                                                         cursor: default;" value="Turma Atual: #{beanTemplateProfessor.professorConectado.turmaAtual.nome}" action="#"/></li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><h:outputText value=""/></li>
+                                    <li><a href="#" style=" pointer-events: none;
+                                           cursor: default;">#{beanTemplateProfessor.professorConectado.nome}</a></li>
+                                    <li class="active"><a href="#{request.contextPath}/j_spring_security_logout">Sair</a></li>
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div><!--/.container-fluid -->
+                    </nav>
+                </h:form>
             </div>
 
             <div class="row">
@@ -95,7 +87,7 @@
                                             icon="ui-icon-disk"
                                             action="#{beanTemplateProfessor.irAnexarLicao()}"
                                             title="Anexar uma nova lição"/>
-                                
+
                                 <p:menuitem value="Listar Todas"
                                             ajax="false"
                                             icon="ui-icon-clipboard"
@@ -154,16 +146,10 @@
             </div>
             <div class="row footer2">
                 <footer class="col-md-12">
-                    <p:outputLabel> Sistema de Auxílio Á Língua Ínglesa</p:outputLabel>
+                    <p:outputLabel> Sistema de Auxílio à Língua Inglesa - 2015</p:outputLabel>
                 </footer>
             </div>
         </section>
-
-
-
-
-
-
 
 
 
