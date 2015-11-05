@@ -139,11 +139,22 @@ public class AlunoAlterarBean implements Serializable {
         alunoSelecionado.setTurma(turma);
     }
 
+    
+    
+    /**
+     * Atualiza os dados de acesso ao sistema.
+     */
+    public void atualizarDadosAcesso(){
+    }
+    
+    
+    
+    
     /**
      * Atualiza o dados do aluno no banco de dados.
      *
      */
-    public void atualizar() {
+    public void atualizarInformacoes() {
         alunoSelecionado.getUsuario().setEmail(alunoSelecionado.getUsuario().getEmail().toLowerCase());
 
         if (ValidacoesUtil.soTemEspaco(alunoSelecionado.getNome())) {

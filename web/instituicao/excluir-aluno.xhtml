@@ -17,72 +17,75 @@
         <ui:define name="corpo">
             <!-- Formulário para exclusão de professor. -->
             <h:form>
-
-                <p:messages autoUpdate="true" showIcon="false"/>
-
-                <p:panel id="painelMensagem" rendered="#{alunoExcluirBean.renderPainelMensagem}">
-
-                    <p:separator />
-
-                    <h4>Nenhum Aluno Selecionado</h4>
-
-                </p:panel>               
-
-
-
-                <p:panel id="painelInformacoes" rendered="#{alunoExcluirBean.renderPainelInformacoes}">
-
-                    <p:separator />
-
+                <p:panel>
+                    <h4>Excluir Alunos</h4>
+                    <p:separator /> 
                     <p:messages autoUpdate="true" showIcon="false"/>
-                    
-                    <h4>Informações do Aluno</h4>
-                    <br />
 
-                    <p:outputLabel value="Nome"/>
-                    <h:inputText value="#{alunoExcluirBean.alunoSelecionado.nome}" class="form-control" disabled="true"/>
-                    <p:outputLabel value="Matrícula"/>
-                    <h:inputText value="#{alunoExcluirBean.alunoSelecionado.matricula}" class="form-control" disabled="true"/>
-                    <p:outputLabel value="E-Mail"/>
-                    <h:inputText value="#{alunoExcluirBean.alunoSelecionado.usuario.email}" class="form-control" disabled="true"/>
-                    <p:outputLabel value="Turma"/>
-                    <h:inputText value="#{alunoExcluirBean.alunoSelecionado.turma.nome}" class="form-control" disabled="true"/>
+                    <p:panel id="painelMensagem" rendered="#{alunoExcluirBean.renderPainelMensagem}">
+
+                        <p:separator />
+
+                        <h4>Nenhum Aluno Selecionado</h4>
+
+                    </p:panel>               
 
 
 
+                    <p:panel id="painelInformacoes" rendered="#{alunoExcluirBean.renderPainelInformacoes}">
+
+                        <p:separator />
+
+                        <p:messages autoUpdate="true" showIcon="false"/>
+
+                        <h4>Informações do Aluno</h4>
+                        <br />
+
+                        <p:outputLabel value="Nome"/>
+                        <h:inputText value="#{alunoExcluirBean.alunoSelecionado.nome}" class="form-control" disabled="true"/>
+                        <p:outputLabel value="Matrícula"/>
+                        <h:inputText value="#{alunoExcluirBean.alunoSelecionado.matricula}" class="form-control" disabled="true"/>
+                        <p:outputLabel value="E-Mail"/>
+                        <h:inputText value="#{alunoExcluirBean.alunoSelecionado.usuario.email}" class="form-control" disabled="true"/>
+                        <p:outputLabel value="Turma"/>
+                        <h:inputText value="#{alunoExcluirBean.alunoSelecionado.turma.nome}" class="form-control" disabled="true"/>
+
+
+
+
+                    </p:panel>
+
+                    <p:commandButton icon="ui-icon-search" 
+                                     title="Pesquisar Professor" 
+                                     value="Pesquisar" 
+                                     action="#{alunoPesquisarBean.abrirDialogoPesquisa()}"
+                                     process="@this">
+
+                        <p:ajax event="dialogReturn" 
+                                listener="#{alunoExcluirBean.eventoSelecaoAluno}" 
+                                update="@form"/>
+
+                    </p:commandButton>
+
+
+
+                    <p:commandButton action="#{alunoExcluirBean.excluir()}" 
+                                     value="Excluir" 
+                                     disabled="#{alunoExcluirBean.disabledBotaoExcluir}"
+                                     update="@form"
+                                     icon="ui-icon-circle-close" 
+                                     title="Excluir Aluno">
+
+                        <p:confirm header="Atenção!" message="Excluir Aluno?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
 
                 </p:panel>
-
-                <p:commandButton icon="ui-icon-search" 
-                                 title="Pesquisar Professor" 
-                                 value="Pesquisar" 
-                                 action="#{alunoPesquisarBean.abrirDialogoPesquisa()}"
-                                 process="@this">
-
-                    <p:ajax event="dialogReturn" 
-                            listener="#{alunoExcluirBean.eventoSelecaoAluno}" 
-                            update="@form"/>
-
-                </p:commandButton>
-
-
-
-                <p:commandButton action="#{alunoExcluirBean.excluir()}" 
-                                 value="Excluir" 
-                                 disabled="#{alunoExcluirBean.disabledBotaoExcluir}"
-                                 update="@form"
-                                 icon="ui-icon-circle-close" 
-                                 title="Excluir Aluno">
-
-                    <p:confirm header="Atenção!" message="Excluir Aluno?" icon="ui-icon-alert" />
-                </p:commandButton>
-
-
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
-                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>
-
             </h:form>
 
         </ui:define>
