@@ -34,4 +34,14 @@ public class UsuarioRN {
         usuario.setSenha(CriptografiaUtil.criptografaSenha(usuario.getSenha()));
         usuarioDao.atualizar(usuario);
     }
+    
+     /**
+     * Pegar o usuário do banco de dados por id.
+     *
+     * @param id
+     * @return
+     */
+    public Usuario getUsuarioById(Long id) {
+        return (Usuario) this.usuarioDao.getObjectById(Usuario.class, id);
+    }
 }

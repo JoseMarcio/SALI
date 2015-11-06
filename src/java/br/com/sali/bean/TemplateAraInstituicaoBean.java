@@ -107,6 +107,15 @@ public class TemplateAraInstituicaoBean implements Serializable {
     public String irExcluirAluno() {
         return "/instituicao/excluir-aluno?faces-redirect=true";
     }
+    
+        /**
+     * Direciona página alterar senha instituição.
+     *
+     * @return
+     */
+    public String irAlterarSenhaInstituicao() {
+        return "/instituicao/alterar-senha-instituicao?faces-redirect=true";
+    }
 
     /**
      * Direciona página alterar instituição.

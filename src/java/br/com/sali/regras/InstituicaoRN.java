@@ -54,7 +54,6 @@ public class InstituicaoRN {
      * @throws java.security.NoSuchAlgorithmException
      */
     public void atualizarInstituicao(Instituicao instituicao) throws NoSuchAlgorithmException {
-        instituicao.getUsuario().setSenha(CriptografiaUtil.criptografaSenha(instituicao.getUsuario().getSenha()));
         instituicaDAO.atualizar(instituicao);
     }
 

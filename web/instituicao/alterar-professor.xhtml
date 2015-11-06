@@ -71,43 +71,23 @@
                             <f:validateRegex pattern="^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,3})$"/>
                         </p:inputText>
 
-
-                        <p:outputLabel value="Senha"/>
-                        <p:password value="#{alterarProfessorBean.professorSelecionado.usuario.senha}" 
-                                    required="true" 
-                                    requiredMessage="Informe uma senha."
-                                    placeholder="Senha"
-                                    validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
-                                    maxlength="10"
-                                    class="form-control">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
-
-                        <p:outputLabel value="Confirme a Senha"/>
-                        <p:password value="#{alterarProfessorBean.confirmaSenha}" 
-                                    required="true" 
-                                    requiredMessage="Confirme a senha."
-                                    placeholder="Confirmar Senha" 
-                                    validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
-                                    maxlength="10"
-                                    class="form-control">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
                         <p:messages autoUpdate="true" showIcon="false" closable="true"/>                
 
                         <br />
-                        <center>
-                            <p:commandButton action="#{alterarProfessorBean.atualizar()}" 
-                                             value="Salvar" 
-                                             icon="ui-icon-check"  
-                                             title="Salvar Alterações"
-                                             update="@form"
-                                             style="width: 195px;"/>
-                        </center>
+
+
+
+                        <p:button value="Alterar Senha"
+                                  title="Alterar Senha"
+                                  outcome="nova-senha.jsf?id=#{alterarProfessorBean.professorSelecionado.usuario.id}"
+                                  icon="ui-icon-wrench"/>
+
+                        <p:commandButton action="#{alterarProfessorBean.atualizar()}" 
+                                         value="Salvar" 
+                                         icon="ui-icon-check"  
+                                         title="Salvar Alterações"
+                                         update="@form"
+                                         style="width: 195px;"/>
 
                     </p:panel>
                     <p:commandButton value="Pesquisar" 
@@ -122,6 +102,7 @@
                                 immediate="true"/>
 
                     </p:commandButton>      
+
                 </p:panel>
             </h:form>
 

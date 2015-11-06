@@ -63,16 +63,6 @@ public class InstituicaoAlterarBean implements Serializable {
 
     //======================= Métodos===========================================
     /**
-     * Verifica se a senha e a confirmação de senha são iguais. Se forem iguais
-     * é retornado "true", senão é retornado "false".
-     *
-     * @return
-     */
-    public boolean isSenhasIguais() {
-        return instituicaoCadastrada.getUsuario().getSenha().equals(confirmaSenha);
-    }
-
-    /**
      * Atualiza os dados da Instituição.
      */
     public void atualizar() {
@@ -86,14 +76,6 @@ public class InstituicaoAlterarBean implements Serializable {
                 && (!emailAtualInstituicao.equals(instituicaoCadastrada.getUsuario().getEmail()))) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
-
-        } else if (ValidacoesUtil.temEspacoNoTexto(instituicaoCadastrada.getUsuario().getSenha())) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
-
-        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
 
         } else if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getEndereco().getRua())) {
 
@@ -110,10 +92,6 @@ public class InstituicaoAlterarBean implements Serializable {
         } else if (ValidacoesUtil.soTemEspaco(instituicaoCadastrada.getEndereco().getCidade())) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não informe espaços para a cidade.", ""));
-
-        } else if (!isSenhasIguais()) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
 
         } else {
             try {

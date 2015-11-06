@@ -140,6 +140,14 @@
                                             icon="ui-icon-closethick"
                                             title="Excluir turma"/>
                             </p:submenu>
+                            
+                            <p:submenu label="Opções">
+                                <p:menuitem action="#{beanTemplateInstituicao.irAlterarSenhaInstituicao()}"
+                                            value="Alterar Senha" 
+                                            ajax="false"
+                                            icon="ui-icon-wrench"
+                                            title="Alterar sua senha de acesso"/>
+                            </p:submenu>
                         </p:menu>
                     </h:form>
                 </div>

@@ -179,18 +179,6 @@ public class AlunoAlterarBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail já cadastrado.", ""));
 
-        } else if (ValidacoesUtil.temEspacoNoTexto(alunoSelecionado.getUsuario().getSenha())) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inválida.", ""));
-
-        } else if (ValidacoesUtil.temEspacoNoTexto(confirmaSenha)) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Confirma senha inválida.", ""));
-
-        } else if (!confirmaSenha.equals(alunoSelecionado.getUsuario().getSenha())) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "As senhas não conferem.", ""));
-
         } else {
             try {
 

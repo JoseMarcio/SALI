@@ -90,45 +90,23 @@
                         </p:commandButton>
 
 
-                        <br />
-                        <h:outputLabel value="Senha"/>
-                        <p:password value="#{alunoAlterarBean.alunoSelecionado.usuario.senha}"
-                                    required="true" 
-                                    requiredMessage="Informe uma senha."
-                                    placeholder="Senha" 
-                                    validatorMessage="Senha: É exido no mínimo 6 caracteres." 
-                                    maxlength="10"
-                                    class="form-control">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
-                        <p:outputLabel value="Confirme a Senha"/>
-                        <p:password value="#{alunoAlterarBean.confirmaSenha}"
-                                    required="true" 
-                                    requiredMessage="Confirme a senha."
-                                    placeholder="Confirmar Senha"
-                                    validatorMessage="Confirma Senha: É exido no mínimo 6 caracteres." 
-                                    maxlength="10"
-                                    class="form-control">
-
-                            <f:validateLength minimum="6"/>
-                        </p:password>
-
-
-
-
                         <p:messages autoUpdate="true" showIcon="false" closable="true"/>
+                        
+                        <BR />
+                         <p:button value="Alterar Senha"
+                                  title="Alterar Senha"
+                                  outcome="nova-senha.jsf?id=#{alunoAlterarBean.alunoSelecionado.usuario.id}"
+                                  icon="ui-icon-wrench"/>
 
-                        <br />
-                        <center>
+                        
+                        
+
                             <p:commandButton action="#{alunoAlterarBean.atualizarInformacoes()}" 
                                              value="Salvar" 
                                              title="Salvar Alterações"
                                              style="width: 195px;"
                                              icon="ui-icon-check"
                                              update="@form"/>
-                        </center>
 
 
                     </p:panel>

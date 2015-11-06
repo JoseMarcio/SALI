@@ -55,34 +55,6 @@
                     </p:inputText>
 
 
-                    <p:outputLabel value="Senha"/>
-                    <p:password value="#{instituicaoAlterarBean.instituicaoCadastrada.usuario.senha}" 
-                                required="true"
-                                requiredMessage="Informe uma senha."
-                                placeholder="Senha" 
-                                validatorMessage="Senha: É exigido no mínimo 6 caracteres." 
-                                maxlength="10"
-                                class="form-control">
-
-                        <f:validateLength minimum="6"/>
-                    </p:password>
-
-
-                    <p:outputLabel value="Confirme a Senha"/>
-                    <p:password value="#{instituicaoAlterarBean.confirmaSenha}" 
-                                required="true" 
-                                requiredMessage="Confirme a senha."
-                                placeholder="Confirmar Senha"
-                                validatorMessage="Confirma Senha: É exigido no mínimo 6 caracteres."
-                                maxlength="10"
-                                class="form-control">
-
-                        <f:validateLength minimum="6"/>
-                    </p:password>
-
-
-
-
                     <!-- Endereço -->
                     <fieldset style="border-radius: 10px;margin-top: 15px;margin-right: 30px; ">
 

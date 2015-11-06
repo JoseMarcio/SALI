@@ -6,8 +6,13 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-
-    <ui:composition template="/template/area-professor.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{novaSenhaBean.idUsuario}"/>
+        <f:event type="preRenderView" listener="#{novaSenhaBean.carregarUsuario()}"/>
+    </f:metadata>
+    
+    
+    <ui:composition template="/template/area-instituicao.xhtml">
         <ui:define name="titulo">
             Alterar Senha
         </ui:define>
@@ -17,22 +22,11 @@
 
             <h:form>
                 <p:panel>
-                    <h4>Alteração de Senha</h4>
+                    <h4>Alteração de Senha  de: #{novaSenhaBean.nome}</h4>
                     <p:separator />
 
-                    <p:outputLabel value="Senha atual"/>
-                    <p:password value="#{instituicaoAlterarSenhaBean.senha}"
-                                required="true" 
-                                requiredMessage="Informe uma senha."
-                                placeholder="Senha" 
-                                validatorMessage="Senha: É exido no mínimo 6 caracteres."
-                                maxlength="10"
-                                class="form-control">
-                        <f:validateLength minimum="6"/>
-                    </p:password>
-
                     <p:outputLabel value="Nova Senha"/>
-                    <p:password value="#{instituicaoAlterarSenhaBean.novaSenha}"
+                    <p:password value="#{novaSenhaBean.novaSenha}"
                                 required="true" 
                                 requiredMessage="Informe uma nova senha."
                                 placeholder="Nova Senha" 
@@ -43,7 +37,7 @@
                     </p:password>
 
                     <p:outputLabel value="Confirmação de senha"/>
-                    <p:password value="#{instituicaoAlterarSenhaBean.confirmacaoSenha}"
+                    <p:password value="#{novaSenhaBean.confirmacaoSenha}"
                                 required="true" 
                                 requiredMessage="Confirme a nova senha."
                                 placeholder="Nova Senha" 
@@ -61,7 +55,7 @@
                                          title="Salvar Alterações"
                                          update="@form"
                                          icon="ui-icon-check"
-                                         action="#{instituicaoAlterarSenhaBean.salvarAlteracoes()}"
+                                         action="#{novaSenhaBean.salvarAlteracoes()}"
                                          />
                     </center>
 
@@ -74,4 +68,6 @@
         </ui:define>
     </ui:composition>
 </html>
+
+
 
