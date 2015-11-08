@@ -15,7 +15,7 @@ import org.hibernate.criterion.Restrictions;
  * @author SALI
  * @param <T>
  */
-public class GenericoDAO<T> extends ManuseioDb implements Serializable{
+public class GenericoDAO<T> extends ManuseioDb implements Serializable {
 
     /**
      * Salva um determinado objeto.
@@ -142,8 +142,8 @@ public class GenericoDAO<T> extends ManuseioDb implements Serializable{
         }
 
     }
-    
-     /**
+
+    /**
      * Pegar o objeto do banco de dados por id.
      *
      * @param myClass
@@ -157,7 +157,7 @@ public class GenericoDAO<T> extends ManuseioDb implements Serializable{
         getSessao().close();
         return object;
     }
-    
+
     /**
      * Pegar o objeto do banco de dados por email.
      *
@@ -167,13 +167,16 @@ public class GenericoDAO<T> extends ManuseioDb implements Serializable{
      */
     public Object getObjectByEmail(Class<T> myClass, String email) {
         Criteria criteria = getSessao().createCriteria(myClass);
-        Object object = (Object) criteria.add(Restrictions.eq("email", email)).uniqueResult();
+        List<Object> objects = criteria.add(Restrictions.eq("email", email)).list();
         getTransacao().commit();
         getSessao().close();
-        return object;
+        if (objects.isEmpty()) {
+            return null;
+        } else {
+            return objects.get(0);
+        }
     }
 
-    
     /**
      * Pegar o objeto do banco de dados por email.
      *
