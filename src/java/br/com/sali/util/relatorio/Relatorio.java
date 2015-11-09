@@ -81,7 +81,8 @@ public class Relatorio {
             arquivo = new DefaultStreamedContent(relatorio, "application/pdf", this.nomeSaidaRelatorio + ".pdf");
 
         } catch (Exception e) {
-            throw new Exception("Erro ao gerar o relatorio." + caminhoArquivoJasper, e);
+            //throw new Exception("Erro ao gerar o relatorio." + caminhoArquivoJasper, e);
+            e.printStackTrace();
         }
         return arquivo;
     }

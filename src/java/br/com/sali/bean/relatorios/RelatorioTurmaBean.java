@@ -61,8 +61,7 @@ public class RelatorioTurmaBean {
             String nomeDoArquivoDeSaida = "SALI - Relatorio Turma";
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id_turma", this.turmaSelecionada.getId());
-            parametros.put("nome_turma", this.turmaSelecionada.getNome());
-
+            
             Relatorio relatorioJasper = new Relatorio(nomeRelatorioJasper, nomeDoArquivoDeSaida, parametros);
 
             try {

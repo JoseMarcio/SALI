@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioAluno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71b82d07-3200-42ac-9fd5-f25e75ba8592">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_aluno" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     aluno.`matricula` AS matricula,
+     quizrealizado.`aproveitamento` AS aproveitamento,
+     quizrealizado.`nomeQuizRealizado` AS quiz,
+     quizrealizado.`questoesCorretas` AS questoesCorretas,
+     turma.`nome` AS turma,
+     aluno.`nome` AS aluno
+FROM
+     `aluno` aluno INNER JOIN `quizrealizado` quizrealizado ON aluno.`id_aluno` = quizrealizado.`id_aluno`
+     INNER JOIN `turma` turma ON aluno.`id_turma` = turma.`id_turma`
+WHERE
+     aluno.`id_aluno` = $P{id_aluno}
+ORDER BY
+     quizrealizado.`aproveitamento` ASC]]>
+	</queryString>
+	<field name="quiz" class="java.lang.String"/>
+	<field name="questoesCorretas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aproveitamento" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="matricula" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="turma" class="java.lang.String"/>
+	<field name="aluno" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="155" height="104" uuid="d71bd448-fadc-4a17-9f05-43cbdf75f294"/>
+				<imageExpression><![CDATA["E:\\SALI\\SALI\\web\\resources\\imagens\\LogoSALI.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="155" y="21" width="400" height="83" uuid="409aa578-1d37-4b1e-a3f0-a3d6629df9af"/>
+				<textElement>
+					<font fontName="Felix Titling" size="36"/>
+				</textElement>
+				<text><![CDATA[Relatório - aluno]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="92" splitType="Stretch">
+			<textField>
+				<reportElement x="59" y="10" width="250" height="20" uuid="68c8d48c-82e2-425f-9b53-bc0a9c5e35be"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="50" width="250" height="20" uuid="cce3969f-565f-4ff4-a6ed-5f53013577b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="30" width="250" height="20" uuid="6e19473f-f0d4-4e2b-9f37-bc2d3036e87c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="70" width="250" height="20" uuid="e27d62c6-bb85-4bc2-a35a-d072860beeef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="59" height="20" uuid="382ac2ba-4f30-4a2a-b9dd-d57e4c0cf1f0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aluno       :  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="59" height="20" uuid="eb4f257e-a861-4ba0-94a8-9c88a71dc8cd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matrícula :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="59" height="20" uuid="ecdd7eff-c663-4622-bd92-0ee5f3f91b1f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="59" height="20" uuid="11bc1cda-21dc-46a7-b341-8b7512ca5290"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emitido    :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="90" width="555" height="1" uuid="4920a623-3e8b-4146-8bd3-e7cb887e38ba"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="272" height="20" uuid="7076ca8c-31ea-4dbd-8530-647aa991d764"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quiz]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="0" width="98" height="20" uuid="626b0f61-0a70-41bf-bc02-f99da6609a8c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aproveitamento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="545bd1be-89df-41a1-8a03-79e89c725463"/>
+			</line>
+			<staticText>
+				<reportElement x="272" y="3" width="185" height="20" uuid="5af0af44-c318-4d69-9fed-2b211ceda0b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Corretas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="272" height="20" uuid="dca10b98-2b62-4b69-b856-c3c88feffd80"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quiz}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="98" height="20" uuid="86fe5cbe-3a29-4945-a0f6-65ff81c3d513"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aproveitamento}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="3" width="185" height="20" uuid="e8b90e3c-be96-4b4c-9c6e-044573a818a1"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{questoesCorretas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="37fa1ea2-b9b1-45d4-9abd-9043bc2ae9e0"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="1" width="211" height="20" uuid="236cc745-2eba-4f4f-b6bc-344d29877f8d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALI - Sistema de Auxílio à Língua Inglesa]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="408" y="1" width="147" height="20" uuid="2efc9886-280f-406a-af5e-ac4cab1c788c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

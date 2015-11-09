@@ -91,12 +91,7 @@ public class RelatorioAlunoBean implements Serializable{
             String nomeRelatorioJasper = "relatorioAluno";
             String nomeDoArquivoDeSaida = "SALI - Relatorio Aluno";
             Map<String, Object> parametros = new HashMap<>();
-            Turma turma = getProfessorConectado().getTurmaAtual();
-            parametros.put("id_turma_aluno", turma.getId());
             parametros.put("id_aluno", this.alunoSelecionado.getId());
-            parametros.put("nome_aluno", this.alunoSelecionado.getNome());
-            parametros.put("matricula_aluno", this.alunoSelecionado.getMatricula());
-            parametros.put("turma_aluno", turma.getNome());
             Relatorio relatorioJasper = new Relatorio(nomeRelatorioJasper, nomeDoArquivoDeSaida, parametros);
 
             try {
