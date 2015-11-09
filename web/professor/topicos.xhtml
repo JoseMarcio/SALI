@@ -24,7 +24,7 @@
                         value="#{topicosProfessorDisponiveisBean.topicosDaTurma}"
                         var="topico"
                         type="none"
-                        >
+                        id="data">
 
                 <f:facet name="header">
                     Seus Tópicos
@@ -48,6 +48,9 @@
                 </h:form>
                 <p:separator />
             </p:dataList>
+            <h:form>
+                <p:poll update=":data" listener="#{topicosProfessorDisponiveisBean.init()}"/>
+            </h:form>
         </p:panel>
 
     </ui:define>

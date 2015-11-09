@@ -57,7 +57,7 @@
                             value="#{visualizarAlunoTopicoBean.menssagensDoTopico}"
                             var="mensagem"
                             type="none"
-                            >
+                            id="data">
 
 
                     <div style="width: 100%; overflow: auto;background: white;padding-left: 1%;">
@@ -78,7 +78,11 @@
                     </f:facet>
                 </p:dataList>
 
+                
+                <p:poll update="data" listener="#{visualizarAlunoTopicoBean.recarregarMensagens()}"/>
             </h:form>
+            
+            
         </p:panel>
 
 

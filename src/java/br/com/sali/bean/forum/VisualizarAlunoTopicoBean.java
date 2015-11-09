@@ -19,8 +19,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
-
-
 /**
  *
  * @author SALI
@@ -54,10 +52,14 @@ public class VisualizarAlunoTopicoBean implements Serializable {
         this.topico = topicoCarregar;
         this.menssagensDoTopico = ms;
     }
-    
-    public void teste(){
-         MenssagemDao menssagemDao = new MenssagemDao();
+
+    /**
+     * Recarrega as mensagens do tópico que está sendo visualizado.
+     */
+    public void recarregarMensagens() {
+        MenssagemDao menssagemDao = new MenssagemDao();
         List<MenssagemTopico> ms = menssagemDao.listarMenssagensPorTopico(topico);
+        this.menssagensDoTopico = ms;
     }
 
     /**

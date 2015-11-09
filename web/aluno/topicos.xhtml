@@ -23,7 +23,8 @@
             <p:dataList emptyMessage="Nenhum tópico disponível"
                         value="#{topicosAlunoDisponiveisBean.topicosDaTurma}"
                         var="topico"
-                        type="none">
+                        type="none"
+                        id="data">
                 <f:facet name="header">
                     Seus Tópicos
                 </f:facet>
@@ -48,6 +49,9 @@
                 </h:form>
                 <p:separator />
             </p:dataList>
+            <h:form>
+                <p:poll update=":data" listener="#{topicosAlunoDisponiveisBean.init()}"/>
+            </h:form>
         </p:panel>
 
     </ui:define>

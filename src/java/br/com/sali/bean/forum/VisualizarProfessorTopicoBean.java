@@ -41,12 +41,22 @@ public class VisualizarProfessorTopicoBean implements Serializable {
         this.menssagemTopico = new MenssagemTopico();
     }
 
+    
 
     public void carregarTopico() {
         Topico topicoCarregar = this.topicoRN.pegarTopicoPorId(this.idTopico);
         MenssagemDao menssagemDao = new MenssagemDao();
         List<MenssagemTopico> ms = menssagemDao.listarMenssagensPorTopico(topicoCarregar);
         this.topico = topicoCarregar;
+        this.menssagensDoTopico = ms;
+    }
+    
+     /**
+     * Recarrega as mensagens do tópico que está sendo visualizado.
+     */
+    public void recarregarMensagens() {
+        MenssagemDao menssagemDao = new MenssagemDao();
+        List<MenssagemTopico> ms = menssagemDao.listarMenssagensPorTopico(topico);
         this.menssagensDoTopico = ms;
     }
 

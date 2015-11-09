@@ -55,7 +55,7 @@
                             value="#{visualizarProfessorTopicoBean.menssagensDoTopico}"
                             var="mensagem"
                             type="none"
-                            >
+                            id="data">
 
 
                     <div style="width: 100%; overflow: auto;background: white;padding-left: 1%;">
@@ -75,6 +75,9 @@
                                          title="Enviar uma nova mensagem"/>
                     </f:facet>
                 </p:dataList>
+                
+                
+                <p:poll update="data" listener="#{visualizarProfessorTopicoBean.recarregarMensagens()}"/>
 
             </h:form>
         </p:panel>
