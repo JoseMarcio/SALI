@@ -56,7 +56,7 @@ public class RelatorioTurmaBean {
     public StreamedContent getRelatorio() {
 
         if (this.turmaRN.isPossivelGerarRelatorioTurma(this.turmaSelecionada)) {
-            setDisabilitaBtnEmitir(true);
+//            setDisabilitaBtnEmitir(true);
             String nomeRelatorioJasper = "relatorioTurma";
             String nomeDoArquivoDeSaida = "SALI - Relatorio Turma";
             Map<String, Object> parametros = new HashMap<>();
@@ -67,6 +67,7 @@ public class RelatorioTurmaBean {
             try {
                 this.relatorio = relatorioJasper.gerarRelatorio();
                 return this.relatorio;
+                
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: " + e.getMessage(), "");
                 RequestContext.getCurrentInstance().showMessageInDialog(msg);

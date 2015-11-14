@@ -87,7 +87,7 @@ public class RelatorioAlunoBean implements Serializable{
      */
     public StreamedContent getRelatorio() {
         if (alunoRN.isPossivelGerarRelatorioDesseAluno(this.alunoSelecionado)) {
-            setDisabilitaBtnEmitir(true);
+//            setDisabilitaBtnEmitir(true);
             String nomeRelatorioJasper = "relatorioAluno";
             String nomeDoArquivoDeSaida = "SALI - Relatorio Aluno";
             Map<String, Object> parametros = new HashMap<>();

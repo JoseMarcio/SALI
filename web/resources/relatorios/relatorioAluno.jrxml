@@ -41,17 +41,13 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="105" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="155" height="104" uuid="d71bd448-fadc-4a17-9f05-43cbdf75f294"/>
-				<imageExpression><![CDATA["E:\\SALI\\SALI\\web\\resources\\imagens\\LogoSALI.png"]]></imageExpression>
-			</image>
+		<band height="66" splitType="Stretch">
 			<staticText>
-				<reportElement x="155" y="21" width="400" height="83" uuid="409aa578-1d37-4b1e-a3f0-a3d6629df9af"/>
-				<textElement>
-					<font fontName="Felix Titling" size="36"/>
+				<reportElement x="0" y="16" width="555" height="44" uuid="409aa578-1d37-4b1e-a3f0-a3d6629df9af"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="36"/>
 				</textElement>
-				<text><![CDATA[Relatório - aluno]]></text>
+				<text><![CDATA[Relatório - Aluno]]></text>
 			</staticText>
 		</band>
 	</title>

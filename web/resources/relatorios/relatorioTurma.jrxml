@@ -43,15 +43,11 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="106" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="157" height="103" uuid="81b878fa-b5d2-4bc3-8406-a73f2edb15e8"/>
-				<imageExpression><![CDATA["E:\\SALI\\SALI\\web\\resources\\imagens\\LogoSALI.png"]]></imageExpression>
-			</image>
+		<band height="78" splitType="Stretch">
 			<staticText>
-				<reportElement x="157" y="26" width="398" height="80" uuid="a5205346-7c43-43c1-b992-1ee57d2e81c7"/>
+				<reportElement x="0" y="11" width="555" height="67" uuid="a5205346-7c43-43c1-b992-1ee57d2e81c7"/>
 				<textElement textAlignment="Center">
-					<font fontName="Felix Titling" size="36"/>
+					<font fontName="Arial" size="36"/>
 				</textElement>
 				<text><![CDATA[Relatório - Turma]]></text>
 			</staticText>

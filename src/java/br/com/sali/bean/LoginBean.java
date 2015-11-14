@@ -8,6 +8,8 @@ import br.com.sali.util.CriptografiaUtil;
 import br.com.sali.util.EmailUtil;
 import br.com.sali.util.GeraSenha;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
@@ -44,15 +46,15 @@ public class LoginBean {
     }
 
     /**
-     * Carrega a instituição. Se ainda não tiver nenhuma cadastrada A InstituicaoRN
-     * trata de criar uma nova.
-     * 
-     * Se um usuário solicitar a página de login e o mesmo tiver autenticado será 
-     * direcionado para a sua página inicial.
+     * Carrega a instituição. Se ainda não tiver nenhuma cadastrada A
+     * InstituicaoRN trata de criar uma nova.
+     *
+     * Se um usuário solicitar a página de login e o mesmo tiver autenticado
+     * será direcionado para a sua página inicial.
      */
     public void carregarInstituicao() {
         InstituicaoRN instituicaoRN = new InstituicaoRN();
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext external = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) external.getRequest();
@@ -71,12 +73,10 @@ public class LoginBean {
         }
     }
 
-    
-    
     /**
-     * Recupera o acesso do usuário ao sistema.
-     * Criando uma nova senha para o mesmo e enviando para o seu e-mail.
-     * 
+     * Recupera o acesso do usuário ao sistema. Criando uma nova senha para o
+     * mesmo e enviando para o seu e-mail.
+     *
      */
     public void recuperarEmail() {
         if (emailInformado.equalsIgnoreCase("")) {
@@ -94,27 +94,25 @@ public class LoginBean {
 
             } else {
                 RequestContext rc = RequestContext.getCurrentInstance();
-                
-                String novaSenha = GeraSenha.novaSenha();
 
                 try {
-                    EmailUtil.enviarEmailRecuperacaoSenha(emailInformado, novaSenha);
-                } catch (EmailException ex) {
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Exceção", ex.getMessage());
-                    rc.showMessageInDialog(message);
-                }
-                try {
+                    String novaSenha = GeraSenha.novaSenha();
                     usuario.setSenha(CriptografiaUtil.criptografaSenha(novaSenha));
+                    EmailUtil.enviarEmailRecuperacaoSenha(emailInformado, novaSenha);
+                    usuarioDao.atualizar(usuario);
+                    FacesContext fc = FacesContext.getCurrentInstance();
+                    FacesMessage mensagemSucesso = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dados enviados com sucesso!", "");
+                    fc.addMessage(null, mensagemSucesso);
+                    limpar();
+                } catch (EmailException ex) {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Erro", "Contatar o administrador do sistema.");
+                    rc.showMessageInDialog(message);
+                    ex.printStackTrace();
                 } catch (NoSuchAlgorithmException ex) {
-                    RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                            "Exceção!", ex.getMessage()));
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Erro", "Contatar o administrador do sistema.");
+                    rc.showMessageInDialog(message);
+                    ex.printStackTrace();
                 }
-
-                usuarioDao.atualizar(usuario);
-                FacesContext fc = FacesContext.getCurrentInstance();
-                FacesMessage mensagemSucesso = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dados enviados com sucesso!", "");
-                fc.addMessage(null, mensagemSucesso);
-                limpar();
 
             }
         }
