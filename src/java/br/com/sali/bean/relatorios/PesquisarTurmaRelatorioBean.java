@@ -6,6 +6,7 @@ import br.com.sali.modelo.Usuario;
 import br.com.sali.regras.ProfessorRN;
 import br.com.sali.regras.TurmaRN;
 import br.com.sali.regras.UsuarioRN;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +21,9 @@ import org.primefaces.context.RequestContext;
  *
  * @author SALI
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @ViewScoped
-public class PesquisarTurmaRelatorioBean {
+public class PesquisarTurmaRelatorioBean implements Serializable{
 
     private TurmaRN turmaRN;
     private List<Turma> listaDeTurmaDoProfessor;

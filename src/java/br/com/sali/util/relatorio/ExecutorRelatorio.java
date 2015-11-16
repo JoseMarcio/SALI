@@ -54,7 +54,7 @@ public class ExecutorRelatorio implements Work {
                 this.response.setContentType("application/pdf");
 
                 // Força o navegador a fazer o download
-                // response.setHeader("Content-Disposition", "attachement; filename=\""+nomeSaida+"\"");
+                response.setHeader("Content-Disposition", "attachement; filename=Relatorio.pdf");
                 executor.exportReport();
             }
         } catch (JRException | IOException ex) {

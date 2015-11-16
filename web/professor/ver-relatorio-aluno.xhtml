@@ -6,8 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <f:metadata>
-        <f:viewParam name="idTurma" value="#{exibirRelatorioTurma.idTurmaGerar}"/>
-        <f:event type="preRenderView" listener="#{exibirRelatorioTurma.carregarTurma()}"/>
+        <f:viewParam name="idAluno" value="#{exibirRelatorioAluno.idAlunoGerar}"/>
+        <f:event type="preRenderView" listener="#{exibirRelatorioAluno.carregarAluno()}"/>
     </f:metadata>
     <h:head>
         <meta charset="utf-8"/>
@@ -127,12 +127,12 @@
 
 
                         <h4>Pré-Visualização</h4>
-                        <p>Relatório selecionado para a turma: #{exibirRelatorioTurma.turmaGerarRelatorio.nome}.</p>
-                        
+                        <p>Relatório selecionado para o aluno: #{exibirRelatorioAluno.alunoGerarRelatorio.nome}.</p>
+                       
 
-                        <h:form onsubmit="#{exibirRelatorioTurma.passarIdTurma()}">
+                        <h:form onsubmit="#{exibirRelatorioAluno.passarIdAluno()}">
                             <p:commandButton ajax="false"
-                                             action="#{relatorioTurma.gerarRelatorio()}"
+                                             action="#{relatorioAluno.gerarRelatorio()}"
                                              value="Exibir"
                                              icon="ui-icon-clipboard"
                                              title="Exibir relatório no navegador"/>

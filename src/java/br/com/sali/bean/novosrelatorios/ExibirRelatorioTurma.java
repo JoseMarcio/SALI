@@ -2,6 +2,7 @@ package br.com.sali.bean.novosrelatorios;
 
 import br.com.sali.dao.TurmaDAO;
 import br.com.sali.modelo.Turma;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -12,7 +13,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class ExibirRelatorioTurma {
+public class ExibirRelatorioTurma implements Serializable{
     
     private Long idTurmaGerar;
     private Turma turmaGerarRelatorio;

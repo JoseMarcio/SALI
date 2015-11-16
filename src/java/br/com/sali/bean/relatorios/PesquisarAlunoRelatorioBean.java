@@ -21,7 +21,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author SALI
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @ViewScoped
 public class PesquisarAlunoRelatorioBean implements Serializable{
 

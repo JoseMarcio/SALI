@@ -31,22 +31,25 @@
 
                 <p:messages autoUpdate="true" showIcon="false" closable="true"/>
                 <br />
-                
-                    <p:commandButton value="Emitir"
-                                     id="emitir" 
-                                     process="@this" 
-                                     ajax="false"
-                                     title="Emitir Relatório"
-                                     disabled="#{relatorioAlunoBean.disabilitaBtnEmitir}"
-                                     update="panel"
-                                     icon="ui-icon-check">
 
+                <!--<p:commandButton value="Emitir"
+                        id="emitir" 
+                        process="@this" 
+                        ajax="false"
+                        title="Emitir Relatório"
+                        disabled="# {relatorioAlunoBean.disabilitaBtnEmitir}"
+                        update="panel"
+                        icon="ui-icon-check">
+                                        
+                        <p:fileDownload value="# {relatorioAlunoBean.relatorio}"/>
+                    </p:commandButton>-->
 
-                        
-                        
-                        <p:fileDownload value="#{relatorioAlunoBean.relatorio}"/>
-                    </p:commandButton>
-               
+                <p:button value="Emitir"
+                          outcome="ver-relatorio-aluno.jsf?idAluno=#{relatorioAlunoBean.alunoSelecionado.id}"
+                          id="emitir"
+                          disabled="#{relatorioAlunoBean.disabilitaBtnEmitir}"
+                          icon="ui-icon-check"/> 
+
 
             </h:form>
         </p:panel>
