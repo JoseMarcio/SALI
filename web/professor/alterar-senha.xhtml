@@ -16,7 +16,7 @@
         <ui:define name="corpo">
 
             <h:form>
-                <p:panel>
+                <p:panel style="padding-bottom: 7%;">
                     <h4>Alteração de Senha</h4>
                     <p:separator />
 
@@ -56,14 +56,13 @@
                     <p:messages autoUpdate="true" showIcon="false" closable="true"/>
 
                     <br />
-                    <center>
+                    
                         <p:commandButton value="Salvar" 
                                          title="Salvar Alterações"
                                          update="@form"
                                          icon="ui-icon-check"
                                          action="#{instituicaoAlterarSenhaBean.salvarAlteracoes()}"
                                          />
-                    </center>
 
 
                 </p:panel>
