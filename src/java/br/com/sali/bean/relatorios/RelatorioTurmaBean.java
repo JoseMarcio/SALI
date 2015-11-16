@@ -57,10 +57,17 @@ public class RelatorioTurmaBean {
     public void eventoSelecaoTurma(SelectEvent event) {
         Turma turma = (Turma) event.getObject();
         setTurmaSelecionada(turma);
+        passarIdTurma(turma.getId());
         setDisabilitaBtnEmitir(false);
 
     }
 
+      /**
+     * Passa o id da turma a ser gerado o relatório.
+     */
+    public void passarIdTurma(Long idTurma){
+        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("idTurma", idTurma);  
+    }
     //==========================================================================
     /**
      * Pega o relatorio gerado. E retorna ele para o cliente.

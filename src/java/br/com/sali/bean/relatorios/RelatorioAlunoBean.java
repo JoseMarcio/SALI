@@ -50,8 +50,17 @@ public class RelatorioAlunoBean implements Serializable{
     public void eventoSelecaoAluno(SelectEvent event) {
         Aluno aluno = (Aluno) event.getObject();
         setAlunoSelecionado(aluno);
+        passarIdAluno(aluno.getId());
         setDisabilitaBtnEmitir(false);
     }
+    
+    /**
+     * Passa o id do aluno a ser gerado o relatório.
+     */
+    public void passarIdAluno(Long idAluno) {
+        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("idAluno", idAluno);
+    }
+
 
     //==========================================================================
     /**

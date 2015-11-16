@@ -10,7 +10,7 @@
 
     <ui:define name="corpo">
 
-        <p:panel id="panel" style="padding-bottom: 17%;">
+        <p:panel id="panel">
             <h:form>
                 <h4>Gerar Relatório - Aluno</h4>
                 <p:separator />
@@ -32,23 +32,25 @@
                 <p:messages autoUpdate="true" showIcon="false" closable="true"/>
                 <br />
 
-                <!--<p:commandButton value="Emitir"
+                <p:commandButton value="Emitir"
                         id="emitir" 
                         process="@this" 
                         ajax="false"
                         title="Emitir Relatório"
-                        disabled="# {relatorioAlunoBean.disabilitaBtnEmitir}"
+                        disabled="#{relatorioAlunoBean.disabilitaBtnEmitir}"
                         update="panel"
-                        icon="ui-icon-check">
+                        icon="ui-icon-check"
+                        action="#{relatorioAluno.gerarRelatorio()}"/>
+                <!--
                                         
                         <p:fileDownload value="# {relatorioAlunoBean.relatorio}"/>
                     </p:commandButton>-->
 
-                <p:button value="Emitir"
-                          outcome="ver-relatorio-aluno.jsf?idAluno=#{relatorioAlunoBean.alunoSelecionado.id}"
+<!--                <p:button value="Emitir"
+                          outcome="ver-relatorio-aluno.jsf?idAluno=# {relatorioAlunoBean.alunoSelecionado.id}"
                           id="emitir"
-                          disabled="#{relatorioAlunoBean.disabilitaBtnEmitir}"
-                          icon="ui-icon-check"/> 
+                          disabled=" # {relatorioAlunoBean.disabilitaBtnEmitir}"
+                          icon="ui-icon-check"/> -->
 
 
             </h:form>
