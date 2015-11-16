@@ -77,6 +77,9 @@ public class AnexarLicaoBean implements Serializable {
         } else if (this.licaoRN.isExisteNomeLicao(this.licao.getTituloLicao(), getProfessorConectado().getTurmaAtual())){
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe uma lição com esse nome.", "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if(getProfessorConectado().getTurmaAtual() == null){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Você não selecionou nenhuma turma para anexar lição.", "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         else{
 

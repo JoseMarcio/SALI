@@ -10,7 +10,7 @@
 
     <ui:define name="corpo">
 
-        <p:panel id="panel">
+        <p:panel id="panel" style="padding-bottom: 17%;">
             <h:form>
                 <h4>Gerar Relatório - Turma</h4>
                 <p:separator />
@@ -31,20 +31,26 @@
 
                 <p:messages autoUpdate="true" showIcon="false" closable="true"/>
                 <br />
-                <center>
-                    <p:commandButton value="Emitir"
+                
+<!--                    <p:commandButton value="Emitir"
                                      id="emitir" 
                                      process="@this" 
                                      ajax="false"
                                      title="Emitir Relatório"
-                                     disabled="#{relatorioTurmaBean.disabilitaBtnEmitir}"
+                                     disabled="# {relatorioTurmaBean.disabilitaBtnEmitir}"
                                      update="panel"
                                      icon="ui-icon-check">
 
 
-                        <p:fileDownload value="#{relatorioTurmaBean.relatorio}"/>
-                    </p:commandButton>
-                </center>
+                        <p:fileDownload value="# {relatorioTurmaBean.relatorio}"/>
+                    </p:commandButton>-->
+
+                    <p:button value="Emitir"
+                              outcome="ver-relatorio.jsf?idTurma=#{relatorioTurmaBean.turmaSelecionada.id}"
+                              id="emitir"
+                              disabled="#{relatorioTurmaBean.disabilitaBtnEmitir}"
+                              icon="ui-icon-check"/>
+            
 
             </h:form>
         </p:panel>

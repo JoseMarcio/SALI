@@ -10,7 +10,7 @@
 
     <ui:define name="corpo">
 
-        <p:panel id="panel">
+        <p:panel id="panel" style="padding-bottom: 17%;">
             <h:form>
                 <h4>Gerar Relatório - Aluno</h4>
                 <p:separator />
@@ -31,7 +31,7 @@
 
                 <p:messages autoUpdate="true" showIcon="false" closable="true"/>
                 <br />
-                <center>
+                
                     <p:commandButton value="Emitir"
                                      id="emitir" 
                                      process="@this" 
@@ -46,7 +46,7 @@
                         
                         <p:fileDownload value="#{relatorioAlunoBean.relatorio}"/>
                     </p:commandButton>
-                </center>
+               
 
             </h:form>
         </p:panel>

@@ -59,6 +59,9 @@ public class NovoProfessorTopicoBean implements Serializable {
         } else if (ValidacoesUtil.isExistenteNomeTopico(this.topico.getNome(), getProfessorConectado().getTurmaAtual())) {
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe um tópico com esse nome.", "");
             FacesContext.getCurrentInstance().addMessage(null, m);
+        } else if (getProfessorConectado().getTurmaAtual() == null) {
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Você não selecionou nenhuma turma para criar um tópico.", "");
+            FacesContext.getCurrentInstance().addMessage(null, m);
         } else {
             this.topico.setAutor(getProfessorConectado().getNome());
             this.topico.setTurma(getProfessorConectado().getTurmaAtual());

@@ -1,47 +1,28 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html lang="pt-br"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <f:metadata>
+        <f:viewParam name="idTurma" value="#{exibirRelatorioTurma.idTurmaGerar}"/>
+        <f:event type="preRenderView" listener="#{exibirRelatorioTurma.carregarTurma()}"/>
+    </f:metadata>
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta HTTP-EQUIV="Refresh" CONTENT="5; URL=inicio-professor.jsf"/>
 
-        <title>
-            <ui:insert name="titulo">SALI</ui:insert>
-        </title>
+        <title>Pré Visualização</title>
 
         <link rel="shortcut icon" href="../resources/imagens/LogoSALI.png"/>   
         <h:outputStylesheet library="css-bootstrap" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css-bootstrap" name="estilo.css"/>
 
-        <script type="text/javascript">
-
-            function noBack() {
-                window.history.forward();
-            }
-            noBack();
-
-            window.onload = noBack;
-
-            window.onpageshow = function (evt) {
-                if (evt.persisted)
-                    noBack();
-            };
-
-            window.onunload = function () {
-                void(0);
-            };
-        </script>
     </h:head>
-
-    <h:body onload="time();
-            data();"
-            class="fundo2">
+    <h:body>
 
         <section class="container  conteiner2">
             <div class="row">
@@ -141,7 +122,23 @@
                     </h:form>
                 </div>
                 <div class="col-md-10">
-                    <ui:insert name="corpo"/>
+
+                    <p:panel style="padding-bottom: 26%;">
+
+
+                        <h4>Pré-Visualização</h4>
+                        <p>Relatório selecionado para a turma: #{exibirRelatorioTurma.turmaGerarRelatorio.nome}.</p>
+                        <hr />
+
+                        <h:form onsubmit="#{exibirRelatorioTurma.passarIdTurma()}">
+                            <p:commandButton ajax="false"
+                                             action="#{relatorioTurma.gerarRelatorio()}"
+                                             value="Exibir"
+                                             icon="ui-icon-clipboard"
+                                             title="Exibir relatório no navegador"/>
+
+                        </h:form>
+                    </p:panel>
                 </div>
             </div>
             <div class="row footer2">
@@ -160,6 +157,7 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <!--<script src="js/bootstrap.min.js"></script>-->
         <script src="../resources/js/bootstrap.min.js"></script>
+
     </h:body>
 </html>
 

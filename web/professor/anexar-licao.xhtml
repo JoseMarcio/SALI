@@ -54,7 +54,7 @@
                     <p:commandButton value="Salvar"
                                      title="Salvar Lição"
                                      action="#{anexarLicaoBean.salvarLicao()}"
-                                     update=":painel"
+                                     update=":painel :dialog"
                                      icon="ui-icon-check"/>
                 </center>
 
@@ -71,7 +71,8 @@
                   header="Insira um arquivo PDF"
                   position="center"
                   width="700"
-                  height="250">
+                  height="250"
+                  id="dialog">
 
 
             <h:form enctype="multipart/form-data"> 

@@ -93,8 +93,11 @@ public class InstituicaoAlterarSenhaBean {
 
         } else {
 
+            String novaSenhaCripografada = "";
+            
             try {
                 senha = CriptografiaUtil.criptografaSenha(senha);
+                novaSenhaCripografada = CriptografiaUtil.criptografaSenha(novaSenha);
             } catch (NoSuchAlgorithmException ex) {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         "Exceção!", ex.getMessage()));
@@ -104,6 +107,8 @@ public class InstituicaoAlterarSenhaBean {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha incorreta.", ""));
             } else if (!novaSenha.equals(confirmacaoSenha)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha e confirmação de senha incorretas.", ""));
+            } else if (novaSenhaCripografada.equals(usuario.getSenha())) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A nova senha não pode ser igual a senha atual.", ""));
             } else {
                 usuario.setSenha(novaSenha);
                 try {

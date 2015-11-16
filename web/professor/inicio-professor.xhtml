@@ -32,7 +32,7 @@
                 <br />
 
 
-                <p:outputLabel value="Mudar de Turma: "/>
+                <p:outputLabel value="Mudar de Turma: " rendered="#{beanTemplateProfessor.renderSelect}"/>
 
                 <h:form rendered="#{beanTemplateProfessor.renderSelect}">
                     <p:selectOneMenu value="#{beanTemplateProfessor.turmaContextoAtual}">

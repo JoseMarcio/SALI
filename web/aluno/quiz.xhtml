@@ -27,7 +27,8 @@
                             var="quiz" 
                             emptyMessage="Nenhum quiz disponível."
                             style="word-wrap: break-word;"
-                            type="none">
+                            type="none"
+                            id="data">
 
                     <f:facet name="header">
                         Todos os quizes
@@ -42,6 +43,9 @@
                     </h:form>
                     <br />
                 </p:dataList>
+                <h:form>
+                    <p:poll update=":data" listener="#{quizAluno.atualiza()}"/>
+                </h:form>
             </p:panel>
 
         </ui:define>

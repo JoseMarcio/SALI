@@ -20,7 +20,8 @@
             <p:dataList emptyMessage="Nenhuma lição encontrada"
                         var="licao"
                         value="#{licaoAlunoVerBean.licoesDaTurma}"
-                        type="none">            
+                        type="none"
+                        id="data">            
 
                 <f:facet name="header">
                     Todas as lições
@@ -52,8 +53,13 @@
 
                 </h:form>
                 <br/>
-
+                <h:form>
+                    <p:poll  listener="#{licaoAlunoVerBean.atualizarLicoes()}"/>
+                </h:form>
             </p:dataList>
+
+
+
         </p:panel>        
     </ui:define>
 </ui:composition>

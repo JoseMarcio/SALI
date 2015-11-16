@@ -132,6 +132,9 @@ public class ProfessorQuiz {
         if (ValidacoesUtil.soTemEspaco(this.quiz.getTitulo())) {
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Título inválido.", "");
             FacesContext.getCurrentInstance().addMessage(null, m);
+        } else if (getProfessorConectado().getTurmaAtual() == null) {
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Você não selecionou nenhuma turma para gerar o quiz.", "");
+            FacesContext.getCurrentInstance().addMessage(null, m);
         } else {
 
             if (quiz.getQuestoes().size() <= 0) {
